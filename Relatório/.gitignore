@@ -1,0 +1,10 @@
+*.lof
+*.aux
+*.log
+*.lot
+*.bbl
+*.blg
+*.brf
+*.toc
+*.idx
+relatorio.pdf
