@@ -30,7 +30,7 @@
 \usepackage{graphicx}
 \usepackage{sectsty} % Allows customizing section commands
 \allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
-
+\usepackage{float}
 \usepackage{fancyhdr} % Custom headers and footers
 \pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
 \fancyhead{} % No page header - if you want one, create it in the same way as the footers below
@@ -136,7 +136,7 @@
     \hline Violeta & RS-232 RX \\ 
     \hline Verde & RS-232 Signal Ground \\ 
     \hline Azul & Common (Signal Ground) \\ 
-    \hline Marrom & 10-30V dc \\ \hline  
+    \hline Marrom & 10-30V DC \\ \hline  
   \end{tabular}
   \caption{Fiação da câmera\label{FioCamera}} 
 \end{table}
@@ -150,4 +150,169 @@
   \item Não retirar a chave de modo do controlador; sem ela, pode ser impossível carregar um novo programa para o controlador ou mesmo rodar um programa já carregado.
 \end{enumerate}
 
+\section{Criando um novo programa no RSLogix}
+\paragraph{} Esta seção tem por objetivo demonstrar os passos para criar um programa novo e fazer as configurações básicas para que um programa simples possa ser executado. Aqui, já se considera que o RSLinx tenha sido utilizado para verificar as conexões dos dispositivos. Note que, quando não mencionado o nome para se dar a um programa ou dispositivo, é livre a escolha, contanto que seja consistente.
+\subsection{Adicionando dispositivos}
+\begin{enumerate}
+	\item \textbf{Crie um novo controlador (Ctrl+N) e configure da seguinte maneira}
+	\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.6\textwidth]{figures/software/step01}
+\end{figure}
+	\item \textbf{Adicione o driver 2094-AC05-MP5 no SERCOS} 
+
+\begin{minipage}[!ht]{\linewidth}
+      \centering
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step02}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step03}
+          \end{figure}
+      \end{minipage}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step04}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+  \item \textbf{Abra as propriedades do módulo 2094-AC05-MP5: } Agora, vá na aba \textit{Associated Axes} e clique em \textit{New Axis}. Dê um nome ao eixo e confirme. Após isso, associe o eixo ao nó 1. Veja figuras abaixo para clarificar dúvidas. 
+  
+ 	\begin{minipage}[!ht]{\linewidth}
+      \centering
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step04}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step05}
+          \end{figure}
+      \end{minipage}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step06}
+          \end{figure}
+      \end{minipage}
+
+  \end{minipage}
+
+  \item \textbf{Crie um motion group: } Vá em \textit{Motion Group} e clique em \textit{New Motion Group}. Dê um nome e clique e OK.
+
+
+   	\begin{minipage}[!ht]{\linewidth}
+      \centering
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step11}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step12}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+  
+  \item \textbf{Associar eixo ao Motion Group: } nas propriedades do eixo criado, adicione ao grupo. O resultado deve mostrar o eixo dentro do grupo de movimento.
+  
+  \begin{figure}[H]
+  	\centering
+  	\includegraphics[width=0.3\linewidth]{figures/software/step13}
+  \end{figure}
+  
+  \item \textbf{Associar motor ao driver: } Vá nas propriedades do eixo, seleciona a aba \textit{Drive/Motor}, clique em \textit{Change Catalog}, selecione MPL-A310F-S e clique em OK.
+  
+  \begin{figure}[H]
+  \centering
+              \includegraphics[width=0.5\linewidth]{figures/software/stepXY}
+          \end{figure}
+  \item \textbf{Adicionar DeviceNet: } No backplane, clique em novo módulo. Daí, vá em \textit{Communications} e adicione o 1756-DNB. Escolha a revisão 7 e clique em OK. Na sub-revisão, escolha 3 e pode clicar em OK para fechar as propriedades do módulo.
+  
+  \begin{minipage}[!ht]{\linewidth}
+      \centering
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step07}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step08}
+          \end{figure}
+      \end{minipage}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step09}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+  
+  \item \textbf{Adicionar módulo Ethernet/IP: } crie um novo módulo no backplane e então vá em \textit{Communications} e selecione 1756-ENBT/A e use revisão 4 com sub-revisão 1. O endereço IP pode ser definido como 192.168.0.6, por exemplo. (ou não? é definido no RSLinx?)
+  
+       \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.5\linewidth]{figures/software/step10}
+          \end{figure}
+\end{enumerate}
+
+\paragraph{} A configuração dos dispositivos foi terminada (talvez o que falte seja a câmera... não sei se é necessário que ela seja adicionada no programa).
+
+\subsection{Programando}
+\begin{enumerate}
+	\item \textbf{Abra o programa principal: } deve-se observar uma linha em branco de ladder.
+	\begin{figure}[H]
+       \centering
+              \includegraphics[width=0.8\linewidth]{figures/software/step14}
+          \end{figure}
+     \item \textbf{Crie o programa principal: } a Figura \ref{mainRoutine} mostra o programa principal. Note que as variáveis \texttt{MAJ\_1} e \texttt{MAJ\_2} devem ser criadas. Pode-se fazer isso clicando em cada uma delas com o botão esquerdo e escolhendo a opção apropriada. Configurações completas para o bloco MAJ estão na Figura \ref{majConf}. O bloco MSO liga o servomotor e MAJ muda a velocidade, veja a documentação dos blocos para maiores informações. O programa principal faz o carrinho se mexer em um sentido quando o sensor 2 for ativado e em outro sentido quando o sensor 5 for ativado.
+     \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.9\linewidth]{figures/software/step16}
+              \caption{Programa principal\label{mainRoutine}}
+          \end{figure}
+        \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.9\linewidth]{figures/software/step15}
+              \caption{Configurações do MAJ\label{majConf}}
+          \end{figure}
+     \item \textbf{Crie o programa que liga a rede DeviceNet: } crie um novo programa dentro de \textit{MainTask} e após isso crie uma rotina dentro desse novo programa. O programa que deve ser criado está na Figura \ref{deviceRoutine}.
+     
+       \begin{minipage}[!ht]{\linewidth}
+      \centering
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step17}
+          \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+              \includegraphics[width=\linewidth]{figures/software/step18}
+          \end{figure}
+      \end{minipage}
+  \end{minipage}
+  
+       \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.9\linewidth]{figures/software/step19}
+              \caption{Programa que liga DeviceNet\label{deviceRoutine}}
+          \end{figure}
+          
+     \item \textbf{Torne a rotina criada uma rotina principal: } vá nas propriedades do programa
+     
+	
+\end{enumerate}
+\paragraph{} Além do programa principal, é necessário um programa para que o DeviceNet funcione. Crie um novo programa na ``MainTask'' (ver Figura ...) e dê um nome adequado. Após isso, crie uma nova rotina nesse programa (ver Figura ...). Para nosso caso, o tipo é ``Ladder Diagram''. Escolha um nome adequado e clique em OK. Este programa só terá uma linha, veja Figura .... Um último passo é selecionar a rotina principal para o programa. Selecione o DeviceNet com o botão esquerdo e clique Alt+Enter para ver as propriedades. Em ``Configuration'', selecione o nome da rotina principal. No caso, essa rotina foi nomeada ``deviceNetOn''. Clique em OK.
+\paragraph{} A última etapa é criar uma rotina de emergência. Conforme o passo anterior, crie um novo programa, uma nova rotina e configure-a a como rotina principal. O programa é apresentado na Figura ....
+
+\paragraph{} Para rodar o programa pela primeira vez, clique no menu ``Communications'' e depois ``Who Active''. Para usar o RS para comunicação, selecione AB\_DF1-1, DF1 e depois clique em download. Na primeira vez, lembre-se de verificar a opção para tornar ... . (ver figura).
 \end{document}
