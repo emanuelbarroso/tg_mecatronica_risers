@@ -18,9 +18,10 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+\documentclass[a4paper,11pt]{article} % A4 paper and 11pt font size
 
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[utf8]{inputenc}
 \usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
 \usepackage[english]{babel} % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
@@ -54,13 +55,13 @@
 
 \title{	
 \normalfont \normalsize 
-\textsc{university, school or department name} \\ [25pt] % Your university, school and/or department name(s)
+\textsc{Universidade de Brasília} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
-\huge Assignment Title \\ % The assignment title
+\huge Configurando a Ponte Rolante \\ % The assignment title
 \horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
 }
 
-\author{John Smith} % Your name
+\author{Ataias Pereira Reis \\ Emanuel Pereira Barroso Neto} % Your name
 
 \date{\normalsize\today} % Today's date or a custom date
 
@@ -72,44 +73,44 @@
 %	PROBLEM 1
 %----------------------------------------------------------------------------------------
 
-\section{Problem title}
-
-\lipsum[2] % Dummy text
-
-\begin{align} 
-\begin{split}
-(x+y)^3 	&= (x+y)^2(x+y)\\
-&=(x^2+2xy+y^2)(x+y)\\
-&=(x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3)\\
-&=x^3+3x^2y+3xy^2+y^3
-\end{split}					
-\end{align}
-
-Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies
+\section{Conexões Importantes}
+\paragraph{} O presente documento tem por objetivo ser um guia prático para a configuração do sistema da ponte rolante a ser utilizado na validação experimental do controle de \textit{risers} em malha fechada.
 
 %------------------------------------------------
 
-\subsection{Heading on level 2 (subsection)}
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. 
-\begin{align}
-A = 
-\begin{bmatrix}
-A_{11} & A_{21} \\
-A_{21} & A_{22}
-\end{bmatrix}
-\end{align}
-Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
+\subsection{Componentes}
 
 %------------------------------------------------
 
-\subsubsection{Heading on level 3 (subsubsection)}
+\subsubsection{Controlador Lógico-Programável}
+\paragraph{} O controlador lógico-programável (CLP) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle vindos do computador sobre todos os elementos que estão conectados a ele.
+\paragraph{} O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
+\begin{itemize}
+  \item O próprio controlador;
+  \item \textit{SERCOS Interface};
+  \item DeviceNET;
+  \item EtherNet/IP.
+\end{itemize}
+\paragraph{} Além dos módulos, o controlador ainda possui um \textit{switch} liga/desliga presente no \textit{chassis}. No módulo Logix, há uma chave responsável por alterar o modo de funcionamento do mesmo. As posições possíveis dessa chave são:
+\begin{itemize}
+  \item RUN;
+  \item REM;
+  \item PROG;
+\end{itemize}
+\paragraph{} Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
+\paragraph{} No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
 
-\lipsum[3] % Dummy text
+\subsubsection{DeviceNET}
+\paragraph{} O DeviceNET é a rede responsável por estabelecer a conexão do controlador lógico-programável com os sensores indutivos. A rede é alimentada com 24 Volts externa, pois o módulo DeviceNET não fornece tal alimentação.
+\paragraph{} A rede DeviceNET também está conectada a um módulo de saídas, o \textit{CompactBlock I/O}. Esse bloco, na presente configuração, apenas transmite a alimentação da fonte de 24 V para os sensores e o módulo DeviceNET. A alimentação da rede também foi conectada à alimentação da câmera.
 
-\paragraph{Heading on level 4 (paragraph)}
+\subsubsection{Sensores Indutivos}
+\paragraph{} Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
+\paragraph{} Na presente bancada, há 6 sensores indutivos da família 871TM, fabricados pela \textit{Allen Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
 
-\lipsum[6] % Dummy text
+\subsection{Cuidados com a conexão}
+\paragraph{} Para que o sistema funcione corretamente, alguns cuidados devem ser tomados:
+
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 2
