@@ -18,7 +18,7 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %----------------------------------------------------------------------------------------
 
-\documentclass[a4paper,11pt]{article} % A4 paper and 11pt font size
+\documentclass[a4paper,11pt]{scrartcl} % A4 paper and 11pt font size
 
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage[utf8]{inputenc}
@@ -27,7 +27,7 @@
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
-
+\usepackage{graphicx}
 \usepackage{sectsty} % Allows customizing section commands
 \allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
 
@@ -83,7 +83,13 @@
 %------------------------------------------------
 
 \subsubsection{Controlador Lógico-Programável}
-\paragraph{} O controlador lógico-programável (CLP) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle vindos do computador sobre todos os elementos que estão conectados a ele.
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=1\textwidth]{figures/hardware/CLP.jpg}
+    \caption{CLP com identificação de elementos\label{CLPcomentado}}
+\end{figure}
+
+\paragraph{} O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle vindos do computador sobre todos os elementos que estão conectados a ele.
 \paragraph{} O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
 \begin{itemize}
   \item O próprio controlador;
@@ -108,9 +114,14 @@
 \paragraph{} Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
 \paragraph{} Na presente bancada, há 6 sensores indutivos da família 871TM, fabricados pela \textit{Allen Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
 
-\subsection{Cuidados com a conexão}
+\subsection{Cuidados com as conexões e com o controlador}
 \paragraph{} Para que o sistema funcione corretamente, alguns cuidados devem ser tomados:
-
+\begin{enumerate}
+  \item A rede DeviceNET deve ser alimentada corretamente; caso contrário, o módulo DeviceNET emitirá uma mensagem de erro \textit{``No Network Power''}; caso essa mensagem seja mostrada, os sensores indutivos também não estarão alimentados, e não funcionarão.
+  \item O \textit{switch} liga/desliga do controlador é protegido por uma tampa. É recomendável que, com o controlador em operação, que esta tampa esteja fechada.
+  \item Atentar para o estado do disjuntor industrial; ele deve estar ligado para que o motor funcione.
+  \item Não retirar a chave de modo do controlador; sem ela, pode ser impossível carregar um novo programa para o controlador ou mesmo rodar um programa já carregado.
+\end{enumerate}
 
 %----------------------------------------------------------------------------------------
 %	PROBLEM 2
