@@ -85,7 +85,7 @@
 \subsubsection{Controlador Lógico-Programável}
 \begin{figure}[!ht]
   \centering
-    \includegraphics[width=1\textwidth]{figures/hardware/CLP.jpg}
+    \includegraphics[width=0.9\textwidth]{figures/hardware/CLP.jpg}
     \caption{CLP com identificação de elementos\label{CLPcomentado}}
 \end{figure}
 
@@ -107,12 +107,39 @@
 \paragraph{} No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
 
 \subsubsection{DeviceNET}
-\paragraph{} O DeviceNET é a rede responsável por estabelecer a conexão do controlador lógico-programável com os sensores indutivos. A rede é alimentada com 24 Volts externa, pois o módulo DeviceNET não fornece tal alimentação.
-\paragraph{} A rede DeviceNET também está conectada a um módulo de saídas, o \textit{CompactBlock I/O}. Esse bloco, na presente configuração, apenas transmite a alimentação da fonte de 24 V para os sensores e o módulo DeviceNET. A alimentação da rede também foi conectada à alimentação da câmera.
+\paragraph{} O DeviceNET é a rede responsável por estabelecer a conexão do CLP com os sensores indutivos. A rede é alimentada com 24 Volts externa, pois o módulo DeviceNET não fornece tal alimentação.
+\paragraph{} A rede DeviceNET também está conectada a um módulo de saídas, o \textit{CompactBlock I/O} (Figura \ref{CBcomentado} ). Esse bloco, na presente configuração, apenas transmite a alimentação da fonte de 24 V para os sensores e o módulo DeviceNET. A alimentação da rede também foi conectada à alimentação da câmera.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.9\textwidth]{figures/hardware/COMPACTBLOCK.jpg}
+    \caption{CompactBlock com identificação de elementos\label{CBcomentado}}
+\end{figure}
 
 \subsubsection{Sensores Indutivos}
 \paragraph{} Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
 \paragraph{} Na presente bancada, há 6 sensores indutivos da família 871TM, fabricados pela \textit{Allen Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
+
+\subsubsection{Câmera}
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline Cor do Fio & Descrição \\ 
+    \hline Amarelo & RS-232 TX \\ 
+    \hline Cinza & Remote Teach \\ 
+    \hline Laranja & Product Change \\
+    \hline Rosa & External Trigger \\ 
+    \hline Preto & Discrete I/O \#1 \\ 
+    \hline Vermelho & Discrete I/O \#2 \\ 
+    \hline Branco & Discrete I/O \#3 \\ 
+    \hline Azul-Claro & Discrete I/O \#4 \\ 
+    \hline Violeta & RS-232 RX \\ 
+    \hline Verde & RS-232 Signal Ground \\ 
+    \hline Azul & Common (Signal Ground) \\ 
+    \hline Marrom & 10-30V dc \\ \hline  
+  \end{tabular}
+  \caption{Fiação da câmera\label{FioCamera}} 
+\end{table}
 
 \subsection{Cuidados com as conexões e com o controlador}
 \paragraph{} Para que o sistema funcione corretamente, alguns cuidados devem ser tomados:
@@ -122,38 +149,5 @@
   \item Atentar para o estado do disjuntor industrial; ele deve estar ligado para que o motor funcione.
   \item Não retirar a chave de modo do controlador; sem ela, pode ser impossível carregar um novo programa para o controlador ou mesmo rodar um programa já carregado.
 \end{enumerate}
-
-%----------------------------------------------------------------------------------------
-%	PROBLEM 2
-%----------------------------------------------------------------------------------------
-
-\section{Lists}
-
-%------------------------------------------------
-
-\subsection{Example of list (3*itemize)}
-\begin{itemize}
-	\item First item in a list 
-		\begin{itemize}
-		\item First item in a list 
-			\begin{itemize}
-			\item First item in a list 
-			\item Second item in a list 
-			\end{itemize}
-		\item Second item in a list 
-		\end{itemize}
-	\item Second item in a list 
-\end{itemize}
-
-%------------------------------------------------
-
-\subsection{Example of list (enumerate)}
-\begin{enumerate}
-\item First item in a list 
-\item Second item in a list 
-\item Third item in a list
-\end{enumerate}
-
-%----------------------------------------------------------------------------------------
 
 \end{document}
