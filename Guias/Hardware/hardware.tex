@@ -284,7 +284,7 @@
               \includegraphics[width=0.9\linewidth]{figures/software/step15}
               \caption{Configurações do MAJ\label{majConf}}
           \end{figure}
-     \item \textbf{Crie o programa que liga a rede DeviceNet: } crie um novo programa dentro de \textit{MainTask} e após isso crie uma rotina dentro desse novo programa. O programa que deve ser criado está na Figura \ref{deviceRoutine}.
+     \item \textbf{Crie o programa que liga a rede DeviceNet: } crie um novo programa dentro de \textit{MainTask} e após isso crie uma rotina do tipo Ladder Diagram dentro desse novo programa. O programa que deve ser criado está na Figura \ref{deviceRoutine}.
      
        \begin{minipage}[!ht]{\linewidth}
       \centering
@@ -307,12 +307,27 @@
               \caption{Programa que liga DeviceNet\label{deviceRoutine}}
           \end{figure}
           
-     \item \textbf{Torne a rotina criada uma rotina principal: } vá nas propriedades do programa
+     \item \textbf{Torne a rotina criada uma rotina principal: } vá nas propriedades do programa, selecione a aba \textit{Configuration} e escolha o nome da sua rotina criada como a rotina \textit{Main}.
      
+     \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.5\linewidth]{figures/software/step20}
+          \end{figure}
+     
+     \item \textbf{Crie uma rotina de segurança: } crie um novo programa, crie uma nova rotina do tipo Ladder Diagram e então marque essa rotina como principal. Após isso, programe conforme a Figura \ref{seguranca}. Nessa rotina, o motor para caso certos sensores sejam ativados.
+     
+     \begin{figure}[H]
+       \centering
+              \includegraphics[width=0.9\linewidth]{figures/software/step21}
+              \caption{Rotina de segurança\label{seguranca}}
+          \end{figure}
+     
+     \item \textbf{Execute o programa: } Para rodar o programa pela primeira vez, clique no menu ``Communications'' e depois ``Who Active''. Para usar o RS para comunicação, selecione AB\_DF1-1, DF1 e depois clique em download. Na primeira vez, lembre-se de verificar a opção ``Designate this controller as CST master''.
 	
+	\begin{figure}[H]
+       \centering
+              \includegraphics[width=0.9\linewidth]{figures/software/step23}
+              \caption{Mensagem que aparece quando se executa o programa e opção que aparece pela primeira vez\label{mensagemRodar}}
+          \end{figure}
 \end{enumerate}
-\paragraph{} Além do programa principal, é necessário um programa para que o DeviceNet funcione. Crie um novo programa na ``MainTask'' (ver Figura ...) e dê um nome adequado. Após isso, crie uma nova rotina nesse programa (ver Figura ...). Para nosso caso, o tipo é ``Ladder Diagram''. Escolha um nome adequado e clique em OK. Este programa só terá uma linha, veja Figura .... Um último passo é selecionar a rotina principal para o programa. Selecione o DeviceNet com o botão esquerdo e clique Alt+Enter para ver as propriedades. Em ``Configuration'', selecione o nome da rotina principal. No caso, essa rotina foi nomeada ``deviceNetOn''. Clique em OK.
-\paragraph{} A última etapa é criar uma rotina de emergência. Conforme o passo anterior, crie um novo programa, uma nova rotina e configure-a a como rotina principal. O programa é apresentado na Figura ....
-
-\paragraph{} Para rodar o programa pela primeira vez, clique no menu ``Communications'' e depois ``Who Active''. Para usar o RS para comunicação, selecione AB\_DF1-1, DF1 e depois clique em download. Na primeira vez, lembre-se de verificar a opção para tornar ... . (ver figura).
 \end{document}
