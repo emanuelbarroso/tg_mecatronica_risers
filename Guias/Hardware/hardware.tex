@@ -330,4 +330,26 @@
               \caption{Mensagem que aparece quando se executa o programa e opção que aparece pela primeira vez\label{mensagemRodar}}
           \end{figure}
 \end{enumerate}
+
+\section{Câmera}
+\subsection{Calibração}
+\paragraph{} A câmera permite fazer medidas de distâncias em pixels. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse. No PresencePlus P4 GEO 1.3, um programa com imagem de referência é feito, conforme Figura .... A barra de alumínio atualmente utilizada tem comprimento total de $532$mm. Algumas marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm.
+
+\begin{table}[!ht]
+\centering
+\caption{Relações mm/px para diferentes seções da barra de alumínio \label{relacoesmmpx}}
+	\begin{tabular}{|c|c|c|c|}
+	\hline
+		Seção 1 & Seção 2 & Distância (px) & mm/px\\ \hline
+		P0 & P10 & 160 & 0.625\\ \hline
+		P10 & P20 & 173 & 0.578\\ \hline
+		P20 & P30 & 176 & 0.568\\ \hline
+		P30 & P40 & 173 & 0.578\\ \hline
+		P40 & P50 & 163 & 0.613\\ \hline
+		P0 & PEND & 893 & 0.596\\ \hline
+	\end{tabular}
+\end{table}
+
+\paragraph{} O maior desvio da quantidade de milímetros por pixels das seções em relação à da barra inteira é de aproximadamente 4.93\%. Há algumas imprecisões na maneira como os traços foram desenhados e é possível que o erro seja menor.
+
 \end{document}
