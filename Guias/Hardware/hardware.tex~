@@ -331,6 +331,18 @@
           \end{figure}
 \end{enumerate}
 
+\subsection{Programando II: Texto Estruturado}
+\paragraph{} O controlador presentemente utilizado permite que programas razoavelmente grandes escritos em \textit{ladder} possam ser executados e guardados em sua memória. O controlador 1560 possui cerca de 760 kB de memória. Porém, pode ser necessário se utilizar uma linguagem mais simples, uma vez que o espaço pode ser um problema e a linguagem \textit{ladder} não é conveniente em casos que muitos parâmetros devem ser alterados por fora, ao mesmo tempo. Neste caso, torna-se interessante o uso de uma outra linguagem, puramente textual. Essa linguagem é conhecida como texto estruturado (\textit{Structured Text}).
+\paragraph{} Para se utilizar o texto estruturado, basta seguir os seguintes passos:
+%% TODO pegar figuras
+\begin{enumerate}
+  \item \textbf{Criar uma nova rotina: } Esse passo é semelhante à criação de uma nova rotina em \textit{ladder}, mas a linguagem a ser selecionada é o texto estruturado.
+  
+  \item \textbf{Programação em texto: } Para se programar em texto estruturado, deve-se ter em mente que o raciocínio é o mesmo empregado para o \textit{ladder}; as \textit{tags} utilizadas devem existir, por exemplo. Caso seja escrita uma \textit{tag} ainda inexistente, o \textit{RSLogix 5000} irá sublinhar a \textit{tag} com uma linha vermelha, sinalizando que há um erro; basta clicar com o botão direito do \textit{mouse} no texto e adicionar a \textit{tag}, clicando na opção \textit{``New Tag...''}. A partir desse passo, as configurações da nova \textit{tag} são feitas do mesmo modo que na programação \textit{ladder}.
+  
+  \item \textbf{Texto estruturado x \textit{ladder}: } 
+\end{enumerate}
+
 \section{Câmera}
 \subsection{Calibração}
 \paragraph{} A câmera permite fazer medidas de distâncias em pixels. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse. No PresencePlus P4 GEO 1.3, um programa com imagem de referência é feito, conforme Figura .... A barra de alumínio atualmente utilizada tem comprimento total de $532$mm. Algumas marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm.

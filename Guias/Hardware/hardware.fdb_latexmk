@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1447006422 "hardware.tex" "hardware.pdf" "hardware" 1447006422
+["pdflatex"] 1447419409 "hardware.tex" "hardware.pdf" "hardware" 1447419410
   "/etc/texmf/web2c/texmf.cnf" 1440607008 1101 af7716885e081ab43982cab7b4672c1a ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
@@ -141,9 +141,9 @@
   "figures/software/step21.PNG" 1447005255 16963 018892d9a780d43162cfc2626a806c30 ""
   "figures/software/step23.PNG" 1447005255 25064 d66aaa9e198029d55c9f139e3a76c184 ""
   "figures/software/stepXY.PNG" 1447005255 22542 0f764246fb6cc3f822adaea05ac276d0 ""
-  "hardware.aux" 1447006422 2873 9f4b9bc0e96f7c40a1336c299de7093f ""
-  "hardware.tex" 1447006419 20625 5b685d50192ce2fe924cfe163283f124 ""
+  "hardware.aux" 1447419410 3186 cdc78f09ce92dca2dfb2f841481a1aca ""
+  "hardware.tex" 1447419408 22187 ce9dac080dabf87661a730d3ce37c2b7 ""
   (generated)
-  "hardware.aux"
   "hardware.log"
+  "hardware.aux"
   "hardware.pdf"

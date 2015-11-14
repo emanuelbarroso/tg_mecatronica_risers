@@ -256,7 +256,7 @@
       \end{minipage}
   \end{minipage}
   
-  \item \textbf{Adicionar módulo Ethernet/IP: } crie um novo módulo no backplane e então vá em \textit{Communications} e selecione 1756-ENBT/A e use revisão 4 com sub-revisão 1. O endereço IP pode ser definido como 192.168.0.6, por exemplo. (ou não? é definido no RSLinx?)
+  \item \textbf{Adicionar módulo Ethernet/IP: } crie um novo módulo no backplane e então vá em \textit{Communications} e selecione 1756-ENBT/A e use revisão 4 com sub-revisão 1. O endereço IP pode ser definido como 192.168.0.4, por exemplo. (ou não? é definido no RSLinx?)
   
        \begin{figure}[H]
        \centering
@@ -340,10 +340,35 @@
   
   \item \textbf{Programação em texto: } Para se programar em texto estruturado, deve-se ter em mente que o raciocínio é o mesmo empregado para o \textit{ladder}; as \textit{tags} utilizadas devem existir, por exemplo. Caso seja escrita uma \textit{tag} ainda inexistente, o \textit{RSLogix 5000} irá sublinhar a \textit{tag} com uma linha vermelha, sinalizando que há um erro; basta clicar com o botão direito do \textit{mouse} no texto e adicionar a \textit{tag}, clicando na opção \textit{``New Tag...''}. A partir desse passo, as configurações da nova \textit{tag} são feitas do mesmo modo que na programação \textit{ladder}.
   
-  \item \textbf{Texto estruturado x \textit{ladder}: } 
+  \item \textbf{Texto estruturado x \textit{ladder}: } Embora a maioria das instruções \textit{ladder} possua um equivalente normal em texto estruturado, há algumas instruções que devem ser notadas por não existir em texto estruturado, por exemplo; há outras instruções que existem em texto, mas não em \textit{ladder}. A tabela \ref{ladderstrel} mostra alguns exemplos:
+  \begin{table}[!ht]
+    \centering
+    \caption{Relações entre instruções \textit{ladder} e texto estruturado \label{ladderstrel}}
+    \begin {tabular}{|c|c|}
+    \hline
+      Instrução \textit{ladder} & Instrução em texto \\ \hline
+      -( )- [OTE] & A [:=] X \\ \hline
+      -(L)- [OTL] & A := 1 \\ \hline
+      -(U)- [OTU] & A := 0 \\ \hline
+      %% TODO achar uma formatação melhor
+      -[ ]- [XIC] & \shortstack{IF A = 1 THEN\\;Code\\END\_IF;} \\ \hline
+      -[/]- [XIO] & \shortstack{IF A = 0 THEN\\;Code\\END\_IF;} \\ \hline
+      Timer On Delay (TON) & TONR(TIME_TAG) \\ \hline
+      
+    \end{tabular}
+  \end{table}
 \end{enumerate}
 
 \section{Câmera}
+\subsection{Configurando a câmera}
+\paragraph{} Para que a câmera possa ser utilizada, é necessário que se estabeleça uma comunicação entre ela, o computador e o controlador, para que seja possível efetuar sua calibração e seu uso como sensor visual presente no experimento. Tendo em vista este objetivo, faz-se necessária a configuração de uma rede, que, neste experimento, será uma rede \textit{Ethernet} com um \textit{switch}. Os passos a seguir descrevem essa configuração.
+\begin {enumerate}
+  \item \textbf{Configuração física da rede: } A câmera, o controlador e o computador devem estar ligados entre si através de cabos \textit{Ethernet}. Todos os cabos dever ser conectados ao \textit{switch}.
+  \item 
+  \item
+  \item 
+\end{enumerate}
+
 \subsection{Calibração}
 \paragraph{} A câmera permite fazer medidas de distâncias em pixels. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse. No PresencePlus P4 GEO 1.3, um programa com imagem de referência é feito, conforme Figura .... A barra de alumínio atualmente utilizada tem comprimento total de $532$mm. Algumas marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm.
 
