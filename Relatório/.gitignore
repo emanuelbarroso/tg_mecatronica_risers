@@ -9,3 +9,4 @@
 *.idx
 relatorio.pdf
 .texpadtmp/
+*.synctex.gz

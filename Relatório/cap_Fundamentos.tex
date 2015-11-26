@@ -4,10 +4,70 @@
 % Resumo opcional. Comentar se não usar.
 \resumodocapitulo{Resumo opcional.}
 
-
 \section{Introdução}
 
 Introduzir.
+
+\section{Controle}
+\paragraph{} Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada.
+
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{figure}[!ht]
+	\centering
+	% The block diagram code is probably more verbose than necessary
+	\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+	% We start by placing the blocks
+	\node [input, name=input] {};
+	\node [block, right of=input] (controller) {Controlador};
+	\node [block, right of=controller, pin={[pinstyle]above:Perturbações},
+	node distance=3cm] (system) {Planta};
+	% We draw an edge between the controller and system block to 
+	% calculate the coordinate u. We need it to place the measurement block. 
+	\draw [->] (controller) -- node[name=u] {$u$} (system);
+	\node [output, right of=system] (output) {};
+	
+	% Once the nodes are placed, connecting them is easy. 
+	\draw [draw,->] (input) -- node {$r$} (controller);
+	\draw [->] (system) -- node [name=y] {$y$}(output); 
+	\end{tikzpicture}
+	\caption{Malha aberta de controle\label{mabertatikz}}
+\end{figure}
+
+\paragraph{} Uma forma de se compensar as perturbações do ambiente é realimentando a saída na entrada, calculando a diferença entre a referência e o valor medido. Assim, um valor de erro $e = e(t)$ é obtido e o sistema calcula o sinal $u$ conforme o erro evolui. A Figura \ref{mfechadatikz} mostra um esquema básico deste sistema.
+
+\paragraph{} O controle malha aberta foi anteriormente verificado na referência \cite{redytton}.
+\begin{figure}[!ht]
+\centering
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node [input, name=input] {};
+\node [sum, right of=input] (sum) {};
+\node [block, right of=sum] (controller) {Controlador};
+\node [block, right of=controller, pin={[pinstyle]above:Perturbações},
+node distance=3cm] (system) {Planta};
+% We draw an edge between the controller and system block to 
+% calculate the coordinate u. We need it to place the measurement block. 
+\draw [->] (controller) -- node[name=u] {$u$} (system);
+\node [output, right of=system] (output) {};
+\node [block, below of=u] (measurements) {Medição};
+
+% Once the nodes are placed, connecting them is easy. 
+\draw [draw,->] (input) -- node {$r$} (sum);
+\draw [->] (sum) -- node {$e$} (controller);
+\draw [->] (system) -- node [name=y] {$y$}(output);
+\draw [->] (y) |- (measurements);
+\draw [->] (measurements) -| node[pos=0.99] {$-$} 
+node [near end] {$y_m$} (sum);
+\end{tikzpicture}
+\caption{Malha fechada de controle\label{mfechadatikz}}
+\end{figure}
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
