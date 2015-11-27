@@ -1,15 +1,21 @@
 %TCIDATA{LaTeXparent=0,0,relatorio.tex}
 \chapter{Fundamentos\label{chap:FundamentacaoMatematica}}
 
-% Resumo opcional. Comentar se n„o usar.
+% Resumo opcional. Comentar se n√£o usar.
 \resumodocapitulo{Resumo opcional.}
 
-\section{IntroduÁ„o}
+\section{Equa√ß√µes Governantes}
 
-Introduzir.
+Estruturas submarinas tais como os \textit{risers} s√£o esbeltas e tem um alto m√≥dulo de cisalhamento. Portanto, a simplifica√ß√£o de Euler-Bernoulli para vigas √© utilizada para prop√≥sitos de modelagem. O deslocamento de interesse √© o horizontal e o \textit{riser} est√° sob a a√ß√£o de for√ßas hidrodin√¢micas externas e de tra√ß√£o. A equa√ß√£o diferencial parcial para a vari√°vel deslocamento, $\Upsilon$, √© dada por \begin{align}
+	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -E J	\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(T(z) \frac{\partial \Upsilon}{\partial z}\right) + F_n(z,t),
+\end{align} na qual $m_s$ √© a densidade linear do tubo, $E$ √© o m√≥dulo de Young e $J$ √© o segundo momento de in√©rcia do \textit{riser}. $T(z)$ descreve as for√ßas de tra√ß√£o ao longo do comprimento do \textit{riser}. $F_n(z,t)$ √© a for√ßa resultante externa \cite{fabricioIFAC}.
+
+As √∫nicas for√ßas externas atuando no \textit{riser} s√£o hidrodin√¢micas, exceto nas extremidades do topo e do fundo, nas quais for√ßas de rea√ß√£o seguem condi√ß√µes de contorno. A equa√ß√£o de Morison descreve a for√ßa externa resultante: \begin{align}
+	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t},
+\end{align} na qual $m_f$ √© a massa do fluido adicionado e $mu$ √© o coeficiente de arrasto. Seja $m = m_s + m_f$ 
 
 \section{Controle}
-\paragraph{} TÈcnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que È do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A vari·vel $r = r(t)$ È a referÍncia do sistema. Neste tipo de controle, a saÌda n„o È realimentada na entrada. Desta forma, este tipo de controle n„o requer sensores, pois somente d· uma referÍncia de entrada que a planta deve seguir. Caso haja erros para seguir a trajetÛria, eles n„o poder„o ser compensados e È um controle mais recomendado quando o sistema È preciso e h· pouca ou nenhuma perturbaÁ„o. No entanto, este n„o È o caso do \textit{riser}, pois o movimento das ·guas no leito oce‚nico perturba o tubo, causando erros na posiÁ„o final desejada.
+\paragraph{} T√©cnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que √© do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A vari√°vel $r = r(t)$ √© a refer√™ncia do sistema. Neste tipo de controle, a sa√≠da n√£o √© realimentada na entrada. Desta forma, este tipo de controle n√£o requer sensores, pois somente d√° uma refer√™ncia de entrada que a planta deve seguir. Caso haja erros para seguir a trajet√≥ria, eles n√£o poder√£o ser compensados e √© um controle mais recomendado quando o sistema √© preciso e h√° pouca ou nenhuma perturba√ß√£o. No entanto, este n√£o √© o caso do \textit{riser}, pois o movimento das √°guas no leito oce√¢nico perturba o tubo, causando erros na posi√ß√£o final desejada.
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle, 
 minimum height=3em, minimum width=6em]
@@ -25,7 +31,7 @@ minimum height=3em, minimum width=6em]
 	% We start by placing the blocks
 	\node [input, name=input] {};
 	\node [block, right of=input] (controller) {Controlador};
-	\node [block, right of=controller, pin={[pinstyle]above:PerturbaÁıes},
+	\node [block, right of=controller, pin={[pinstyle]above:Perturba√ß√µes},
 	node distance=3cm] (system) {Planta};
 	% We draw an edge between the controller and system block to 
 	% calculate the coordinate u. We need it to place the measurement block. 
@@ -39,9 +45,9 @@ minimum height=3em, minimum width=6em]
 	\caption{Malha aberta de controle\label{mabertatikz}}
 \end{figure}
 
-\paragraph{} Uma forma de se compensar as perturbaÁıes do ambiente È realimentando a saÌda na entrada, calculando a diferenÁa entre a referÍncia e o valor medido. Assim, um valor de erro $e = e(t)$ È obtido e o sistema calcula o sinal $u$ conforme o erro evolui. A Figura \ref{mfechadatikz} mostra um esquema b·sico deste sistema.
+\paragraph{} Uma forma de se compensar as perturba√ß√µes do ambiente √© realimentando a sa√≠da na entrada, calculando a diferen√ßa entre a refer√™ncia e o valor medido. Assim, um valor de erro $e = e(t)$ √© obtido e o sistema calcula o sinal $u$ conforme o erro evolui. A Figura \ref{mfechadatikz} mostra um esquema b√°sico deste sistema.
 
-\paragraph{} O controle malha aberta foi anteriormente verificado na referÍncia \cite{redytton}.
+\paragraph{} O controle malha aberta foi anteriormente verificado na refer√™ncia \cite{redytton}.
 \begin{figure}[!ht]
 \centering
 % The block diagram code is probably more verbose than necessary
@@ -50,13 +56,13 @@ minimum height=3em, minimum width=6em]
 \node [input, name=input] {};
 \node [sum, right of=input] (sum) {};
 \node [block, right of=sum] (controller) {Controlador};
-\node [block, right of=controller, pin={[pinstyle]above:PerturbaÁıes},
+\node [block, right of=controller, pin={[pinstyle]above:Perturba√ß√µes},
 node distance=3cm] (system) {Planta};
 % We draw an edge between the controller and system block to 
 % calculate the coordinate u. We need it to place the measurement block. 
 \draw [->] (controller) -- node[name=u] {$u$} (system);
 \node [output, right of=system] (output) {};
-\node [block, below of=u] (measurements) {MediÁ„o};
+\node [block, below of=u] (measurements) {Medi√ß√£o};
 
 % Once the nodes are placed, connecting them is easy. 
 \draw [draw,->] (input) -- node {$r$} (sum);
@@ -71,9 +77,9 @@ node [near end] {$y_m$} (sum);
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
-\paragraph{}DeviceNET È um protocolo de baixo nÌvel da camada de aplicaÁ„o, voltado a ambientes industriais. … respons·vel pela interconex„o de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}) desenvolvida pela \textit{Bosch}. Tal rede suporta comunicaÁ„o entre dispositivos de baixo nÌvel, como sensores e atuadores, e dispositivos de alto nÌvel, como o computador e o CLP. 
-\paragraph{}O DeviceNET È uma combinaÁ„o entre a camada fÌsica disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma r·pida configuraÁ„o entre dispositivos a \textit{byte}, suportanto tanto dispositivos analÛgicos quanto digitais. Permite velocidades de transmiss„o de atÈ 500 kbps, sendo bem mais lenta que uma rede Ethernet.
-\paragraph{}No experimento, a rede DeviceNET È utilizada para a conex„o entre o CLP e os sensores indutivos presentes na planta. Devido ‡ flexibilidade dos sensores e da rede, suas informaÁıes podem ser trabalhadas tanto no modo analÛgico quanto no modo digital. Para fins de detecÁ„o de fim-de-curso, entretanto, o modo utilizado È o digital, uma vez que n„o ser· preciso determinar a dist‚ncia entre sensor e carrinho; apenas È necess·rio verificar se o carrinho est· na ·rea de detecÁ„o do sensor. O mÛdulo respons·vel pelo gerenciamento da rede DeviceNET È o 1756-DNB.
+\paragraph{}DeviceNET √© um protocolo de baixo n√≠vel da camada de aplica√ß√£o, voltado a ambientes industriais. √â respons√°vel pela interconex√£o de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}) desenvolvida pela \textit{Bosch}. Tal rede suporta comunica√ß√£o entre dispositivos de baixo n√≠vel, como sensores e atuadores, e dispositivos de alto n√≠vel, como o computador e o CLP. 
+\paragraph{}O DeviceNET √© uma combina√ß√£o entre a camada f√≠sica disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma r√°pida configura√ß√£o entre dispositivos a \textit{byte}, suportanto tanto dispositivos anal√≥gicos quanto digitais. Permite velocidades de transmiss√£o de at√© 500 kbps, sendo bem mais lenta que uma rede Ethernet.
+\paragraph{}No experimento, a rede DeviceNET √© utilizada para a conex√£o entre o CLP e os sensores indutivos presentes na planta. Devido √† flexibilidade dos sensores e da rede, suas informa√ß√µes podem ser trabalhadas tanto no modo anal√≥gico quanto no modo digital. Para fins de detec√ß√£o de fim-de-curso, entretanto, o modo utilizado √© o digital, uma vez que n√£o ser√° preciso determinar a dist√¢ncia entre sensor e carrinho; apenas √© necess√°rio verificar se o carrinho est√° na √°rea de detec√ß√£o do sensor. O m√≥dulo respons√°vel pelo gerenciamento da rede DeviceNET √© o 1756-DNB.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/DeviceNet
@@ -83,9 +89,9 @@ https://www.odva.org/Portals/0/Library/Publications_Numbered/PUB00122R1_CIP_Broc
 \end{comment}
 
 \subsection{Ethernet-IP}
-\paragraph{}A rede Ethernet-IP, desenvolvida em meados dos anos 1990, È um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET. … uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conex„o com dispositivos conectados a redes Ethernet padr„o; permite a passagem de dados via pacotes TCP ou UDP; È indicada em aplicaÁıes que exigem uma transferÍncia r·pida de dados (principalmente, em aplicaÁıes de tempo real).
-\paragraph{}O uso da rede Ethernet-IP È vantajoso no sentido de que permite a conex„o entre v·rios nÛs ligados entre si, o que n„o È possÌvel com o RS-232, por exemplo. PorÈm, devido ao prÛprio funcionamento da rede, fica mais difÌcil obter os dados, pois, ao contr·rio de uma entrada serial, È necess·rio lidar com toda uma estrutura baseada no TCP/IP, por exemplo. AlÈm disso, como o Ethernet exige um tamanho mÌnimo de \textit{frame} para transmiss„o de dados de cerca de 64 \textit{bytes}, a eficiÍncia da transmiss„o pode ser afetada.
-\paragraph{}No presente experimento, a rede Ethernet-IP È utilizada para receber dados de inspeÁ„o da c‚mera, notadamente a posiÁ„o da bola de isopor presa ao barbante. AlÈm disso, ela È utilizada na transferÍncia de programas entre o computador e o CLP (atravÈs do mÛdulo Ethernet 1756-ENBT/A), uma vez que ela provÍ uma comunicaÁ„o mais r·pida do que o RS-232.
+\paragraph{}A rede Ethernet-IP, desenvolvida em meados dos anos 1990, √© um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET. √â uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conex√£o com dispositivos conectados a redes Ethernet padr√£o; permite a passagem de dados via pacotes TCP ou UDP; √© indicada em aplica√ß√µes que exigem uma transfer√™ncia r√°pida de dados (principalmente, em aplica√ß√µes de tempo real).
+\paragraph{}O uso da rede Ethernet-IP √© vantajoso no sentido de que permite a conex√£o entre v√°rios n√≥s ligados entre si, o que n√£o √© poss√≠vel com o RS-232, por exemplo. Por√©m, devido ao pr√≥prio funcionamento da rede, fica mais dif√≠cil obter os dados, pois, ao contr√°rio de uma entrada serial, √© necess√°rio lidar com toda uma estrutura baseada no TCP/IP, por exemplo. Al√©m disso, como o Ethernet exige um tamanho m√≠nimo de \textit{frame} para transmiss√£o de dados de cerca de 64 \textit{bytes}, a efici√™ncia da transmiss√£o pode ser afetada.
+\paragraph{}No presente experimento, a rede Ethernet-IP √© utilizada para receber dados de inspe√ß√£o da c√¢mera, notadamente a posi√ß√£o da bola de isopor presa ao barbante. Al√©m disso, ela √© utilizada na transfer√™ncia de programas entre o computador e o CLP (atrav√©s do m√≥dulo Ethernet 1756-ENBT/A), uma vez que ela prov√™ uma comunica√ß√£o mais r√°pida do que o RS-232.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/Industrial_Ethernet
@@ -96,8 +102,8 @@ http://www.rockwellautomation.com/global/products-technologies/integrated-archit
 http://www.rtaautomation.com/technologies/ethernetip/
 \end{comment}
 
-\section{ProgramaÁ„o do CLP}
-\subsection{Vis„o geral}
+\section{Programa√ß√£o do CLP}
+\subsection{Vis√£o geral}
 
 \subsection{Linguagem \textit{ladder}}
 

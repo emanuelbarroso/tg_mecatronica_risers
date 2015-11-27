@@ -3,8 +3,8 @@
 %% 
 %% This file has been created by Prof. Geovany Araujo Borges.
 %% Updates: 
-%% - 2007/04/09: Package incorporates a page for bibliographic information. Contributions from Nathalie Pinheiro, AndrÈ Calmon and Renan Utida)
-%% - 2007/01/08: Package updated in order to support three co-authors. Proposed by Nathalie Pinheiro, AndrÈ Calmon and Renan Utida)
+%% - 2007/04/09: Package incorporates a page for bibliographic information. Contributions from Nathalie Pinheiro, Andr√© Calmon and Renan Utida)
+%% - 2007/01/08: Package updated in order to support three co-authors. Proposed by Nathalie Pinheiro, Andr√© Calmon and Renan Utida)
 %% - 2006/03/19: Version 1.0 released.
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
@@ -73,9 +73,9 @@ Por, \\
 	\end{tabular}\\}
 
 \vspace{1mm}
-{\normalsize\bf BrasÌlia, \mesnome \space de \anonome}\\
+{\normalsize\bf Bras√≠lia, \mesnome \space de \anonome}\\
 %\vspace{1.5cm}
-%{\Large\bf UNIVERSIDADE DE BRASÕLIA}\\
+%{\Large\bf UNIVERSIDADE DE BRAS√çLIA}\\
 %\vspace{1cm}
 %{\large FACULDADE DE TECNOLOGIA}
 \end{center}
@@ -88,7 +88,7 @@ Por, \\
 \begin{center}
 {\large UNIVERSIDADE DE BRASILIA}\\
 {\large Faculdade de Tecnologia}\\
-{\large Curso de GraduaÁ„o em Engenharia de Controle e AutomaÁ„o}\\
+{\large Curso de Gradua√ß√£o em Engenharia de Controle e Automa√ß√£o}\\
 \vspace{4cm}
 {\Large \tipodemonografianome}\\
 \vspace{0.7cm}
@@ -116,7 +116,7 @@ Por, \\
 	\end{tabular}\\}
 
 \vspace{1.0cm}
-{\large\it RelatÛrio submetido como requisito parcial de obtenÁ„o}\vspace{2mm}\\
+{\large\it Relat√≥rio submetido como requisito parcial de obten√ß√£o}\vspace{2mm}\\
 {\large\it de grau de \graunome}\\
 \vspace*{1.5cm}
 {\large Banca Examinadora}\\
@@ -138,12 +138,12 @@ Por, \\
 \def\arraystretch{1.0}
 }
 \vspace{1mm}
-{\normalsize\bf BrasÌlia, \mesnome \space de \anonome}\\
+{\normalsize\bf Bras√≠lia, \mesnome \space de \anonome}\\
 \end{center}
 \end{titlepage}
 }
 
-%%% DecicatÛria
+%%% Decicat√≥ria
 \newcommand{\dedicatoriaautori}[1]{\def\dedicatoriaautorinome{#1}}
 \newcommand{\dedicatoriaautorii}[1]{\def\dedicatoriaautoriinome{#1}}
 \newcommand{\dedicatoriaautoriii}[1]{\def\dedicatoriaautoriiinome{#1}}
@@ -156,9 +156,9 @@ Por, \\
 \large
 \ifthenelse{\equal{\autoriinome}{}}{
 	\ifthenelse{\equal{\autoriiinome}{}}
-		{\bf DedicatÛria\space\space\space\space}
-		{\bf DedicatÛrias}}
-	{\bf DedicatÛrias} 
+		{\bf Dedicat√≥ria\space\space\space\space}
+		{\bf Dedicat√≥rias}}
+	{\bf Dedicat√≥rias} 
 \end{flushright}
 \begin{center}
 	\ifthenelse{\equal{\autoriinome}{}}{
@@ -250,7 +250,7 @@ Por, \\
 \end{titlepage}
 }
 
-%%% Resumos opcionais do inÌcio de cada capÌtulo
+%%% Resumos opcionais do in√≠cio de cada cap√≠tulo
 \newcommand{\resumodocapitulo}[1]{
 \vspace*{-0.8cm}
 \begin{flushright}
@@ -261,7 +261,7 @@ Por, \\
 \end{flushright}
 }
 
-%%% CabeÁalhos dos resumos:
+%%% Cabe√ßalhos dos resumos:
 \newcommand{\resumo}[2]{
 \begin{flushright}
 \hrule
@@ -274,7 +274,7 @@ Por, \\
 \newcommand{\setfontarial}{}
 \newcommand{\setfonttimes}{}
 
-%%% Estilo dos capÌtulos, seÁıes, sub-seÁıes:
+%%% Estilo dos cap√≠tulos, se√ß√µes, sub-se√ß√µes:
 \makeatletter
 
 \newcommand{\anexos}{
@@ -299,7 +299,7 @@ Por, \\
     \vfill
 }}} 
 
-%%% FormataÁ„o do sum·rio:
+%%% Formata√ß√£o do sum√°rio:
 \renewcommand*\l@chapter[2]{%
   \ifnum \c@tocdepth >\m@ne
     \addpenalty{-\@highpenalty}%
@@ -319,9 +319,9 @@ Por, \\
 \renewcommand*\l@subsection{\@dottedtocline{2}{1.5em}{3.6em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{1.5em}{3.6em}}
 
-%%% Sum·rio:
+%%% Sum√°rio:
 \newcommand{\sumario}{
-	\renewcommand{\contentsname}{SUM¡RIO}
+	\renewcommand{\contentsname}{SUM√ÅRIO}
 	{\renewcommand{\@dotsep}{0.5}\parskip=0pt\mdseries\scshape\tableofcontents}
 }
 
@@ -337,7 +337,7 @@ Por, \\
 	{\renewcommand{\@dotsep}{0.5}\parskip=0pt\listoftables}
 }
 
-%%% Lista de sÌmbolos: apenas o formato do tÌtulo.
+%%% Lista de s√≠mbolos: apenas o formato do t√≠tulo.
 \newcommand{\listadesimbolos}{
 	\renewcommand{\contentsname}{LISTA DE SIMBOLOS}
 	\listoftables 
@@ -360,7 +360,7 @@ Por, \\
 \newcommand{\PreserveBacklash}[1]{\let\temp=\\#1\let\\=\temp}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% EspaÁo entre par·grafos
+% Espa√ßo entre par√°grafos
 \parskip=6pt
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
