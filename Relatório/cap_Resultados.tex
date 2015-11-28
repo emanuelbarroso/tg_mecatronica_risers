@@ -33,12 +33,14 @@ O maior desvio da quantidade de milímetros por pixels das seções em relação
 
 \section{Calibração do Servomotor}
 
+O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \textendash{} que permite alterar a velocidade do motor enquanto ele se movimenta. No entanto, o bloco espera que a entrada seja do tipo $[\mathrm{u}/\mathrm{s}$ ao invés de alguma unidade no SI tal como $[\mathrm{mm}/\mathrm{s}]$. Devido a isso, foi necessária uma calibração do sistema. Nela, anotou-se a posição inicial $x_0$ e a posição final $x_f$, ambas em milímetros, e definia-se um tempo $\Delta t$ no qual o carrinho se movimentaria a uma velocidade $v$ em $[\mathrm{u}/\mathrm{s}]$. Daí, calculava-se a velocidade em $[\mathrm{mm}/\mathrm{s}]$ com esses dados e tirou a média de alguns ensaios para se obter o valor de uma unidade, que é aproximadamente $71.32\mathrm{mm}$. Os dados de calibração estão na Tabela \ref{calibracaoServomotor}.
+
 \begin{table}[!ht]
 \centering
-\caption{Dados de calibração do servomotor, média obtida é de 71.32 mm/unidade}
+\caption{Dados de calibração do servomotor, média obtida é de 71.32 mm/unidade\label{calibracaoServomotor}}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-	$x_0$ - [mm] & $x_f$ - [mm] & $\Delta t$ - [seg] & Velocidade - [mm/s] & Velocidade - [u/s] & mm/u\\ \hline
+	$x_0$ - [mm] & $x_f$ - [mm] & $\Delta t$ - [s] & Velocidade - [u/s] & Velocidade - [mm/s] & mm/u\\ \hline
 2 &	71.8  &	2   &	0.5 &	34.9   & 	69.8\\ \hline
 6 & 76.1  &	2   &	0.5 &	35.05  &	70.1\\ \hline
 6 &	188	  &  5   &	0.5	&   36.4   &	72.8\\ \hline
@@ -49,7 +51,7 @@ O maior desvio da quantidade de milímetros por pixels das seções em relação
 
 \section{Malha aberta}
 
-O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados.
+O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados. Observe que, em malha aberta, deixou-se o ar condicionado da sala desligado, pois isto seria uma perturbação.
 
 \subsection{Excursão de 30cm}
 O primeiro teste em malha aberta testou a trajetória de posição da Figura \ref{DeslocamentoT1}. Conforme Rédytton \cite{redytton} mencionou em seu trabalho, utilizar os módulos de posição é mais lento do que utilizar módulos de velocidade para seguir essa trajetória. Desta forma, optou-se por usar diferenças finitas para derivar essa trajetória, resultando na Figura \ref{VelocidadeT1}. 
@@ -95,7 +97,9 @@ Controle Malha Aberta a Velocidade Constante com Trajetória de 30cm -\url{https
 \end{figure}
 
 \subsection{Excursão de 20cm}
-Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o comprimento do mesmo. Daí, é importante testar uma menor excursão. Além disso, esse teste terá menor tempo de movimentação e resultará numa velocidade média maior que o caso anterior.
+Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o comprimento do mesmo. Daí, é importante testar uma menor excursão. Além disso, esse teste terá menor tempo de movimentação e resultará numa velocidade média maior que o caso anterior. Desta forma, maiores oscilações são esperadas e o controle se torna mais difícil.
+
+A trajetória de posição obtida é apresentada na Figura \ref{DeslocamentoT2} e a sua derivada é apresentada na Figura \ref{VelocidadeT2}. O período da tarefa eventual foi escolhido em $100\mathrm{ms}$. O resultado experimental\footnote{Controle Malha Aberta Modelado com Trajetória de 20cm - \url{https://youtu.be/wg1Wq_6VRSg}} apresentou mais oscilações que o caso anterior, mas está bem controlado, conforme se vê na Figura \ref{percurso20cmBom}. O resultado com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante com Trajetória de 20cm - \url{https://youtu.be/Ges2-eYy69k}} está na Figura \ref{percurso20cmRuim} e nota-se que o resultado ficou bem pior. A velocidade média foi cerca de $\overline{v} \approx \frac{200\mathrm{mm}}{1.5\mathrm{s}} = 133.3\mathrm{mm}/\mathrm{s}$.
 
 \begin{figure}[!htb]
     \centering
@@ -137,6 +141,8 @@ Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o com
 
 
 \section{Malha fechada}
+O controle em malha fechada 
+
 \subsection{Controlador P}
 \begin{figure}[!htb]
     \centering
