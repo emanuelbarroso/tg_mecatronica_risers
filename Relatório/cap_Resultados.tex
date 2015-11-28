@@ -49,9 +49,11 @@ O maior desvio da quantidade de milímetros por pixels das seções em relação
 
 \section{Malha aberta}
 
-O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante (82cm) conforme apresentado na Tabela ....
+O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados.
 
 \subsection{Excursão de 30cm}
+O primeiro teste em malha aberta testou a trajetória de posição da Figura \ref{DeslocamentoT1}. Conforme Rédytton \cite{redytton} mencionou em seu trabalho, utilizar os módulos de posição é mais lento do que utilizar módulos de velocidade para seguir essa trajetória. Desta forma, optou-se por usar diferenças finitas para derivar essa trajetória, resultando na Figura \ref{VelocidadeT1}. 
+
 \begin{figure}[!htb]
     \centering
     \begin{minipage}{.45\textwidth}
@@ -68,6 +70,12 @@ O planejamento de trajetória em malha aberta e malha fechada para o \textit{ris
         \label{VelocidadeT1}
     \end{minipage}
 \end{figure}
+
+Com um período de cerca de 41ms, uma tarefa eventual executava no CLP, aplicando um certo valor de velocidade ao carrinho. A câmera leu os valores de posição cada vez que a tarefa iniciava e o software RSLogix desenhou os dados, que podem ser observados na Figura \ref{trajetoriaObtidaModelada}. Observa-se que a posição evolui de forma bem suave. Para se realizar uma comparação, calculou-se o tempo que o carrinho se move na trajetória ($\Delta t$, tempo no qual a velocidade não é nula) e calculou-se $\overline{v} = \frac{\Delta x}{\Delta t}$. No caso presente, $\Delta x = 30\mathrm{cm}$ e $\Delta t \approx 3\mathrm{s}$ (veja Figura \ref{VelocidadeT1}), resultando em $\overline{v} = 100\mathrm{mm}/\mathrm{s}$. A Figura \ref{trajetoriaObtidaVConstante} apresenta esses resultados e observa-se várias oscilações quando o carrinho para, diferente do caso anterior.
+
+Vídeos foram criados para cada um destes casos e estão disponíveis no YouTube{\sffamily\textregistered\textcopyright}, tanto para a trajetória modelada\footnote{
+Controle Malha Aberta Modelado com Trajetória de 30cm - \url{https://youtu.be/lKajz6LyauE}} quanto para a trajetória com velocidade constante\footnote{
+Controle Malha Aberta a Velocidade Constante com Trajetória de 30cm -\url{https://youtu.be/tB0TsmBcfVg}}.
 
 \begin{figure}[!htb]
     \centering
@@ -87,6 +95,8 @@ O planejamento de trajetória em malha aberta e malha fechada para o \textit{ris
 \end{figure}
 
 \subsection{Excursão de 20cm}
+Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o comprimento do mesmo. Daí, é importante testar uma menor excursão. Além disso, esse teste terá menor tempo de movimentação e resultará numa velocidade média maior que o caso anterior.
+
 \begin{figure}[!htb]
     \centering
     \begin{minipage}{.45\textwidth}

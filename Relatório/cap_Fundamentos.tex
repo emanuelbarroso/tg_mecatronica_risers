@@ -118,7 +118,7 @@ Nesta bancada, o CLP deve se comunicar com o servomotor (MPL-A310F-SJ22AA) atrav
 
 \subsection{Line Interface Module 2094-AL09}
 
-Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, mas ele tem a função essencial de interfacear a rede trifásica com o servo \textit{drive}, permitindo o acionamento do motor. Na Figura \ref{LineInterfaceModule}, se observa que há três conjuntos de disjuntores nesse módulo: CB1 - liga ou desliga a rede trifásica do \textit{drive}  -, CB2 - fornece tensão monofásica ao servo \textit{drive} - e CB3 - liga as duas fontes de tensão DC de 24V, responsáveis pelas entradas e saídas digitais do módulo e alimentação do freio do motor \cite{redytton}.
+Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, mas ele tem a função essencial de interfacear a rede trifásica com o servo \textit{drive}, permitindo o acionamento do motor. Na Figura \ref{LineInterfaceModule}, se observa que há três conjuntos de disjuntores nesse módulo: CB1 \textendash{} liga ou desliga a rede trifásica do \textit{drive}  \textendash{}, CB2 \textendash{} fornece tensão monofásica ao servo \textit{drive} \textendash{} e CB3 \textendash{} liga as duas fontes de tensão DC de 24V \textendash{}, responsáveis pelas entradas e saídas digitais do módulo e alimentação do freio do motor \cite{redytton}.
 
 \begin{figure}[!ht]
   \centering
@@ -212,7 +212,7 @@ http://www.rtaautomation.com/technologies/ethernetip/
 
 \section{Parâmetros para gerar trajetórias}
 
-Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \ref{redytton}.
+Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \cite{redytton}.
 
 \begin{table}[!ht]
 \centering
@@ -231,7 +231,7 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 	\end{tabular}
 \end{table}
 
-Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que 
+Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
 
 \begin{table}[!ht]
 \centering
