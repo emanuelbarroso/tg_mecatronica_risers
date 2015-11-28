@@ -210,6 +210,46 @@ http://www.rtaautomation.com/technologies/ethernetip/
 
 \subsection{Texto Estruturado}
 
-\section{Parâmetros}
+\section{Parâmetros para gerar trajetórias}
 
+Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \ref{redytton}.
+
+\begin{table}[!ht]
+\centering
+\caption{Dados para simulação em escala real\label{escalaReal} \cite{redytton}}
+	\begin{tabular}{|c|c|}
+	\hline
+		\multicolumn{2}{|c|}{\textbf{Dados do Riser}}\\ \hline
+		Diâmetro externo & $0.55\mathrm{m}$\\ \hline
+		Diâmetro interno & $0.5\mathrm{m}$ \\ \hline
+		Comprimento & $2000\mathrm{m}$ \\ \hline
+		Módulo de Elasticidade & $200 \mathrm{GPa}$\\ \hline
+		Densidade &  $7860\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Água)}}\\ \hline
+		Densidade do fluido &  $1000\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		Viscosidade dinâmica & $10^3 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+	\end{tabular}
+\end{table}
+
+Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que 
+
+\begin{table}[!ht]
+\centering
+\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
+	\begin{tabular}{|c|c|}
+	\hline
+		\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
+		Diâmetro Externo & $30.6\mathrm{mm}$\\ \hline
+		Densidade & $10\mathrm{kg}/\mathrm{m}^3$ \\ \hline
+		\multicolumn{2}{|c|}{\textbf{Dados do Riser (Barbante)}}\\ \hline
+		Diâmetro externo & $2\mathrm{mm}$\\ \hline
+		Diâmetro interno & $0\mathrm{mm}$ \\ \hline
+		Comprimento & $82\mathrm{cm}$ \\ \hline
+		Módulo de Elasticidade & $2.1 \mathrm{MPa}$\\ \hline
+		Densidade &  $191\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Ar)}}\\ \hline
+		Densidade do fluido &  $1.2754\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+	\end{tabular}
+\end{table}
 
