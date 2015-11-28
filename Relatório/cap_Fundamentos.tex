@@ -12,7 +12,7 @@ Estruturas submarinas tais como os \textit{risers} são esbeltas e tem um alto m
 
 As únicas forças externas atuando no \textit{riser} são hidrodinâmicas, exceto nas extremidades do topo e do fundo, nas quais forças de reação seguem condições de contorno. A equação de Morison descreve a força externa resultante: \begin{align}
 	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t},
-\end{align} na qual $m_f$ é a massa do fluido adicionado e $mu$ é o coeficiente de arrasto. Seja $m = m_s + m_f$ 
+\end{align} na qual $m_f$ é a massa do fluido adicionado e $\mu$ é o coeficiente de arrasto. Seja $m = m_s + m_f$ 
 
 \section{Controle}
 \paragraph{} Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada.
@@ -74,6 +74,58 @@ node [near end] {$y_m$} (sum);
 \end{tikzpicture}
 \caption{Malha fechada de controle\label{mfechadatikz}}
 \end{figure}
+
+\section{Bancada}
+A bancada da ponte rolante presente no Laboratório de Automação e Controle está esquematizada na Figura \ref{bancadaEsquematico}. Serão detalhados os componentes desta bancada, de modo a se entender o papel de cada um deles. Observe que no esquemático falta a câmera, que é um sensor que fica de frente para a bancada. 
+
+\begin{figure}[hbt]
+\centering
+  \includegraphics[width=0.8\textwidth]{figs/fundamentos/bancadaEsquematico}
+  \caption{Esquemático da Bancada Utilizada para o Experimento \cite{redytton}\label{bancadaEsquematico}}
+\end{figure}
+
+\subsection{Controlador Lógico-Programável}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.8\textwidth]{figs/fundamentos/CLP.jpg}
+    \caption{CLP com identificação de elementos\label{CLPcomentado}}
+\end{figure}
+
+\paragraph{} O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada via computador, mas, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contato que o CLP esteja em modo de execução.
+\paragraph{} O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
+\begin{itemize}
+  \item O próprio controlador;
+  \item \textit{SERCOS Interface};
+  \item DeviceNET;
+  \item EtherNet/IP.
+\end{itemize}
+\paragraph{} Cada um desses módulos será apresentado posteriormente com mais detalhes. Além dos módulos, o controlador ainda possui um \textit{switch} liga/desliga presente no \textit{chassis}. No módulo Logix, há uma chave responsável por alterar o modo de funcionamento do mesmo. As posições possíveis dessa chave são:
+\begin{itemize}
+  \item RUN;
+  \item REM;
+  \item PROG;
+\end{itemize}
+\paragraph{} Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
+\paragraph{} No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
+
+\subsection{SERCOS Interface}
+
+Sercos é um barramento digital de automação que interconecta controladores, \textit{drives}, dispositivos de entrada/saída e atuadores para máquinas e sistemas controlados numericamente. Foi projetado para comunicação serial de alta velocidade de dados em sistemas de tempo real por meio de fibra ótica (Sercos I \& II) ou um cabo Ethernet Industrial (Sercos III). Sercos é um padrão internacional \cite{sercos}.
+
+Num sistema Sercos, todas as malhas que contém servomotores são normalmente fechadas no \textit{drive}. Isto reduz a carga computacional no CLP, permitindo-o sincronizar mais eixos do que conseguiria caso contrário. Além disso, fechar a malha dos servomotores com o \textit{driver} ajuda a reduzir o efeito do atraso de transporte entre o controle de movimento e o \textit{driver} \cite{sercos}.
+
+Nesta bancada, o CLP deve se comunicar com o servomotor (MPL-A310F-SJ22AA) através do \textit{drive} Kinetix (2094-AC05MP5), de forma a movimentar o carrinho segundo uma trajetória planejada ou segundo uma lei de controle em malha fechada executando no CLP. Essa comunicação se dá por um par de fibras óticas full-duplex, conforme se observa na Figura \ref{CLPcomentado}, o que caracteriza uma rede Sercos I ou II.
+
+\subsection{Line Interface Module 2094-AL09}
+
+Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, mas ele tem a função essencial de interfacear a rede trifásica com o servo \textit{drive}, permitindo o acionamento do motor. Na Figura \ref{LineInterfaceModule}, se observa que há três conjuntos de disjuntores nesse módulo: CB1 - liga ou desliga a rede trifásica do \textit{drive}  -, CB2 - fornece tensão monofásica ao servo \textit{drive} - e CB3 - liga as duas fontes de tensão DC de 24V, responsáveis pelas entradas e saídas digitais do módulo e alimentação do freio do motor \cite{redytton}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.7\textwidth]{figs/fundamentos/LineInterfaceModule}
+    \caption{Line Interface Module modelo 2094-AL09 da Allen Bradley \cite{redytton}\label{LineInterfaceModule}}
+\end{figure}
+
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
