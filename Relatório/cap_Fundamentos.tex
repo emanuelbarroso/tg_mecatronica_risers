@@ -2,7 +2,7 @@
 \chapter{Fundamentos\label{chap:FundamentacaoMatematica}}
 
 % Resumo opcional. Comentar se não usar.
-\resumodocapitulo{Resumo opcional.}
+\resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, assim como informações sobre a bancada laboratorial e também sobre a programação do CLP.}
 
 \section{Equações Governantes}
 
@@ -124,6 +124,28 @@ Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, m
   \centering
     \includegraphics[width=0.7\textwidth]{figs/fundamentos/LineInterfaceModule}
     \caption{Line Interface Module modelo 2094-AL09 da Allen Bradley \cite{redytton}\label{LineInterfaceModule}}
+\end{figure}
+
+\subsection{Drive Kinetix 6000 da Allen Bradley}
+
+Por meio da Interface Sercos, o CLP comanda o drive que então fornece potência ao motor. O drive controla o servomotor por meio de pulsos PWM. A Figura \ref{kinetix6000} apresenta um Drive Kinetix 6000 da Allen Bradley similar ao utilizado no laboratório. Mais detalhes sobre o funcionamento do drive estão disponíveis em \cite{redytton} e \cite{kinetix6000usermanual}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/kinetix6000.jpg}
+    \caption{Drive Kinetix 6000 da Allen Bradley\label{kinetix6000}}
+\end{figure}
+
+\subsection{Servomotor}
+
+Um servomotor é um atuador rotatório que permite controle preciso da posição angular. O motor consiste de um motor acoplado a um sensor para a realimentação de posição/velocidade. Também é necessário um drive servo para completar o sistema. O \textit{drive} usa o sensor de realimentação para controlar precisamente a posição angular do motor, ou seja, é uma operação em malha fechada. Assim, usando servomotores em malha fechada, tem-se uma alternativa de alto desempenho aos motores de passo e de indução \cite{defServoMotores}.
+
+O servomotor MPL-A310F-SJ22AA da Allen-Bradley foi utilizado e está representado na Figura \ref{servomotor}. O mesmo é composto por um motor indutivo de tensão nominal $230V_{\mathrm{ac}}$ e um encoder do tipo StegmanHiperface, que mede posição de forma absoluta e velocidade de forma incremental \cite{redytton}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/servomotor}
+    \caption{Servomotor modelo MPL-A310F-SJ22AA\label{servomotor}}
 \end{figure}
 
 
