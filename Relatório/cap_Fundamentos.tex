@@ -148,6 +148,20 @@ O servomotor MPL-A310F-SJ22AA da Allen-Bradley foi utilizado e está representad
     \caption{Servomotor modelo MPL-A310F-SJ22AA\label{servomotor}}
 \end{figure}
 
+\subsection{Sensores indutivos}
+Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
+
+Na presente bancada, há 6 sensores indutivos da família 871TM, similares ao da Figura \ref{sensorIndutivo}, fabricados pela \textit{Allen-Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/sensorIndutivo}
+    \caption{Sensor indutivo 871T-R8B18 \cite{redytton}\label{sensorIndutivo}}
+\end{figure}
+
+A importância desses sensores é enorme. O motivo é que a câmera às vezes falha para obter a posição atual e tem um limite de frequência devido ao processamento interno que ela tem de realizar. Com os sensores indutivos, tem-se um processamento rápido para identificar se o motor está na região próxima dos limites. Assim, a rotina de segurança que trava o motor depende diretamente desses sensores indutivos.
+
+\subsection{Câmera PresencePlus}
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
