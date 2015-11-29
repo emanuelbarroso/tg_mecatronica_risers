@@ -140,7 +140,7 @@ Por meio da Interface Sercos, o CLP comanda o drive que então fornece potência
 
 Um servomotor é um atuador rotatório que permite controle preciso da posição angular. O motor consiste de um motor acoplado a um sensor para a realimentação de posição/velocidade. Também é necessário um drive servo para completar o sistema. O \textit{drive} usa o sensor de realimentação para controlar precisamente a posição angular do motor, ou seja, é uma operação em malha fechada. Assim, usando servomotores em malha fechada, tem-se uma alternativa de alto desempenho aos motores de passo e de indução \cite{defServoMotores}.
 
-O servomotor MPL-A310F-SJ22AA da Allen-Bradley foi utilizado e está representado na Figura \ref{servomotor}. O mesmo é composto por um motor indutivo de tensão nominal $230V_{\mathrm{ac}}$ e um encoder do tipo StegmanHiperface, que mede posição de forma absoluta e velocidade de forma incremental \cite{redytton}.
+O servomotor MPL-A310F-SJ22AA da \textit{Allen-Bradley} foi utilizado e está representado na Figura \ref{servomotor}. O mesmo é composto por um motor indutivo de tensão nominal $230V_{\mathrm{ac}}$ e um encoder do tipo StegmanHiperface, que mede posição de forma absoluta e velocidade de forma incremental \cite{redytton}.
 
 \begin{figure}[!ht]
   \centering
@@ -180,7 +180,7 @@ Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens 
 \subsection{DeviceNET}
 \paragraph{}DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais. É responsável pela interconexão de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}) desenvolvida pela \textit{Bosch}. Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP. 
 \paragraph{}O DeviceNET é uma combinação entre a camada física disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma rápida configuração entre dispositivos a \textit{byte}, suportanto tanto dispositivos analógicos quanto digitais. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
-\paragraph{}No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta. Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
+\paragraph{}No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta.\cite{reddyton} Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/DeviceNet
@@ -205,7 +205,27 @@ http://www.rtaautomation.com/technologies/ethernetip/
 
 \section{Programação do CLP}
 \subsection{Visão geral}
-\paragraph{}
+\paragraph{}Programação, em termos gerais, é aplicada na resolução de problemas. Em particular, a programação de CLPs busca resolver, no âmbito industrial, problemas relacionados à automação de processos. Essa resolução de problemas segue uma metodologia, de forma a se direcionar o projeto. Antes de se proceder a programação, faz-se necessário seguir os seguintes passos:
+\begin{enumerate}
+  \item Descrição do problema;
+  \item Detalhamentos e melhoria do processo;
+  \item Especificação dos atuadores e sensores da planta;
+  \item Elaboração do algoritmo;
+  \item Representação gráfica do algoritmo, quando aplicável;
+  \item Esquema funcional, quando aplicável;
+  \item Seleção dos módulos do controlador;
+  \item Programação, utilizando linguagens suportadas.
+\end{enumerate}
+\paragraph{}Ao se programar o CLP, deve-se ter em conta que o controlador executa sempre três ciclos:
+\begin{enumerate}
+  \item \textit{Scan} de Entrada: Ciclo em que o controlador recebe todos os dados de seus módulos de entrada;
+  \item \textit{Scan} do Programa: Ciclo em que o controlador processa as entradas recebidas e gera as saídas;
+  \item \textit{Scan} de Saída: Ciclo em que o controlador envia os dados de saída para os módulos de saída.
+\end{enumerate}
+\paragraph{}Para o presente experimento, entre as várias linguagens disponíveis para CLPs, foram selecionadas duas: uma linguagem gráfica, o \textbf{\textit{ladder}}, e uma linguagem textual, o \textbf{texto estruturado}.
+
+%https://www.dropbox.com/sh/ls5n4ndpy456izy/AABaKT2WKN0P5kYzaacSYjk5a/teoria_final_1.ppt?dl=0 (Como referenciar?)
+
 \subsection{Linguagem \textit{ladder}}
 \subsubsection{Introdução ao \textit{ladder}}
 \paragraph{}A linguagem \textit{ladder} é uma linguagem de programação gráfica, e uma das primeiras a ser utilizada na programação de CLPs. Seu nome vem do inglês \textit{ladder}, que significa escada; nome dado em razão dos programas, ao serem feitos, assumirem a forma de uma escada, e lidos de cima para baixo (movimento de descida). Essa linguagem foi estruturada de forma a ter uma simbologia semelhante à de um diagrama de conexão de relés, que eram utilizados em indústrias antes do CLP.
@@ -257,7 +277,7 @@ http://www.rtaautomation.com/technologies/ethernetip/
 
 \section{Parâmetros para gerar trajetórias}
 
-Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \cite{redytton}.
+\paragraph{}Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \cite{redytton}.
 
 \begin{table}[!ht]
 \centering
@@ -276,7 +296,7 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 	\end{tabular}
 \end{table}
 
-Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
+\paragraph{}Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
 
 \begin{table}[!ht]
 \centering
