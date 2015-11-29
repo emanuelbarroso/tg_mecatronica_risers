@@ -10,13 +10,17 @@
 Os problemas com a câmera se resumiram a configuração da rede, calibração e programação, sendo o mais difícil esse último.
 
 \subsection{Configuração da Rede}
+A câmera estava com um \textit{firmware} antigo e foi necessário obter o arquivo 2014R1B PresencePLUS Firmware\footnote{Atualização de Firmware da Câmera - \url{http://info.bannerengineering.com/_dav/cs/idcplg?IdcService=GET_FILE&RevisionSelectionMethod=LatestReleased&dDocName=B_4170042}. Acesso em 29/11/2015.} que é o programa de atualização da \textit{Banner Engineering} para esta câmera. Bastou executá-lo no computador, estando a câmera conectada ao \textit{switch} do laboratório assim como o computador estava, ambos por cabos Ethernet. Antes desta atualização, o \textit{software} da câmera não permitia selecionar a opção Ethernet/IP de forma a permitir utilizar o módulo Ethernet/IP do CLP.
 
+Uma vez atualizado o \textit{firmware}, foi obtido o arquivo EDS\footnote{Arquivo EDS disponível em \url{http://www.bannerengineering.com/en-US/products/sub/78\#ui-tabs-37}. Acesso em 29/11/2015.} da câmera que foi então integrado ao \textit{software} da Rockwell no computador por meio do programa XXXX da própria Rockwell. %TODO Qual o programa de upar o EDS?
 
+Após os procedimentos anteriores, adiciona-se a câmera como um módulo genérico usando o \textit{software} RSLogix, conforme instruções da Banner Engineering \cite{presencePlusEthernetIP}.
+%TODO colocar procedimento de configuração da câmera para deixar do jeito que nós fizemos, utilizando figuras (print screen's) e falando dos números de Assembly
 \subsection{Calibração}
 
 %TODO Pegar printscreens do programa que roda na câmera
-A câmera permite fazer medidas de distâncias em pixels. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse. No PresencePlus P4 GEO 1.3, um programa com imagem de referência é feito, conforme Figura .... A barra de alumínio atualmente utilizada tem comprimento total de $532$mm. Algumas marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm.
-%TODO - obter imagem de referência e referenciar no parágrafo acima
+A câmera permite fazer medidas de distâncias em \textit{pixels}. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse, nomeadamente o tamanho da barra de alumínio sendo utilizada, cerca de $532$mm. No PresencePlus P4 GEO 1.3, um programa é feito, com imagem de referência conforme Figura ..., que usa várias ferramentas de detecção de borda para identificar as posições de cada uma das marcas pretas da barra.  Seis marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm, com exceção da distância entre P0 e PEND que é o comprimento total da barra.
+%TODO - obter imagem de referência e mencionar no parágrafo acima
 
 \begin{table}[!ht]
 \centering
@@ -33,9 +37,12 @@ A câmera permite fazer medidas de distâncias em pixels. De forma a se converte
 	\end{tabular}
 \end{table}
 
-O maior desvio da quantidade de milímetros por pixels das seções em relação à da barra inteira é de aproximadamente 4.93\%. Há algumas imprecisões na maneira como os traços foram desenhados e é possível que o erro seja menor.
+O maior desvio da quantidade de milímetros por \textit{pixel} das seções em relação à da barra inteira é de aproximadamente 4.93\%. Há algumas imprecisões na maneira como os traços foram desenhados e é possível que o erro seja menor.
 
 \subsection{Programação}
+A programação da câmera inicia obtendo uma imagem de referência e adicionando-se ferramentas de detecção de pontos de interesse. Também é possível adicionar ferramentas que fazem operações matemáticas assim como enviam dados pela rede, o que é essencial para comunicar com o CLP.
+
+%TODO colocar um exemplo de programação, dando algumas imagens de referência, deve ser do programa que usamos pra fechar a malha
 
 \section{Calibração do Servomotor\label{calibracaoServomotorSecao}}
 
@@ -81,9 +88,7 @@ O primeiro teste em malha aberta testou a trajetória de posição da Figura \re
 
 Com um período de cerca de 41ms, uma tarefa eventual executava no CLP, aplicando um certo valor de velocidade ao carrinho. A câmera leu os valores de posição cada vez que a tarefa iniciava e o software RSLogix desenhou os dados, que podem ser observados na Figura \ref{trajetoriaObtidaModelada}. Observa-se que a posição evolui de forma bem suave. Para se realizar uma comparação, calculou-se o tempo que o carrinho se move na trajetória ($\Delta t$, tempo no qual a velocidade não é nula) e calculou-se $\overline{v} = \frac{\Delta x}{\Delta t}$. No caso presente, $\Delta x = 30\mathrm{cm}$ e $\Delta t \approx 3\mathrm{s}$ (veja Figura \ref{VelocidadeT1}), resultando em $\overline{v} = 100\mathrm{mm}/\mathrm{s}$. A Figura \ref{trajetoriaObtidaVConstante} apresenta esses resultados e observa-se várias oscilações quando o carrinho para, diferente do caso anterior.
 
-Vídeos foram criados para cada um destes casos e estão disponíveis no YouTube{\sffamily\textregistered\textcopyright}, tanto para a trajetória modelada\footnote{
-Controle Malha Aberta Modelado com Trajetória de 30cm - \url{https://youtu.be/lKajz6LyauE}} quanto para a trajetória com velocidade constante\footnote{
-Controle Malha Aberta a Velocidade Constante com Trajetória de 30cm -\url{https://youtu.be/tB0TsmBcfVg}}.
+Vídeos foram criados para cada um destes casos e estão disponíveis no YouTube{\sffamily\textregistered\textcopyright}, tanto para a trajetória modelada\footnote{Controle Malha Aberta Modelado, 30cm - \url{https://youtu.be/lKajz6LyauE}. Acesso em 29/11/2015.} quanto para a trajetória com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante, 30cm - \url{https://youtu.be/tB0TsmBcfVg}. Acesso em 29/11/2015.}.
 
 \begin{figure}[!htb]
     \centering
@@ -105,7 +110,7 @@ Controle Malha Aberta a Velocidade Constante com Trajetória de 30cm -\url{https
 \subsection{Excursão de 20cm}
 Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o comprimento do mesmo. Daí, é importante testar uma menor excursão. Além disso, esse teste terá menor tempo de movimentação e resultará numa velocidade média maior que o caso anterior. Desta forma, maiores oscilações são esperadas e o controle se torna mais difícil.
 
-A trajetória de posição obtida é apresentada na Figura \ref{DeslocamentoT2} e a sua derivada é apresentada na Figura \ref{VelocidadeT2}. O período da tarefa eventual foi escolhido em $100\mathrm{ms}$. O resultado experimental\footnote{Controle Malha Aberta Modelado com Trajetória de 20cm - \url{https://youtu.be/wg1Wq_6VRSg}} apresentou mais oscilações que o caso anterior, mas está bem controlado, conforme se vê na Figura \ref{percurso20cmBom}. O resultado com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante com Trajetória de 20cm - \url{https://youtu.be/Ges2-eYy69k}} está na Figura \ref{percurso20cmRuim} e nota-se que o resultado ficou bem pior. A velocidade média foi cerca de $\overline{v} \approx \frac{200\mathrm{mm}}{1.5\mathrm{s}} = 133.3\mathrm{mm}/\mathrm{s}$.
+A trajetória de posição obtida é apresentada na Figura \ref{DeslocamentoT2} e a sua derivada é apresentada na Figura \ref{VelocidadeT2}. O período da tarefa eventual foi escolhido em $100\mathrm{ms}$. O resultado experimental\footnote{Controle Malha Aberta Modelado, 20cm - \url{https://youtu.be/wg1Wq_6VRSg}. Acesso em 29/11/2015.} apresentou mais oscilações que o caso anterior, mas está bem controlado, conforme se vê na Figura \ref{percurso20cmBom}. O resultado com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante, 20cm - \url{https://youtu.be/Ges2-eYy69k}. Acesso em 29/11/2015.} está na Figura \ref{percurso20cmRuim} e nota-se que o resultado ficou bem pior. A velocidade média foi cerca de $\overline{v} \approx \frac{200\mathrm{mm}}{1.5\mathrm{s}} = 133.3\mathrm{mm}/\mathrm{s}$.
 
 \begin{figure}[!htb]
     \centering
@@ -179,7 +184,7 @@ node [near end] {$y_m$} (sum);
 \caption{Malha fechada de controle\label{mfechadaP}}
 \end{figure}
 
-Valores de $K_p$ foram escolhidos empiricamente e o resultado para $K_p = 0.0025$\footnote{Controle Malha Fechada da Ponte Rolante com Kp = 0.0025 - \url{https://youtu.be/mmT1ZwFBJ4s}} está na Figura \ref{MFProporcionalKpbaixo} enquanto para $K_p = 0.0050$\footnote{Controle Malha Fechada da Ponte Rolante com Kp = 0.0050 - \url{https://youtu.be/sHh3yvBrek4}} está na Figura \ref{MFProporcionalKpmedio}.
+Valores de $K_p$ foram escolhidos empiricamente e o resultado para $K_p = 0.0025$\footnote{Controle Malha Fechada com Kp = 0.0025 - \url{https://youtu.be/mmT1ZwFBJ4s}. Acesso em 29/11/2015.} está na Figura \ref{MFProporcionalKpbaixo} enquanto para $K_p = 0.0050$\footnote{Controle Malha Fechada com Kp = 0.0050 - \url{https://youtu.be/sHh3yvBrek4}. Acesso em 29/11/2015.} está na Figura \ref{MFProporcionalKpmedio}.
 
 
 \begin{figure}[!htb]
