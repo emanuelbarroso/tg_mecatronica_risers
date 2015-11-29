@@ -205,8 +205,49 @@ http://www.rtaautomation.com/technologies/ethernetip/
 
 \section{Programação do CLP}
 \subsection{Visão geral}
-
+\paragraph{}
 \subsection{Linguagem \textit{ladder}}
+\subsubsection{Introdução ao \textit{ladder}}
+\paragraph{}A linguagem \textit{ladder} é uma linguagem de programação gráfica, e uma das primeiras a ser utilizada na programação de CLPs. Seu nome vem do inglês \textit{ladder}, que significa escada; nome dado em razão dos programas, ao serem feitos, assumirem a forma de uma escada, e lidos de cima para baixo (movimento de descida). Essa linguagem foi estruturada de forma a ter uma simbologia semelhante à de um diagrama de conexão de relés, que eram utilizados em indústrias antes do CLP.
+\paragraph{}Todo programa \textit{ladder} possui duas linhas verticais e, entre elas, uma ou mais linhas horizontais nas quais são especificados os comportamentos do programa. A linguagem possui várias instruções, em sua maioria comuns entre diferentes tipos de CLP. A tabela \ref{ladder1} mostra as principais instruções utilizadas em \textit{ladder}, utilizando a sintaxe presente no \textit{software} RSLogix5000:
+
+\begin{table}[!ht]
+  \centering
+  \caption{Principais instruções \textit{ladder} \label{ladder1}}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Desenho da Instrução & Nome da Instrução & Descrição \\ \hline
+    -( )- & OTE & Atualiza variável de acordo com a condição da linha \\ \hline
+    -(L)- & OTL & Liga variável se a linha for alimentada \\ \hline
+    -(U)- & OTU & Desliga variável se a linha for alimentada \\ \hline
+    -[ ]- & XIC & Examina se a variável está ligada \\ \hline
+    -[/]- & XIO & Examina se a variável está desligada \\ \hline
+  \end{tabular}
+\end{table}
+
+\subsubsection{Instruções específicas}
+\paragraph{}O presente experimento utiliza, em sua programação, não apenas elementos básicos da linguagem \textit{ladder}. A presença do servomotor exige uma lógica e entradas que não são booleanas, ou seja, que não poderm ser tratadas pelos operadores descritos na tabela \ref{ladder1}. Portanto, faz-se necessário o uso de novas instruções, diretamente relacionadas com o movimento do atuador. Tais instruções são conhecidas, dentro do RSLogix5000, como \textit{Motion Control Instructions}, ou instruções de controle de movimento. A tabela \ref{ladder2} mostra as instruções desse tipo utilizadas no experimento:
+
+\begin{table}[!ht]
+  \centering
+  \caption{Principais instruções de controle de movimento em \textit{ladder} \label{ladder2}}
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Nome da Instrução & Sigla & Função \\ \hline
+    \textit{Motion Servo On} & MSO & Inicializa o servomotor, travando a esteira. \\ \hline
+    \textit{Motion Axis Jog} & MAJ & Envia comandos de velocidade e sentido de rotação ao motor, executando sua movimentação. \\ \hline
+    \textit{Motion Axis Stop} & MAS & Interrompe a movimentação do motor; a esteira permanece travada. \\ \hline
+    \textit{Motion Servo Off} & MSF & Desativa o servomotor, destravando a esteira e permitindo a movimentação manual do carrinho. \\ \hline
+  \end{tabular}
+\end{table}
+
+\paragraph{}As funções descritas pela tabela \ref{ladder2} lidam com outros tipos de variáveis, como números reais, para a velocidade do motor, e até mesmo estruturas que o \textit{software} RSLogix cria para armazenar informações sobre os eixos e o controle feito pelas instruções. Tais parâmetros podem ser alterados dentro dos blocos das funções. A figura \ref{motionladder1} mostra um exemplo de tais instruções:
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.6\textwidth]{figs/fundamentos/motionladder}
+    \caption{Exemplo de programa \textit{ladder} com instruções de movimentação.\label{motionladder1}}
+\end{figure}
 
 \subsection{Texto Estruturado}
 
@@ -252,4 +293,3 @@ Como é importante se validar o sistema, mas nem sempre isso é possível em esc
 		Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
 	\end{tabular}
 \end{table}
-
