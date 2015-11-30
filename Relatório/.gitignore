@@ -10,3 +10,7 @@
 relatorio.pdf
 .texpadtmp/
 *.synctex.gz
+*.fdb_latexmk
+*.fls
+*.tex~
+*.bib~

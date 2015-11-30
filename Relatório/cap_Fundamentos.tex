@@ -180,7 +180,7 @@ Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens 
 \subsection{DeviceNET}
 \paragraph{}DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais. É responsável pela interconexão de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}) desenvolvida pela \textit{Bosch}. Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP. 
 \paragraph{}O DeviceNET é uma combinação entre a camada física disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma rápida configuração entre dispositivos a \textit{byte}, suportanto tanto dispositivos analógicos quanto digitais. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
-\paragraph{}No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta.\cite{reddyton} Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
+\paragraph{}No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta.\cite{redytton} Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/DeviceNet
@@ -249,14 +249,15 @@ http://www.rtaautomation.com/technologies/ethernetip/
 \begin{table}[!ht]
   \centering
   \caption{Principais instruções de controle de movimento em \textit{ladder} \label{ladder2}}
-  \begin{tabular}{|c|c|c|}
+  \begin{tabularx}{\textwidth}{|>{\bfseries}l|l|X|}
     \hline
     Nome da Instrução & Sigla & Função \\ \hline
     \textit{Motion Servo On} & MSO & Inicializa o servomotor, travando a esteira. \\ \hline
     \textit{Motion Axis Jog} & MAJ & Envia comandos de velocidade e sentido de rotação ao motor, executando sua movimentação. \\ \hline
     \textit{Motion Axis Stop} & MAS & Interrompe a movimentação do motor; a esteira permanece travada. \\ \hline
-    \textit{Motion Servo Off} & MSF & Desativa o servomotor, destravando a esteira e permitindo a movimentação manual do carrinho. \\ \hline
-  \end{tabular}
+    \textit{Motion Servo Off} & MSF & 
+    Desativa o servomotor, destravando a esteira e permitindo a movimentação manual do carrinho.\\ \hline
+  \end{tabularx}
 \end{table}
 
 \paragraph{}As funções descritas pela tabela \ref{ladder2} lidam com outros tipos de variáveis, como números reais, para a velocidade do motor, e até mesmo estruturas que o \textit{software} RSLogix cria para armazenar informações sobre os eixos e o controle feito pelas instruções. Tais parâmetros podem ser alterados dentro dos blocos das funções. A figura \ref{motionladder1} mostra um exemplo de tais instruções:
@@ -273,15 +274,11 @@ http://www.rtaautomation.com/technologies/ethernetip/
 \paragraph{}Em relação ao \textit{ladder}, o texto estruturado possui vantagens e desvantagens. A principal vantagem é o fato do texto estruturado se assemelhar às linguagens de programação mais utilizadas; isso torna tal linguagem de fácil aprendizado. Além disso, por ser texto, programas escritos dessa forma podem ser gerados com auxílio de outros programas, codificados em linguagens como \textit{Python}, por exemplo. Tal característica torna a alteração de vários parâmetros por vez extremamente simples, pois a mudança de código no programa auxiliar para lidar com as mudanças do controlador programado é mínima. Porém, uma desvantagem do texto em relação ao \textit{ladder} reside nas funções de movimentação, uma vez que, ao contrário do \textit{ladder}, o texto estruturado não dá uma indicação clara associando um valor e a variável que ele representa, além da ordem dos parâmetros. Isso torna o uso de funções como MAJ (vide tabela \ref{ladder2}) um pouco mais complicada em texto. Cabe ao programador ponderar as vantagens e desvantagens das duas linguagens ao desenvolver o programa para o CLP, de forma a garantir os melhores resultados.
 \subsubsection{Instruções de movimentação do motor para o texto estruturado}
 \paragraph{}Assim como o \textit{ladder}, o texto estruturado permite o uso das funções descritas na tabela \ref{ladder2}. A sintaxe de uso dessas funções lembra muito a sintaxe da linguagem C, com o nome da função e uma lista de parâmetros válidos separados por vírgulas. A seguir, um exemplo de uso:
-\varPi 
+ 
 \begin{lstlisting}
   MSO(drive_axis,MSO_1);
 
   speed[0] := 0.0;
-  /* ... inicialização do vetor speed[] */
-  
-  speed[85] := 0.0;
-
   dataInitialized := 1;
 \end{lstlisting}
 
