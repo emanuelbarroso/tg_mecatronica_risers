@@ -164,7 +164,7 @@ Na presente bancada, há 6 sensores indutivos da família 871TM, similares ao da
     \caption{Sensor indutivo 871T-R8B18 \cite{redytton}\label{sensorIndutivo}}
 \end{figure}
 
-A importância desses sensores é enorme. O motivo é que a câmera às vezes falha para obter a posição atual e tem um limite de frequência devido ao processamento interno que ela tem de realizar. Com os sensores indutivos, tem-se um processamento rápido para identificar se o motor está na região próxima dos limites. Assim, a rotina de segurança que trava o motor depende diretamente desses sensores indutivos.
+A importância desses sensores é enorme. O motivo é que a câmera às vezes falha para obter a posição atual e tem um limite de frequência devido ao processamento interno que ela tem de realizar. Com os sensores indutivos, tem-se um processamento rápido para identificar se o motor está na região próxima dos limites. Assim, a rotina de segurança que trava o motor depende diretamente desses sensores indutivos, como mostra o Anexo \ref{emergencyladder}.
 
 \subsection{Câmera PresencePlus}
 
@@ -180,23 +180,21 @@ Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens 
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
-DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais. É responsável pela interconexão de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}), desenvolvida pela \textit{Bosch}. Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP. 
+DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais \cite{dnetrta}. É responsável pela interconexão de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}), desenvolvida pela \textit{Bosch}. Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP \cite{devicenetrockwell}. 
 
-O DeviceNET é uma combinação entre a camada física disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma rápida configuração entre dispositivos a \textit{byte}, suportanto tanto dispositivos analógicos quanto digitais. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
+O DeviceNET é uma combinação entre a camada física disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma rápida configuração entre dispositivos a \textit{byte}, suportanto tanto dispositivos analógicos quanto digitais \cite{redytton}. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
 
 No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta \cite{redytton}. Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/DeviceNet
-http://ab.rockwellautomation.com/Networks-and-Communications/DeviceNet-Network
-http://www.rtaautomation.com/technologies/devicenet/
 https://www.odva.org/Portals/0/Library/Publications_Numbered/PUB00122R1_CIP_Brochure_ENGLISH.pdf
 \end{comment}
 
 \subsection{Ethernet/IP}
-A rede Ethernet/IP, desenvolvida em meados dos anos 1990, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão; permite a passagem de dados via pacotes TCP ou UDP; é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real).
+A rede Ethernet/IP, introduzida em meados de 2001 pela ODVA (\textit{Open DeviceNet Vendor Association}) \cite{eipodva1}, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET \cite{eiprta}. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão; permite a passagem de dados via pacotes TCP ou UDP; é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real) \cite{eiprockwell}.
 
-O uso da rede Ethernet/IP é vantajoso no sentido de que permite a conexão entre vários nós ligados entre si, o que não é possível com o RS-232, por exemplo. Porém, devido ao próprio funcionamento da rede, fica mais difícil obter os dados, pois, ao contrário de uma entrada serial, é necessário lidar com toda uma estrutura baseada no TCP/IP, por exemplo. Além disso, como o Ethernet exige um tamanho mínimo de \textit{frame} para transmissão de dados de cerca de 64 \textit{bytes}, a eficiência da transmissão pode ser afetada.
+O uso da rede Ethernet/IP é vantajoso no sentido de que permite a conexão entre vários nós ligados entre si \cite{eipodva1}, o que não é possível com o RS-232, por exemplo. Porém, devido ao próprio funcionamento da rede, fica mais difícil obter os dados, pois, ao contrário de uma entrada serial, é necessário lidar com toda uma estrutura baseada no TCP/IP, por exemplo. Além disso, como o Ethernet exige um tamanho mínimo de \textit{frame} para transmissão de dados de cerca de 64 \textit{bytes}, a eficiência da transmissão pode ser afetada.
 
 No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232.
 
@@ -206,7 +204,6 @@ https://en.wikipedia.org/wiki/EtherNet/IP
 https://www.odva.org/Technology-Standards/EtherNet-IP/Overview
 http://www.rtaautomation.com/technologies/ethernetip/
 http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page
-http://www.rtaautomation.com/technologies/ethernetip/
 \end{comment}
 
 \section{Programação do CLP}
