@@ -287,17 +287,17 @@ Corpo Principal
 \bibliography{relatorio}
 
 %
-%\anexos 
-%\makeatletter 
+\anexos 
+\makeatletter 
 %% não retirar estes comandos 
-%\renewcommand{\@makechapterhead}[1]{%
-%  {\parindent \z@ \raggedleft \setfontarial\bfseries          
-%\LARGE \thechapter. \space\space      
-%\uppercase{#1}\par     
-%\vskip 40\p@   
-%} 
-%} 
-%\makeatother
+\renewcommand{\@makechapterhead}[1]{%
+  {\parindent \z@ \raggedleft \setfontarial\bfseries          
+\LARGE \thechapter. \space\space      
+\uppercase{#1}\par     
+\vskip 40\p@   
+} 
+} 
+\makeatother
 %
 %%Anexo I: Descriçao do CD
 %
@@ -305,12 +305,12 @@ Corpo Principal
 %
 %\refstepcounter{noAnexo}
 %
-%%Anexo II: Programas Utilizados
-%
-%
-%\include{anexo_Codigos}
-%\refstepcounter{noAnexo}
-%
+% %Anexo II: Programas Utilizados
+
+
+\include{anexo_Codigos}
+\refstepcounter{noAnexo}
+
 %%Acrescente mais anexos conforme julgar necessário.
 
 \end{document}
