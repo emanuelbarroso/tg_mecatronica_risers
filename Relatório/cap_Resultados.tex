@@ -21,7 +21,7 @@ Após os procedimentos anteriores, adiciona-se a câmera como um módulo genéri
 \includegraphics[width=\linewidth]{figs/resultados/camera/cameralinx}
 \caption{RSLinx com câmera reconhecida \label{linxcamera}}
 \end{figure}
-%TODO colocar procedimento de configuração da câmera para deixar do jeito que nós fizemos, utilizando figuras (print screen's) e falando dos números de Assembly
+
 \subsection{Calibração}
 
 A câmera permite fazer medidas de distâncias em \textit{pixels}. De forma a se converter essa distância para milímetros, uma barra de alumínio com marcas e tamanho conhecido é utilizada. É importante primeiro calibrar o sistema, para se saber se há deformação de pixels significante ao longo da distância de interesse, nomeadamente o tamanho da barra de alumínio sendo utilizada, cerca de $532$mm. No PresencePlus P4 GEO 1.3, um programa é feito, com imagem de referência conforme Figura \ref{cameracalibracao}, que usa várias ferramentas de detecção de borda (ferramenta \texttt{Locate}) para identificar as posições de cada uma das marcas pretas da barra. Seis marcas foram feitas e a Tabela \ref{relacoesmmpx} apresenta os resultados para cada seção. A distância entre duas marcas é de 10cm, com exceção da distância entre P0 e PEND que é o comprimento total da barra.
