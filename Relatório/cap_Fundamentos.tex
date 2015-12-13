@@ -1,10 +1,14 @@
 %TCIDATA{LaTeXparent=0,0,relatorio.tex}
 \chapter{Fundamentos\label{chap:FundamentacaoMatematica}}
 
+%TODO verificar todo o documento e padronizar nomes de empresas em itálico ou não
+
 % Resumo opcional. Comentar se não usar.
 \resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, assim como informações sobre a bancada laboratorial e também sobre a programação do CLP.}
 
 \section{Equações Governantes}
+
+%TODO Expandir essa seção e compreender mais sobre a matemática sistema
 
 Estruturas submarinas tais como os \textit{risers} são esbeltas e tem um alto módulo de cisalhamento. Portanto, a simplificação de Euler-Bernoulli para vigas é utilizada para propósitos de modelagem. O deslocamento de interesse é o horizontal e o \textit{riser} está sob a ação de forças hidrodinâmicas externas e de tração. A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é dada por \begin{align}
 	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -E J	\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(T(z) \frac{\partial \Upsilon}{\partial z}\right) + F_n(z,t),
@@ -90,6 +94,7 @@ A bancada da ponte rolante presente no Laboratório de Automação e Controle es
   \centering
     \includegraphics[width=0.8\textwidth]{figs/fundamentos/CLP.jpg}
     \caption{CLP com identificação de elementos\label{CLPcomentado}}
+    %TODO perguntar se o Rédytton tem o arquivo editável para fazer algumas modificações
 \end{figure}
 
 O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada via computador, mas, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contato que o CLP esteja em modo de execução.
