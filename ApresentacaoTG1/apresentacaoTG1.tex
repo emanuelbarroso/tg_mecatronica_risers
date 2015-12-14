@@ -658,10 +658,86 @@ Erro aproximado: 4.93 \%
 \end{frame}
 
 \begin{frame}[fragile]{Malha Fechada - Resultados}
-
+\begin{block}{Controlador P - Ensaios}
+Foram feitos dois ensaios:
+\begin{enumerate}
+	\item $K_p = 0.0050 \frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$;
+	\item $K_p = 0.0025 \frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$.
+\end{enumerate}
+\end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Malha Fechada - Resultados}
 
+\tikzstyle{block} = [draw, fill=blue!20, rectangle,
+minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{block}{Controlador P - Esquemático}
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node [input, name=input] {};
+\node [sum, right of=input] (sum) {};
+\node [block, right of=sum] (controller) {$K_p$};
+\node [block, right of=controller, pin={[pinstyle]above:Perturbações},
+node distance=3cm] (system) {Planta};
+% We draw an edge between the controller and system block to 
+% calculate the coordinate u. We need it to place the measurement block. 
+\draw [->] (controller) -- node[name=u] {$v$} (system);
+\node [output, right of=system] (output) {};
+\node [block, below of=u] (measurements) {Câmera};
+
+% Once the nodes are placed, connecting them is easy. 
+\draw [draw,->] (input) -- node {$r$} (sum);
+\draw [->] (sum) -- node {$e$} (controller);
+\draw [->] (system) -- node [name=y] {$y$}(output);
+\draw [->] (y) |- (measurements);
+\draw [->] (measurements) -| node[pos=0.99] {$-$} 
+node [near end] {$y_m$} (sum);
+\end{tikzpicture}
+\caption{Malha fechada de controle\label{mfechadaP}}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Fechada - Resultados}
+\begin{block}{Controlador P - Resultados}
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth,height=4.5cm]{figures/resultados/malha_fechada_P/MF_Proporcional_Kp_00025.pdf}
+        \caption{Resultado com Malha Fechada Proporcional e $K_p = 0.0025\frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$}
+        \label{MFProporcionalKpbaixo}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth,height=4.5cm]{figures/resultados/malha_fechada_P/MF_Proporcional_Kp_00050.pdf}
+        \caption{Resultado com Malha Fechada Proporcional e $K_p = 0.0050\frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$
+        \label{MFProporcionalKpmedio}}
+    \end{minipage}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{\textit{Links} Interessantes}
+\begin{block}{\textit{Links} para vídeos com resultados}
+\begin{enumerate}
+	\item Excursão 30 cm (1) - \url{https://youtu.be/lKajz6LyauE}
+	\item Excursão 30 cm (2) - \url{https://youtu.be/tB0TsmBcfVg}
+	\item Excursão 20 cm (1) - \url{https://youtu.be/wg1Wq_6VRSg}
+	\item Excursão 20 cm (2) - \url{https://youtu.be/Ges2-eYy69k}
+	\item Controlador P com $K_p = 0.0050$ - \url{https://youtu.be/sHh3yvBrek4} 
+	\item Controlador P com $K_p = 0.0025$ - \url{https://youtu.be/mmT1ZwFBJ4s}
+\end{enumerate}
+\end{block}
+\end{frame}
 %\begin{frame}[fragile]{Typography}
 %      \begin{verbatim}The theme provides sensible defaults to
 %\emph{emphasize} text, \alert{accent} parts
@@ -847,27 +923,47 @@ Erro aproximado: 4.93 \%
 
 \section{Conclusão}
 
-\begin{frame}{Summary}
-
-  Get the source of this theme and the demo presentation from
-
-  \begin{center}\url{github.com/matze/mtheme}\end{center}
-
-  The theme \emph{itself} is licensed under a
-  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
-  Attribution-ShareAlike 4.0 International License}.
-
-  \begin{center}\ccbysa\end{center}
-
+\begin{frame}[fragile]{Conclusão}
+\begin{block}{Conclusões}
+\begin{itemize}
+	\item Adquiriu-se um conhecimento relativamente alto da bancada em que foi realizado o experimento;
+	\item Foi possível fechar a malha de controle, ainda que fosse um controlador P, cujo resultado não é ideal.
+\end{itemize}
+\end{block}
 \end{frame}
 
-\plain{Questions?}
+\begin{frame}[fragile]{Conclusão}
+\begin{block}{Perspectivas Futuras}
+\begin{itemize}
+	\item Utilizar uma abordagem de controle mais rebuscada, utilizando redução modal, conforme Fabrício et al \cite{fabricioIFAC};
+	\item Buscar soluções envolvendo controle preditivo, de forma a se obter melhores resultados.
+\end{itemize}
+\end{block}
+\end{frame}
 
-\begin{frame}[allowframebreaks]{References}
+%\begin{frame}{Summary}
+%
+%  Get the source of this theme and the demo presentation from
+%
+%  \begin{center}\url{github.com/matze/mtheme}\end{center}
+%
+%  The theme \emph{itself} is licensed under a
+%  \href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+%  Attribution-ShareAlike 4.0 International License}.
+%
+%  \begin{center}\ccbysa\end{center}
+%
+%\end{frame}
+
+\plain{Dúvidas?}
+
+\begin{frame}[allowframebreaks]{Referências}
 
   \bibliography{apresentacaoTG1}
   \bibliographystyle{abbrv}
 
 \end{frame}
+
+\plain{Obrigado!}
 
 \end{document}
