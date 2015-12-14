@@ -17,7 +17,10 @@
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
-\title{Projeto e Implementação em Controlador Industrial para Posicionamento para Posicionamento de Risers com Validação Experimental}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+\title{Projeto e Implementação em Controlador Industrial para Posicionamento de Risers com Validação Experimental}
 %\subtitle{A modern beamer theme}
 \date{\today}
 \author{Ataias Pereira Reis\\ Emanuel Pereira Barroso Neto}
@@ -51,7 +54,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/riser}
-\caption{Operação de Reentrada}
+\caption{Operação de Reentrada\cite{redytton}}
 \end{figure}
 
 \end{column}%
@@ -66,7 +69,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/posicionamentoAtual}
-\caption{Método atual para reconexão no poço}
+\caption{Método atual para reconexão no poço\cite{redytton}}
 \end{figure}
 
 
@@ -78,7 +81,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/posicionamentoProposto}
-\caption{Método proposto para reconexão no poço}
+\caption{Método proposto para reconexão no poço\cite{redytton}}
 \end{figure}
 
 \end{column}%
@@ -88,238 +91,448 @@
 
 \section{Fundamentos}
 
-\begin{frame}{Metropolis titleformats}
-	\themename supports 4 different titleformats:
-	\begin{itemize}
-		\item Regular
-		\item \textsc{Smallcaps}
-		\item \textsc{allsmallcaps}
-		\item ALLCAPS
-	\end{itemize} 
-	They can either be set at once for every title type or individually.
+\begin{frame}[fragile]{Equações Governantes}
+
+\begin{block}{}
+Utiliza-se a simplificação de Euler-Bernoulli para vigas, uma vez que \textit{risers} são esbeltos e possuem alto módulo de cisalhamento.
+\end{block}
+
+\begin{block}{}
+A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é dada por \begin{align}
+	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -E J	\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(T(z) \frac{\partial \Upsilon}{\partial z}\right) + F_n(z,t),
+\end{align} na qual $m_s$ é a densidade linear do tubo, $E$ é o módulo de Young e $J$ é o segundo momento de inércia do \textit{riser}. $T(z)$ descreve as forças de tração ao longo do comprimento do \textit{riser}. $F_n(z,t)$ é a força resultante externa.\cite{fabricioIFAC}
+\end{block}
+
 \end{frame}
 
-{
-\metroset{titleformat frame=smallcaps}
-\begin{frame}{Small caps}
-	This frame uses the \texttt{smallcaps} titleformat.
+\begin{frame}[fragile]{Controle - Malha Aberta x Malha Fechada}
 
-	\begin{alertblock}{Potential Problems}
-		Be aware, that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in smallcaps will be typeset with the Computer Modern Serif font instead.
-	\end{alertblock}
-\end{frame}
-}
+\tikzstyle{block} = [draw, fill=blue!20, rectangle,font=\tiny, 
+minimum height=0.5em, minimum width=1em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
-{
-\metroset{titleformat frame=allsmallcaps}
-\begin{frame}{All small caps}
-	This frame uses the \texttt{allsmallcaps} titleformat.
+\begin{columns}[T,onlytextwidth]
 
-	\begin{alertblock}{Potential problems}
-		As this titleformat also uses smallcaps you face the same problems as with the \texttt{smallcaps} titleformat. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
+\begin{column}{.5\textwidth}
 
-		As a rule of thumb: Just use it for plaintext-only titles.
-	\end{alertblock}
-\end{frame}
-}
+\begin{figure}[!ht]
+	
+	%\centering
+	% The block diagram code is probably more verbose than necessary
+	\begin{tikzpicture}[auto, node distance=1cm,>=latex']
+	% We start by placing the blocks
+	\node [input, name=input] {};
+	\node [block, right of=input] (controller) {Controlador};
+	\node [block, right of=controller, pin={[pinstyle,font=\small]above:Perturbações},
+	node distance=2cm] (system) {Planta};
+	% We draw an edge between the controller and system block to 
+	% calculate the coordinate u. We need it to place the measurement block. 
+	\draw [->] (controller) -- node[name=u] {$u$} (system);
+	\node [output, right of=system] (output) {};
+	
+	% Once the nodes are placed, connecting them is easy. 
+	\draw [draw,->] (input) -- node {$r$} (controller);
+	\draw [->] (system) -- node [name=y] {$y$}(output); 
+	\end{tikzpicture}
+	\caption{Malha aberta de controle\label{mabertatikz}}
+\end{figure}
 
-{
-\metroset{titleformat frame=allcaps}
-\begin{frame}{All caps}
-	This frame uses the \texttt{allcaps} titleformat.
 
-	\begin{alertblock}{Potential Problems}
-		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
-	\end{alertblock}
-\end{frame}
-}
+\begin{figure}[!ht]
+\centering
+% The block diagram code is probably more verbose than necessary
 
-\section{Elements}
+\begin{tikzpicture}[auto, node distance=1cm,>=latex']
+% We start by placing the blocks
+\node [input, name=input] {};
+\node [sum, right of=input] (sum) {};
+\node [block, right of=sum] (controller) {Controlador};
+\node [block, right of=controller, pin={[pinstyle,font=\small]above:Perturbações},
+node distance=1.5cm] (system) {Planta};
+% We draw an edge between the controller and system block to 
+% calculate the coordinate u. We need it to place the measurement block. 
+\draw [->] (controller) -- node[name=u] {$u$} (system);
+\node [output, right of=system] (output) {};
+\node [block, below of=u] (measurements) {Medição};
 
-\begin{frame}[fragile]{Typography}
-      \begin{verbatim}The theme provides sensible defaults to
-\emph{emphasize} text, \alert{accent} parts
-or show \textbf{bold} results.\end{verbatim}
+% Once the nodes are placed, connecting them is easy. 
+\draw [draw,->] (input) -- node {$r$} (sum);
+\draw [->] (sum) -- node {$e$} (controller);
+\draw [->] (system) -- node [name=y] {$y$}(output);
+\draw [->] (y) |- (measurements);
+\draw [->] (measurements) -| node[pos=0.99] {$-$} 
+node [near end] {$y_m$} (sum);
+\end{tikzpicture}
+\caption{Malha fechada de controle\label{mfechadatikz}}
+\end{figure}
+\end{column}
 
-  \begin{center}becomes\end{center}
+\begin{column}{.5\textwidth}
 
-  The theme provides sensible defaults to \emph{emphasize} text,
-  \alert{accent} parts or show \textbf{bold} results.
-\end{frame}
+\begin{block}{Controle em Malha Aberta}
+Saída não é realimentada - não necessita do uso de sensores.
+\newline
+\newline
+\newline
+\end{block}
 
-\begin{frame}{Font feature test}
-  \begin{itemize}
-    \item Regular
-    \item \textit{Italic}
-    \item \textsc{SmallCaps}
-    \item \textbf{Bold}
-    \item \textbf{\textit{Bold Italic}}
-    \item \textbf{\textsc{Bold SmallCaps}}
-    \item \texttt{Monospace}
-    \item \texttt{\textit{Monospace Italic}}
-    \item \texttt{\textbf{Monospace Bold}}
-    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
-  \end{itemize}
-\end{frame}
+\begin{block}{Controle em Malha Fechada}
+Possui realimentação - obtém o sinal de referência para a planta pela evolução do erro.\end{block}
 
-\begin{frame}{Lists}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.33\textwidth}
-      Items
-      \begin{itemize}
-        \item Milk \item Eggs \item Potatos
-      \end{itemize}
+\end{column}
 
-    \column{0.33\textwidth}
-      Enumerations
-      \begin{enumerate}
-        \item First, \item Second and \item Last.
-      \end{enumerate}
-
-    \column{0.33\textwidth}
-      Descriptions
-      \begin{description}
-        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
-      \end{description}
-  \end{columns}
-\end{frame}
-\begin{frame}{Animation}
-  \begin{itemize}[<+- | alert@+>]
-    \item \alert<4>{This is\only<4>{ really} important}
-    \item Now this
-    \item And now this
-  \end{itemize}
-\end{frame}
-\begin{frame}{Figures}
-  \begin{figure}
-    \newcounter{density}
-    \setcounter{density}{20}
-    \begin{tikzpicture}
-      \def\couleur{alerted text.fg}
-      \path[coordinate] (0,0)  coordinate(A)
-                  ++( 90:5cm) coordinate(B)
-                  ++(0:5cm) coordinate(C)
-                  ++(-90:5cm) coordinate(D);
-      \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
-      \foreach \x in {1,...,40}{%
-          \pgfmathsetcounter{density}{\thedensity+20}
-          \setcounter{density}{\thedensity}
-          \path[coordinate] coordinate(X) at (A){};
-          \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
-                              -- (C) coordinate[pos=.10](B)
-                              -- (D) coordinate[pos=.10](C)
-                              -- (X) coordinate[pos=.10](D);
-          \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
-      }
-    \end{tikzpicture}
-    \caption{Rotated square from
-    \href{http://www.texample.net/tikz/examples/rotated-polygons/}{texample.net}.}
-  \end{figure}
-\end{frame}
-\begin{frame}{Tables}
-  \begin{table}
-    \caption{Largest cities in the world (source: Wikipedia)}
-    \begin{tabular}{lr}
-      \toprule
-      City & Population\\
-      \midrule
-      Mexico City & 20,116,842\\
-      Shanghai & 19,210,000\\
-      Peking & 15,796,450\\
-      Istanbul & 14,160,467\\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-\end{frame}
-\begin{frame}{Blocks}
-  Three different block environments are pre-defined and may be styled with an
-  optional background color.
-
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-    \column{0.5\textwidth}
-
-      \metroset{block=fill}
-
-      \begin{block}{Default}
-        Block content.
-      \end{block}
-
-      \begin{alertblock}{Alert}
-        Block content.
-      \end{alertblock}
-
-      \begin{exampleblock}{Example}
-        Block content.
-      \end{exampleblock}
-
-  \end{columns}
-\end{frame}
-\begin{frame}{Math}
-  \begin{equation*}
-    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
-  \end{equation*}
-\end{frame}
-\begin{frame}{Line plots}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mlineplot,
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-        \addplot {sin(deg(x))};
-        \addplot+[samples=100] {sin(deg(2*x))};
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Bar charts}
-  \begin{figure}
-    \begin{tikzpicture}
-      \begin{axis}[
-        mbarplot,
-        xlabel={Foo},
-        ylabel={Bar},
-        width=0.9\textwidth,
-        height=6cm,
-      ]
-
-      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
-      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
-      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
-
-      \legend{lorem, ipsum, dolor}
-
-      \end{axis}
-    \end{tikzpicture}
-  \end{figure}
-\end{frame}
-\begin{frame}{Quotes}
-  \begin{quote}
-    Veni, Vidi, Vici
-  \end{quote}
+\end{columns}
 \end{frame}
 
-\begin{frame}{References}
-  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
+\begin{frame}[fragile]{Bancada - Esquemático}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.9\linewidth]{figures/fundamentos/bancadaEsquematico}
+	\caption{Esquemático da ponte rolante \cite{redytton}}
+	\label{bancadaesq}
+\end{figure}
 \end{frame}
 
-\section{Conclusion}
+\begin{frame}[fragile]{Bancada - Controlador}
+\begin{block}{}
+Responsável por receber dados da câmera e dos sensores, processá-los e enviar sinais de controle para o motor.
+\end{block}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.6\linewidth]{figures/fundamentos/CLP}
+	\caption{Controlador Lógico Programável da \textit{Allen-Bradley}}
+	\label{clpfig}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - Câmera e Drive Kinetix}
+\begin{columns}[T]
+
+\begin{column}{.5\textwidth}
+\begin{block}{Câmera}
+Responsável por enviar a posição da bolinha para o CLP. Atua como sensor visual.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.3\linewidth]{figures/fundamentos/camera}
+	\caption{Câmera \textit{Presence Plus} \cite{redytton}}
+	\label{bancadacamera}
+\end{figure}
+
+\end{column}
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Drive Kinetix}
+Responsável por fornecer potência para o motor e controlá-lo por meio de pulsos PWM.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.3\linewidth]{figures/fundamentos/kinetix6000}
+	\caption{\textit{Drive Kinetix 6000} \cite{redytton}}
+	\label{bancadadrive}
+\end{figure}
+
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - \textit{Line Interface Module}}
+\begin{block}{}
+Responsável pela interface elétrica entre o \textit{Drive Kinetix} e a rede de alimentação trifásica.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/LineInterfaceModule}
+	\caption{\textit{Line Interface Module} \cite{redytton}}
+	\label{bancadalim}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - Sensores Indutivos e Servomotor}
+
+\begin{columns}[T]
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Sensores Indutivos}
+Detectam objetos metálicos; podem operar em modo analógico ou digital. Utilizados como chaves de fim de curso para a rotina de emergência.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.6\linewidth]{figures/fundamentos/sensorIndutivo}
+	\caption{Sensor Indutivo\cite{redytton}}
+	\label{bancadaindut}
+\end{figure}
+
+\end{column}
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Servomotor}
+Atuador rotatório composto de motor elétrico com sensor acoplado; permite controle preciso da posição angular.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/servomotor}
+	\caption{Servomotor\cite{redytton}}
+	\label{bancadaservo}
+\end{figure}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Redes Industriais}
+\begin{columns}[T]
+\begin{column}{.5\textwidth}
+\begin{block}{DeviceNet}
+Rede responsável por conectar os sensores indutivos ao CLP por meio do módulo 1756-DNB. Suporta conexões de dispositivos de baixo nível com CLPs e outros dispositivos de alto nível, como o computador\cite{devicenetrockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-DNB}.
+\end{block}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{block}{Ethernet/IP}
+Transmite dados da câmera para o CLP, e também transfere os programas em \textit{ladder} ou texto estruturado do computador para o controlador. É uma rede indicada para aplicações em que o tempo é crítico\cite{eiprockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-ENBT/A}.
+\end{block}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+%{
+%\metroset{titleformat frame=smallcaps}
+%\begin{frame}{Small caps}
+%	This frame uses the \texttt{smallcaps} titleformat.
+%
+%	\begin{alertblock}{Potential Problems}
+%		Be aware, that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in smallcaps will be typeset with the Computer Modern Serif font instead.
+%	\end{alertblock}
+%\end{frame}
+%}
+%
+%{
+%\metroset{titleformat frame=allsmallcaps}
+%\begin{frame}{All small caps}
+%	This frame uses the \texttt{allsmallcaps} titleformat.
+%
+%	\begin{alertblock}{Potential problems}
+%		As this titleformat also uses smallcaps you face the same problems as with the \texttt{smallcaps} titleformat. Additionally this format can cause some other problems. Please refer to the documentation if you consider using it.
+%
+%		As a rule of thumb: Just use it for plaintext-only titles.
+%	\end{alertblock}
+%\end{frame}
+%}
+%
+%{
+%\metroset{titleformat frame=allcaps}
+%\begin{frame}{All caps}
+%	This frame uses the \texttt{allcaps} titleformat.
+%
+%	\begin{alertblock}{Potential Problems}
+%		This titleformat is not as problematic as the \texttt{allsmallcaps} format, but basically suffers from the same deficiencies. So please have a look at the documentation if you want to use it.
+%	\end{alertblock}
+%\end{frame}
+%}
+
+\section{Resultados}
+
+%\begin{frame}[fragile]{Typography}
+%      \begin{verbatim}The theme provides sensible defaults to
+%\emph{emphasize} text, \alert{accent} parts
+%or show \textbf{bold} results.\end{verbatim}
+%
+%  \begin{center}becomes\end{center}
+%
+%  The theme provides sensible defaults to \emph{emphasize} text,
+%  \alert{accent} parts or show \textbf{bold} results.
+%\end{frame}
+%
+%\begin{frame}{Font feature test}
+%  \begin{itemize}
+%    \item Regular
+%    \item \textit{Italic}
+%    \item \textsc{SmallCaps}
+%    \item \textbf{Bold}
+%    \item \textbf{\textit{Bold Italic}}
+%    \item \textbf{\textsc{Bold SmallCaps}}
+%    \item \texttt{Monospace}
+%    \item \texttt{\textit{Monospace Italic}}
+%    \item \texttt{\textbf{Monospace Bold}}
+%    \item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+%  \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Lists}
+%  \begin{columns}[T,onlytextwidth]
+%    \column{0.33\textwidth}
+%      Items
+%      \begin{itemize}
+%        \item Milk \item Eggs \item Potatos
+%      \end{itemize}
+%
+%    \column{0.33\textwidth}
+%      Enumerations
+%      \begin{enumerate}
+%        \item First, \item Second and \item Last.
+%      \end{enumerate}
+%
+%    \column{0.33\textwidth}
+%      Descriptions
+%      \begin{description}
+%        \item[PowerPoint] Meeh. \item[Beamer] Yeeeha.
+%      \end{description}
+%  \end{columns}
+%\end{frame}
+%\begin{frame}{Animation}
+%  \begin{itemize}[<+- | alert@+>]
+%    \item \alert<4>{This is\only<4>{ really} important}
+%    \item Now this
+%    \item And now this
+%  \end{itemize}
+%\end{frame}
+%\begin{frame}{Figures}
+%  \begin{figure}
+%    \newcounter{density}
+%    \setcounter{density}{20}
+%    \begin{tikzpicture}
+%      \def\couleur{alerted text.fg}
+%      \path[coordinate] (0,0)  coordinate(A)
+%                  ++( 90:5cm) coordinate(B)
+%                  ++(0:5cm) coordinate(C)
+%                  ++(-90:5cm) coordinate(D);
+%      \draw[fill=\couleur!\thedensity] (A) -- (B) -- (C) --(D) -- cycle;
+%      \foreach \x in {1,...,40}{%
+%          \pgfmathsetcounter{density}{\thedensity+20}
+%          \setcounter{density}{\thedensity}
+%          \path[coordinate] coordinate(X) at (A){};
+%          \path[coordinate] (A) -- (B) coordinate[pos=.10](A)
+%                              -- (C) coordinate[pos=.10](B)
+%                              -- (D) coordinate[pos=.10](C)
+%                              -- (X) coordinate[pos=.10](D);
+%          \draw[fill=\couleur!\thedensity] (A)--(B)--(C)-- (D) -- cycle;
+%      }
+%    \end{tikzpicture}
+%    \caption{Rotated square from
+%    \href{http://www.texample.net/tikz/examples/rotated-polygons/}{texample.net}.}
+%  \end{figure}
+%\end{frame}
+%\begin{frame}{Tables}
+%  \begin{table}
+%    \caption{Largest cities in the world (source: Wikipedia)}
+%    \begin{tabular}{lr}
+%      \toprule
+%      City & Population\\
+%      \midrule
+%      Mexico City & 20,116,842\\
+%      Shanghai & 19,210,000\\
+%      Peking & 15,796,450\\
+%      Istanbul & 14,160,467\\
+%      \bottomrule
+%    \end{tabular}
+%  \end{table}
+%\end{frame}
+%\begin{frame}{Blocks}
+%  Three different block environments are pre-defined and may be styled with an
+%  optional background color.
+%
+%  \begin{columns}[T,onlytextwidth]
+%    \column{0.5\textwidth}
+%      \begin{block}{Default}
+%        Block content.
+%      \end{block}
+%
+%      \begin{alertblock}{Alert}
+%        Block content.
+%      \end{alertblock}
+%
+%      \begin{exampleblock}{Example}
+%        Block content.
+%      \end{exampleblock}
+%
+%    \column{0.5\textwidth}
+%
+%      \metroset{block=fill}
+%
+%      \begin{block}{Default}
+%        Block content.
+%      \end{block}
+%
+%      \begin{alertblock}{Alert}
+%        Block content.
+%      \end{alertblock}
+%
+%      \begin{exampleblock}{Example}
+%        Block content.
+%      \end{exampleblock}
+%
+%  \end{columns}
+%\end{frame}
+%\begin{frame}{Math}
+%  \begin{equation*}
+%    e = \lim_{n\to \infty} \left(1 + \frac{1}{n}\right)^n
+%  \end{equation*}
+%\end{frame}
+%\begin{frame}{Line plots}
+%  \begin{figure}
+%    \begin{tikzpicture}
+%      \begin{axis}[
+%        mlineplot,
+%        width=0.9\textwidth,
+%        height=6cm,
+%      ]
+%
+%        \addplot {sin(deg(x))};
+%        \addplot+[samples=100] {sin(deg(2*x))};
+%
+%      \end{axis}
+%    \end{tikzpicture}
+%  \end{figure}
+%\end{frame}
+%\begin{frame}{Bar charts}
+%  \begin{figure}
+%    \begin{tikzpicture}
+%      \begin{axis}[
+%        mbarplot,
+%        xlabel={Foo},
+%        ylabel={Bar},
+%        width=0.9\textwidth,
+%        height=6cm,
+%      ]
+%
+%      \addplot plot coordinates {(1, 20) (2, 25) (3, 22.4) (4, 12.4)};
+%      \addplot plot coordinates {(1, 18) (2, 24) (3, 23.5) (4, 13.2)};
+%      \addplot plot coordinates {(1, 10) (2, 19) (3, 25) (4, 15.2)};
+%
+%      \legend{lorem, ipsum, dolor}
+%
+%      \end{axis}
+%    \end{tikzpicture}
+%  \end{figure}
+%\end{frame}
+%\begin{frame}{Quotes}
+%  \begin{quote}
+%    Veni, Vidi, Vici
+%  \end{quote}
+%\end{frame}
+%
+%\begin{frame}{References}
+%  Some references to showcase [allowframebreaks] \cite{knuth92,ConcreteMath,Simpson,Er01,greenwade93}
+%\end{frame}
+
+\section{Conclusão}
 
 \begin{frame}{Summary}
 
