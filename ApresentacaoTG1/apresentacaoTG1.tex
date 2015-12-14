@@ -45,7 +45,7 @@
 \begin{column}{.5\textwidth}
 %\color{red}\rule{\linewidth}{4pt}
 
-\begin{block}{} Há diversas operações realizadas em plataformas de petróleo em alto mar. Entre elas, a operação de reentrada dos risers. Este procedimento é muitas vezes realizado manualmente. A proposta deste trabalho é mostrar que é possível fazer isso de forma automática, visa fazer testes em bancada laboratorial.\end{block}
+\begin{block}{} Há diversas operações realizadas em plataformas de petróleo em alto mar. Entre elas, a operação de reentrada dos risers. Este procedimento é muitas vezes realizado manualmente. A proposta deste trabalho é mostrar que é possível fazer isso de forma automática, por meio de testes em bancada laboratorial.\end{block}
 
 \end{column}%
 \hfill%
@@ -55,7 +55,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/riser}
-\caption{Operação de Reentrada\cite{redytton}}
+\caption{Operação de Reentrada \cite{redytton}}
 \end{figure}
 
 \end{column}%
@@ -70,7 +70,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/posicionamentoAtual}
-\caption{Método atual para reconexão no poço\cite{redytton}}
+\caption{Método atual para reconexão no poço \cite{redytton}}
 \end{figure}
 
 
@@ -82,7 +82,7 @@
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=1\linewidth]{figures/introducao/posicionamentoProposto}
-\caption{Método proposto para reconexão no poço\cite{redytton}}
+\caption{Método proposto para reconexão no poço \cite{redytton}}
 \end{figure}
 
 \end{column}%
@@ -101,7 +101,7 @@ Utiliza-se a simplificação de Euler-Bernoulli para vigas, uma vez que \textit{
 \begin{block}{}
 A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é dada por \begin{align}
 	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -E J	\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(T(z) \frac{\partial \Upsilon}{\partial z}\right) + F_n(z,t),
-\end{align} na qual $m_s$ é a densidade linear do tubo, $E$ é o módulo de Young e $J$ é o segundo momento de inércia do \textit{riser}. $T(z)$ descreve as forças de tração ao longo do comprimento do \textit{riser}. $F_n(z,t)$ é a força resultante externa.\cite{fabricioIFAC}
+\end{align} na qual $m_s$ é a densidade linear do tubo, $E$ é o módulo de Young e $J$ é o segundo momento de inércia do \textit{riser}. $T(z)$ descreve as forças de tração ao longo do comprimento do \textit{riser}. $F_n(z,t)$ é a força resultante externa \cite{fabricioIFAC}.
 \end{block}
 
 \end{frame}
@@ -271,7 +271,7 @@ Detectam objetos metálicos; podem operar em modo analógico ou digital. Utiliza
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=.6\linewidth]{figures/fundamentos/sensorIndutivo}
-	\caption{Sensor Indutivo\cite{redytton}}
+	\caption{Sensor Indutivo \cite{redytton}}
 	\label{bancadaindut}
 \end{figure}
 
@@ -286,7 +286,7 @@ Atuador rotatório composto de motor elétrico com sensor acoplado; permite cont
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[width=.5\linewidth]{figures/fundamentos/servomotor}
-	\caption{Servomotor\cite{redytton}}
+	\caption{Servomotor \cite{redytton}}
 	\label{bancadaservo}
 \end{figure}
 
@@ -300,13 +300,13 @@ Atuador rotatório composto de motor elétrico com sensor acoplado; permite cont
 \begin{columns}[T]
 \begin{column}{.5\textwidth}
 \begin{block}{DeviceNet}
-Rede responsável por conectar os sensores indutivos ao CLP por meio do módulo 1756-DNB. Suporta conexões de dispositivos de baixo nível com CLPs e outros dispositivos de alto nível, como o computador\cite{devicenetrockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-DNB}.
+Rede responsável por conectar os sensores indutivos ao CLP por meio do módulo 1756-DNB. Suporta conexões de dispositivos de baixo nível com CLPs e outros dispositivos de alto nível, como o computador \cite{devicenetrockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-DNB}.
 \end{block}
 \end{column}
 
 \begin{column}{.5\textwidth}
 \begin{block}{Ethernet/IP}
-Transmite dados da câmera para o CLP, e também transfere os programas em \textit{ladder} ou texto estruturado do computador para o controlador. É uma rede indicada para aplicações em que o tempo é crítico\cite{eiprockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-ENBT/A}.
+Transmite dados da câmera para o CLP, e também transfere os programas em \textit{ladder} ou texto estruturado do computador para o controlador. É uma rede indicada para aplicações em que o tempo é crítico \cite{eiprockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-ENBT/A}.
 \end{block}
 \end{column}
 
