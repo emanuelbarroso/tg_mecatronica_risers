@@ -6,6 +6,7 @@
 
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
+\usepackage{listings}
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
@@ -312,6 +313,98 @@ Transmite dados da câmera para o CLP, e também transfere os programas em \text
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]{Programação CLP - Passos}
+\begin{block}{Passos para programação em CLP}
+\begin{enumerate}
+  \item Descrição do problema;
+  \item Detalhamentos e melhoria do processo;
+  \item Especificação dos atuadores e sensores da planta;
+  \item Elaboração do algoritmo;
+  \item Representação gráfica do algoritmo, quando aplicável;
+  \item Esquema funcional, quando aplicável;
+  \item Seleção dos módulos do controlador;
+  \item Programação, utilizando linguagens suportadas.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Linguagem \textit{Ladder}}
+\begin{block}{}
+Linguagem gráfica para CLPs. Lembra conexões elétricas de sistemas com relés.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.9\linewidth]{figures/fundamentos/motionladder}
+	\caption{Exemplo de programa em \textit{ladder}}
+	\label{laddersample}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Texto Estruturado}
+
+\begin{columns}[T]
+
+\begin{column}{.5\textwidth}
+\begin{block}{Texto Estruturado}
+Linguagem sequencial, semelhante a linguagens como C ou Pascal. Os comandos são executados em sequência, de cima para baixo.
+\end{block}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\lstinputlisting{cod/sample.txt}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
+\begin{table}[!ht]
+\centering
+\caption{Dados para simulação em escala real\label{escalaReal} \cite{redytton}}
+	\begin{tabular}{|c|c|}
+	\hline
+		\multicolumn{2}{|c|}{\textbf{Dados do Riser}}\\ \hline
+		Diâmetro externo & $0.55\mathrm{m}$\\ \hline
+		Diâmetro interno & $0.5\mathrm{m}$ \\ \hline
+		Comprimento & $2000\mathrm{m}$ \\ \hline
+		Módulo de Elasticidade & $200 \mathrm{GPa}$\\ \hline
+		Densidade &  $7860\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Água)}}\\ \hline
+		Densidade do fluido &  $1000\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		Viscosidade dinâmica & $10^3 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+	\end{tabular}
+
+
+
+\end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
+
+\begin{table}[!ht]
+	\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+			\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
+			Diâmetro Externo & $30.6\mathrm{mm}$\\ \hline
+			Densidade & $10\mathrm{kg}/\mathrm{m}^3$ \\ \hline
+			\multicolumn{2}{|c|}{\textbf{Dados do Riser (Barbante)}}\\ \hline
+			Diâmetro externo & $2\mathrm{mm}$\\ \hline
+			Diâmetro interno & $0\mathrm{mm}$ \\ \hline
+			Comprimento & $82\mathrm{cm}$ \\ \hline
+			Módulo de Elasticidade & $2.1 \mathrm{MPa}$\\ \hline
+			Densidade &  $191\mathrm{kg}/\mathrm{m}^3$\\ \hline
+			\multicolumn{2}{|c|}{\textbf{Dados do fluido (Ar)}}\\ \hline
+			Densidade do fluido &  $1.2754\mathrm{kg}/\mathrm{m}^3$\\ \hline
+			Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+		\end{tabular}
+\end{table}
+
+\end{frame}
 %{
 %\metroset{titleformat frame=smallcaps}
 %\begin{frame}{Small caps}
@@ -348,6 +441,226 @@ Transmite dados da câmera para o CLP, e também transfere os programas em \text
 %}
 
 \section{Resultados}
+
+\begin{frame}[fragile]{Calibração da Câmera}
+\begin{block}{Passos para a calibração da câmera}
+\begin{enumerate}
+	\item Atualização do \textit{firmware};
+	\item Reconhecimento da câmera pelo \textit{software RsLinx};
+	\item Estabelecimento de um endereço IP para a câmera no \textit{software PresencePlus};
+	\item Uso das ferramentas de tomada de dados da câmera no \textit{software PresencePlus};
+	\item Obtenção da relação entre \textit{pixels} da câmera e milímetros.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração da Câmera}
+\begin{block}{Ferramentas utilizadas}
+\begin{itemize}
+	\item \texttt{Locate}: Localiza o corpo desejado pelas bordas;
+	\item \texttt{Geometric}: Localiza o ``centro geométrico'' do corpo a ser detectado;
+	\item \texttt{Measure}: Responsável por efetuar medições em \textit{pixels} entre pontos de referência desejados;
+	\item \texttt{Math}: Executa cálculos matemáticos;
+	\item \texttt{Communication}: Transfere os dados de interesse da câmera para o CLP por meio da rede Ethernet/IP.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração da Câmera - Reconhecimento do \textit{Software RSLinx}}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.7\linewidth]{figures/resultados/camera/cameralinx}
+\caption{\textit{RSLinx} com câmera reconhecida \label{linxcamera}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração da Câmera - Configuração do Módulo Ethernet/IP}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.8\linewidth]{figures/resultados/camera/cameraSetup}
+\caption{Configuração do módulo 1756-ENBT para uso dos dados da câmera\label{setupcamera}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração da Câmera - \textit{Software PresencePlus}}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.9\linewidth]{figures/resultados/camera/programa}
+\caption{Calibração da câmera pelo \textit{software PresencePlus} \label{calibcamera}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração da Câmera - Resultados}
+\begin{table}[!ht]
+\centering
+\caption{Relações mm/px para diferentes seções da barra de alumínio \label{relacoesmmpx}}
+	\begin{tabular}{|c|c|c|c|}
+	\hline
+		Seção 1 & Seção 2 & Distância (px) & mm/px\\ \hline
+		P0 & P10 & 160 & 0.625\\ \hline
+		P10 & P20 & 173 & 0.578\\ \hline
+		P20 & P30 & 176 & 0.568\\ \hline
+		P30 & P40 & 173 & 0.578\\ \hline
+		P40 & P50 & 163 & 0.613\\ \hline
+		P0 & PEND & 893 & 0.596\\ \hline
+	\end{tabular}
+\end{table}
+Erro aproximado: 4.93 \%
+\end{frame}
+
+\begin{frame}[fragile]{Calibração do Servomotor}
+\begin{block}{Passos para a calibração}
+\begin{enumerate}
+	\item Obtenção da posição inicial $x_0$ e posição final $x_f$, em milímetros;
+	\item Definição de um intervalo de tempo $\Delta t$ e uma velocidade de movimentação do carrinho $v$ em $[\mathrm{u}/\mathrm{s}]$;
+	\item Cálculo da velocidade em $[\mathrm{mm}/\mathrm{s}]$ a partir dos dados obtidos.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Calibração do Servomotor - Resultados}
+
+\begin{table}[!ht]
+\centering
+\caption{Dados de calibração do servomotor, média obtida é de 71.32 mm/unidade\label{calibracaoServomotor}}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+	$x_0$ - [mm] & $x_f$ - [mm] & $\Delta t$ - [s] & Velocidade - [u/s] & Velocidade - [mm/s] & mm/u\\ \hline
+2 &	71.8  &	2   &	0.5 &	34.9   & 	69.8\\ \hline
+6 & 76.1  &	2   &	0.5 &	35.05  &	70.1\\ \hline
+6 &	188	  &  5   &	0.5	&   36.4   &	72.8\\ \hline
+6 &	185   &	2.5 &	1	& 	71.6   &	71.6\\ \hline
+6 &	77    &	10  &	0.1	&   7.1    &	71\\ \hline
+6 &	296.5 &	20	&   0.2 & 	14.525 &	72.625\\ \hline\end{tabular}
+}
+\end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+\begin{block}{Excursão de 30 cm - Dados}
+\begin{itemize}
+	\item \textbf{Período de amostragem: } $T \approx 41 \mathrm{ms}$;
+	\item \textbf{Deslocamento: } $\Delta x = 30 \mathrm{cm}$;
+	\item \textbf{Intervalo de tempo: } $\Delta t \approx 3 \mathrm{s}$;
+	\item \textbf{Velocidade média: } $\overline{v} = \frac{\Delta x}{\Delta t} = 100\mathrm{mm}/\mathrm{s}$.
+	
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+\begin{block}{Excursão de 30 cm - Trajetória modelada}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{figures/resultados/malha_aberta_1/DeslocamentoT1}
+        \caption{Referência de Posição para Excursão de 30cm}
+        \label{DeslocamentoT1}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{figures/resultados/malha_aberta_1/VelocidadeT1}
+        \caption{Referência de Velocidade para Excursão de 30cm}
+        \label{VelocidadeT1}
+    \end{minipage}
+\end{figure}
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+
+
+
+\begin{block}{Excursão de 30 cm - Resultados}
+
+\begin{figure}[!htb]
+    \centering
+    
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=4.5cm]{figures/resultados/malha_aberta_1/trajetoriaObtidaModelada.pdf}
+        \caption{Resultado com Velocidade Modelada para Excursão de 30cm}
+        \label{trajetoriaObtidaModelada}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth,height=4.5cm]{figures/resultados/malha_aberta_1/trajetoriaObtidaVConstante.pdf}
+        \caption{Resultado com Velocidade Constante para Excursão de 30cm}
+        \label{trajetoriaObtidaVConstante}
+    \end{minipage}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+\begin{block}{Excursão de 20 cm - Dados}
+\begin{itemize}
+	\item \textbf{Período de amostragem: } $T \approx 100 \mathrm{ms}$;
+	\item \textbf{Deslocamento: } $\Delta x = 20 \mathrm{cm}$;
+	\item \textbf{Intervalo de tempo: } $\Delta t \approx 1.5 \mathrm{s}$;
+	\item \textbf{Velocidade média: } $\overline{v} = \frac{\Delta x}{\Delta t} \approx 133.3\mathrm{mm}/\mathrm{s}$.
+	
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+\begin{block}{Excursão de 20 cm - Trajetória modelada}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{figures/resultados/malha_aberta_2/DeslocamentoT2}
+        \caption{Referência de Posição para Excursão de 20cm}
+        \label{DeslocamentoT2}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth]{figures/resultados/malha_aberta_2/VelocidadeT2}
+        \caption{Referência de Velocidade para Excursão de 20cm}
+        \label{VelocidadeT2}
+    \end{minipage}
+\end{figure}
+
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Aberta - Resultados}
+
+\begin{block}{Excursão de 20 cm - Resultados}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth,height=4.5cm]{figures/resultados/malha_aberta_2/percurso20cmBom.pdf}
+        \caption{Resultado com Velocidade Modelada para Excursão de 20cm}
+        \label{percurso20cmBom}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\linewidth,height=4.5cm]{figures/resultados/malha_aberta_2/percurso20cmRuim.pdf}
+        \caption{Resultado com Velocidade Constante para Excursão de 20cm}
+        \label{percurso20cmRuim}
+    \end{minipage}
+\end{figure}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Malha Fechada - Resultados}
+
+\end{frame}
+
 
 %\begin{frame}[fragile]{Typography}
 %      \begin{verbatim}The theme provides sensible defaults to
