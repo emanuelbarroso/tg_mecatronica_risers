@@ -1,0 +1,94 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper,11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage[utf8]{inputenc}
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[brazilian]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{graphicx}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+\usepackage{float}
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Universidade de Brasília} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge Implementação de Controle com Redução Modal \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Ataias Pereira Reis \\ Emanuel Pereira Barroso Neto} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 1
+%----------------------------------------------------------------------------------------
+
+\section{Introdução}
+\paragraph{} O objetivo deste documento é de apresentar todos os procedimentos necessários para implementar o controle apresentado no artigo ``\textit{Modal Reduction Based Tracking Control for Installation of Subsea Equipments}'', desenvolvido por Fabrício et al, em um controlador industrial da Rockwell. Para alguém iniciante no assunto, é difícil só ler o artigo e realizar a implementação diretamente.
+
+\section{Equações Governantes}
+\paragraph{} Para o riser, a Equação \ref{equacaoMorison} representa o deslocamento horizontal $\Upsilon(z,t)$ do tubo --- um barbante, no presente caso --- sob a ação de forças hidrodinâmicas externas e tração: \begin{align}
+	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -EJ \frac{\partial^4 \Upsilon}{\partial z^4} + 	\frac{\partial}{\partial z}\left(T(z)\frac{\partial \Upsilon}{\partial z}\right)+F_n(z,t) \label{equacaoMorison}
+\end{align}
+
+\paragraph{} Antes de prosseguir, é importante definir termos desta equação: \begin{itemize}
+	\item $m_s$ é a massa linear do barbante (o professor Eugênio disse isso, mas o que seria massa linear? É a densidade do linear? Ou é simplesmente a massa do barbante?) %TODO Confirmar o que seria massa linear do barbante
+	\item $E$ é o módulo de Young do barbante e ele é desconhecido
+	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$
+	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{L-z}{L}m_f\right)g,\] sendo $m_b$ a massa da bolinha, $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_f$ como a massa total do barbante)
+\end{itemize}
+
+\paragraph{} A força externa resultante, $F_n(z,t)$, é dada por \begin{align}
+	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
+\end{align}
+\end{document}
