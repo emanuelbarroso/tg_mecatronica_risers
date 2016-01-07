@@ -85,10 +85,31 @@
 	\item $m_s$ é a massa linear do barbante (o professor Eugênio disse isso, mas o que seria massa linear? É a densidade do linear? Ou é simplesmente a massa do barbante?) %TODO Confirmar o que seria massa linear do barbante
 	\item $E$ é o módulo de Young do barbante e ele é desconhecido
 	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$
-	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{L-z}{L}m_f\right)g,\] sendo $m_b$ a massa da bolinha, $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_f$ como a massa total do barbante)
+	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{z}{L}m_s\right)g,\] sendo $m_b$ a massa da bolinha, $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_s$ como a massa total do barbante)
 \end{itemize}
 
 \paragraph{} A força externa resultante, $F_n(z,t)$, é dada por \begin{align}
-	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
+	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN},
+\end{align} na qual $\mu$ é o coeficiente de arrasto e $m_f$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_f$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
 \end{align}
+\paragraph{} No artigo do Fabrício, fala ``\textit{Since the traction $T (z)$ is mostly due to the heavy payload,it can be assumed an average value $T$ for it, taken in the            middle of the riser’s length.}''. Eu suspeito da veracidade desta frase quando analisado os dados \begin{itemize}
+            	\item Massa do isopor: 0.15g
+	\item Diâmetro da bolinha: 30.6mm
+	\item Massa do barbante: 0.492g
+	\item Comprimento do barbante: 0.82m
+	\item Diâmetro do barbante: 2mm
+	\item Densidade linear considerando densidade volumétrica 191kg/m$^3$ é de 0.6g/m.
+\item Massa do barbante pela da bolinha aproximadamente 3 (0.492/0.15).
+            \end{itemize}
+            
+\paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faria com que a tração não fosse principalmente devida pela bolinha, mas sim pelo isopor. Neste caso, pode-se prosseguir com o uso de um valor médio para $T(z)$? No momento considero que sim, pois acho que foi assim que foi feito nas simulações. Definindo uma constante $\tau$ que substitui o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$ e usando o valor médio $T$ para a tração, tem-se \begin{align}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{T}{m}\frac{\partial^2 \Upsilon}{\partial z^2} - \tau\frac{\partial \Upsilon}{\partial t}
+	\end{align}
+	
+\paragraph{} Antes de prosseguirmos para a discretização, e então obter as matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga. (Outra coisa que confundi, eu entendi $u(t)$ sendo uma trajetória, pois $\Upsilon$ é deslocamento, mas no artigo do Fabrício está escrito em uma momento que é uma força).
+
+\subsection{Discretização}
+
+\section{Redução Modal}
 \end{document}
