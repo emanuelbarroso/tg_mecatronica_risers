@@ -104,12 +104,18 @@
             \end{itemize}
             
 \paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faria com que a tração não fosse principalmente devida pela bolinha, mas sim pelo isopor. Neste caso, pode-se prosseguir com o uso de um valor médio para $T(z)$? No momento considero que sim, pois acho que foi assim que foi feito nas simulações. Definindo uma constante $\tau$ que substitui o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$ e usando o valor médio $T$ para a tração, tem-se \begin{align}
-	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{T}{m}\frac{\partial^2 \Upsilon}{\partial z^2} - \tau\frac{\partial \Upsilon}{\partial t}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{T}{m}\frac{\partial^2 \Upsilon}{\partial z^2} - \tau\frac{\partial \Upsilon}{\partial t}\label{EquacaoComTau}
 	\end{align}
 	
 \paragraph{} Antes de prosseguirmos para a discretização, e então obter as matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga. (Outra coisa que confundi, eu entendi $u(t)$ sendo uma trajetória, pois $\Upsilon$ é deslocamento, mas no artigo do Fabrício está escrito em uma momento que é uma força).
 
 \subsection{Discretização}
+\paragraph{} De forma a se realizar o controle proposto, o sistema deve ter um espaço de estados finito. Para isso, aplica-se o método de diferenças finitas na coordenada $z$, de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
+	\frac{d^2\Upsilon}{dt^2} &= -\frac{EJ}{m\Delta z^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
+	&+ \frac{T}{m\Delta z^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)-\tau\frac{d\Upsilon}{dt},
+\end{align} sendo $\Delta z$ a distância entre dois pontos de discretização ($\Delta z = L/N$), $L$ é o comprimento do riser e $N$ é o número de pontos de discretização. (A tração $T(z)$ foi trocada por $T$ já na Equação  \ref{EquacaoComTau}, sendo um valor médio).
+
+\paragraph{} Sendo $k\in \mathbb{N}:1\le k \le N$, o que aconteceria quando $k=1$ e se precisasse de $\Upsilon_{k-1}$ e $\Upsilon_{k-2}$? Estes termos estariam fora do domínio. Para esse caso especial, deve ser utilizado diferenças finitas unilaterais, ou basta essa única discretização? Um problema similar ocorrer quando $k=N$.
 
 \section{Redução Modal}
 \end{document}
