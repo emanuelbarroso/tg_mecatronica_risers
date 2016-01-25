@@ -163,10 +163,10 @@
 
 \paragraph{} Para simplificar, definem-se as constantes \begin{align}
 	a &= -\frac{EJ}{m l^4}\\
-	b_k &= \frac{T_0 + mg(k-1)l}{m l^4}\\
+	b_k &= \frac{T_0 + mg(k-1)l}{m l^4},\; k\ge 2\\
 	c &= b + \frac{g}{2l}\\
-	d_k &= b_k - c\\
-	e_k &= b_k + c
+	d_k &= b_k - c,\; k\ge 2\\
+	e_k &= b_k + c,\; k\ge 2
 \end{align}
 
 \paragraph{} A meu ver, a melhor forma de se analisar como as matrizes do sistema ficarão é expandir o sistema para casos com $N$ pequeno e ver o que está ocorrendo. Observe que $a=0$ para o barbante, o que simplifica os próximos passos.
@@ -188,52 +188,49 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6\\
  \end{align} 
  
- \paragraph{} O que falta fazer é obter a aceleração da bolinha que depende da força da gravidade e da força de Morison. Para isso, considere o pêndulo composto com uma massa na ponta e com a força de Morison atuando contra o movimento da massa na ponta. Para se resolver o problema de obter o ângulo $\theta$ e, posteriormente, a posição horizontal da bolinha, é necessária resolver uma equação diferencial. De modo a obter a equação diferencial, pode-se utilizar a equação que diz que o somatório dos torques é igual ao momento de inércia vezes a aceleração  \begin{align}
- 	I\ddot{\theta} &= \sum_{i} M_i
- \end{align}
- 
- \paragraph{} Os torques serão calculados a partir do pivô e o sentido anti-horário terá o sinal positivo: \begin{itemize}
- 	\item Torque devido pela massa do fio: \begin{align}
- 		M_1 &= -m_{\mathrm{fio}} g \frac{L}{2}\sin\theta
- 	\end{align}
- 	\item Torque devido pela massa da bolinha: \begin{align}
- 		M_2 &= -m_{\mathrm{bol}} g L\sin\theta
- 	\end{align}
- 	\item Torque devido pela força de Morison: \begin{align}
- 		M_3 &= \left(m_f\frac{\partial^2 \Upsilon}{\partial t^2}+\mu\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\right)L
- 	\end{align}
+ \paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison: \begin{align}
+ 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_6 - \Upsilon_1\right) + \rho C_m V \ddot{\Upsilon}_1 + \frac{1}{2}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ \end{align} e, isolando-se $\ddot{\Upsilon}_1$, tem-se \begin{align}
+ 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_6 - \Upsilon_1\right)  + \frac{1}{2m'}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ \end{align} com as constantes \begin{itemize}
+ 	\item $\rho = 1.225\mathrm{kg}/\mathrm{m}^3$, a densidade do ar
+ 	\item $C_m = 2$, o coeficiente de inércia da esfera
+ 	\item $C_d = 0.6$, o coeficiente de arrasto da esfera
+ 	\item $V = \frac{4}{3}\pi r^3$, o volume da esfera
+ 	\item $A = \pi r^2$, a área da maior seção transversal da esfera
+ 	\item $m' = m_b + \rho C_m V$
  \end{itemize}
  
- \paragraph{} Assim, teria-se \begin{align}
- 	I\frac{\partial^2 \theta}{\partial t^2} &=-m_{\mathrm{fio}} g \frac{L}{2}\sin\theta -m_{\mathrm{bol}} g L\sin\theta + \left(m_f\frac{\partial^2 \Upsilon}{\partial t^2}+\mu\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\right)L
- \end{align}
+ \paragraph{} Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Assumo que isso também seja necessário para a bola, resultando em um $\tau'$: \begin{align}
+ 	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_6\right) + \tau'\dot{\Upsilon}_1,
+ \end{align} com $b_1 = \frac{m_b g}{m' (N-1)l}$.
  
-% desta forma tem-se \begin{align}
-% 	\mathbf{\dot{x}} &= \left[\begin{array}{cccccccccccc}
-% 		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
-% 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
-% 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
-% 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
-% 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
-% 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-% 		2b & -5b & 4b & -b & 0 & 0 & -\tau & 0     & 0 & 0 & 0 & 0\\
-% 		b & -2b  & b  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0 & 0\\
-% 		0 & b & -2b  & b  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0\\
-% 		0 & 0 & b & -2b  & b  & 0  & 0 & 0 &  0    & -\tau & 0 & 0\\
-% 		0 & 0 & 0 & b & -2b  & b  & 0  & 0 & 0 &  0    & -\tau & 0\\
-% 		0 & 0 & 0 & 0 & b & -2b  & 0  & 0 & 0 &  0    & 0   &-\tau\\
-% 	\end{array}\right]\mathbf{x} + \left[\begin{array}{c}
-%	0\\	0\\	0\\	0\\	0\\ 0\\ 0\\ 0\\ 0\\ 0\\ 0\\ b
-%\end{array}
-%\right]u
-% \end{align} que pode ser representado concisamente como \begin{align}
-% 	\mathbf{\dot{x}} &= \left[\begin{array}{cc}
-%	\mathbf{0}_{6\times 6} & \mathbf{I}_{6\times 6}\\
-%	\mathbf{M}_{6\times 6} & -\tau\mathbf{I}_{6\times 6}\\
-%\end{array}\right] \mathbf{x} + \left[\begin{array}{c}
-%	\mathbf{0}_{10\times 1}\\ b\\ 2b\\
-%\end{array} \right]u
-% \end{align}
+ \paragraph{} Desta forma, pode-se definir o sistema linear em forma matricial \begin{align}
+ 	\mathbf{\dot{x}} &= \left[\begin{array}{cccccccccccc}
+ 		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+ 		-b_1 & 0 & 0 & 0 & 0 & b_1 & \tau' & 0     & 0 & 0 & 0 & 0\\
+ 		d_2 & -2b_2  & e_2  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0 & 0\\
+ 		0 & d_3 & -2b_3  & e_3  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0\\
+ 		0 & 0 & d_4 & -2b_4  & e_4  & 0  & 0 & 0 &  0    & -\tau & 0 & 0\\
+ 		0 & 0 & 0 & d_5 & -2b_5  & e_5  & 0  & 0 & 0 &  0    & -\tau & 0\\
+ 		0 & 0 & 0 & 0 & d_6 & -2b_6  & 0  & 0 & 0 &  0    & 0   &-\tau\\
+ 	\end{array}\right]\mathbf{x} + \left[\begin{array}{c}
+	0\\	0\\	0\\	0\\	0\\ 0\\ 0\\ 0\\ 0\\ 0\\ 0\\ e_6
+\end{array}
+\right]u
+ \end{align} que pode ser representado concisamente como \begin{align}
+ 	\mathbf{\dot{x}} &= \left[\begin{array}{cc}
+	\mathbf{0}_{6\times 6} & \mathbf{I}_{6\times 6}\\
+	\mathbf{M}_{6\times 6} & \mathbf{L}_{6\times 6}\\
+\end{array}\right] \mathbf{x} + \left[\begin{array}{c}
+	\mathbf{0}_{11\times 1}\\ e_6\\
+\end{array} \right]u
+ \end{align}
 % 
 % \paragraph{} Esta matriz fornece um padrão que pode ser utilizado para se criar um algoritmo que gera as matrizes $\mathbf{A}$ e $\mathbf{B}$ automaticamente, sendo $\mathbf{\dot{x}} = \mathbf{A}\mathbf{x}+\mathbf{B}u$.
 % 
