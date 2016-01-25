@@ -156,7 +156,7 @@
 \subsection{Discretização}
 \paragraph{} De forma a se realizar o controle proposto, o sistema deve ter um espaço de estados finito. Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
 	\frac{d^2\Upsilon_k}{dt^2} &= -\frac{EJ}{m l^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
-	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{\Upsilon_{k+1}-\Upsilon_{k-1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
+	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
 \end{align} sendo $l$ a distância entre dois pontos de discretização ($l = L/N$), $L$ é o comprimento do riser e $N$ é o número de pontos de discretização. (A tração $T(z)$ foi trocada por $T$ já na Equação  \ref{EquacaoComTau}, sendo um valor médio).
 
 \paragraph{} Sendo $k\in \mathbb{N}:1\le k \le N$, o que aconteceria quando $k=1$ e se precisasse de $\Upsilon_{k-1}$ e $\Upsilon_{k-2}$? Na realidade, os $N$ pontos se referem aos pontos internos e então este problema não deve ocorrer.
@@ -164,7 +164,9 @@
 \paragraph{} Para simplificar, definem-se as constantes \begin{align}
 	a &= -\frac{EJ}{m l^4}\\
 	b_k &= \frac{T_0 + mg(k-1)l}{m l^4}\\
-	c_k &= b_k + \frac{g}{2l}
+	c &= b + \frac{g}{2l}\\
+	d_k &= b_k - c\\
+	e_k &= b_k + c
 \end{align}
 
 \paragraph{} A meu ver, a melhor forma de se analisar como as matrizes do sistema ficarão é expandir o sistema para casos com $N$ pequeno e ver o que está ocorrendo. Observe que $a=0$ para o barbante, o que simplifica os próximos passos.
@@ -174,11 +176,16 @@
 u &= \Upsilon(L,t) = \Upsilon_7\label{ufor6}\\
 y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  \end{align} e as equações são \begin{align}
- 	\ddot{\Upsilon}_2 &=  b\left(\Upsilon_{1}-2\Upsilon_{2} + \Upsilon_{3}\right)-\tau \dot{\Upsilon}_2\\
- 	\ddot{\Upsilon}_3 &=  b\left(\Upsilon_{2}-2\Upsilon_{3} + \Upsilon_{4}\right)-\tau \dot{\Upsilon}_3\\
- 	\ddot{\Upsilon}_4 &=  b\left(\Upsilon_{3}-2\Upsilon_{4} + \Upsilon_{5}\right)-\tau \dot{\Upsilon}_4\\
- 	\ddot{\Upsilon}_5 &=  b\left(\Upsilon_{4}-2\Upsilon_{5} + \Upsilon_{6}\right)-\tau \dot{\Upsilon}_5\\
- 	\ddot{\Upsilon}_6 &=  b\left(\Upsilon_{5}-2\Upsilon_{6} + u\right)-\tau \dot{\Upsilon}_6.
+ 	\ddot{\Upsilon}_2 &=  b_2\left(\Upsilon_{1}-2\Upsilon_{2} + \Upsilon_{3}\right)+c(-\Upsilon_1 + \Upsilon_3)-\tau \dot{\Upsilon}_2\nonumber \\
+ 	&= d_2\Upsilon_1 - 2b_2 \Upsilon_2 + e_2\Upsilon_3 - \tau \dot{\Upsilon}_2\\
+ 	\ddot{\Upsilon}_3 &=  b_3\left(\Upsilon_{2}-2\Upsilon_{3} + \Upsilon_{4}\right)+c(-\Upsilon_2 + \Upsilon_4)-\tau \dot{\Upsilon}_3\nonumber \\
+ 	&= d_3\Upsilon_2 - 2b_3 \Upsilon_3 + e_3\Upsilon_4 - \tau \dot{\Upsilon}_3\\
+ 	\ddot{\Upsilon}_4 &=  b_4\left(\Upsilon_{3}-2\Upsilon_{4} + \Upsilon_{5}\right)+c(-\Upsilon_3 + \Upsilon_5)-\tau \dot{\Upsilon}_4 \nonumber\\
+ 	&= d_4\Upsilon_3 - 2b_4 \Upsilon_4 + e_4\Upsilon_5 - \tau \dot{\Upsilon}_4\\
+ 	\ddot{\Upsilon}_5 &=  b_5\left(\Upsilon_{4}-2\Upsilon_{5} + \Upsilon_{6}\right)+c(-\Upsilon_4 + \Upsilon_6)-\tau \dot{\Upsilon}_5\nonumber\\
+ 	&= d_5\Upsilon_4 - 2b_5 \Upsilon_5 + e_5\Upsilon_6 - \tau \dot{\Upsilon}_5\\
+ 	\ddot{\Upsilon}_6 &=  b_6\left(\Upsilon_{5}-2\Upsilon_{6} + u\right)+c(-\Upsilon_5 + u)-\tau \dot{\Upsilon}_6\nonumber\\
+ 	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6\\
  \end{align} 
  
  \paragraph{} O que falta fazer é obter a aceleração da bolinha que depende da força da gravidade e da força de Morison. Para isso, considere o pêndulo composto com uma massa na ponta e com a força de Morison atuando contra o movimento da massa na ponta. Para se resolver o problema de obter o ângulo $\theta$ e, posteriormente, a posição horizontal da bolinha, é necessária resolver uma equação diferencial. De modo a obter a equação diferencial, pode-se utilizar a equação que diz que o somatório dos torques é igual ao momento de inércia vezes a aceleração  \begin{align}
