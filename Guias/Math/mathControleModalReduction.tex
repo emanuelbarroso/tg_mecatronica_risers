@@ -189,9 +189,9 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  \end{align} 
  
  \paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison: \begin{align}
- 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_6 - \Upsilon_1\right) + \rho C_m V \ddot{\Upsilon}_1 + \frac{1}{2}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho C_m V \ddot{\Upsilon}_1 - \frac{1}{2}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
  \end{align} e, isolando-se $\ddot{\Upsilon}_1$, tem-se \begin{align}
- 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_6 - \Upsilon_1\right)  + \frac{1}{2m'}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
  \end{align} com as constantes \begin{itemize}
  	\item $\rho = 1.225\mathrm{kg}/\mathrm{m}^3$, a densidade do ar
  	\item $C_m = 2$, o coeficiente de inércia da esfera
@@ -202,7 +202,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  \end{itemize}
  
  \paragraph{} Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Assumo que isso também seja necessário para a bola, resultando em um $\tau'$: \begin{align}
- 	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_6\right) + \tau'\dot{\Upsilon}_1,
+ 	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1,
  \end{align} com $b_1 = \frac{m_b g}{m' (N-1)l}$.
  
  \paragraph{} Desta forma, pode-se definir o sistema linear em forma matricial \begin{align}
@@ -213,7 +213,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
  		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
  		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
- 		-b_1 & 0 & 0 & 0 & 0 & b_1 & \tau' & 0     & 0 & 0 & 0 & 0\\
+ 		-b_1 & b_1 & 0 & 0 & 0 & 0 & -\tau' & 0     & 0 & 0 & 0 & 0\\
  		d_2 & -2b_2  & e_2  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0 & 0\\
  		0 & d_3 & -2b_3  & e_3  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0\\
  		0 & 0 & d_4 & -2b_4  & e_4  & 0  & 0 & 0 &  0    & -\tau & 0 & 0\\
