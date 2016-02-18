@@ -230,11 +230,26 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 \end{array}\right] \mathbf{x} + \left[\begin{array}{c}
 	\mathbf{0}_{11\times 1}\\ e_6\\
 \end{array} \right]u
+ \end{align} 
+ 
+ Para o caso de uma discretização com $N$ pontos, tem-se \begin{align}
+ 	\mathbf{\dot{x}} &= \left[\begin{array}{cc}
+	\mathbf{0}_{N\times N} & \mathbf{I}_{N\times N}\\
+	\mathbf{M}_{N\times N} & \mathbf{L}_{N\times N}\\
+\end{array}\right] \mathbf{x} + \left[\begin{array}{c}
+	\mathbf{0}_{2N-1\times 1}\\ e_N\\
+\end{array} \right]u
  \end{align}
 % 
 % \paragraph{} Esta matriz fornece um padrão que pode ser utilizado para se criar um algoritmo que gera as matrizes $\mathbf{A}$ e $\mathbf{B}$ automaticamente, sendo $\mathbf{\dot{x}} = \mathbf{A}\mathbf{x}+\mathbf{B}u$.
 % 
 % \lstinputlisting[language=Julia,caption={Código para gerar matrizes A, B e C},label=generateABC]{code/GenerateABC.jl}
 
-%\section{Redução Modal}
+\section{Uma Estratégia de Redução da Ordem do Modelo}
+\paragraph{} A maior parte da teoria clássica de controle lida com sistemas representados por um pequeno número de variáveis de estado. Portanto, uma forma de aplicar métodos clássicos de controle da literatura para sistemas de parâmetros distribuídos discretos é por meio de uma redução da ordem do modelo.
+
+\paragraph{} Tal redução do modelo será feita em duas etapas: primeiro, uma transformação modal é aplicada nas equações originais do espaço de estados, resultando em uma nova representação em variáveis modais. Nesta forma, o sistema pode ser visto como um conjunto de subsistemas dissociados em paralelo, cuja influência na saída pode ser calculada individualmente. Então, os subsistemas com os maiores ganhos estáticos são escolhidos para criar um modelo de ordem reduzida.
+
+\subsection{Decomposição Modal}
+
 \end{document}
