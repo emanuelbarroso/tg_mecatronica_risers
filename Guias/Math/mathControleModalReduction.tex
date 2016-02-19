@@ -22,7 +22,7 @@
 
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 \usepackage[utf8]{inputenc}
-\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+%\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
 \usepackage[brazilian]{babel} % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 
@@ -94,6 +94,9 @@
     showstringspaces = false,
 }
 
+\usepackage{hyperref}
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
 
 \begin{document}
 
@@ -107,12 +110,14 @@
 \paragraph{} O objetivo deste documento é apresentar os procedimentos necessários para implementar o método controle apresentado no artigo ``\textit{Modal Reduction Based Tracking Control for Installation of Subsea Equipments}'', desenvolvido por Fabrício et al, em um controlador industrial da Rockwell. Nem todos os detalhes estão presentes no artigo, o que torna difícil simplesmente lê-lo e realizar o sistema.
 
 \section{Equações Governantes}
+%TODO: Organizar constantes em uma subseção e especificar exatamente o valor de cada uma daquelas que temos interesse, de forma a se definir corretamente os valores das constantes "a", "b_k", "c", "d_k" e "e_k"
 \paragraph{} Para o riser, a Equação \ref{equacaoMorison} representa o deslocamento horizontal $\Upsilon(z,t)$ do tubo --- um barbante, no caso da bancada de laboratório --- sob a ação de forças hidrodinâmicas externas $F_n(z,t)$ e tração $T(z)$: \begin{align}
 	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -EJ \frac{\partial^4 \Upsilon}{\partial z^4} + 	\frac{\partial}{\partial z}\left(T(z)\frac{\partial \Upsilon}{\partial z}\right)+F_n(z,t) \label{equacaoMorison}
 \end{align}
 
 \paragraph{} Antes de prosseguir, é importante definir termos desta equação: \begin{itemize}
-	\item $m_s$ é a massa linear do barbante (o professor Eugênio disse isso, mas o que seria massa linear? É a densidade linear? Ou é simplesmente a massa do barbante?) %TODO Confirmar o que seria massa linear do barbante
+	\item $m_s$ é a massa linear do barbante (o professor Eugênio disse isso, mas o que seria massa linear? É a densidade linear? Ou é simplesmente a massa do barbante?) 
+	%TODO Confirmar o que seria massa linear do barbante
 	\item $E$ é o módulo de Young do barbante e ele é desconhecido
 	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$
 	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{z}{L}m_s\right)g,\] sendo $m_b$ a massa da bolinha, $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_s$ como a massa total do barbante. Caso fosse densidade linear, $T(z) = (m_b + z\cdot m_s) g$)
@@ -253,7 +258,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 \subsection{Decomposição Modal}
 
 \paragraph{} Primeiro, deve-se obter os autovalores do espaço de estados do \textit{riser}. Observa-se que eles são sempre distintos entre si, uma condição suficiente para a diagonalização da matriz do espaço de estados. Assim, calcula-se a matriz modal \textbf{T}, cuja i-ésima coluna é o i-ésimo autovetor do sistema: \begin{align}
-	\mathbf{T} &= (\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;)_{1\times 2N}
+	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
 \end{align}
 
 \paragraph{} A matriz $\mathbf{T}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
@@ -268,5 +273,48 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 %TODO Escrever o código para criar a matriz T e fazer a transformação de similaridade
 
 \subsection{Redução Modal}
+\paragraph{} Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada. 
+\paragraph{} Os subsistemas selecionados são combinados em um modelo reduzido \begin{align}
+	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
+	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u
+\end{align} cuja ordem é escolhida considerando o custo-benefício entre a acurácia da dinâmica reduzida e a simplicidade da estrutura de controle exigida. Além disso, o sistema reduzido deve compensar o ganho estático perdido nos autovalores desconsiderados. Isto é feito por meio de uma matriz de transferência direta $\mathbf{D_R}$, que é a diferença dos ganhos dos sistemas original e reduzido: \begin{align}
+	\mathbf{D_R}&=\mathbf{C}\mathbf{A^{-1}}\mathbf{B}-\mathbf{C_R}\mathbf{A_R^{-1}}\mathbf{B_R}
+\end{align}
 
+\paragraph{} O subsistemas são de ordem 1 ou 2 dependendo se o autovalor é real ou um par complexo conjugado. %TODO: Explicar algoritmo para calcular os ganhos estáticos e escolher os autovalores mais relevantes
+
+\paragraph{} A matriz de transferência direta $\mathbf{D_R}$ introduz novas dinâmicas: uma saída não-nula que não leva em conta o atraso de propagação da entrada e um ganho em altas frequências. Conforme mostrado por Fortaleza (2009), podemos refinar o modelo reduzido introduzindo um atraso de entrada $\epsilon$ que minimiza a transferência direta e garante dinâmica nula para $t < \epsilon$: \begin{align}
+\begin{array}{lll}
+	\mathbf{\dot{z}} &=& \mathbf{A_R}\mathbf{z}+\mathbf{B_D}u(t-\epsilon)\\
+	y &=& \mathbf{C_R}\mathbf{z}+\mathbf{D_D}u(t-\epsilon) \label{novoModeloReduzido}
+\end{array}
+\end{align} sendo \begin{align}
+	\mathbf{B_D} &= \mathbf{A_M}\left(e^{\epsilon\mathbf{A_M}}\right)\mathbf{A_M^{-1}}\mathbf{B_M}\\
+	\mathbf{D_D} &= \mathbf{C_M}\left(e^{\epsilon\mathbf{A_M}} - \mathbf{I}\right)\mathbf{A_M^{-1}}\mathbf{B_M} + \mathbf{D_M}
+\end{align}
+
+\paragraph{} O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
+
+%TODO: Escrever algoritmo para esta parte também
+
+\section{Projeto de Controle}
+\subsection{Planejamento Offline de Trajetória}
+\paragraph{} A dinâmica do modelo de ordem reduzida (\ref{novoModeloReduzido}) é comparada com aquela do sistema original. Escolhendo uma redução para ordem 4, com dois pares de autovalores complexo-conjugados ($\lambda_i,\overline{\lambda}_i$, com $\lambda_i = \sigma_i + j w_i$), a equação do sistema em espaço de estados é \begin{align}
+	\left[\begin{array}{c}
+	\dot{z}_1\\ \dot{z}_2\\ \dot{z}_3\\ \dot{z}_4
+	\end{array}\right] &= \left[\begin{array}{cccc}
+	\sigma_1 & w_1 & 0 & 0\\ -w_1 & \sigma_1 & 0 & 0\\
+	0 & 0 & \sigma_2 & w_2\\ 0 & 0 & -w_2 & \sigma_2
+\end{array}\right] \left[\begin{array}{c}z_1\\ z_2\\ z_3\\ z_4\end{array}\right] + \left[\begin{array}{c}b_1\\ b_2\\ b_3\\ b_4\end{array}\right]u(t-\epsilon)
+\end{align} \begin{align}
+	y &= \left[\begin{array}{cccc}
+	c_1 & c_2 & c_3 & c_4
+\end{array}\right] \left[\begin{array}{c}
+	z_1\\ z_2\\ z_3\\ z_4
+\end{array}\right] + (d) u(t-\epsilon)
+\end{align}
+
+\paragraph{} As constantes $b_i$ e $c_i$ são diferentes das definidas anteriormente. %TODO: Revisar documento evitando redefinição de constantes com mesmo nome
+
+\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u*(t)$
 \end{document}
