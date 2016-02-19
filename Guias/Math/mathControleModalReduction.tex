@@ -252,4 +252,21 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 
 \subsection{Decomposição Modal}
 
+\paragraph{} Primeiro, deve-se obter os autovalores do espaço de estados do \textit{riser}. Observa-se que eles são sempre distintos entre si, uma condição suficiente para a diagonalização da matriz do espaço de estados. Assim, calcula-se a matriz modal \textbf{T}, cuja i-ésima coluna é o i-ésimo autovetor do sistema: \begin{align}
+	\mathbf{T} &= (\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;)_{1\times 2N}
+\end{align}
+
+\paragraph{} A matriz $\mathbf{T}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
+	\mathbf{A_M} &= \mathbf{T}^{-1}\mathbf{A}\mathbf{T},\\
+	\mathbf{x_M} &=\mathbf{T}^{-1}\mathbf{x},	\\
+	\mathbf{B_M} &= \mathbf{T}^{-1}\mathbf{B},\textrm{ e}\\
+	\mathbf{C_M} &=\mathbf{C}\mathbf{T}.
+\end{align}
+
+\paragraph{} O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas de segunda ordem formados por pares de autovalores reais ou complexo-conjugados.
+
+%TODO Escrever o código para criar a matriz T e fazer a transformação de similaridade
+
+\subsection{Redução Modal}
+
 \end{document}
