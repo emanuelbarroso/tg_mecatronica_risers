@@ -7,29 +7,38 @@ from numpy import *
 from matplotlib import *
 from matplotlib.pyplot import *
 import scipy.io as sio #read matlab files
+from scipy import interpolate
 
-filename = "position.bin"
+#filename = "position.bin"
+#
+##Número de bytes do arquivo
+#sizebytes = os.stat(filename).st_size
+#
+##Número de elementos dos arra16
+#
+##Abrir arquivo
+#f = open(filename, 'rb')
+#
+##Inicializar variáveis
+#p = 1.0*arange(n)
 
-#Número de bytes do arquivo
-sizebytes = os.stat(filename).st_size
+#t = 1.0*arange(n)
+#
+##Ler do arquivo
+#for k in range(0,n):
+#    t[k] = struct.unpack('d',f.read(8))[0]
+#    p[k] = struct.unpack('d',f.read(8))[0]
+#
+#f.close()
 
-#Número de elementos dos arra16
-n = int(sizebytes/16)
+topo = sio.loadmat('topo.mat')
+t = topo['t'][0]
+p = abs(topo['Y'][0])
 
-#Abrir arquivo
-f = open(filename, 'rb')
-
-#Inicializar variáveis
-p = 1.0*arange(n)
 v = 1.0*arange(n)
-t = 1.0*arange(n)
 
-#Ler do arquivo
-for k in range(0,n):
-    t[k] = struct.unpack('d',f.read(8))[0]
-    p[k] = struct.unpack('d',f.read(8))[0]
+#fundo = sio.loadmat('fundo.mat')
 
-f.close()
 dt = t[1] - t[0]
 
 #Velocidade v obtida está em m/s
