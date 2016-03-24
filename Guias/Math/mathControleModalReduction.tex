@@ -318,7 +318,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 
 \paragraph{} As constantes $b_i$ e $c_i$ são diferentes das definidas anteriormente. %TODO: Revisar documento evitando redefinição de constantes com mesmo nome
 
-\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u*(t)$, de forma que as variáveis de estado sigam uma trajetória $z*(t)$. O problema aqui é que $z*(t)$ carece de interpretação física; ou seja, $z*(t)$ não se relaciona de maneira clara com nenhuma variável de estado original do \textit{riser}, e, portanto, com a operação de re-entrada. Uma forma de se lidar com isso é lidar com a trajetória da saída \textit{flat} do sistema. %TODO revisar essa parte de flatness 
+\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u^*(t)$, de forma que as variáveis de estado sigam uma trajetória $z^*(t)$. O problema aqui é que $z^*(t)$ carece de interpretação física; ou seja, $z^*(t)$ não se relaciona de maneira clara com nenhuma variável de estado original do \textit{riser}, e, portanto, com a operação de re-entrada. Uma forma de se lidar com isso é lidar com a trajetória da saída \textit{flat} do sistema. %TODO revisar essa parte de flatness 
 
 \paragraph{} Para um sistema ser \textit{flat}, é condição suficiente ele ser plenamente controlável, ou seja, a matriz de controlabilidade $K = \left[
 \begin{array}{cccc}
@@ -329,4 +329,58 @@ B & AB & A^{2}B & A^{3}B
 	0 & 0 & 0 & 1
 	\end{array}\right]K^{-1}z
 \end{align} %TODO negritar algumas variáveis
+\begin{align}
+\label{f_equation}
+	f &= \alpha_1 z_1 + \alpha_2 z_2 + \alpha_3 z_3 + \alpha_4 z_4
+\end{align}
+\paragraph{}Deseja-se que a entrada $u$ dependa apenas de $f$ e suas derivadas temporais. Para isso, é necessário que $f$ seja tantas vezes derivável quanto indica a ordem do sistema. No presente estudo, $f$ deve ser ao menos 4 vezes derivável. Derivando $f$ de acordo com a Equação \ref{f_equation}, temos:
+\begin{align}
+	\label{f_derivatives}
+	\begin{array}{c}
+	\dot{f} = \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ \ddot{f} = \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ \dddot{f} = \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ f^{(4)} = \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
+	\end{array}
+\end{align} %TODO explicar de onde vem o \gamma u
+\paragraph{}Das Equações \ref{f_equation} e \ref{f_derivatives}, podemos definir a seguinte matriz $M$, sabendo que
+\begin{align}
+\label{M_init_equation}
+\left (
+\begin{array}{c}
+f \\ \dot{f} \\ \ddot{f} \\ \dddot{f} \\ f^{(4)}
+\end{array}
+\right ) = M \left(
+\begin{array}{c}
+z_1 \\ z_2 \\ z_3 \\ z_4 \\ u
+\end{array}
+\right)
+\end{align}
+\paragraph{}Pela Equação \ref{M_init_equation}:
+\begin{align}
+\label{M_decl_ref}
+M = \left (
+\begin{array}{ccccc}
+	\alpha_{1} & \alpha_{2} & \alpha_{3} & \alpha_{4} & 0 \\
+	\alpha_{5} & \alpha_{6} & \alpha_{7} & \alpha_{8} & 0 \\
+	\alpha_{9} & \alpha_{10} & \alpha_{11} & \alpha_{12} & 0 \\
+	\alpha_{13} & \alpha_{14} & \alpha_{15} & \alpha_{16} & 0 \\
+	\alpha_{17} & \alpha_{18} & \alpha_{19} & \alpha_{20} & \gamma
+\end{array}
+\right )
+\end{align}
+\paragraph{}Para se obter $u$ em função de uma trajetória $f$, podemos utilizar a Equação \ref{M_init_equation}. Multiplicando os dois membros da equação à esquerda por $M^{-1}$, vem
+\begin{align}
+\label{M_inv_equation}
+\left(
+\begin{array}{c}
+z_1 \\ z_2 \\ z_3 \\ z_4 \\ u
+\end{array}
+\right) = M^{-1}\left (
+\begin{array}{c}
+f \\ \dot{f} \\ \ddot{f} \\ \dddot{f} \\ f^{(4)}
+\end{array}
+\right ) 
+\end{align} 
+\paragraph{} Observando-se a Equação \ref{M_inv_equation}, é trivial notar que $u$ será uma combinação linear de $f$ e suas derivadas temporais, sendo os coeficientes fornecidos pela última linha da matriz $M^{-1}$. COm efeito, podemos escrever:
+\begin{align}
+	u = \beta_0 f + \beta_1 \dot{f} + \beta_2 \ddot{f} + \beta_3 \dddot{f} + \beta_4 f^{(4)}
+\end{align}
 \end{document}
