@@ -130,7 +130,9 @@
 \end{align}
 
 
-\paragraph{} No artigo do Fabrício, fala ``\textit{Since the traction $T (z)$ is mostly due to the heavy payload,it can be assumed an average value $T$ for it, taken in the            middle of the riser’s length.}''. Eu suspeito da veracidade desta frase quando analisado os dados \begin{itemize}
+\paragraph{} No artigo do Fabrício, fala ``\textit{Since the traction $T (z)$ is mostly due to the heavy payload,
+it can be assumed an average value $T$ for it, taken in the
+            middle of the riser’s length.}''. Eu suspeito da veracidade desta frase quando analisado os dados \begin{itemize}
             	\item Massa do isopor: 0.15g
 	\item Diâmetro da bolinha: 30.6mm
 	\item Massa do barbante: 0.492g
@@ -316,5 +318,15 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 
 \paragraph{} As constantes $b_i$ e $c_i$ são diferentes das definidas anteriormente. %TODO: Revisar documento evitando redefinição de constantes com mesmo nome
 
-\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u*(t)$
+\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u*(t)$, de forma que as variáveis de estado sigam uma trajetória $z*(t)$. O problema aqui é que $z*(t)$ carece de interpretação física; ou seja, $z*(t)$ não se relaciona de maneira clara com nenhuma variável de estado original do \textit{riser}, e, portanto, com a operação de re-entrada. Uma forma de se lidar com isso é lidar com a trajetória da saída \textit{flat} do sistema. %TODO revisar essa parte de flatness 
+
+\paragraph{} Para um sistema ser \textit{flat}, é condição suficiente ele ser plenamente controlável, ou seja, a matriz de controlabilidade $K = \left[
+\begin{array}{cccc}
+B & AB & A^{2}B & A^{3}B
+\end{array} \right ]$ deve ser de posto pleno. A saída \textit{flat} ($f$) então é dada por uma combinação linear das variáveis de estado $\left (z_1, z_2, z_3, z_4 \right )$ obtida utilizando-se a última linha de $K$:
+\begin{align}
+	f = \left[\begin{array}{cccc}
+	0 & 0 & 0 & 1
+	\end{array}\right]K^{-1}z
+\end{align} %TODO negritar algumas variáveis
 \end{document}
