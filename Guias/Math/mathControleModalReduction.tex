@@ -336,8 +336,11 @@ B & AB & A^{2}B & A^{3}B
 \paragraph{}Deseja-se que a entrada $u$ dependa apenas de $f$ e suas derivadas temporais. Para isso, é necessário que $f$ seja tantas vezes derivável quanto indica a ordem do sistema. No presente estudo, $f$ deve ser ao menos 4 vezes derivável. Derivando $f$ de acordo com a Equação \ref{f_equation}, temos:
 \begin{align}
 	\label{f_derivatives}
-	\begin{array}{c}
-	\dot{f} = \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ \ddot{f} = \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ \dddot{f} = \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ f^{(4)} = \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
+	\begin{array}{lcl}
+	\dot{f} &=& \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ 
+	\ddot{f} &=& \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ 
+	\dddot{f} &=& \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ 
+	f^{(4)} &=& \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
 	\end{array}
 \end{align} %TODO explicar de onde vem o \gamma u
 \paragraph{}Das Equações \ref{f_equation} e \ref{f_derivatives}, podemos definir a seguinte matriz $M$, sabendo que
