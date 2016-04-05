@@ -13,7 +13,7 @@ def print_matriz(a,n):
 		print(st)
 	print()
 
-n = 20
+n = 6
 tau = 0.2426			# tau do barbante
 taul = 0.1133			# tau da bolinha
 ms = 0.0006				# massa linear do barbante (kg/m)
@@ -51,5 +51,18 @@ for k in range(0,n):
 		M[k][k+1] = e[k] if k != 0 else b[k]
 
 A = numpy.vstack((numpy.hstack((O,I)),numpy.hstack((M,L))))
+B = numpy.zeros(shape=(2*n,1))
+B[2*n-1] = e[n-1]
+C = numpy.zeros(shape=(1,2*n))
+C[0] = 1
 
-print_matriz(A,2*n)
+eig_A,T = linalg.eig(A)	# eig_A são os autovalores de A, e T é a matriz de autovetores
+T_inv = linalg.inv(T)
+A_M = numpy.array(numpy.matrix(T_inv) * numpy.matrix(A) * numpy.matrix(T))
+B_M = numpy.array(numpy.matrix(T_inv) * numpy.matrix(B))
+C_M = numpy.array(numpy.matrix(C) * numpy.matrix(T))
+C_M_diag = numpy.zeros(shape=(2*n,2*n))
+for i in range(0,2*n):
+	C_M_diag[i][i] = C_M[0][i]
+# TODO descobrir como evitar casting de complexo para real.
+#print_matriz(A,2*n)
