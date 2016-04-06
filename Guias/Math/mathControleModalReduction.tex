@@ -323,7 +323,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 \paragraph{} Para um sistema ser \textit{flat}, é condição suficiente ele ser plenamente controlável, ou seja, a matriz de controlabilidade $K = \left[
 \begin{array}{cccc}
 B & AB & A^{2}B & A^{3}B
-\end{array} \right ]$ deve ser de posto pleno. A saída \textit{flat} ($f$) então é dada por uma combinação linear das variáveis de estado $\left (z_1, z_2, z_3, z_4 \right )$ obtida utilizando-se a última linha de $K$:
+\end{array} \right ]$ deve ser de posto pleno. A partir de $z$, podemos obter uma saída \textit{flat} ($f$), dada por uma combinação linear das variáveis de estado $\left (z_1, z_2, z_3, z_4 \right )$ obtida utilizando-se a última linha de $K^{-1}$:
 \begin{align}
 	f = \left[\begin{array}{cccc}
 	0 & 0 & 0 & 1
@@ -336,8 +336,11 @@ B & AB & A^{2}B & A^{3}B
 \paragraph{}Deseja-se que a entrada $u$ dependa apenas de $f$ e suas derivadas temporais. Para isso, é necessário que $f$ seja tantas vezes derivável quanto indica a ordem do sistema. No presente estudo, $f$ deve ser ao menos 4 vezes derivável. Derivando $f$ de acordo com a Equação \ref{f_equation}, temos:
 \begin{align}
 	\label{f_derivatives}
-	\begin{array}{c}
-	\dot{f} = \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ \ddot{f} = \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ \dddot{f} = \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ f^{(4)} = \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
+	\begin{array}{lcl}
+	\dot{f} &=& \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ 
+	\ddot{f} &=& \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ 
+	\dddot{f} &=& \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ 
+	f^{(4)} &=& \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
 	\end{array}
 \end{align} %TODO explicar de onde vem o \gamma u
 \paragraph{}Das Equações \ref{f_equation} e \ref{f_derivatives}, podemos definir a seguinte matriz $M$, sabendo que
@@ -381,6 +384,36 @@ f \\ \dot{f} \\ \ddot{f} \\ \dddot{f} \\ f^{(4)}
 \end{align} 
 \paragraph{} Observando-se a Equação \ref{M_inv_equation}, é trivial notar que $u$ será uma combinação linear de $f$ e suas derivadas temporais, sendo os coeficientes fornecidos pela última linha da matriz $M^{-1}$. COm efeito, podemos escrever:
 \begin{align}
+\label{u_desc}
 	u = \beta_0 f + \beta_1 \dot{f} + \beta_2 \ddot{f} + \beta_3 \dddot{f} + \beta_4 f^{(4)}
 \end{align}
+
+\paragraph{} O próximo passo, agora, é planejar a trajetória por meio de $f^*(t)$. O modo mais simples é utilizar uma interpolação polinomial, com coeficientes $a_i$ escolhidos de tal forma que o valor de $f^*(t)$ seja nulo até o tempo de início da operação ($t = t'$); também é necessário que $f^*(t)$ atinja um valor constante $c_f$ após um tempo de operação $t_f$ ($t = t' + t_f$). Além disso, é necessário que as cinco primeiras derivadas temporais de $f^*(t)$ sejam nulas nos extremos da operação, de forma a assumir uma trajetória suave de referência para $f^{(4)}$ na vizinhança de $c_f$. Assumindo-se um polinômio de grau 11 para $f^*(t)$, vem
+\begin{align}
+f^*(t) = 
+\begin{cases}
+0, \forall t < t' \\
+\sum_{k = 0}^{11} \! a_{i}t^{k} \\
+c_f, \forall t > t_f + t'
+\end{cases}
+\end{align} 
+
+\subsection{Trajetória em Malha Fechada}
+\paragraph{} Após o planejamento da trajetória, com a obtenção de $f^*(t)$, o próximo passo é obter uma lei de controle em malha fechada para que se corrija o erro de trajetória dado por $e = f(t) - f^*(t)$. Fazendo uma mudança de coordenadas:
+\begin{align}
+\label{upsilon_ref}
+	\upsilon = -\frac{\beta_0}{\beta_4}f -\frac{\beta_1}{\beta_4}\dot{f} -\frac{\beta_2}{\beta_4}\ddot{f} -\frac{\beta_3}{\beta_4}\dddot{f} + \frac{1}{\beta_4}u
+\end{align}
+
+\paragraph{} Tomando-se a Equação \ref{u_desc}, temos que $\upsilon = f^{(4)}$. Com essa informação, podemos configurar um controlador com realimentação \textit{tracking} (Nota: verificar esse conceito!) com a expressão que se segue %TODO Conceito de tracking
+\begin{align}
+\label{gains_equation}
+\upsilon = f^{*(4)} - k_{4}\dddot{e} - k_{3}\ddot{e} - k_{2}\dot{e} - k_{1}e - k_{0}\int_{0}^{t} \! e \mathrm{d}t
+\end{align}
+\paragraph{} Os valores dos ganhos $k_i$ devem ser tais que o polinômio característico em malha fechada $s^5 + k_{4}s^4 + k_{3}s^3 + k_{2}s^2 + k_{1}s + k_{0}$ seja estável (ver Fabrício et al.). Portanto, o erro $e$ convergirá exponencialmente para 0, e $f(t)$, além de suas derivadas até a 4ª ordem, convergirão para suas trajetórias de referência: $f^*(t) ,..., f^{*(4)}(t)$. Na Equação \ref{gains_equation}, o termo $k_{0}\int_{0}^{t} \! e \mathrm{d}t$ é introduzido de forma a se corrigir erros estáticos causados por perturbações externas.
+\paragraph{} A expressão final para a entrada original $u$, portanto, fica
+\begin{align}
+u = \beta_{0}f + \beta_{1}\dot{f} + \beta_{1}\ddot{f} + \beta_{1}\dddot{f} + \beta_{4}\upsilon
+\end{align}
+\paragraph{} Em que $\upsilon$ é dado pela Equação \ref{upsilon_ref}.
 \end{document}
