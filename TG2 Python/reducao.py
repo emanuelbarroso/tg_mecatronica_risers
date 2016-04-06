@@ -18,7 +18,7 @@ tau = 0.2426			# tau do barbante
 taul = 0.1133			# tau da bolinha
 ms = 0.0006				# massa linear do barbante (kg/m)
 mb = 0.00015			# massa da bolinha (kg)
-g = 9.806				# aceleração da gravidade (m/s^2) 
+g = 9.807				# aceleração da gravidade (m/s^2)
 mlinha = mb				# massa a ser considerada da bolinha - despreza-se a massa de fluido adicionado
 L = 0.82				# Comprimento total do barbante (m)
 l = L/n					# distância entre dois pontos de discretização
@@ -40,9 +40,9 @@ L = (-tau) * numpy.eye(n)
 L[0][0] = (-taul)
 M = numpy.zeros(shape=(n,n))
 
-#b = [1,2,3,4,5,6]
-#d = [0,0.2,0.3,0.4,0.5,0.6] # Teste
-#e = [0,12,13,14,15,16]
+# b = [1,2,3,4,5,6]
+# d = [0,0.2,0.3,0.4,0.5,0.6] # Teste
+# e = [0,12,13,14,15,16]
 
 for k in range(0,n):
 	M[k][k] = -2*b[k] if k != 0 else -b[k]
@@ -61,7 +61,7 @@ T_inv = linalg.inv(T)
 A_M = numpy.array(numpy.matrix(T_inv) * numpy.matrix(A) * numpy.matrix(T))
 B_M = numpy.array(numpy.matrix(T_inv) * numpy.matrix(B))
 C_M = numpy.array(numpy.matrix(C) * numpy.matrix(T))
-C_M_diag = numpy.zeros(shape=(2*n,2*n))
+C_M_diag = numpy.zeros(shape=(2*n,2*n), dtype=complex)
 for i in range(0,2*n):
 	C_M_diag[i][i] = C_M[0][i]
 # TODO descobrir como evitar casting de complexo para real.
