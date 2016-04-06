@@ -107,20 +107,20 @@
 %----------------------------------------------------------------------------------------
 
 \section{Introdução}
-\paragraph{} O objetivo deste documento é apresentar os procedimentos necessários para implementar o método controle apresentado no artigo ``\textit{Modal Reduction Based Tracking Control for Installation of Subsea Equipments}'', desenvolvido por Fabrício et al, em um controlador industrial da Rockwell. Nem todos os detalhes estão presentes no artigo, o que torna difícil simplesmente lê-lo e realizar o sistema.
+\paragraph{} O objetivo deste documento é apresentar os procedimentos necessários para implementar o método de controle apresentado no artigo ``\textit{Modal Reduction Based Tracking Control for Installation of Subsea Equipments}'', desenvolvido por Fabrício et al, em um controlador industrial da Rockwell. Nem todos os detalhes estão presentes no artigo, o que torna difícil simplesmente lê-lo e realizar o sistema. Algumas modificações no controle serão feitas com base no trabalho do aluno de mestrado  \href{mailto:rafael.domenici@hotmail.com}{Rafael Simões <rafael.domenici@hotmail.com>}.
 
 \section{Equações Governantes}
 %TODO: Organizar constantes em uma subseção e especificar exatamente o valor de cada uma daquelas que temos interesse, de forma a se definir corretamente os valores das constantes "a", "b_k", "c", "d_k" e "e_k"
-\paragraph{} Para o riser, a Equação \ref{equacaoMorison} representa o deslocamento horizontal $\Upsilon(z,t)$ do tubo --- um barbante, no caso da bancada de laboratório --- sob a ação de forças hidrodinâmicas externas $F_n(z,t)$ e tração $T(z)$: \begin{align}
+\paragraph{} Para o riser, a Equação \ref{equacaoMorison} representa o deslocamento horizontal $\Upsilon(z,t)$ do tubo --- um barbante, no caso da bancada de laboratório --- sob a ação de forças hidrodinâmicas externas $F_n(z,t)$ (força linear com unidade N/m) e tração $T(z)$ (unidade N): \begin{align}
 	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -EJ \frac{\partial^4 \Upsilon}{\partial z^4} + 	\frac{\partial}{\partial z}\left(T(z)\frac{\partial \Upsilon}{\partial z}\right)+F_n(z,t) \label{equacaoMorison}
 \end{align}
 
 \paragraph{} Antes de prosseguir, é importante definir termos desta equação: \begin{itemize}
-	\item $m_s$ é a massa linear do barbante (o professor Eugênio disse isso, mas o que seria massa linear? É a densidade linear? Ou é simplesmente a massa do barbante?) 
+	\item $m_s$ é a massa linear do barbante (densidade linear, kg/m)
 	%TODO Confirmar o que seria massa linear do barbante
 	\item $E$ é o módulo de Young do barbante e ele é desconhecido
 	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$
-	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{z}{L}m_s\right)g,\] sendo $m_b$ a massa da bolinha, $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_s$ como a massa total do barbante. Caso fosse densidade linear, $T(z) = (m_b + z\cdot m_s) g$)
+	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{z}{L}m_s\right)g,\] sendo $m_b$ a massa da bolinha (kg), $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_s$ como a massa total do barbante. Caso fosse densidade linear, $T(z) = (m_b + z\cdot m_s) g$)
 \end{itemize}
 
 \paragraph{} A força externa resultante, $F_n(z,t)$, é dada por \begin{align}
@@ -163,7 +163,7 @@ it can be assumed an average value $T$ for it, taken in the
 \subsection{Discretização}
 \paragraph{} De forma a se realizar o controle proposto, o sistema deve ter um espaço de estados finito. Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
 	\frac{d^2\Upsilon_k}{dt^2} &= -\frac{EJ}{m l^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
-	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
+	&+ \frac{T_0+mg(k-1)l}{m l^4}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
 \end{align} sendo $l$ a distância entre dois pontos de discretização ($l = L/N$), $L$ é o comprimento do riser e $N$ é o número de pontos de discretização. (A tração $T(z)$ foi trocada por $T$ já na Equação  \ref{EquacaoComTau}, sendo um valor médio).
 
 \paragraph{} Sendo $k\in \mathbb{N}:1\le k \le N$, o que aconteceria quando $k=1$ e se precisasse de $\Upsilon_{k-1}$ e $\Upsilon_{k-2}$? Na realidade, os $N$ pontos se referem aos pontos internos e então este problema não deve ocorrer.
@@ -171,7 +171,7 @@ it can be assumed an average value $T$ for it, taken in the
 \paragraph{} Para simplificar, definem-se as constantes \begin{align}
 	a &= -\frac{EJ}{m l^4}\\
 	b_k &= \frac{T_0 + mg(k-1)l}{m l^4},\; k\ge 2\\
-	c &= b + \frac{g}{2l}\\
+	c &= \frac{g}{2l}\\
 	d_k &= b_k - c,\; k\ge 2\\
 	e_k &= b_k + c,\; k\ge 2
 \end{align}
