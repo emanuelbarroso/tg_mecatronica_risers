@@ -3,8 +3,8 @@ export generateA, generateB, generateC
 
 #Gera A, B, C to sistema completo
 function generateABC(n)
-	tau = 0.2426			# tau do barbante (1/s)
-	taul = 0.1133			# tau da bolinha (1/s)
+	tau = 0.2426			# tau do barbante (1/s) para excursão de 30cm
+	taul = 0.1133			# tau da bolinha (1/s) para excursão de 30cm
 	ms = 0.0006				# massa linear do barbante (kg/m)
 	mb = 0.00015			# massa da bolinha (kg)
 	g = 9.807				# aceleração da gravidade (m/s^2)
@@ -20,8 +20,8 @@ function generateABC(n)
 	b[1] = g/(n-1)/l
 	for k = 2:n
 		b[k] = (T0 + ms*g*(k-1)*l)/(ms*l^2)
-		d[k] = b[k-1] - c
-		e[k] = b[k-1] + c
+		d[k] = b[k] - c
+		e[k] = b[k] + c
 	end
 
 	A = generateA(n, b, d, e, tau, taul)
@@ -46,7 +46,7 @@ function generateA(n, b, d, e, tau, taul)
 
 	#Linha n
 	M[n,n-1] = d[n]
-	M[n,n] = -5*b[n]
+	M[n,n] = -2*b[n]
 
 	L = eye(n)
 	for i = 1:n

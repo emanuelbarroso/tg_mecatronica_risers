@@ -66,7 +66,7 @@
 \date{\normalsize\today} % Today's date or a custom date
 
 \usepackage{beramono}
-\usepackage{listings}
+\usepackage{listingsutf8}
 \usepackage[usenames,dvipsnames]{xcolor}
 
 %%
@@ -91,7 +91,27 @@
     keywordstyle     = \bfseries\color{blue},
     stringstyle      = \color{magenta},
     commentstyle     = \color{ForestGreen},
-    showstringspaces = false,
+    showstringspaces = false
+}
+
+\lstset{
+	language = Python,
+	basicstyle=\ttfamily\small,
+    numberstyle=\footnotesize,
+    numbers=left,
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    tabsize=2,
+    rulecolor=\color{black!30},
+    title=\lstname,
+    escapeinside={\%*}{*)},
+    breaklines=true,
+    breakatwhitespace=true,
+    framextopmargin=2pt,
+    framexbottommargin=2pt,
+    extendedchars=true,
+    inputencoding=utf8,
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1
 }
 
 \usepackage{hyperref}
@@ -99,7 +119,6 @@
 \usepackage{hypcap}
 
 \begin{document}
-
 \maketitle % Print the title
 
 %----------------------------------------------------------------------------------------
@@ -264,10 +283,14 @@ y &= \left[\begin{array}{cc}
 	1 & \textbf{0}_{1\times 2N-1}
 \end{array}\right]\textbf{x}
  \end{align}
+ 
+ \subsection{Código para calcular matrizes}
 %
 % \paragraph{} Esta matriz fornece um padrão que pode ser utilizado para se criar um algoritmo que gera as matrizes $\mathbf{A}$ e $\mathbf{B}$ automaticamente, sendo $\mathbf{\dot{x}} = \mathbf{A}\mathbf{x}+\mathbf{B}u$.
 %
 % \lstinputlisting[language=Julia,caption={Código para gerar matrizes A, B e C},label=generateABC]{code/GenerateABC.jl}
+\lstinputlisting[language=Python,caption={Código para gerar matrizes A, B e C},label=generateABC]{code/reducao.py}
+
 
 \section{Uma Estratégia de Redução da Ordem do Modelo}
 \paragraph{} A maior parte da teoria clássica de controle lida com sistemas representados por um pequeno número de variáveis de estado. Portanto, uma forma de aplicar métodos clássicos de controle da literatura para sistemas de parâmetros distribuídos discretos é por meio de uma redução da ordem do modelo.
