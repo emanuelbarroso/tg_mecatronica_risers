@@ -53,8 +53,8 @@
 
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
 
-\title{	
-\normalfont \normalsize 
+\title{
+\normalfont \normalsize
 \textsc{Universidade de Brasília} \\ [25pt] % Your university, school and/or department name(s)
 \horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
 \huge Implementação de Controle com Redução Modal \\ % The assignment title
@@ -117,60 +117,77 @@
 
 \paragraph{} Antes de prosseguir, é importante definir termos desta equação: \begin{itemize}
 	\item $m_s$ é a massa linear do barbante (densidade linear, kg/m)
-	%TODO Confirmar o que seria massa linear do barbante
 	\item $E$ é o módulo de Young do barbante e ele é desconhecido
 	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$
-	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+\frac{z}{L}m_s\right)g,\] sendo $m_b$ a massa da bolinha (kg), $L$ o comprimento do barbante, $z$ a posição vertical sendo o carrinho o zero e $g$ é a força da gravidade. (Aqui, estou considerando $m_s$ como a massa total do barbante. Caso fosse densidade linear, $T(z) = (m_b + z\cdot m_s) g$)
+	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+z m_s\right)g,\] sendo $m_b$ a massa da bolinha (kg), $m_s = m_{\textrm{barbante,kg}}/L$, sendo $L$ o comprimento do barbante, $z$ a posição vertical a partir do carrinho e $g$ é a força da gravidade.
 \end{itemize}
 
 \paragraph{} A força externa resultante, $F_n(z,t)$, é dada por \begin{align}
-	F_n(z,t) &= -m_f \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN},
-\end{align} na qual $\mu$ é o coeficiente de arrasto e $m_f$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_f$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
+	F_n(z,t) &= -m_{fbar} \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN},
+\end{align} na qual $\mu$ é o coeficiente de arrasto (adimensional ? deveria ser, mas há algo que não bate) e $m_{fbar}$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_{fbar}$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
 	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
 \end{align}
 
+\subsection{Constantes}
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{bar}$ & 0.492 & g\\ \hline
+		Comprimento & $L$ & 0.82 & m \\ \hline
+		Massa linear & $m_s$ & 0.6 & g/m\\ \hline
+		Raio & $r_{bar}$ & 1 & mm\\ \hline
+		Densidade & $\rho_{bar}$ & 191 & kg/m$^3$\\ \hline
+	\end{tabular}
+	\caption{Constantes do barbante}
+\end{table}
 
-\paragraph{} No artigo do Fabrício, fala ``\textit{Since the traction $T (z)$ is mostly due to the heavy payload,
-it can be assumed an average value $T$ for it, taken in the
-            middle of the riser’s length.}''. Eu suspeito da veracidade desta frase quando analisado os dados \begin{itemize}
-            	\item Massa do isopor: 0.15g
-	\item Diâmetro da bolinha: 30.6mm
-	\item Massa do barbante: 0.492g
-	\item Comprimento do barbante: 0.82m
-	\item Diâmetro do barbante: 2mm
-	\item Densidade linear considerando densidade volumétrica 191kg/m$^3$ é de 0.6g/m.
-\item Massa do barbante pela da bolinha aproximadamente 3 (0.492/0.15).
-            \end{itemize}
-         
-\paragraph{} A massa do barbante, $m_s = 0.492\mathrm{g}$, é bem maior que a massa $m_f$ do fluido adicionado. Para verificar isso, calculemos primeiro a massa $m_{f1}$ do fluido adicionado ao redor do barbante: \begin{align}
-	m_{f1} &= 2 V_b \rho_{\mathrm{ar}}\nonumber\\
-	&= 2 \pi r^2 L\rho_{\mathrm{ar}}\nonumber\\
-	&= 0.025246\mathrm{g}
-\end{align} e a massa $m_{f2}$ do fluido adicionado ao redor da bolinha de isopor é \begin{align}
-	m_{f2} &= 1.2 V_{e} \rho_{\mathrm{ar}}\nonumber\\
-	&= 1.2 \left(\frac{4}{3}\pi r^3\right)\rho_{\mathrm{ar}}\nonumber\\
-	&= 4.926\cdot 10^{-5}
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{b}$ & 0.492 & g\\ \hline
+		Raio & $r_{b}$ & 15.3 & mm\\ \hline
+		Coeficiente de inércia & $C_m$ & 1.2 & - \\ \hline
+		Coeficiente de arrasto & $C_d$ & 0.6 & - \\ \hline
+		Volume & $V_b$ & $\frac{4}{3}\pi r_b^3$ & $\textrm{m}^3$ \\ \hline
+		Área da seção transversal & $A_b$ & $\pi r_b^2$ & m$^2$\\ \hline
+	\end{tabular}
+	\caption{Constantes da bolinha de isopor}
+\end{table}
+
+\paragraph{} Como visto anteriormente, $m = m_s + m_{fbar}$. A massa linear $m_{fbar}$ do fluido adicionado ao redor do barbante é dada por \begin{align}
+	m_{fbar} &=  2 \pi r_{bar}^2 \rho_{\mathrm{ar}}\nonumber\\
+	&= 0.00770\;\mathrm{g/m}.
+\end{align} 
+
+\paragraph{} Já que $m_{fbar} \ll m_s$, consideraremos $m = m_s$ nos cálculos. Em relação à massa $m_{fb}$ do fluido adicionado ao redor da bolinha de isopor, ela é dada por\begin{align}
+	m_{fb} &= 1.2 V_{b} \rho_{\mathrm{ar}}\nonumber\\
+	&= 1.2 \left(\frac{4}{3}\pi r_b^3\right)\rho_{\mathrm{ar}}\nonumber\\
+	&= 0.0220\;\textrm{g}
 \end{align}
 
-\paragraph{} A massa do fluido adicionado é aproximadamente $m_f = m_{f1} + m_{f2} = 0.0253\mathrm{g}$. Tem que a massa do barbante é $m_s/m_f = 19.45$ vezes maior que a massa do fluido adicionado. 
-            
-\paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faria com que a tração não fosse principalmente devida pela bolinha de isopor, mas sim pelo barbante. Neste caso, não se prossegue usando um valor médio para $T(z)$ como no artigo do Fabrício, mas ainda se define uma constante $\tau$ que substitui o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, resultando em \begin{align}
+\paragraph{} $m_{fb} \ll m_{b}$ também, de forma que os cálculos consideraram $m' = m_b$.
+
+\paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como no artigo do Fabrício, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$ que substitui o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
 	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \tau\frac{\partial \Upsilon}{\partial t}\label{EquacaoComTau}
 	\end{align}
-	
-\paragraph{} Antes de prosseguirmos para a discretização, e então obter as matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga. (Outra coisa que confundi, eu entendi $u(t)$ sendo uma trajetória, pois $\Upsilon$ é deslocamento, mas no artigo do Fabrício está escrito em uma momento que é uma força).
+
+\paragraph{} Antes de prosseguirmos para a discretização e obtenção das matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga. \textbf{(Outra coisa que confundi, eu entendi $u(t)$ sendo uma trajetória, pois $\Upsilon$ é deslocamento, mas no artigo do Fabrício está escrito em uma momento que é uma força)}.
 
 \subsection{Discretização}
 \paragraph{} De forma a se realizar o controle proposto, o sistema deve ter um espaço de estados finito. Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
 	\frac{d^2\Upsilon_k}{dt^2} &= -\frac{EJ}{m l^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
-	&+ \frac{T_0+mg(k-1)l}{m l^4}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
-\end{align} sendo $l$ a distância entre dois pontos de discretização ($l = L/N$), $L$ é o comprimento do riser e $N$ é o número de pontos de discretização. (A tração $T(z)$ foi trocada por $T$ já na Equação  \ref{EquacaoComTau}, sendo um valor médio).
+	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
+\end{align} sendo $N$ o número de pontos de discretização e $l$ a distância entre dois pontos de discretização ($l = L/N$).
 
-\paragraph{} Sendo $k\in \mathbb{N}:1\le k \le N$, o que aconteceria quando $k=1$ e se precisasse de $\Upsilon_{k-1}$ e $\Upsilon_{k-2}$? Na realidade, os $N$ pontos se referem aos pontos internos e então este problema não deve ocorrer.
+\paragraph{} Note que $k\in \mathbb{N}:2\le k \le N-1$, pois um dos extremos é a bolinha e a equação do pêndulo rege seu movimento enquanto que a outra ponta se aplica uma condição de contorno. O que aconteceria quando $k=2$ e se precisasse de $\Upsilon_{k-2}$? Para nosso experimento, $J=0$ e esse problema não ocorre. Caso se façam testes com um valor de $J\neq 0$, teríamos de resolver esse problema primeiro.
 
 \paragraph{} Para simplificar, definem-se as constantes \begin{align}
 	a &= -\frac{EJ}{m l^4}\\
-	b_k &= \frac{T_0 + mg(k-1)l}{m l^4},\; k\ge 2\\
+	b_k &= \frac{T_0 + mg(k-1)l}{m l^2},\; k\ge 2\\
 	c &= \frac{g}{2l}\\
 	d_k &= b_k - c,\; k\ge 2\\
 	e_k &= b_k + c,\; k\ge 2
@@ -193,25 +210,22 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	&= d_5\Upsilon_4 - 2b_5 \Upsilon_5 + e_5\Upsilon_6 - \tau \dot{\Upsilon}_5\\
  	\ddot{\Upsilon}_6 &=  b_6\left(\Upsilon_{5}-2\Upsilon_{6} + u\right)+c(-\Upsilon_5 + u)-\tau \dot{\Upsilon}_6\nonumber\\
  	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6
+ \end{align}
+
+ \paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison: \begin{align}
+ 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho_{\mathrm{ar}} C_m V_b \ddot{\Upsilon}_1 - \frac{1}{2}\rho_{\textrm{ar}} C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ \end{align} e, isolando-se $\ddot{\Upsilon}_1$, tem-se \begin{align}
+ 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.
  \end{align} 
  
- \paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison: \begin{align}
- 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho C_m V \ddot{\Upsilon}_1 - \frac{1}{2}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
- \end{align} e, isolando-se $\ddot{\Upsilon}_1$, tem-se \begin{align}
- 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
- \end{align} com as constantes \begin{itemize}
- 	\item $\rho = 1.225\mathrm{kg}/\mathrm{m}^3$, a densidade do ar
- 	\item $C_m = 2$, o coeficiente de inércia da esfera
- 	\item $C_d = 0.6$, o coeficiente de arrasto da esfera
- 	\item $V = \frac{4}{3}\pi r^3$, o volume da esfera
- 	\item $A = \pi r^2$, a área da maior seção transversal da esfera
- 	\item $m' = m_b + \rho C_m V$
- \end{itemize}
- 
+ \paragraph{} Note que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos.
+
  \paragraph{} Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Assumo que isso também seja necessário para a bola, resultando em um $\tau'$: \begin{align}
  	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1,
- \end{align} com $b_1 = \frac{m_b g}{m' (N-1)l}$.
- 
+ \end{align} com \begin{equation}
+ 	b_1 = \frac{m_b g}{m' (N-1)l} = \frac{g}{(N-1)l}.
+ \end{equation}
+
  \paragraph{} Desta forma, pode-se definir o sistema linear em forma matricial \begin{align}
  	\mathbf{\dot{x}} &= \left[\begin{array}{cccccccccccc}
  		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
@@ -237,19 +251,22 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 \end{array}\right] \mathbf{x} + \left[\begin{array}{c}
 	\mathbf{0}_{11\times 1}\\ e_6\\
 \end{array} \right]u
- \end{align} 
- 
+ \end{align}
+
  Para o caso de uma discretização com $N$ pontos, tem-se \begin{align}
  	\mathbf{\dot{x}} &= \left[\begin{array}{cc}
 	\mathbf{0}_{N\times N} & \mathbf{I}_{N\times N}\\
 	\mathbf{M}_{N\times N} & \mathbf{L}_{N\times N}\\
 \end{array}\right] \mathbf{x} + \left[\begin{array}{c}
 	\mathbf{0}_{2N-1\times 1}\\ e_N\\
-\end{array} \right]u
+\end{array} \right]u\\
+y &= \left[\begin{array}{cc}
+	1 & \textbf{0}_{1\times 2N-1}
+\end{array}\right]\textbf{x}
  \end{align}
-% 
+%
 % \paragraph{} Esta matriz fornece um padrão que pode ser utilizado para se criar um algoritmo que gera as matrizes $\mathbf{A}$ e $\mathbf{B}$ automaticamente, sendo $\mathbf{\dot{x}} = \mathbf{A}\mathbf{x}+\mathbf{B}u$.
-% 
+%
 % \lstinputlisting[language=Julia,caption={Código para gerar matrizes A, B e C},label=generateABC]{code/GenerateABC.jl}
 
 \section{Uma Estratégia de Redução da Ordem do Modelo}
@@ -275,7 +292,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 %TODO Escrever o código para criar a matriz T e fazer a transformação de similaridade
 
 \subsection{Redução Modal}
-\paragraph{} Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada. 
+\paragraph{} Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada.
 \paragraph{} Os subsistemas selecionados são combinados em um modelo reduzido \begin{align}
 	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
 	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u
@@ -318,7 +335,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
 
 \paragraph{} As constantes $b_i$ e $c_i$ são diferentes das definidas anteriormente. %TODO: Revisar documento evitando redefinição de constantes com mesmo nome
 
-\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u^*(t)$, de forma que as variáveis de estado sigam uma trajetória $z^*(t)$. O problema aqui é que $z^*(t)$ carece de interpretação física; ou seja, $z^*(t)$ não se relaciona de maneira clara com nenhuma variável de estado original do \textit{riser}, e, portanto, com a operação de re-entrada. Uma forma de se lidar com isso é lidar com a trajetória da saída \textit{flat} do sistema. %TODO revisar essa parte de flatness 
+\paragraph{} Normalmente o problema de planejamento de trajetória consiste em encontrar um controle em malha aberta $u^*(t)$, de forma que as variáveis de estado sigam uma trajetória $z^*(t)$. O problema aqui é que $z^*(t)$ carece de interpretação física; ou seja, $z^*(t)$ não se relaciona de maneira clara com nenhuma variável de estado original do \textit{riser}, e, portanto, com a operação de re-entrada. Uma forma de se lidar com isso é lidar com a trajetória da saída \textit{flat} do sistema. %TODO revisar essa parte de flatness
 
 \paragraph{} Para um sistema ser \textit{flat}, é condição suficiente ele ser plenamente controlável, ou seja, a matriz de controlabilidade $K = \left[
 \begin{array}{cccc}
@@ -337,9 +354,9 @@ B & AB & A^{2}B & A^{3}B
 \begin{align}
 	\label{f_derivatives}
 	\begin{array}{lcl}
-	\dot{f} &=& \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\ 
-	\ddot{f} &=& \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\ 
-	\dddot{f} &=& \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\ 
+	\dot{f} &=& \alpha_5 z_1 + \alpha_6 z_2 + \alpha_7 z_3 + \alpha_8 z_4 \\
+	\ddot{f} &=& \alpha_9 z_1 + \alpha_{10} z_2 + \alpha_{11} z_3 + \alpha_{12} z_4 \\
+	\dddot{f} &=& \alpha_{13} z_1 + \alpha_{14} z_2 + \alpha_{15} z_3 + \alpha_{16} z_4 \\
 	f^{(4)} &=& \alpha_{17} z_1 + \alpha_{18} z_2 + \alpha_{19} z_3 + \alpha_{20} z_4 + \gamma u
 	\end{array}
 \end{align} %TODO explicar de onde vem o \gamma u
@@ -380,8 +397,8 @@ z_1 \\ z_2 \\ z_3 \\ z_4 \\ u
 \begin{array}{c}
 f \\ \dot{f} \\ \ddot{f} \\ \dddot{f} \\ f^{(4)}
 \end{array}
-\right ) 
-\end{align} 
+\right )
+\end{align}
 \paragraph{} Observando-se a Equação \ref{M_inv_equation}, é trivial notar que $u$ será uma combinação linear de $f$ e suas derivadas temporais, sendo os coeficientes fornecidos pela última linha da matriz $M^{-1}$. COm efeito, podemos escrever:
 \begin{align}
 \label{u_desc}
@@ -390,13 +407,13 @@ f \\ \dot{f} \\ \ddot{f} \\ \dddot{f} \\ f^{(4)}
 
 \paragraph{} O próximo passo, agora, é planejar a trajetória por meio de $f^*(t)$. O modo mais simples é utilizar uma interpolação polinomial, com coeficientes $a_i$ escolhidos de tal forma que o valor de $f^*(t)$ seja nulo até o tempo de início da operação ($t = t'$); também é necessário que $f^*(t)$ atinja um valor constante $c_f$ após um tempo de operação $t_f$ ($t = t' + t_f$). Além disso, é necessário que as cinco primeiras derivadas temporais de $f^*(t)$ sejam nulas nos extremos da operação, de forma a assumir uma trajetória suave de referência para $f^{(4)}$ na vizinhança de $c_f$. Assumindo-se um polinômio de grau 11 para $f^*(t)$, vem
 \begin{align}
-f^*(t) = 
+f^*(t) =
 \begin{cases}
 0, \forall t < t' \\
 \sum_{k = 0}^{11} \! a_{i}t^{k} \\
 c_f, \forall t > t_f + t'
 \end{cases}
-\end{align} 
+\end{align}
 
 \subsection{Trajetória em Malha Fechada}
 \paragraph{} Após o planejamento da trajetória, com a obtenção de $f^*(t)$, o próximo passo é obter uma lei de controle em malha fechada para que se corrija o erro de trajetória dado por $e = f(t) - f^*(t)$. Fazendo uma mudança de coordenadas:

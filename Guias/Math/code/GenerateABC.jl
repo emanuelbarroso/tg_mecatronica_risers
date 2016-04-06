@@ -1,47 +1,74 @@
 module GenerateABC
 export generateA, generateB, generateC
 
-function generateA(n, b, tau)
-	M = zeros(n,n)
-	#Primeira linha de M
-	M[1,1] = 2*b
-	M[1,2] = -5*b
-	M[1,3] = 4*b
-	M[1,4] = -b
+#Gera A, B, C to sistema completo
+function generateABC(n)
+	tau = 0.2426			# tau do barbante (1/s)
+	taul = 0.1133			# tau da bolinha (1/s)
+	ms = 0.0006				# massa linear do barbante (kg/m)
+	mb = 0.00015			# massa da bolinha (kg)
+	g = 9.807				# aceleração da gravidade (m/s^2)
+	L = 0.82				# Comprimento total do barbante (m)
+	l = L/n					# distância entre dois pontos de discretização (m)
+	T0 = mb*g				# Tração no ponto 0 (logo acima da bolinha) - considerando peso da bolinha (N)
 
-	#Linhas 2 ate n-2
-	for i = 2:n-2
-		M[i,i-1] = b
-		M[i,i] = -2*b
-		M[i,i+1] = b
+	b = zeros(n)
+	c = g/(2l)
+	d = zeros(n)
+	e = zeros(n)
+
+	b[1] = g/(n-1)/l
+	for k = 2:n
+		b[k] = (T0 + ms*g*(k-1)*l)/(ms*l^2)
+		d[k] = b[k-1] - c
+		e[k] = b[k-1] + c
 	end
 
-	#Linha n-1
-	M[n-1,n-2] = b
-	M[n-1,n-1] = -2*b
+	A = generateA(n, b, d, e, tau, taul)
+	B = generateB(n,e[n])
+	C = generateC(n)
+
+	return A, B, C
+end
+
+function generateA(n, b, d, e, tau, taul)
+	M = zeros(n,n)
+	#Primeira linha de M
+	M[1,1] = -b[1]
+	M[1,2] = b[1]
+
+	#Linhas 2 ate n-1
+	for i = 2:n-1
+		M[i,i-1] = d[i]
+		M[i,i] = -2*b[i]
+		M[i,i+1] = e[i]
+	end
 
 	#Linha n
-	M[n,n-3] = -b
-	M[n,n-2] = 4*b
-	M[n,n-1] = -5*b
+	M[n,n-1] = d[n]
+	M[n,n] = -5*b[n]
+
+	L = eye(n)
+	for i = 1:n
+		L[i,i] = i == 1 ? -taul : -tau
+	end
 
 	#Concatenar matrizes, gerando matriz (2n,2n)
-	A = [[zeros(n,n) eye(n)]; [M -tau*eye(n)]]
+	A = [[zeros(n,n) eye(n)]; [M L]]
 
 	return A
 end
 
-function generateB(n, b, tau)
+function generateB(n, eN)
 	B = zeros(2*n)
-	B[2*n-1] = b
-	B[2*n] = 2*b
+	B[2*n] = eN
 
 	return B
 end
 
-function generateC(n,b,tau)
-	C = zeros(2*n)
-	C[1] = 1
+function generateC(n)
+	C = zeros(1,2*n)
+	C[1,1] = 1
 
 	return C
 end
