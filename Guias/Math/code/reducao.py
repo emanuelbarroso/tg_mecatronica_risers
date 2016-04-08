@@ -41,8 +41,8 @@ def generateC(n):
 def getReducedSystem(A,B,C,n):
 	eig_A,T = eig(A)	# eig_A são os autovalores de A, e T é a matriz de autovetores
 
-	print('Autovalores de A')
-	print_matriz(matrix(eig_A))
+	# print('Autovalores de A')
+	# print_matriz(matrix(eig_A))
 
 	# print('Matriz T')
 	# print_matriz(T)
@@ -63,9 +63,9 @@ def getReducedSystem(A,B,C,n):
 			Tnew[:,i] = T[:,i]
 			i = i + 1
 
-	print('Matriz T nova')
-	print_matriz(Tnew)
-	print()
+	# print('Matriz T nova')
+	# print_matriz(Tnew)
+	# print()
 
 	del T
 	T = Tnew
@@ -77,25 +77,25 @@ def getReducedSystem(A,B,C,n):
 	C_M_diag = matrix(zeros((2*n,2*n), complex))
 
 
-	print('Matriz A_M')
-	print_matriz(A_M)
-	print()
-
-	print('Matrix B_M')
-	print_matriz(B_M)
-	print()
-
-	print('Matrix C_M transposta')
-	print_matriz(C_M.transpose())
-	print()
+	# print('Matriz A_M')
+	# print_matriz(A_M)
+	# print()
+	#
+	# print('Matrix B_M')
+	# print_matriz(B_M)
+	# print()
+	#
+	# print('Matrix C_M transposta')
+	# print_matriz(C_M.transpose())
+	# print()
 
 	for i in range(0,2*n):
 		C_M_diag[i,i] = C_M[0,i]
 	A_M_inv = inv(A_M)
 	Gains = C_M_diag * A_M_inv * B_M
-	print('Ganhos:')
-	print_matriz(Gains)
-	print()
+	# print('Ganhos:')
+	# print_matriz(Gains)
+	# print()
 
 	gdim = (Gains.shape[0] // 2)
 	GainSum = zeros((gdim,1))
@@ -152,7 +152,7 @@ def getReducedSystem(A,B,C,n):
 	print()
 
 def main():
-	n = 6
+	n = 300
 	tau = 0.2426	# tau do barbante
 	taul = 0.1133	# tau da bolinha
 	ms = 0.0006		# massa linear do barbante (kg/m)
@@ -177,17 +177,17 @@ def main():
 	# e = [0,12,13,14,15,16]
 
 	A = generateA(n, b, d, e, tau, taul)
-	print('Matriz A:')
-	print_matriz(A)
-	print()
+	# print('Matriz A:')
+	# print_matriz(A)
+	# print()
 	B = generateB(n,e)
-	print('Matriz B:')
-	print_matriz(B)
-	print()
+	# print('Matriz B:')
+	# print_matriz(B)
+	# print()
 	C = generateC(n)
-	print('Matriz C:')
-	print_matriz(C)
-	print()
+	# print('Matriz C:')
+	# print_matriz(C)
+	# print()
 	getReducedSystem(A,B,C,n)
 
 if __name__ == "__main__":

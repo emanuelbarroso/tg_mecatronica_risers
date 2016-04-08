@@ -111,7 +111,7 @@
     framexbottommargin=2pt,
     extendedchars=true,
     inputencoding=utf8,
-    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ç}{{\c{c}}}1 {â}{{\^a}}1 {õ}{{\~o}}1 {ú}{{\'u}}1 {ó}{{\'o}}1 {í}{{\'i}}1 {Í}{{\'I}}1 
 }
 
 \usepackage{hyperref}
@@ -303,11 +303,13 @@ y &= \left[\begin{array}{cc}
 	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
 \end{align}
 
-\paragraph{} A matriz $\mathbf{T}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
-	\mathbf{A_M} &= \mathbf{T}^{-1}\mathbf{A}\mathbf{T},\\
-	\mathbf{x_M} &=\mathbf{T}^{-1}\mathbf{x},	\\
-	\mathbf{B_M} &= \mathbf{T}^{-1}\mathbf{B},\textrm{ e}\\
-	\mathbf{C_M} &=\mathbf{C}\mathbf{T}.
+\paragraph{} Como a matriz $\mathbf{T}$ provavelmente tem valores complexos devidos a autovalores complexos. Isso é um problema para a representação em espaço de estados e sua simulação. A solução é criar uma matriz $\mathbf{\tilde{T}}$ que tenha só números reais. Antes de explicar como criá-la, lembre que os autovalores complexos sempre aparecem em pares conjugados já que a matriz $\mathbf{A}$ só tem valores reais. Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\mathbf{\tilde{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$.
+
+\paragraph{} A matriz $\mathbf{\tilde{T}}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
+	\mathbf{A_M} &= \mathbf{\tilde{T}}^{-1}\mathbf{A}\mathbf{\tilde{T}},\\
+	\mathbf{x_M} &=\mathbf{\tilde{T}}^{-1}\mathbf{x},	\\
+	\mathbf{B_M} &= \mathbf{\tilde{T}}^{-1}\mathbf{B},\textrm{ e}\\
+	\mathbf{C_M} &=\mathbf{C}\mathbf{\tilde{T}}.
 \end{align}
 
 \paragraph{} O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas de segunda ordem formados por pares de autovalores reais ou complexo-conjugados.
