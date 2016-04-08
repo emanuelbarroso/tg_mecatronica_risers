@@ -115,6 +115,11 @@ def getReducedSystem(A,B,C,n):
 	print_matriz(C_R)
 	print()
 
+	print('Constante D_R')
+	D_R = C*inv(A)*B - C_R*inv(A_R)*B_R
+	print_matriz(D_R)
+	print()
+
 def main():
 	n = 6
 	tau = 0.2426	# tau do barbante
