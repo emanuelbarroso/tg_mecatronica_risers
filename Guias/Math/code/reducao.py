@@ -44,17 +44,24 @@ def getReducedSystem(A,B,C,n):
 	A_M = T_inv * A * T
 	B_M = T_inv * B
 	C_M = C * T
-	C_M_diag = zeros((2*n,2*n), complex)
+	C_M_diag = matrix(zeros((2*n,2*n), complex))
 
-	print('A_M = ')
-	#pre-processing before showing matrix:
-	print_matriz(array(A_M))
+	print('Matriz A_M')
+	print_matriz(A_M)
+	print()
+
+	print('Matrix B_M')
+	print_matriz(B_M)
+	print()
+
+	print('Matrix C_M transposta')
+	print_matriz(C_M.transpose())
 	print()
 
 	for i in range(0,2*n):
-		C_M_diag[i][i] = C_M[0,i]
-	A_M_inv = matrix(inv(A_M))
-	Gains = matrix(C_M_diag) * A_M_inv * B_M
+		C_M_diag[i,i] = C_M[0,i]
+	A_M_inv = inv(A_M)
+	Gains = C_M_diag * A_M_inv * B_M
 	print('Ganhos:')
 	print_matriz(Gains)
 	print()
@@ -69,6 +76,43 @@ def getReducedSystem(A,B,C,n):
 
 	print('Ganhos dos subsistemas 2x2 (todos os autovalores são complexos):')
 	print_matriz(GainSum)
+	print()
+
+	#Obter maiores ganhos e índices
+	gain = array([max(GainSum)])
+	lines = array([argmax(GainSum)*2-2, argmax(GainSum)*2-1])
+	GainSum = delete(GainSum, argmax(GainSum))
+	beginning = 0
+	gain = insert(gain, beginning, max(GainSum))
+	lines = insert(lines, beginning, array([argmax(GainSum)*2-2, argmax(GainSum)*2-1]))
+	print('Maiores ganhos')
+	print(gain)
+	print('Índices')
+	print(lines)
+	print()
+
+	print('Autovalores')
+	print_matriz(matrix(eig_A[lines]))
+	print()
+
+	print('Matriz A_R')
+	eig1 = eig_A[lines[0]]
+	eig2 = eig_A[lines[2]]
+	A_R = matrix(array([[real(eig1), imag(eig1),  0,                    0],
+						[-imag(eig1), real(eig1), 0,                    0],
+						[0,           0,          real(eig2),  imag(eig2)],
+						[0,           0,         -imag(eig2),  real(eig2)]]))
+	print_matriz(A_R)
+	print()
+
+	print('Vetor B_R')
+	B_R = B_M[lines]
+	print_matriz(B_R)
+	print()
+
+	print('Vetor C_R')
+	C_R = C_M[0,lines]
+	print_matriz(C_R)
 	print()
 
 def main():
