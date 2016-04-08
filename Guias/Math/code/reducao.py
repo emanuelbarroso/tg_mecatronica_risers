@@ -9,7 +9,8 @@ def print_matriz(a):
 	for i in range(0,I):
 		st = ''
 		for j in range(0,J):
-			st += str(a[i,j])
+			#Números de valor absoluto menor que um threshold são mostrados como 0 para facilitar visualização
+			st += '{:12.2}'.format((a[i,j] if (abs(a[i,j]) > 1e-10) else 0.0))
 			if (j != J - 1):
 				st += ' '
 		print(st)
@@ -44,10 +45,16 @@ def getReducedSystem(A,B,C,n):
 	B_M = T_inv * B
 	C_M = C * T
 	C_M_diag = zeros((2*n,2*n), complex)
+
+	print('A_M = ')
+	#pre-processing before showing matrix:
+	print_matriz(array(A_M))
+	print()
+
 	for i in range(0,2*n):
 		C_M_diag[i][i] = C_M[0,i]
 	A_M_inv = matrix(inv(A_M))
-	Gains = C_M_diag * A_M_inv * B_M
+	Gains = matrix(C_M_diag) * A_M_inv * B_M
 	print('Ganhos:')
 	print_matriz(Gains)
 	print()
@@ -55,10 +62,12 @@ def getReducedSystem(A,B,C,n):
 	gdim = (Gains.shape[0] // 2)
 	GainSum = zeros((gdim,1))
 
-	for i in range(0,Gains.shape[0]):
-		GainSum[i//2] = complex(GainSum[i//2]) + Gains[i]
+	#Como todos os autovalores são complexos, cada subsistema 2x2 é composto
+	#de um autovalor e seu conjugado que é um outro autovalor
+	for i in range(0,Gains.shape[0],2):
+		GainSum[i//2] = real(abs(Gains[i] + Gains[i+1]))
 
-	print('Soma dos Ganhos 2 a 2 (todos os autovalores são complexos):')
+	print('Ganhos dos subsistemas 2x2 (todos os autovalores são complexos):')
 	print_matriz(GainSum)
 	print()
 
