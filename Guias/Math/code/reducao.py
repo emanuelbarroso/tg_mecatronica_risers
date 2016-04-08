@@ -40,11 +40,42 @@ def generateC(n):
 
 def getReducedSystem(A,B,C,n):
 	eig_A,T = eig(A)	# eig_A são os autovalores de A, e T é a matriz de autovetores
+
+	print('Autovalores de A')
+	print_matriz(matrix(eig_A))
+
+	# print('Matriz T')
+	# print_matriz(T)
+	# print()
+
+	#A Matriz T não é a que deve ser utilizada para a transformação de similaridade!
+	#Ela tem números complexos e isso é ruim
+	#Ela deve ser convertida em uma matriz que tenha só números reais
+
+	Tnew = matrix(zeros((2*n,2*n))) #real! não é complexo
+	i = 0
+	while i < 2*n: #será que tem algo errado? tem de testar
+		if imag(eig_A[i]) > 1e-10: #complexo
+			Tnew[:,i] = real(T[:,i])
+			Tnew[:,i+1] = -imag(T[:,i])
+			i = i + 2
+		else:
+			Tnew[:,i] = T[:,i]
+			i = i + 1
+
+	print('Matriz T nova')
+	print_matriz(Tnew)
+	print()
+
+	del T
+	T = Tnew
+
 	T_inv = matrix(inv(T))
 	A_M = T_inv * A * T
 	B_M = T_inv * B
 	C_M = C * T
 	C_M_diag = matrix(zeros((2*n,2*n), complex))
+
 
 	print('Matriz A_M')
 	print_matriz(A_M)
