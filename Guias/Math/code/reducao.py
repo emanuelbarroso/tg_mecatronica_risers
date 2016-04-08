@@ -4,12 +4,13 @@ from numpy import *
 from numpy.linalg import *
 
 #a is a numpy matrix
-def print_matriz(a,n):
-	for i in range(0,n):
+def print_matriz(a):
+	(I,J) = a.shape	# Determina as dimensões da matriz a ser impressa
+	for i in range(0,I):
 		st = ''
-		for j in range(0,n):
-			st += ('%7.2f' % a[i,j])
-			if (j != n - 1):
+		for j in range(0,J):
+			st += str(a[i,j])
+			if (j != J - 1):
 				st += ' '
 		print(st)
 	print()
@@ -26,17 +27,17 @@ def generateA(n, b, d, e, tau, taul):
 	A = vstack((hstack((zeros((n,n)),eye(n))),hstack((M,L))))
 	return matrix(A)
 
-def generateB(n, eN):
+def generateB(n, e):
 	B = zeros((2*n,1))
-	B[2*n-1] = e[n-1]
+	B[2*n-1,0] = e[n-1]
 	return matrix(B)
 
 def generateC(n):
 	C = zeros((1,2*n))
-	C[0] = 1
+	C[0,0] = 1				# Como C é uma matriz linha, as duas dimensões são necessárias; senão, toda a matriz C valerá 1.
 	return matrix(C)
 
-def getReducedSystem(A,B,C):
+def getReducedSystem(A,B,C,n):
 	eig_A,T = eig(A)	# eig_A são os autovalores de A, e T é a matriz de autovetores
 	T_inv = matrix(inv(T))
 	A_M = T_inv * A * T
@@ -45,6 +46,21 @@ def getReducedSystem(A,B,C):
 	C_M_diag = zeros((2*n,2*n), complex)
 	for i in range(0,2*n):
 		C_M_diag[i][i] = C_M[0,i]
+	A_M_inv = matrix(inv(A_M))
+	Gains = C_M_diag * A_M_inv * B_M
+	print('Ganhos:')
+	print_matriz(Gains)
+	print()
+
+	gdim = (Gains.shape[0] // 2)
+	GainSum = zeros((gdim,1))
+
+	for i in range(0,Gains.shape[0]):
+		GainSum[i//2] = complex(GainSum[i//2]) + Gains[i]
+
+	print('Soma dos Ganhos 2 a 2 (todos os autovalores são complexos):')
+	print_matriz(GainSum)
+	print()
 
 def main():
 	n = 6
@@ -72,7 +88,18 @@ def main():
 	# e = [0,12,13,14,15,16]
 
 	A = generateA(n, b, d, e, tau, taul)
-	print_matriz(A,2*n)
+	print('Matriz A:')
+	print_matriz(A)
+	print()
+	B = generateB(n,e)
+	print('Matriz B:')
+	print_matriz(B)
+	print()
+	C = generateC(n)
+	print('Matriz C:')
+	print_matriz(C)
+	print()
+	getReducedSystem(A,B,C,n)
 
 if __name__ == "__main__":
 	main()
