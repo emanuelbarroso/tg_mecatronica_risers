@@ -41,8 +41,8 @@ def generateSimulationMfile(A, B, C, D, filename):
 		f.write('opt = stepDataOptions;\n')
 		f.write('opt.InputOffset = 0;\n')
 		f.write('opt.StepAmplitude = 0.3;\n')
-		f.write("t = (0:0.01:5)';\n")
-		f.write('ynl = step(nlsys, t, opt);')
+		f.write("t = (0:0.01:50)';\n")
+		f.write('y = step(sys, t, opt);')
 
 def generateA(n, b, d, e, tau, taul):
 	L = (-tau) * eye(n)
@@ -133,9 +133,9 @@ def getReducedSystem(A,B,C,n):
 	for i in range(0,Gains.shape[0],2):
 		GainSum[i//2] = real(abs(Gains[i] + Gains[i+1]))
 
-	print('Ganhos dos subsistemas 2x2 (todos os autovalores são complexos):')
-	print_matriz(GainSum)
-	print()
+	# print('Ganhos dos subsistemas 2x2 (todos os autovalores são complexos):')
+	# print_matriz(GainSum)
+	# print()
 
 	#Obter maiores ganhos e índices
 	gain = array([max(GainSum)])
@@ -164,6 +164,10 @@ def getReducedSystem(A,B,C,n):
 	print_matriz(A_R)
 	print()
 
+	print('Polos de A_R')
+	print_matriz(matrix(eigvals(A_R)))
+	print()
+
 	print('Vetor B_R')
 	B_R = B_M[lines]
 	print_matriz(B_R)
@@ -182,7 +186,7 @@ def getReducedSystem(A,B,C,n):
 	generateSimulationMfile(A_R, B_R, C_R, D_R, 'simulacao.m')
 
 def main():
-	n = 300
+	n = 1000
 	tau = 0.2426	# tau do barbante (0.2426)
 	taul = 0.1133	# tau da bolinha (0.1133)
 	ms = 0.0006		# massa linear do barbante (0.0006 kg/m)
