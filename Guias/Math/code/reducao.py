@@ -16,6 +16,34 @@ def print_matriz(a):
 		print(st)
 	print()
 
+#Returns a string with the matriz being initialized
+def initializeMatlabMatrix(M, matrixName):
+	(I,J) = M.shape	# Determina as dimensões da matriz a ser impressa
+	st = matrixName + ' = ['
+	for i in range(0,I):
+		for j in range(0,J):
+			#Números de valor absoluto menor que um threshold são mostrados como 0 para facilitar visualização
+			st += str(M[i,j])
+			if (j != J - 1):
+				st += ' '
+		if (i != I - 1):
+			st += ';\n'
+	st += '];\n'
+	return st
+
+def generateSimulationMfile(A, B, C, D, filename):
+	with open(filename, 'w') as f:
+		f.write(initializeMatlabMatrix(A, 'A'))
+		f.write(initializeMatlabMatrix(B, 'B'))
+		f.write(initializeMatlabMatrix(C, 'C'))
+		f.write(initializeMatlabMatrix(D, 'D'))
+		f.write('\nsys = ss(A, B, C, D);\n')
+		f.write('opt = stepDataOptions;\n')
+		f.write('opt.InputOffset = 0;\n')
+		f.write('opt.StepAmplitude = 0.3;\n')
+		f.write("t = (0:0.01:5)';\n")
+		f.write('ynl = step(nlsys, t, opt);')
+
 def generateA(n, b, d, e, tau, taul):
 	L = (-tau) * eye(n)
 	L[0][0] = (-taul)
@@ -150,6 +178,8 @@ def getReducedSystem(A,B,C,n):
 	D_R = C*inv(A)*B - C_R*inv(A_R)*B_R
 	print_matriz(D_R)
 	print()
+
+	generateSimulationMfile(A_R, B_R, C_R, D_R, 'simulacao.m')
 
 def main():
 	n = 300
