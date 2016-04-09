@@ -153,12 +153,12 @@ def getReducedSystem(A,B,C,n):
 
 def main():
 	n = 300
-	tau = 0.2426	# tau do barbante
-	taul = 0.1133	# tau da bolinha
-	ms = 0.0006		# massa linear do barbante (kg/m)
-	mb = 0.00015	# massa da bolinha (kg)
-	g = 9.807		# aceleração da gravidade (m/s^2)
-	L = 0.82		# Comprimento total do barbante (m)
+	tau = 0.2426	# tau do barbante (0.2426)
+	taul = 0.1133	# tau da bolinha (0.1133)
+	ms = 0.0006		# massa linear do barbante (0.0006 kg/m)
+	mb = 0.00015	# massa da bolinha (0.00015 kg)
+	g = 9.80665		# aceleração da gravidade (9.807 m/s^2)
+	L = 0.82		# Comprimento total do barbante (0.82 m)
 	l = L/n			# distância entre dois pontos de discretização
 	T0 = mb*g		# Tração no ponto 0 (logo acima da bolinha) - considerando peso da bolinha (N)
 
