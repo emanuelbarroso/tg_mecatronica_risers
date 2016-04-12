@@ -68,13 +68,13 @@ def generateC(n):
 
 def getReducedSystem(A,B,C,n):
 	eig_A,T = eig(A)	# eig_A são os autovalores de A, e T é a matriz de autovetores
-
+	T = matrix(T)
 	#print('Autovalores de A')
 	#print_matriz(matrix(eig_A))
 
-	#print('Matriz T')
-	#print_matriz(T)
-	#print()
+	print('Matriz T')
+	print_matriz(T)
+	print()
 
 	#A Matriz T não é a que deve ser utilizada para a transformação de similaridade!
 	#Ela tem números complexos e isso é ruim
@@ -83,7 +83,7 @@ def getReducedSystem(A,B,C,n):
 	Tnew = matrix(zeros((2*n,2*n))) #real! não é complexo
 	i = 0
 	while i < 2*n: #será que tem algo errado? tem de testar
-		if max(abs(imag(T[:,0])))[0,0] > 1e-10: # Procuramos algum elemento complexo de cada autovetor representado em T, não da matriz de autovalores de A
+		if abs(imag(eig_A[i])) > 1e-10: # Procuramos algum elemento complexo de cada autovetor representado em T, não da matriz de autovalores de A
 			Tnew[:,i] = real(T[:,i])
 			Tnew[:,i+1] = -imag(T[:,i])
 			i = i + 2
@@ -105,9 +105,9 @@ def getReducedSystem(A,B,C,n):
 	C_M_diag = matrix(zeros((2*n,2*n), complex))
 
 
-	# print('Matriz A_M')
-	# print_matriz(A_M)
-	# print()
+	print('Matriz A_M')
+	print_matriz(A_M)
+	print()
 	#
 	# print('Matrix B_M')
 	# print_matriz(B_M)
@@ -186,7 +186,7 @@ def getReducedSystem(A,B,C,n):
 	generateSimulationMfile(A_R, B_R, C_R, D_R, 'simulacao.m')
 
 def main():
-	n = 1000
+	n = 2
 	tau = 0.2426	# tau do barbante (0.2426)
 	taul = 0.1133	# tau da bolinha (0.1133)
 	ms = 0.0006		# massa linear do barbante (0.0006 kg/m)
@@ -224,5 +224,19 @@ def main():
 	# print()
 	getReducedSystem(A,B,C,n)
 
-if __name__ == "__main__":
-	main()
+def manuscript_p48():
+	n = 2
+	M = zeros((n,n))
+	M[0,0] = -1
+	M[0,1] = 1
+	M[1,0] = 1
+	M[1,1] = -3
+	L = -2 * eye(n)
+	A = vstack((hstack((zeros((n,n)),eye(n))),hstack((M,L))))
+	B = zeros((2*n,1))
+	B[2*n-1,0] = 2
+	C = generateC(n)
+	getReducedSystem(A, B, C, n)
+
+# if __name__ == "__main__":
+# 	main()
