@@ -1,6 +1,6 @@
 module ModalReduction
 export generateA, generateB, generateC
-export generateABC, getABC_M, getABC_R
+export generateABC, getABC_M, getABCD_R
 export manuscript_p48
 export generateMATLABSimulationScript
 
@@ -106,7 +106,7 @@ function getABC_M(n, A, B, C)
 	return A_M, B_M, C_M
 end
 
-function getABC_R(n, A_M, B_M, C_M)
+function getABCD_R(n, A_M, B_M, C_M)
 	C_M_diag = diagm(vec(C_M)) #matriz diagonal
 	G = C_M_diag / A_M * B_M #ganhos
 	subsystems = getSubsystems(n, eigvals(A_M), G)
@@ -133,7 +133,9 @@ function getABC_R(n, A_M, B_M, C_M)
 		end
 		j = j + 1
 	end
-	return A_R, B_R, C_R
+
+	D_R = C_M / A_M * B_M - C_R / A_R * B_R
+	return A_R, B_R, C_R, D_R
 end
 
 function getSubsystems(n, eig_A, G)
@@ -150,7 +152,9 @@ function getSubsystems(n, eig_A, G)
 			i = i + 1
 		end
 	end
-	sort!(subsystems) #ordena pelo primeiro elemento da tupla
+	#ordena pelo primeiro elemento da tupla
+	#ordem descendente
+	sort!(subsystems,rev=true)
 	return subsystems
 end
 
@@ -163,9 +167,9 @@ function manuscript_p48()
 	C = generateC(n)
 
 	A_M, B_M, C_M = getABC_M(n,A,B,C)
-	A_R, B_R, C_R = getABC_R(n, A_M, B_M, C_M)
+	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M)
 
-	return A_R, B_R, C_R
+	return A_R, B_R, C_R, D_R
 end
 
 function generateMATLABSimulationScript(filename, A, B, C, D)
