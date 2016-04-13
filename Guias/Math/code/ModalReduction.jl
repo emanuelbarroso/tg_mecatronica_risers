@@ -1,7 +1,8 @@
-module GenerateABC
+module ModalReduction
 export generateA, generateB, generateC
 export generateABC, getABC_M, getABC_R
 export manuscript_p48
+export generateMATLABSimulationScript
 
 #Gera A, B, C to sistema completo
 function generateABC(n)
@@ -165,6 +166,23 @@ function manuscript_p48()
 	A_R, B_R, C_R = getABC_R(n, A_M, B_M, C_M)
 
 	return A_R, B_R, C_R
+end
+
+function generateMATLABSimulationScript(filename, A, B, C, D)
+	output = "A = " * string(A) * "\n\n"
+	output = output * "B = " * string(B) * "'\n\n"
+	output = output * "C = " * string(C) * "\n\n"
+	output = output * "D = " * string(D) * "\n\n"
+	output = output * "sys = ss(A, B, C, D);\n"
+	output = output * "opt = stepDataOptions;"
+	output = output * "opt.InputOffset = 0;\n"
+	output = output * "opt.StepAmplitude = 0.3;\n"
+	output = output * "t = (0:0.01:50)';\n"
+	output = output * "y = step(sys, t, opt);"
+
+	file = open(filename, "w")
+	write(file, output)
+	close(file)
 end
 
 end
