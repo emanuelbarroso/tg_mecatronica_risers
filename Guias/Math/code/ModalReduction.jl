@@ -1,8 +1,21 @@
 module ModalReduction
 export generateA, generateB, generateC
 export generateABC, getABC_M, getABCD_R
-export manuscript_p48
+export manuscript_p48, simulation
 export generateMATLABSimulationScript
+
+
+function simulation(n,original=false)
+	A, B, C = generateABC(n)
+	A_M, B_M, C_M = getABC_M(n, A, B, C)
+	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M)
+	if original
+		generateMATLABSimulationScriptToCompare("simulacaoN" * string(n) * "Compare.m", A, B, C, A_R, B_R, C_R, D_R)
+		generateMATLABSimulationScript(n, "simulacaoN" * string(n) * "Reduced.m", A_R, B_R, C_R, D_R)
+	else
+		generateMATLABSimulationScript(n, "simulacaoN" * string(n) * "Reduced.m", A_R, B_R, C_R, D_R)
+	end
+end
 
 #Gera A, B, C to sistema completo
 function generateABC(n)
@@ -172,11 +185,11 @@ function manuscript_p48()
 	return A_R, B_R, C_R, D_R
 end
 
-function generateMATLABSimulationScript(filename, A, B, C, D)
-	output = "A = " * string(A) * "\n\n"
-	output = output * "B = " * string(B) * "'\n\n"
-	output = output * "C = " * string(C) * "\n\n"
-	output = output * "D = " * string(D) * "\n\n"
+function generateMATLABSimulationScript(n, filename, A, B, C, D)
+	output = "A = " * string(A) * ";\n\n"
+	output = output * "B = " * string(B) * "';\n\n"
+	output = output * "C = " * string(C) * ";\n\n"
+	output = output * "D = " * string(D) * ";\n\n"
 	output = output * "sys = ss(A, B, C, D);\n"
 	output = output * "opt = stepDataOptions;"
 	output = output * "opt.InputOffset = 0;\n"
@@ -184,9 +197,54 @@ function generateMATLABSimulationScript(filename, A, B, C, D)
 	output = output * "t = (0:0.01:50)';\n"
 	output = output * "y = step(sys, t, opt);"
 
+	output = output * "fig = figure;\n"
+	output = output * "hold on;\n"
+	output = output * "plot(t,y,'k-');\n"
+	output = output * "xlabel('Time (s)'), ylabel('Position (m)');\n"
+	output = output * "title('Sistema original N = " * string(n) * ", simulacao reduzida para ordem 4');\n"
+	output = output * "print('SimulationReduceN" * string(n) * "', '-dpng', '-r300');\n"
+	output = output * "close(fig);\n"
+
 	file = open(filename, "w")
 	write(file, output)
 	close(file)
 end
+
+function generateMATLABSimulationScriptToCompare(filename, A, B, C, A_R, B_R, C_R, D_R)
+	output = "A_R = " * string(A_R) * ";\n\n"
+	output = output * "B_R = " * string(B_R) * "';\n\n"
+	output = output * "C_R = " * string(C_R) * ";\n\n"
+	output = output * "D_R = " * string(D_R) * ";\n\n"
+	output = output * "sysR = ss(A_R, B_R, C_R, D_R);\n\n"
+
+	output = output * "A = " * string(A) * ";\n\n"
+	output = output * "B = " * string(B) * "';\n\n"
+	output = output * "C = " * string(C) * ";\n\n"
+	output = output * "sysO = ss(A, B, C, [0]);\n\n"
+
+	output = output * "opt = stepDataOptions;"
+	output = output * "opt.InputOffset = 0;\n"
+	output = output * "opt.StepAmplitude = 0.3;\n\n"
+
+	output = output * "t = (0:0.01:50)';\n"
+	output = output * "yR = step(sysR, t, opt);\n"
+	output = output * "yO = step(sysO, t, opt);\n\n"
+
+	output = output * "fig = figure;\n"
+	output = output * "hold on;\n"
+	output = output * "plot(t,yR,'k--');\n"
+	output = output * "plot(t,yO,'k');\n"
+	output = output * "legend('Reduzido', 'Original');\n"
+	output = output * "xlabel('Time (s)'), ylabel('Position (m)');\n"
+	n = round(Int,size(A)[1]/2)
+	output = output * "title('Simulacao com sistema original N = " * string(n) * " e reduzido N = 4');\n"
+	output = output * "print('SimulationN" * string(n) * "', '-dpng', '-r300');\n"
+	output = output * "close(fig);\n"
+
+	file = open(filename, "w")
+	write(file, output)
+	close(file)
+end
+
 
 end
