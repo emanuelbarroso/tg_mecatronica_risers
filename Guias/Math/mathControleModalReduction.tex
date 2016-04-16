@@ -26,6 +26,7 @@
 \usepackage[brazilian]{babel} % English language/hyphenation
 \usepackage{amsmath,amsfonts,amsthm} % Math packages
 
+\usepackage{verbatim}
 \usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
 \usepackage{graphicx}
 \usepackage{sectsty} % Allows customizing section commands
@@ -190,7 +191,7 @@
 
 \paragraph{} $m_{fb} \ll m_{b}$ também, de forma que os cálculos consideraram $m' = m_b$.
 
-\paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como no artigo do Fabrício, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$ que substitui o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
+\paragraph{} Nota-se que o barbante pesa mais que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como no artigo do Fabrício, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$, que substituem o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Essas constantes são definidas de acordo com a trajetória prevista, uma vez que a velocidad média depende dessa trajetória. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
 	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \tau\frac{\partial \Upsilon}{\partial t}\label{EquacaoComTau}
 	\end{align}
 
@@ -340,7 +341,7 @@ y &= \left[\begin{array}{cc}
 \paragraph{} O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
 
 %TODO: Escrever algoritmo para esta parte também
-
+\begin{comment}
 \section{Projeto de Controle}
 \subsection{Planejamento Offline de Trajetória}
 \paragraph{} A dinâmica do modelo de ordem reduzida (\ref{novoModeloReduzido}) é comparada com aquela do sistema original. Escolhendo uma redução para ordem 4, com dois pares de autovalores complexo-conjugados ($\lambda_i,\overline{\lambda}_i$, com $\lambda_i = \sigma_i + j w_i$), a equação do sistema em espaço de estados é \begin{align}
@@ -458,4 +459,6 @@ c_f, \forall t > t_f + t'
 u = \beta_{0}f + \beta_{1}\dot{f} + \beta_{1}\ddot{f} + \beta_{1}\dddot{f} + \beta_{4}\upsilon
 \end{align}
 \paragraph{} Em que $\upsilon$ é dado pela Equação \ref{upsilon_ref}.
+\end{comment}
+
 \end{document}
