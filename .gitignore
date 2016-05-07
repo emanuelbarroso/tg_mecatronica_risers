@@ -1,4 +1,8 @@
 .texpadtmp/
 .DS_Store
 *.py~
+*.out
+*.log
+*.aux
+*.synctex.gz
 simulacao.m
