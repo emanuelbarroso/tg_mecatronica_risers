@@ -1,0 +1,316 @@
+\documentclass[a4paper,oneside,english,brazil,11pt,a4paper,openright,titlepage,usenames,dvipsnames]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{array}
+\usepackage{verbatim}
+\usepackage{calc}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{listings}
+
+%PDF table of contents
+\usepackage{hyperref}
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
+% -------------------
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% Classe alternativa, apropriada para impressão frente-verso. Inclui páginas em branco
+% de forma que capítulos sempre tenham início na página à direita:
+% \documentclass[11pt,a4paper,openright,titlepage]{book}
+
+% Pacotes
+\usepackage[brazilian]{babel}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[thmmarks,amsmath]{ntheorem}%\usepackage{amsthm}
+\usepackage{boxedminipage}
+\usepackage{geometry}
+\usepackage{theorem}
+\usepackage{fancybox}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\usepackage{url}
+\usepackage{afterpage}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{rotating}
+\usepackage{makeidx}
+\usepackage{indentfirst}
+% Pacotes para adiçao de figuras do inkscape
+\usepackage{graphicx}
+\usepackage{import}
+%\usepackage[usenames,dvipsnames]{color}
+
+\usepackage{tikz}
+\usepackage{textcomp}
+\usepackage{tabularx}
+\usetikzlibrary{shapes,arrows}
+
+% Escolher um dos seguintes formatos:
+%\usepackage{ft1unb} % segue padrão de fonte Times
+\usepackage{ft2unb} % segue padrão de fontes do Latex
+
+\makeindex
+% Added by lyx2lyx
+\usepackage{amssymb}
+
+\makeatother
+
+\usepackage{babel}
+
+\begin{document}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\pagestyle{empty}
+
+\grau{Engenheiro de Controle e Automação}
+
+\tipodemonografia{TRABALHO DE GRADUAÇÃO}
+
+\begin{comment}
+Título
+\end{comment}
+
+
+\titulolinhai{PROJETO E IMPLEMENTAÇÃO EM CONTROLADOR}
+
+\titulolinhaii{INDUSTRIAL PARA POSICIONAMENTO DE RISERS}
+
+\titulolinhaiii{COM VALIDAÇÃO EXPERIMENTAL}
+
+\titulolinhaiv{}
+
+%Autores. Basta retirar o texto totalmente caso não haja um determinado
+%autor.
+
+
+\autori{Ataias Pereira Reis}
+
+\autorii{Emanuel Pereira Barroso Neto}
+
+\autoriii{}
+
+%Membros da banca. Basta retirar o texto totalmente caso não haja um
+%determinado membro da banca.
+
+
+\membrodabancai{Prof. Eugênio Libório Feitosa Fortaleza, ENM/UnB}
+
+\membrodabancaifuncao{Orientador}
+
+\membrodabancaii{Prof. Eduardo Stockler Tognetti, ENE/UnB}
+
+\membrodabancaiifuncao{Co-orientador}
+
+\membrodabancaiii{}
+
+\membrodabancaiiifuncao{}
+
+\membrodabancaiv{}
+
+\membrodabancaivfuncao{}
+
+\membrodabancav{}
+
+\membrodabancavfuncao{}
+
+\begin{comment}
+Data de defesa: mês e ano
+\end{comment}
+
+
+\mes{novembro} 
+\ano{2015}
+
+%Comandos para criar a capa e a página de assinaturas
+
+\capaprincipal 
+\capaassinaturas
+
+%Ficha Catalográfica
+
+
+\include{ficha_catalografica}
+
+%Dedicatória
+
+
+\frontmatter
+
+%Texto de dedicatória do primeiro autor.
+
+
+\dedicatoriaautori{A Emanuel B., meu avô, fonte de inspiração eterna}%
+\begin{comment}
+Texto de dedicatória do segundo autor. Caso não tenha um segundo autor,
+este texto não será mostrado 
+\end{comment}
+
+
+\dedicatoriaautorii{Dedico à minha família, que me apoiou ao longo desta jornada}%
+%Texto de dedicatória do terceiro autor. Caso não tenha um terceiro
+%autor, este texto não será mostrado 
+
+\dedicatoriaautoriii{Dedicatória do autor 3}
+
+\begin{comment}
+Comando para criar a página de dedicatória
+\end{comment}
+
+
+\dedicatoria 
+
+%Agradecimentos
+%Texto de agradecimentos do primeiro autor.
+
+
+\agradecimentosautori{Eu agradeço a Deus, aos professores Eugênio Fortaleza e Eduardo Tognetti, orientadores deste trabalho, e a todos que realizaram trabalhos prévios que foram utilizados aqui. Agradeço também ao solícito Rédytton Brenner que nos ajudou muito no início.
+}
+
+\begin{comment}
+Texto de agradecimentos do segundo autor. Caso não tenha um segundo
+autor, este texto não será mostrado.
+\end{comment}
+
+
+\agradecimentosautorii{Agradeço a Deus, aos professores Eugênio Fortaleza e Eduardo Tognetti, orientadores deste trabalho, sempre disponíveis quando mais precisamos; ao grande amigo Rédytton Brenner, que utilizou a bancada antes de nós e nos deu várias dicas úteis; a todos os meus amigos e familiares, que me deram forças nessa jornada; por fim, agradeço à minha dupla, Ataias, pela paciência, cordialidade e principalmente pela ajuda.
+
+}
+
+\begin{comment}
+Texto de agradecimentos do terceiro autor. Caso não tenha um terceiro
+autor, este texto não será mostrado.
+\end{comment}
+
+
+\agradecimentosautoriii{A inclusão desta seção de agradecimentos
+é opcional e fica à critério do(s) autor(es), que caso deseje(em)
+inclui-la deverá(ao) utilizar este espaço, seguindo está formatação.
+
+}
+
+\begin{comment}
+Comando para criar a página de agradecimentos
+\end{comment}
+
+
+\agradecimentos
+
+\begin{comment}
+Inclusão de Macros
+\end{comment}
+
+
+\input{macros.tex}
+
+\resumo{resumo}{
+A extração de petróleo em águas profundas requer operações bastante complexas. Em especial, a operação de entrada reentrada ocorre quando um \textit{riser} é conectado de sua plataforma a um poço de petróleo. O deslocamento do \textit{riser} até o poço deve ser feito de forma rápida e precisa, mas, atualmente, o controle de posição é manual, o que pode ser ineficiente. O presente trabalho busca validar técnicas de controle por meio de experimentos em uma planta de laboratório representativa de um \textit{riser} por meio de controle em malha aberta e fechada para operar o deslocamento do \textit{riser} de forma automática, com resultados rápidos e precisos, além de oferecer resistência a perturbações causadas pelo oceano, para que a ponta do \textit{riser} seja corretamente conectada ao poço.
+
+\medskip{}
+
+
+Palavras Chave: \textit{riser}, controle, deslocamento
+
+}\vspace*{2cm}
+
+
+\resumo{Abstract}{
+Deep sea petroleum exploration requires very complex operations. Particularly, the re-entry operation occurs when a riser is connected from the platform to a wellhead. The riser's displacement must be done quickly and precisely but, presently, the position control is manual, which may be inefficient. The present paper seeks to validate control techniques with experiments in a \textit{riser} representative lab plant using open and closed loop control to operate the riser's displacement automatically, with fast and precise results, in addition to offering resistance against disturbances caused by the ocean, so that riser's tip is correctly connected to the wellhead.
+
+\medskip{}
+
+
+Keywords: riser, control, displacement
+
+}
+
+\begin{comment}
+Listas de conteúdo, figuras e tabelas
+\end{comment}
+
+
+\sumario 
+\listadefiguras 
+\listadetabelas
+
+\begin{comment}
+Lista de Símbolos
+\end{comment}
+
+
+\include{simbolos}
+
+\begin{comment}
+Corpo Principal
+\end{comment}
+
+
+\mainmatter 
+\setcounter{page}{1} 
+\pagenumbering{arabic} 
+\pagestyle{plain}
+
+%Introdução
+\include{cap_Introducao}
+
+%Fundamentos
+\include{cap_Fundamentos}
+
+%Resultados
+\include{cap_Resultados}
+
+%Conclusões
+\include{cap_Conclusoes}
+
+
+%Bibliografia
+
+\renewcommand{\bibname}{REFERÊNCIAS BIBLIOGRÁFICAS} 
+\addcontentsline{toc}{chapter}{REFERÊNCIAS BIBLIOGRÁFICAS} 
+
+\bibliographystyle{abnt-num}
+\bibliography{relatorio}
+
+%
+\anexos 
+\makeatletter 
+%% não retirar estes comandos 
+\renewcommand{\@makechapterhead}[1]{%
+  {\parindent \z@ \raggedleft \setfontarial\bfseries          
+\LARGE \thechapter. \space\space      
+\uppercase{#1}\par     
+\vskip 40\p@   
+} 
+} 
+\makeatother
+%
+%%Anexo I: Descriçao do CD
+%
+%\include{anexo_CD}
+%
+%\refstepcounter{noAnexo}
+%
+% %Anexo II: Programas Utilizados
+
+
+\include{anexo_Codigos}
+\refstepcounter{noAnexo}
+
+%%Acrescente mais anexos conforme julgar necessário.
+
+\end{document}

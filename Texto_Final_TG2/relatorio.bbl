@@ -1,0 +1,112 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{1.42.2.1 }
+
+\bibitem{eugenioASME2012}
+\abntrefinfo{Fortaleza, Albuquerque e Yamamoto}{FORTALEZA; ALBUQUERQUE;
+  YAMAMOTO}{2012}
+{FORTALEZA, E.; ALBUQUERQUE, D.; YAMAMOTO, M. An investigation about the
+  trajectory control during the subsea equipment installation using cable. In:
+  \emph{Volume 1: Offshore Technology}. {ASME} International, 2012.
+  Dispon{\'\i}vel em: $<$http://dx.doi.org/10.1115/OMAE2012-83798$>$.}
+
+\bibitem{redytton}
+\abntrefinfo{SOUSA}{SOUSA}{2015}
+{SOUSA, R.~B. \emph{Implementação de Controle de Riser, Validação
+  Experimental e Análise Através de Processamento de Imagens}. Brasília, DF:
+  Faculdade de Tecnologia, Universidade de Brasília, 2015. Trabalho de
+  Graduação em Engenharia de Controle e Automação.}
+
+\bibitem{preSal}
+\abntrefinfo{Petrobras}{PETROBRAS}{}
+{PETROBRAS. \emph{Pré-Sal: Exploração e Produção de Petróleo}.
+Disponível em:
+  \url{http://www.petrobras.com.br/pt/nossas-atividades/areas-de-atuacao/exploracao-e-producao-de-petroleo-e-gas/pre-sal/}.
+Acesso em: 27/11/2015.}
+
+\bibitem{fabricioIFAC}
+\abntrefinfo{Monteiros, Filho e Fortaleza}{MONTEIROS; FILHO; FORTALEZA}{2015}
+{MONTEIROS, F.~R.; FILHO, J.~O. de A.~L.; FORTALEZA, E. Modal reduction based
+  tracking control for installation of subsea equipments*.
+\emph{IFAC-PapersOnLine}, v.~48, n.~6, p. 15 -- 20, 2015.
+ISSN 2405-8963.
+2nd \{IFAC\} Workshop on Automatic Control in Offshore Oil and Gas Production
+  \{OOGP\} 2015 Florianópolis, Brazil, 27–29 May 2015.
+Dispon{\'\i}vel em:
+  $<$http://www.sciencedirect.com/science/article/pii/S2405896315008708$>$.}
+
+\bibitem{sercos}
+\abntrefinfo{SERCOS INTERNATIONAL}{SERCOS INTERNATIONAL}{}
+{SERCOS INTERNATIONAL. \emph{Introduction to Sercos}.
+Disponível em: \url{http://www.sercos.com/technology/index.htm}.
+Acesso em: 28/11/2015.}
+
+\bibitem{kinetix6000usermanual}
+\abntrefinfo{Allen-Bradley}{ALLEN-BRADLEY}{2015}
+{ALLEN-BRADLEY. \emph{User Manual Kinetix 6000 Multi-axis Servo Drives}. July
+  2015.
+Disponível em:
+  \url{http://literature.rockwellautomation.com/idc/groups/literature/documents/um/2094-um001_-en-p.pdf}.
+Rockwell Automation Publication 2094-UM001I-EN-P. Acesso em: 28/11/2015.}
+
+\bibitem{defServoMotores}
+\abntrefinfo{KOLLMORGEN}{KOLLMORGEN}{}
+{KOLLMORGEN. \emph{Servomotors}.
+Disponível em:
+  \url{http://www.kollmorgen.com/en-us/products/motors/servo/servomotors/}.
+Acesso em: 28/11/2015.}
+
+\bibitem{dnetrta}
+\abntrefinfo{RTA Automation}{RTA AUTOMATION}{}
+{RTA AUTOMATION. \emph{DeviceNet\texttrademark Unplugged – A View ``Under the
+  Hood'' for End Users}.
+Disponível em: \url{http://www.rtaautomation.com/technologies/devicenet/}.
+Acesso em: 30/11/2015.}
+
+\bibitem{devicenetrockwell}
+\abntrefinfo{Rockwell Automation}{ROCKWELL AUTOMATION}{}
+{ROCKWELL AUTOMATION. \emph{DeviceNet Network}.
+Disponível em:
+  \url{http://ab.rockwellautomation.com/Networks-and-Communications/DeviceNet-Network}.
+Acesso em: 30/11/2015.}
+
+\bibitem{eipodva1}
+\abntrefinfo{ODVA}{ODVA}{}
+{ODVA. \emph{Ethernet/IP - Quick Start for Vendors Handbook}.
+Disponível em:
+  \url{https://www.odva.org/Portals/0/Library/Publications_Numbered/PUB00213R0_EtherNetIP_Developers_Guide.pdf}.
+Acesso em: 30/11/2015.}
+
+\bibitem{eiprta}
+\abntrefinfo{Rinaldi}{RINALDI}{}
+{RINALDI, J. \emph{The 6.5 Things You Must Know about EtherNet/IP}.
+Disponível em: \url{http://www.rtaautomation.com/technologies/ethernetip/}.
+Acesso em: 30/11/2015.}
+
+\bibitem{eiprockwell}
+\abntrefinfo{Rockwell Automation}{ROCKWELL AUTOMATION}{}
+{ROCKWELL AUTOMATION. \emph{A Single IT-Friendly Network for Enterprise and
+  Industrial Applications}.
+Disponível em:
+  \url{http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page}.
+Acesso em: 30/11/2015.}
+
+\bibitem{rockwellAutomation}
+\abntrefinfo{EPUSP}{EPUSP}{}
+{EPUSP. \emph{Automação elétrica de processos industriais}.
+Disponível em:
+  \url{http://lara.unb.br/~gaborges/disciplinas/ca/teoria_final_1_prova.pdf}.
+Acesso em: 29/11/2015.}
+
+\bibitem{presencePlusEthernetIP}
+\abntrefinfo{Banner Engineering}{BANNER ENGINEERING}{2015}
+{BANNER ENGINEERING. \emph{PresencePLUS Industrial Ethernet User's Guide Vol
+  2}. September 2015.
+Disponível em:
+  \url{http://www.bannerengineering.com/en-US/products/sub/78#ui-tabs-37}.
+Acesso em: 29/11/2015.}
+
+\end{thebibliography}
