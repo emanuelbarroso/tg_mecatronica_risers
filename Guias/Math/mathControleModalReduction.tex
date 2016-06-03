@@ -233,9 +233,9 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  \end{align}
 
  \paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison: \begin{align}
- 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho_{\mathrm{ar}} C_m V_b \ddot{\Upsilon}_1 - \frac{1}{2}\rho_{\textrm{ar}} C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
+ 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho_{\mathrm{ar}} C_m V_b \ddot{\Upsilon}_1 - \frac{1}{2}\rho_{\textrm{ar}} C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|,
  \end{align} e, isolando-se $\ddot{\Upsilon}_1$, tem-se \begin{align}
- 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'(N-1)l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.
+ 	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.
  \end{align} 
  
  \paragraph{} Note que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos.
@@ -243,7 +243,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  \paragraph{} Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Assumo que isso também seja necessário para a bola, resultando em um $\tau'$: \begin{align}
  	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1,
  \end{align} com \begin{equation}
- 	b_1 = \frac{m_b g}{m' (N-1)l} = \frac{g}{(N-1)l}.
+ 	b_1 = \frac{m_b g}{m'l} = \frac{g}{l}.
  \end{equation}
 
  \paragraph{} Desta forma, pode-se definir o sistema linear em forma matricial \begin{align}
@@ -462,3 +462,4 @@ u = \beta_{0}f + \beta_{1}\dot{f} + \beta_{1}\ddot{f} + \beta_{1}\dddot{f} + \be
 \end{comment}
 
 \end{document}
+	

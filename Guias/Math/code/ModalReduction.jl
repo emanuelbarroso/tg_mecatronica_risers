@@ -33,7 +33,7 @@ function generateABC(n)
 	d = zeros(n)
 	e = zeros(n)
 
-	b[1] = g/(n-1)/l
+	b[1] = g/l
 	for k = 2:n
 		b[k] = (T0 + ms*g*(k-1)*l)/(ms*l^2)
 		d[k] = b[k] - c
