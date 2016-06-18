@@ -4,6 +4,7 @@ from ReducedModel import ReducedModel
 from DelayBlock import DelayBlock
 #from Kalman import Kalman
 from Controller import Controller
+from Plant import Plant
 
 class Model: # Uso: chamar set_output, depois closed_loop
 	P_in = 0
@@ -12,12 +13,14 @@ class Model: # Uso: chamar set_output, depois closed_loop
 		self.reduced_model = ReducedModel(n,A,B,C,D)
 		self.feedback_controller = Controller(Kp, Ki, n, Ak, Bk, Ck, Q, R)
 		self.delay_block = DelayBlock(epsilon,Ts)
+		self.plant = Plant(n,A,B,C,D)
 		self.y_err = 0
 
 	def closed_loop(self,y_top,y_bottom):
 		controller_out = feedback_controller.compute_next_u(self.y_err)
 		self.P_in = y_top + controller_out
 		rm_out = reduced_model.compute_y(self.P_in)
+		P_out = plant.compute_y(P_in)
 		delay_block.update(rm_out)
 		y_err = y_bottom - P_out + delay_block.get_last_entry()
 
