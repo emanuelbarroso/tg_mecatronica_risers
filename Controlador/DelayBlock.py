@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 class DelayBlock:
-	epsilon = 0
-	dim = 0
-	hold = []
 	def __init__(self,epsilon,Ts):
 		self.epsilon = epsilon;
 		self.dim = int(0.01 + epsilon/Ts)
