@@ -22,6 +22,8 @@ class Kalman:
         # Calculate the measurement residual
         resid = y_err - self.C * self.x
 
+        # Update the state and error covariance estimate
+        self.x = self.x + K * resid
         self.P = (numpy.eye(K.shape[1]) - K*self.C) * self.P
         return (self.x, self.x[0,0])
 
