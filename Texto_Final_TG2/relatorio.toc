@@ -10,24 +10,25 @@
 \contentsline {section}{\numberline {2.3}Bancada}{5}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{5}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}SERCOS Interface}{7}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Line Interface Module 2094-AL09}{8}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.3}Line Interface Module 2094-AL09}{7}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}Drive Kinetix 6000 da Allen Bradley}{8}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Servomotor}{8}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.5}Servomotor}{9}{subsection.2.3.5}
 \contentsline {subsection}{\numberline {2.3.6}Sensores indutivos}{9}{subsection.2.3.6}
 \contentsline {subsection}{\numberline {2.3.7}C\IeC {\^a}mera PresencePlus}{10}{subsection.2.3.7}
-\contentsline {section}{\numberline {2.4}Redes Utilizadas}{11}{section.2.4}
-\contentsline {subsection}{\numberline {2.4.1}DeviceNET}{11}{subsection.2.4.1}
+\contentsline {section}{\numberline {2.4}Redes Utilizadas}{10}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}DeviceNET}{10}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}Ethernet/IP}{11}{subsection.2.4.2}
-\contentsline {section}{\numberline {2.5}Programa\IeC {\c c}\IeC {\~a}o do CLP}{12}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Vis\IeC {\~a}o geral}{12}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control}}{11}{subsection.2.4.3}
+\contentsline {section}{\numberline {2.5}Programa\IeC {\c c}\IeC {\~a}o do CLP}{11}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Vis\IeC {\~a}o geral}{11}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Linguagem \textit {ladder}}{12}{subsection.2.5.2}
 \contentsline {subsubsection}{\numberline {2.5.2.1}Introdu\IeC {\c c}\IeC {\~a}o ao \textit {ladder}}{12}{subsubsection.2.5.2.1}
 \contentsline {subsubsection}{\numberline {2.5.2.2}Instru\IeC {\c c}\IeC {\~o}es espec\IeC {\'\i }ficas}{13}{subsubsection.2.5.2.2}
-\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{14}{subsection.2.5.3}
-\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{14}{subsubsection.2.5.3.1}
+\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{13}{subsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{13}{subsubsection.2.5.3.1}
 \contentsline {subsubsection}{\numberline {2.5.3.2}Instru\IeC {\c c}\IeC {\~o}es de movimenta\IeC {\c c}\IeC {\~a}o do motor para o texto estruturado}{14}{subsubsection.2.5.3.2}
-\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{15}{section.2.6}
-\contentsline {paragraph}{}{15}{section*.9}
+\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{14}{section.2.6}
+\contentsline {paragraph}{}{14}{section*.9}
 \contentsline {paragraph}{}{15}{section*.10}
 \contentsline {chapter}{\numberline {3}Resultados}{16}{chapter.3}
 \contentsline {section}{\numberline {3.1}C\IeC {\^a}mera}{16}{section.3.1}

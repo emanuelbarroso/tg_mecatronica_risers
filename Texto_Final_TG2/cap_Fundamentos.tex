@@ -109,15 +109,17 @@ O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE.
 
 Cada um desses módulos será apresentado posteriormente com mais detalhes. Além dos módulos, o controlador ainda possui um \textit{switch} liga/desliga presente no \textit{chassis}. No módulo Logix, há uma chave responsável por alterar o modo de funcionamento do mesmo. As posições possíveis dessa chave são:
 \begin{itemize}
-  \item RUN;
-  \item REM;
-  \item PROG;
+  \item RUN (\textit{Run mode});
+  \item REM (\textit{Remote mode});
+  \item PROG (\textit{Program mode});
 \end{itemize}
-
+\begin{comment}
 Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
 
 No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
+\end{comment}
 
+Para fins de melhor utilizar o CLP, será utilizado sempre o modo REM, que pode ser tanto REM RUN ou REM PROG. O modo REM RUM permite a execução do programa; já o modo REM PROG permite a atualização do programa dentro da memória do CLP.
 \subsection{SERCOS Interface}
 
 Sercos é um barramento digital de automação que interconecta controladores, \textit{drives}, dispositivos de entrada/saída e atuadores para máquinas e sistemas controlados numericamente. Foi projetado para comunicação serial de alta velocidade de dados em sistemas de tempo real por meio de fibra ótica (Sercos I \& II) ou um cabo Ethernet Industrial (Sercos III). Sercos é um padrão internacional \cite{sercos}.
@@ -185,11 +187,9 @@ Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens 
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
-DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais \cite{dnetrta}. É responsável pela interconexão de dispositivos visando ao compartilhamento de dados. Foi desenvolvido pela \textit{Allen-Bradley}, em cima da tecnologia CAN (\textit{Control Area Networking}), desenvolvida pela \textit{Bosch}. Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP \cite{devicenetrockwell}. 
+DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais \cite{dnetrta} Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP \cite{devicenetrockwell}.Permite uma rápida configuração entre dispositivos a \textit{byte}, suportando tanto dispositivos analógicos quanto digitais \cite{redytton}. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
 
-O DeviceNET é uma combinação entre a camada física disponibilizada pelo CAN e um protocolo industrial, o CIP (\textit{Common Industrial Protocol}), que rege as redes industriais em geral. Permite uma rápida configuração entre dispositivos a \textit{byte}, suportanto tanto dispositivos analógicos quanto digitais \cite{redytton}. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
-
-No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta \cite{redytton}. Devido à flexibilidade dos sensores e da rede, suas informações podem ser trabalhadas tanto no modo analógico quanto no modo digital. Para fins de detecção de fim-de-curso, entretanto, o modo utilizado é o digital, uma vez que não será preciso determinar a distância entre sensor e carrinho; apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
+No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta \cite{redytton}.  Para fins de detecção de fim-de-curso, será utilizado o modo digital dos sensores, uma vez que apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
 
 \begin{comment}
 https://en.wikipedia.org/wiki/DeviceNet
@@ -198,8 +198,6 @@ https://www.odva.org/Portals/0/Library/Publications_Numbered/PUB00122R1_CIP_Broc
 
 \subsection{Ethernet/IP}
 A rede Ethernet/IP, introduzida em meados de 2001 pela ODVA (\textit{Open DeviceNet Vendor Association}) \cite{eipodva1}, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET \cite{eiprta}. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão; permite a passagem de dados via pacotes TCP ou UDP; é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real) \cite{eiprockwell}.
-
-O uso da rede Ethernet/IP é vantajoso no sentido de que permite a conexão entre vários nós ligados entre si \cite{eipodva1}, o que não é possível com o RS-232, por exemplo. Porém, devido ao próprio funcionamento da rede, fica mais difícil obter os dados, pois, ao contrário de uma entrada serial, é necessário lidar com toda uma estrutura baseada no TCP/IP, por exemplo. Além disso, como o Ethernet exige um tamanho mínimo de \textit{frame} para transmissão de dados de cerca de 64 \textit{bytes}, a eficiência da transmissão pode ser afetada.
 
 No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232.
 
@@ -211,9 +209,11 @@ http://www.rtaautomation.com/technologies/ethernetip/
 http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page
 \end{comment}
 
+\subsection{OPC - \textit{OLE for Process Control}}
+
 \section{Programação do CLP}
 \subsection{Visão geral}
-Programação, em termos gerais, é aplicada na resolução de problemas. Em particular, a programação de CLPs busca resolver, no âmbito industrial, problemas relacionados à automação de processos. Essa resolução de problemas segue uma metodologia, de forma a se direcionar o projeto. Antes de se proceder à programação, faz-se necessário seguir os seguintes passos \cite{rockwellAutomation}:
+Programação, em termos gerais, é aplicada na resolução de problemas. Em particular, a programação de CLPs busca resolver, no âmbito industri;al, problemas relacionados à automação de processos. Essa resolução de problemas segue uma metodologia, de forma a se direcionar o projeto. Antes de se proceder à programação, faz-se necessário seguir os seguintes passos \cite{rockwellAutomation}:
 \begin{enumerate}
   \item Descrição do problema;
   \item Detalhamentos e melhoria do processo;
