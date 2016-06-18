@@ -2,11 +2,18 @@
 import numpy
 
 class ReducedModel:
+	A = numpy.matrix(numpy.eye(1))
+	B = numpy.matrix(numpy.eye(1))
+	C = numpy.matrix(numpy.eye(1))
+	D = numpy.matrix(numpy.eye(1))
+	x = numpy.matrix(numpy.eye(1))
+	order = 1
+
 	def __init__(self,A,B,C,D,n):
-		self.A = A
-		self.B = B
-		self.C = C
-		self.D = D
+		self.A = numpy.matrix(A)
+		self.B = numpy.matrix(B)
+		self.C = numpy.matrix(C)
+		self.D = numpy.matrix(D)
 		self.order = n
 		self.x = numpy.zeros(n,1)
 
