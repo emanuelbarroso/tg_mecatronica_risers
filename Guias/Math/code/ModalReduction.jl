@@ -5,10 +5,10 @@ export manuscript_p48, simulation
 export generateMATLABSimulationScript
 
 
-function simulation(n,original=false)
+function simulation(n,original=false,nout=4)
 	A, B, C = generateABC(n)
 	A_M, B_M, C_M = getABC_M(n, A, B, C)
-	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M)
+	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M,nout)
 	if original
 		generateMATLABSimulationScriptToCompare("simulacaoN" * string(n) * "Compare.m", A, B, C, A_R, B_R, C_R, D_R)
 		generateMATLABSimulationScript(n, "simulacaoN" * string(n) * "Reduced.m", A_R, B_R, C_R, D_R)
@@ -119,11 +119,10 @@ function getABC_M(n, A, B, C)
 	return A_M, B_M, C_M
 end
 
-function getABCD_R(n, A_M, B_M, C_M)
+function getABCD_R(n, A_M, B_M, C_M,n_out=4)
 	C_M_diag = diagm(vec(C_M)) #matriz diagonal
 	G = C_M_diag / A_M * B_M #ganhos
 	subsystems = getSubsystems(n, eigvals(A_M), G)
-	n_out = 4
 	A_R = zeros(n_out,n_out)
 	B_R = zeros(n_out)
 	C_R = zeros(1,n_out)
@@ -180,7 +179,7 @@ function manuscript_p48()
 	C = generateC(n)
 
 	A_M, B_M, C_M = getABC_M(n,A,B,C)
-	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M)
+	A_R, B_R, C_R, D_R = getABCD_R(n, A_M, B_M, C_M, 4)
 
 	return A_R, B_R, C_R, D_R
 end
