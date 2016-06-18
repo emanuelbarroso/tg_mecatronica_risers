@@ -2,7 +2,7 @@
 import numpy
 
 class ReducedModel:
-	def __init(self,A,B,C,D,n):
+	def __init__(self,A,B,C,D,n):
 		self.A = A
 		self.B = B
 		self.C = C

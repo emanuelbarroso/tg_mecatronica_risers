@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
 class DelayBlock:
-	def __init(self,epsilon,Ts):
+	epsilon = 0
+	dim = 0
+	hold = []
+	def __init__(self,epsilon,Ts):
 		self.epsilon = epsilon;
-		self.dim = int(epsilon/Ts)
+		self.dim = int(0.01 + epsilon/Ts)
 		self.hold = [0 for i in range(0,self.dim)]
 
 	def update(self,newval):
