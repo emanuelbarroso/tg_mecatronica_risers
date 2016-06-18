@@ -3,7 +3,7 @@ import numpy
 
 class Kalman:
     def __init__(self, n, A, B, C, Q, R):
-        self.x = numpy.matrix(numpy.zeros(n)).transpose()
+        self.x = numpy.zeros((n,1))
         self.P = numpy.matrix(numpy.zeros((n, n)))
         self.A = numpy.matrix(A)
         self.B = numpy.matrix(B)
@@ -23,7 +23,7 @@ class Kalman:
         resid = y_err - self.C * self.x
 
         self.P = (numpy.eye(K.shape[1]) - K*self.C) * self.P
-        return (self.x, self.x[0])
+        return (self.x, self.x[0,0])
 
 if __name__ == "__main__":
     n = 4
@@ -33,4 +33,4 @@ if __name__ == "__main__":
     Q = 0.01**2 * numpy.eye(4)
     R = 0.1**2
     kalman_object = Kalman(n,A,B,C,Q,R)
-    kalman_object.compute_kalman(1,1)
+    print(kalman_object.compute_kalman(1,1))
