@@ -21,7 +21,7 @@ class Model:  # Uso: chamar set_output, depois closed_loop
         rm_out = self.reduced_model.compute_y(P_in)
         P_out = self.plant.compute_y(P_in)
         self.delay_block.update(rm_out)
-        y_err = y_bottom - P_out + self.delay_block.get_last_entry()
+        self.y_err = y_bottom - P_out + self.delay_block.get_last_entry()
         return P_out
 
 
