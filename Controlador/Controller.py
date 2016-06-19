@@ -9,22 +9,14 @@ class Controller:
         self.Kp = Kp
         self.Ki = Ki
         self.u = 0.0
-        self.u_old = 0.0
         self.err = 0.0
-        self.err_old = 0.0
         self.kalman = Kalman(n, A, B, C, Q, R)
 
     def compute_next_u(self, y_err):
-        # Delays
-        self.u_old = self.u
-        self.err_old = self.err
-
-        # Computing u
-        (x_out, y_out) = self.kalman.compute_kalman(self.u_old, y_err)
-        self.err = self.err_old - y_out
+        (x_out, y_out) = self.kalman.compute_kalman(self.u, y_err)
+        self.err = (self.err - y_out)[0, 0]
         self.u = (self.Ki * self.err - self.Kp * x_out)[0, 0]
-
-        return self.u_old
+        return self.u
 
 
 if __name__ == "__main__":

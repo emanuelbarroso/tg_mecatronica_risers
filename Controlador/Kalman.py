@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import numpy
 
+
 class Kalman:
     def __init__(self, n, A, B, C, Q, R):
-        self.x = numpy.zeros((n,1))
+        self.x = numpy.zeros((n, 1))
         self.P = numpy.matrix(numpy.zeros((n, n)))
         self.A = numpy.matrix(A)
         self.B = numpy.matrix(B)
@@ -20,19 +21,21 @@ class Kalman:
         K = self.P * self.C.transpose() / (self.C * self.P * self.C.transpose() + self.R)
 
         # Calculate the measurement residual
-        resid = y_err - self.C * self.x
+        residual = y_err - self.C * self.x
 
         # Update the state and error covariance estimate
-        self.x = self.x + K * resid
-        self.P = (numpy.eye(K.shape[1]) - K*self.C) * self.P
-        return (self.x, self.x[0,0])
+        self.x = self.x + K * residual
+        self.P = (numpy.eye(K.shape[0]) - K * self.C) * self.P
+
+        return self.x, (self.C * self.x)
+
 
 if __name__ == "__main__":
     n = 4
-    A = numpy.random.rand(4,4)
-    B = numpy.random.rand(4,1)
-    C = numpy.random.rand(1,4)
-    Q = 0.01**2 * numpy.eye(4)
-    R = 0.1**2
-    kalman_object = Kalman(n,A,B,C,Q,R)
-    print(kalman_object.compute_kalman(1,1))
+    A = numpy.random.rand(4, 4)
+    B = numpy.random.rand(4, 1)
+    C = numpy.random.rand(1, 4)
+    Q = 0.01 ** 2 * numpy.eye(4)
+    R = 0.1 ** 2
+    kalman_object = Kalman(n, A, B, C, Q, R)
+    print(kalman_object.compute_kalman(1, 1))
