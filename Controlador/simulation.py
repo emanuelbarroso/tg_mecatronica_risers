@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
     print("Total simulation time: {}s".format(time.clock() - start))
     plt.plot(t, y_out[0:n_t], label='out')
-    plt.plot(t, y_fundo[0:n_t], label='ref_out')
-    plt.plot(t, y_topo[0:n_t], label='ref_in')
+    plt.plot(t, y_fundo[0:n_t], label='ref fundo')
+    plt.plot(t, y_topo[0:n_t], label='ref topo (in)')
     plt.plot(t, y_out_open_loop[0:n_t], label='out open loop')
     plt.legend()
     plt.xlabel('time (s)')

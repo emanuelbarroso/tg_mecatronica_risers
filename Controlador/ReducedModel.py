@@ -12,8 +12,8 @@ class ReducedModel:
         self.x = numpy.matrix(numpy.zeros((n, 1)))
 
     def compute_y(self, u):
-        self.x = self.A * self.x + self.B * u
         y = self.C * self.x + self.D * u
+        self.x = self.A * self.x + self.B * u
         return y[0, 0]
 
 
