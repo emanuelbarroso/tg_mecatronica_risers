@@ -41,10 +41,12 @@ if __name__ == "__main__":
     plant = PlantOrig()
     model = Model(n, A, B, C, D, Ak, Bk, Ck, Q, R, Kp, Ki, epsilon, Ts, plant)
 
+    plantNew = PlantOrig()
+
     start = time.clock()
     for k in range(n_t):
         y_out[k] = model.closed_loop(y_topo[k], y_fundo[k])
-        y_out_open_loop[k] = plant.compute_y(y_topo[k])
+        y_out_open_loop[k] = plantNew.compute_y(y_topo[k])
 
     print("Total simulation time: {}s".format(time.clock() - start))
     plt.plot(t, y_out[0:n_t], label='out')
