@@ -35,6 +35,7 @@ if __name__ == "__main__":
     n_t = 70
     t = numpy.array(range(0, n_t)) * Ts
     y_out = numpy.zeros(n_t)
+    y_out_open_loop = numpy.zeros(n_t)
 
     # instantiate the plant that will be used, it should be a subclass of Plant
     plant = PlantOrig()
@@ -43,11 +44,13 @@ if __name__ == "__main__":
     start = time.clock()
     for k in range(n_t):
         y_out[k] = model.closed_loop(y_topo[k], y_fundo[k])
+        y_out_open_loop[k] = plant.compute_y(y_topo[k])
 
     print("Total simulation time: {}s".format(time.clock() - start))
     plt.plot(t, y_out[0:n_t], label='out')
     plt.plot(t, y_fundo[0:n_t], label='ref_out')
     plt.plot(t, y_topo[0:n_t], label='ref_in')
+    plt.plot(t, y_out_open_loop[0:n_t], label='out open loop')
     plt.legend()
     plt.xlabel('time (s)')
     plt.ylabel('position (m)')
