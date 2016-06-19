@@ -144,7 +144,7 @@
 
 \paragraph{} A força externa resultante, $F_n(z,t)$, é dada por \begin{align}
 	F_n(z,t) &= -m_{fbar} \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN},
-\end{align} na qual $\mu$ é o coeficiente de arrasto (adimensional ? deveria ser, mas há algo que não bate) e $m_{fbar}$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_{fbar}$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
+\end{align} na qual $\mu$ é o coeficiente de arrasto (unidade 1/s) e $m_{fbar}$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_{fbar}$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
 	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
 \end{align}
 
@@ -304,7 +304,7 @@ y &= \left[\begin{array}{cc}
 	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
 \end{align}
 
-\paragraph{} Como a matriz $\mathbf{T}$ provavelmente tem valores complexos devidos a autovalores complexos. Isso é um problema para a representação em espaço de estados e sua simulação. A solução é criar uma matriz $\mathbf{\tilde{T}}$ que tenha só números reais. Antes de explicar como criá-la, lembre que os autovalores complexos sempre aparecem em pares conjugados já que a matriz $\mathbf{A}$ só tem valores reais. Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\mathbf{\tilde{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$.
+\paragraph{} A matriz $\mathbf{T}$ provavelmente tem valores complexos. Isso é um problema para a representação em espaço de estados e sua simulação. A solução é criar uma matriz $\mathbf{\tilde{T}}$ que tenha só números reais. Antes de explicar como criá-la, lembre que os autovalores complexos sempre aparecem em pares conjugados já que a matriz $\mathbf{A}$ só tem valores reais. Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\mathbf{\tilde{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$.
 
 \paragraph{} A matriz $\mathbf{\tilde{T}}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
 	\mathbf{A_M} &= \mathbf{\tilde{T}}^{-1}\mathbf{A}\mathbf{\tilde{T}},\\
