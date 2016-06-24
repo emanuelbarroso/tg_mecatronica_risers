@@ -11,3 +11,6 @@ simulacao.m
 *.lof
 *.lot
 *.toc
+*.idx
+*.thm
+
