@@ -6,3 +6,8 @@
 *.aux
 *.synctex.gz
 simulacao.m
+*.bbl
+*.bbg
+*.lof
+*.lot
+*.toc
