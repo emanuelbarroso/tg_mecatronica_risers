@@ -3,7 +3,7 @@
 
 \resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, explica a redução modal utilizada a técnica de controle em malha fechada. Também são apresentadas informações sobre a bancada laboratorial e sobre a programação do CLP.}
 
-\section{Modelagem}
+\section{Modelagem\label{modelagem}}
 \subsection{Equação Governantes}
 
 Estruturas submarinas tais como os \textit{risers} são esbeltas e tem um alto módulo de cisalhamento. Portanto, a simplificação de Euler-Bernoulli para vigas é utilizada para propósitos de modelagem. O deslocamento de interesse é o horizontal e o \textit{riser} está sob a ação de forças hidrodinâmicas externas e de tração. A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é dada por \begin{align}
@@ -270,8 +270,10 @@ node [near end] {$y_m$} (sum);
 
 %TODO Preditor de Smith - Controlador, Atraso e Kalman
 \subsection{Controle Discreto no Espaço de Estados}
+\paragraph{} Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
+\paragraph{} Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
 
-\paragraph{} Há diversas limitações de tempo existentes em sistemas reais que impedem que sistemas contínuos sejam realizados. Por exemplo, a medição demora um tempo para retornar o próximo valor, e daí o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertida para espaço discreto e então os pólos devem ser alocados no plano $z$ \cite{OgataDiscrete:1995}.
+\paragraph{} Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
 \tikzstyle{block} = [draw, rectangle, 
 minimum height=2em, minimum width=2em]
 \tikzstyle{sum} = [draw, circle, node distance=1cm]
@@ -342,7 +344,7 @@ minimum height=2em, minimum width=2em]
 \subsubsection{Estrutura do Preditor}
 
 %TODO Terminar rede OPC - e considerar explicar o uso de Python no trabalho.
-\section{Bancada}
+\section{Bancada\label{bancada}}
 A bancada da ponte rolante presente no Laboratório de Automação e Controle está esquematizada na Figura \ref{bancadaEsquematico}. Serão detalhados os componentes desta bancada, de modo a se entender o papel de cada um deles. Observe que no esquemático falta a câmera, que é um sensor que fica de frente para a bancada. 
 
 \begin{figure}[hbt]
