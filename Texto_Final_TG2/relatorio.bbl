@@ -102,6 +102,18 @@ Disponível em:
   \url{http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page}.
 Acesso em: 30/11/2015.}
 
+\bibitem{OPCFoundation1}
+\abntrefinfo{OPC Foundation}{OPC FOUNDATION}{}
+{OPC FOUNDATION. \emph{What is OPC?}
+Disponível em: \url{https://opcfoundation.org/about/what-is-opc/}.
+Acesso em: 26/06/2016.}
+
+\bibitem{OpenOPC}
+\abntrefinfo{SourceForge}{SOURCEFORGE}{}
+{SOURCEFORGE. \emph{OpenOPC for Python}.
+Disponível em: \url{http://openopc.sourceforge.net/}.
+Acesso em: 26/06/2016.}
+
 \bibitem{rockwellAutomation}
 \abntrefinfo{EPUSP}{EPUSP}{}
 {EPUSP. \emph{Automação elétrica de processos industriais}.

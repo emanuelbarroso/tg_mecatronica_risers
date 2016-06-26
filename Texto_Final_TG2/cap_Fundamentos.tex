@@ -406,6 +406,12 @@ http://www.rockwellautomation.com/global/products-technologies/integrated-archit
 
 %TODO Escrever sobre OPC
 \subsection{OPC - \textit{OLE for Process Control}}
+A rede OPC, cujo primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que systemas HMI/SCADA possam se comunicar com um "intermediário" que converte as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
+
+Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido (por exemplo, Python é mais rápido que o \textit{software} MATLAB).
+
+Para se programar o \textit{client} da rede OPC em Python, foi utilizado o módulo OpenOPC. Esse módulo é bem simples de se utilizar; as funções de trocas de dados OPC são abstraídas de modo a utilizar elementos simples da linguagem, como o uso de dicionários. Além de trabalhar em Windows, Linux e MAC OS X, o módulo OpenOPC faz com que seja possível utilizar elementos de programação funcional, reduzindo o tamanho do programa resultado \cite{OpenOPC}.
+
 
 \section{Programação do CLP}
 \subsection{Visão geral}
@@ -482,7 +488,7 @@ Além de \textit{ladder}, que é uma linguagem gráfica, o CLP utilizado no expe
 Em relação ao \textit{ladder}, o texto estruturado possui vantagens e desvantagens. A principal vantagem é o fato do texto estruturado se assemelhar às linguagens de programação mais utilizadas; isso torna tal linguagem de fácil aprendizado. Além disso, por ser texto, caso seja necessário editar muitos parâmetros cuja criação seja de fácil automação, um programa auxiliar escrito em linguagens de programação genéricas pode simplificar a geração do texto estruturado. Porém, uma desvantagem do texto em relação ao \textit{ladder} reside nas funções de movimentação, uma vez que, ao contrário do \textit{ladder}, o texto estruturado não dá uma indicação clara associando um valor e a variável que ele representa, além da ordem dos parâmetros. Isso torna o uso de funções como MAJ (vide Tabela \ref{ladder2}) um pouco mais complicado em texto estruturado.
 
 \subsubsection{Instruções de movimentação do motor para o texto estruturado}
-Assim como o \textit{ladder}, o texto estruturado permite o uso das funções descritas na tabela \ref{ladder2}. A sintaxe de uso dessas funções lembra muito a sintaxe da linguagem C, com o nome da função e uma lista de parâmetros válidos separados por vírgulas. A seguir, um exemplo de uso:
+Assim como o \textit{ladder}, o texto estruturado permite o uso das funções descritas na Tabela \ref{ladder2}. A sintaxe de uso dessas funções lembra muito a sintaxe da linguagem C, com o nome da função e uma lista de parâmetros válidos separados por vírgulas. A seguir, um exemplo de uso:
  
 \begin{lstlisting}
 /**
@@ -502,7 +508,7 @@ Nota-se que o código apresentado, a menos da operação de atribuição, possui
 
 \section{Parâmetros para gerar trajetórias}
 
-\paragraph{}Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se se fosse simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme referência \cite{redytton}.
+\paragraph{}Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se fosse necessário simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme cita Rédytton \cite{redytton}.
 
 \begin{table}[!ht]
 \parbox{.45\linewidth}{
