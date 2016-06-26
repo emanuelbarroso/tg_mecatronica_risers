@@ -269,6 +269,73 @@ node [near end] {$y_m$} (sum);
 \end{figure}
 
 %TODO Preditor de Smith - Controlador, Atraso e Kalman
+\subsection{Controle Discreto no Espaço de Estados}
+
+\paragraph{} Há diversas limitações de tempo existentes em sistemas reais que impedem que sistemas contínuos sejam realizados. Por exemplo, a medição demora um tempo para retornar o próximo valor, e daí o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertida para espaço discreto e então os pólos devem ser alocados no plano $z$ \cite{OgataDiscrete:1995}.
+\tikzstyle{block} = [draw, rectangle, 
+minimum height=2em, minimum width=2em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{figure}[!ht]
+\centering
+% The block diagram code is probably more verbose than necessary
+\begin{tikzpicture}[auto, node distance=1cm,>=latex']
+% We start by placing the blocks
+\node [input, name=input] {};
+\node [sum, right of=input] (sum) {};
+\node [sum, right of=sum] (sum2) {};
+\node [output, right of=sum2] (vk) {};
+\node [output, right of=vk] (vk2) {};
+\node [block, right of=vk2] (Ki) {$K_i$};
+\node [block, below of=sum2, right of=sum2] (delay1) {$z^{-1}$};
+
+\node [sum, right of=Ki] (sum3) {};
+\node [block, right of=sum3] (B) {$\mathbf{B}$};
+\node [sum, right of=B] (sum4) {};
+\node [block, right of=sum4] (delay2) {$z^{-1}$};
+\node [output, right of=delay2] (xk) {$\mathbf{x}_k$};
+\node [block, right of=xk] (C) {$\mathbf{C}$};
+\node [block, below of=delay2] (A) {$\mathbf{A}$};
+\node [block, below of=delay2, left of=A] (Kp) {$\mathbf{K}_p$};
+%\node [block, right of=C] (yk) {};
+% We draw an edge between the controller and system block to 
+% calculate the coordinate u. We need it to place the measurement block. 
+
+\node [output, right of=C] (yk) {};
+\node [block, left of=sum4, below of=Kp] (measurements) {Medição};
+
+% Once the nodes are placed, connecting them is easy. 
+%\draw [->] (controller) -- node[name=u] {$u$} (system);
+\draw [draw,->] (input) -- node {$r_k$} (sum);
+\draw [->] (sum3) -- node {$u_k$} (B);
+\draw [->] (C) -- node [name=y] {$y$}(yk);
+\draw [->] (y) |- (measurements);
+\draw [->] (measurements) -| node[pos=0.99] {$-$} node [near end] {$y_m$} (sum);
+\draw [->] (Kp) -| node[pos=0.99] {$-$} (sum3);
+\draw [->] (A) -| (sum4);
+\draw [-] (delay2) -- node[pos=0.99] {$x_k$} (xk);
+\draw [->] (xk) -- (C);
+\draw [->] (xk) |- (A);
+\draw [->] (xk) |- (Kp);
+\draw [->] (sum) -- (sum2);
+\draw [->] (sum4) -- (delay2);
+\draw [->] (B) -- (sum4);
+\draw [->] (Ki) -- (sum3);
+\draw [->] (vk2) |- (delay1);
+\draw [->] (vk2) -- (Ki);
+\draw [-] (sum2) -- (vk2);
+%\draw [->] (sum2) -- node[name=vkk] {$v_k$} (Ki);
+%\draw [->] (vk) |- (delay1);
+
+\draw [->] (delay1) -| node[pos=0.99] {$-$} node [near end] {$v_{k-1}$} (sum2);
+
+\end{tikzpicture}
+\caption{Malha fechada de controle, espaço de estados discreto\label{mfechadatikzEspacoDeEstados}}
+\end{figure}
+
 \subsection{Controle com Preditor de Smith}
 \subsubsection{Controlador com Canal Integral}
 \subsubsection{Filtro de Kalman}
