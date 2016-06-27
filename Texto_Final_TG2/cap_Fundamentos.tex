@@ -274,6 +274,9 @@ node [near end] {$y_m$} (sum);
 \paragraph{} Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
 
 \paragraph{} Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
+
+\paragraph{} O controle que será utilizado será realimentação de estados com um canal integral. O canal integral adiciona um estado a mais no sistema em malha fechada. Considerando um sistema definido pelas matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$, o sistema aumentado passa ter matrizes $\mathbf{\hat{A}}$ e $\mathbf{\hat{B}}$. O projeto considera essas duas matrizes para a definição dos pólos.
+
 \tikzstyle{block} = [draw, rectangle, 
 minimum height=2em, minimum width=2em]
 \tikzstyle{sum} = [draw, circle, node distance=1cm]
@@ -338,10 +341,44 @@ minimum height=2em, minimum width=2em]
 \caption{Malha fechada de controle, espaço de estados discreto\label{mfechadatikzEspacoDeEstados}}
 \end{figure}
 
-\subsection{Controle com Preditor de Smith}
-\subsubsection{Controlador com Canal Integral}
-\subsubsection{Filtro de Kalman}
-\subsubsection{Estrutura do Preditor}
+\paragraph{} Considerando a Figura \ref{mfechadatikzEspacoDeEstados}, têm-se as matrizes aumentadas \begin{align}
+	\mathbf{\hat{A}} & = \left[\begin{array}{cc}
+		\mathbf{A} & \mathbf{B}\\
+		\mathbf{0} & \mathbf{0}\\
+	\end{array}\right]\;\mathrm{e}\\
+	\mathbf{\hat{B}} & = \left[\begin{array}{cc}
+		\mathbf{0}\\
+		1\\
+	\end{array}\right].\\
+\end{align}
+
+\paragraph{} O projeto do controlador resume-se a definir o ganho $\mathbf{\hat{K}}$ seguindo a fórmula de Acker, explicada em \cite{OgataDiscrete:1995}, \begin{align}
+	\mathbf{\hat{K}} & = \left[0,\; 0,\; 0,\; 0,\; 1\right]\left[\mathbf{\hat{B}},\; \mathbf{\hat{A}}\mathbf{\hat{B}},\; \mathbf{\hat{A}}^2\mathbf{\hat{B}},\; \mathbf{\hat{A}}^3\mathbf{\hat{B}},\; \mathbf{\hat{A}}^4\mathbf{\hat{B}}\right]\phi(\mathbf{\hat{A}}),
+\end{align} sendo $\phi(\mathbf{\hat{G}})$ dado por \begin{align}
+	\phi(\mathbf{\hat{A}}) &= \mathbf{\hat{A}}^5 + \alpha_1 \mathbf{\hat{A}}^4 + \alpha_2 \mathbf{\hat{A}}^3 + \alpha_3 \mathbf{\hat{A}}^2 + \alpha_4 \mathbf{\hat{A}} + \alpha_5 \mathbf{I},
+\end{align} no qual os coeficientes $\alpha_i$ são coeficientes do polinômio característico desejado, tal como \begin{align}
+	z^5 + \alpha_1 z^4 + \alpha_2 z^3 + \alpha_3 z^2 + \alpha_4 z + \alpha_5 & =0.
+\end{align}
+
+\paragraph{} O MATLAB já tem um comando que permite obter $\mathbf{\hat{K}}$ a partir dos pólos do sistema:\begin{lstlisting}
+	Khat = acker(Ahat, Bhat, p);
+\end{lstlisting}
+
+\paragraph{} As matrizes aumentadas apresentadas anteriormente consideram uma forma mais simples para obtenção do vetor de ganhos $\mathbf{\hat{K}}$, que deve ser então convertido para um vetor $\mathbf{K}$ que pode ser utilizado no projeto, por meio de \begin{align}
+	\mathbf{K} &= \left(\mathbf{\hat{K}}+[\mathbf{0}\;\; 1]\right)\left[\begin{array}{cc}
+	\mathbf{A}-\mathbf{I}_n & \mathbf{B}\\
+	\mathbf{C}\mathbf{A} & \mathbf{C}\mathbf{B}\\
+\end{array}
+\right]^{-1}.\label{obterK}
+\end{align}
+
+\paragraph{} Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vetor $\mathbf{K}$ contém os ganhos proporcionais, vetor $\mathbf{K}_p$, e o ganho integral, escalar $K_i$, que serão utilizados. Esses elementos podem ser extraídos de $\mathbf{K}$, sendo sua estrutura \begin{align}
+	\mathbf{K} & = \left[\begin{array}{c}\mathbf{K}_p\\ K_i\end{array}\right].
+\end{align}
+
+\subsection{Preditor de Smith}
+
+\subsection{Filtro de Kalman}
 
 %TODO Terminar rede OPC - e considerar explicar o uso de Python no trabalho.
 \section{Bancada\label{bancada}}
