@@ -29,7 +29,7 @@ Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
 	&= 0.00770\;\mathrm{g/m}.
 \end{align} 
 
-\paragraph{} Já que $m_{fbar} \ll m_s$ conforme a Tabela \ref{constanteBarbante}, consideraremos $m = m_s$ nos cálculos. Em relação à massa $m_{fb}$ do fluido adicionado ao redor da bolinha de isopor, ela é dada por\begin{align}
+ Já que $m_{fbar} \ll m_s$ conforme a Tabela \ref{constanteBarbante}, consideraremos $m = m_s$ nos cálculos. Em relação à massa $m_{fb}$ do fluido adicionado ao redor da bolinha de isopor, ela é dada por\begin{align}
 	m_{fb} &= 1.2 V_{b} \rho_{\mathrm{ar}}\nonumber\\
 	&= 1.2 \left(\frac{4}{3}\pi r_b^3\right)\rho_{\mathrm{ar}}\nonumber\\
 	&= 0.0220\;\textrm{g},
@@ -66,11 +66,11 @@ Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
 
 %Para o presente trabalho, apenas o resultado do modelamento para malha aberta foi fornecido e utilizado. Para trabalhos futuros, as equações de controle serão desenvolvidas de acordo com as exigências do projeto.
 
-\paragraph{} Um ponto importante de se notar é que o barbante pesa mais do que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como em \cite{fabricioIFAC}, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$, que substituem o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Essas constantes são definidas de acordo com a trajetória prevista, uma vez que a velocidade média depende dessa trajetória. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
+ Um ponto importante de se notar é que o barbante pesa mais do que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como em \cite{fabricioIFAC}, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$, que substituem o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Essas constantes são definidas de acordo com a trajetória prevista, uma vez que a velocidade média depende dessa trajetória. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
 	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \tau\frac{\partial \Upsilon}{\partial t}\label{EquacaoComTau}
 	\end{align}
 
-\paragraph{} Antes de se prosseguir para a discretização e obtenção das matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga.
+ Antes de se prosseguir para a discretização e obtenção das matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga.
 
 \subsection{Discretização}
 O objetivo desta seção é representar a Equação \ref{EquacaoComTau} em um espaço de estados finito discreto.  Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
@@ -78,9 +78,9 @@ O objetivo desta seção é representar a Equação \ref{EquacaoComTau} em um es
 	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
 \end{align} sendo $N$ o número de pontos de discretização e $l$ a distância entre dois pontos vizinhos ($l = L/N$).
 
-\paragraph{} Deve-se notar que $k\in \mathbb{N}:2\le k \le N-1$, pois um dos extremos é a bolinha e a equação do pêndulo rege seu movimento, enquanto que na outra ponta se aplica uma condição de contorno. O que aconteceria quando $k=2$ e se precisasse de $\Upsilon_{k-2}$? Para o presente experimento, $J=0$ e esse problema não ocorre. Caso se façam testes com um valor de $J\neq 0$, tem-se de resolver esse problema primeiro. Uma solução seria utilizar diferenças finitas unilaterais para esses pontos próximos à fronteira.
+ Deve-se notar que $k\in \mathbb{N}:2\le k \le N-1$, pois um dos extremos é a bolinha e a equação do pêndulo rege seu movimento, enquanto que na outra ponta se aplica uma condição de contorno. O que aconteceria quando $k=2$ e se precisasse de $\Upsilon_{k-2}$? Para o presente experimento, $J=0$ e esse problema não ocorre. Caso se façam testes com um valor de $J\neq 0$, tem-se de resolver esse problema primeiro. Uma solução seria utilizar diferenças finitas unilaterais para esses pontos próximos à fronteira.
 
-\paragraph{} Para simplificar, definem-se as constantes \begin{align}
+ Para simplificar, definem-se as constantes \begin{align}
 	a &= -\frac{EJ}{m l^4}\\
 	b_k &= \frac{T_0 + mg(k-1)l}{m l^2},\; k\ge 2\\
 	c &= \frac{g}{2l}\\
@@ -88,9 +88,9 @@ O objetivo desta seção é representar a Equação \ref{EquacaoComTau} em um es
 	e_k &= b_k + c,\; k\ge 2
 \end{align}
 
-\paragraph{} Uma estratégia para se analisar como as matrizes do espaço de estados do sistema ficarão é escolher um número de pontos $N$ pequeno e escrever todas as equações. Observa-se que $a=0$ para o barbante, pois $J=0$, como apresentado anteriormente, o que simplifica os cálculos.
+ Uma estratégia para se analisar como as matrizes do espaço de estados do sistema ficarão é escolher um número de pontos $N$ pequeno e escrever todas as equações. Observa-se que $a=0$ para o barbante, pois $J=0$, como apresentado anteriormente, o que simplifica os cálculos.
 
-\paragraph{} Para o caso $N=6$, por exemplo, tem-se \begin{align}
+ Para o caso $N=6$, por exemplo, tem-se \begin{align}
 \mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T 	\\
 u &= \Upsilon(L,t) = \Upsilon_7\label{ufor6}\\
 y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
@@ -107,7 +107,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6 \label{upsilon6}
  \end{align}
 
-\paragraph{} A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison e é dada por \begin{align}
+ A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison e é dada por \begin{align}
  	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho_{\mathrm{ar}} C_m V_b \ddot{\Upsilon}_1 - \frac{1}{2}\rho_{\textrm{ar}} C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.\label{upsilon1previa}
  \end{align} 
  
@@ -115,13 +115,13 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.
  \end{align} 
  
- \paragraph{} Nota-se que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos. Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Para o caso da bolinha de isopor, essa constante é diferente e é denotada por $\tau'$, resultando na equação final para $\Upsilon_1$: \begin{align}
+  Nota-se que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos. Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Para o caso da bolinha de isopor, essa constante é diferente e é denotada por $\tau'$, resultando na equação final para $\Upsilon_1$: \begin{align}
  	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1\label{upsilon1final},
  \end{align} sendo \begin{equation}
  	b_1 = \frac{m_b g}{m'l} = \frac{g}{l}.
  \end{equation}
 
- \paragraph{} Desta forma, a partir das Equações \ref{upsilon1final} e \ref{upsilon2}-\ref{upsilon6}, pode-se definir o sistema linear em forma matricial \begin{align}
+  Desta forma, a partir das Equações \ref{upsilon1final} e \ref{upsilon2}-\ref{upsilon6}, pode-se definir o sistema linear em forma matricial \begin{align}
  	\mathbf{\dot{x}} &= \left[\begin{array}{cccccccccccc}
  		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
  		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
@@ -163,18 +163,18 @@ y &= \left[\begin{array}{cc}
 
 \subsection{Estratégia de Redução da ordem do modelo}
 
-\paragraph{} A maior parte da teoria clássica de controle lida com sistemas representados por um pequeno número de variáveis de estado. Portanto, uma forma de aplicar métodos clássicos de controle da literatura para sistemas de parâmetros distribuídos discretos é por meio de uma redução da ordem do modelo \cite{fabricioIFAC}.
+ A maior parte da teoria clássica de controle lida com sistemas representados por um pequeno número de variáveis de estado. Portanto, uma forma de aplicar métodos clássicos de controle da literatura para sistemas de parâmetros distribuídos discretos é por meio de uma redução da ordem do modelo \cite{fabricioIFAC}.
 
-\paragraph{} Tal redução do modelo será feita em duas etapas: primeiro, uma transformação modal é aplicada nas equações originais do espaço de estados, resultando em uma nova representação em variáveis modais. Nesta forma, o sistema pode ser visto como um conjunto de subsistemas dissociados em paralelo, cuja influência na saída pode ser calculada individualmente. Então, os subsistemas com os maiores ganhos estáticos são escolhidos para criar um modelo de ordem reduzida \cite{fabricioIFAC}.
+ Tal redução do modelo será feita em duas etapas: primeiro, uma transformação modal é aplicada nas equações originais do espaço de estados, resultando em uma nova representação em variáveis modais. Nesta forma, o sistema pode ser visto como um conjunto de subsistemas dissociados em paralelo, cuja influência na saída pode ser calculada individualmente. Então, os subsistemas com os maiores ganhos estáticos são escolhidos para criar um modelo de ordem reduzida \cite{fabricioIFAC}.
 
-\paragraph{} Primeiro, deve-se obter os autovalores do espaço de estados do \textit{riser}. Observa-se que eles são sempre distintos entre si, uma condição suficiente para a diagonalização da matriz do espaço de estados. Assim, calcula-se a matriz modal \textbf{T}, cuja i-ésima coluna é o i-ésimo autovetor do sistema: \begin{align}
+ Primeiro, deve-se obter os autovalores do espaço de estados do \textit{riser}. Observa-se que eles são sempre distintos entre si, uma condição suficiente para a diagonalização da matriz do espaço de estados. Assim, calcula-se a matriz modal \textbf{T}, cuja i-ésima coluna é o i-ésimo autovetor do sistema: \begin{align}
 	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
 \end{align}
 
-\paragraph{} A matriz $\mathbf{T}$ provavelmente tem valores complexos. Isso é um problema para a representação em espaço de estados e sua simulação. A solução é criar uma matriz $\mathbf{\tilde{T}}$ que tenha só números reais. Antes de explicar como criá-la, deve-se lembrar que que os autovalores complexos sempre aparecem em pares conjugados, já que a matriz $\mathbf{A}$ só tem valores reais. Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\mathbf{\tilde{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$.
+ A matriz $\mathbf{T}$ provavelmente tem valores complexos. Isso é um problema para a representação em espaço de estados e sua simulação. A solução é criar uma matriz $\mathbf{\tilde{T}}$ que tenha só números reais. Antes de explicar como criá-la, deve-se lembrar que que os autovalores complexos sempre aparecem em pares conjugados, já que a matriz $\mathbf{A}$ só tem valores reais. Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\mathbf{\tilde{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$.
 
 
-\paragraph{} A matriz $\mathbf{\tilde{T}}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
+ A matriz $\mathbf{\tilde{T}}$ é utilizada para uma transformação de similaridade no sistema original: \begin{align}
 	\mathbf{A_M} &= \mathbf{\tilde{T}}^{-1}\mathbf{A}\mathbf{\tilde{T}},\\
 	\mathbf{x_M} &=\mathbf{\tilde{T}}^{-1}\mathbf{x},	\\
 	\mathbf{B_M} &= \mathbf{\tilde{T}}^{-1}\mathbf{B},\textrm{ e}\\
@@ -182,11 +182,11 @@ y &= \left[\begin{array}{cc}
 \end{align}
 
 
-\paragraph{} O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas formados por pares de autovalores reais ou complexo-conjugados. Nota-se que cada subsistema é de ordem 1 ou 2 dependendo se o autovalor é real ou um par complexo conjugado.
+ O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas formados por pares de autovalores reais ou complexo-conjugados. Nota-se que cada subsistema é de ordem 1 ou 2 dependendo se o autovalor é real ou um par complexo conjugado.
 
-\paragraph{} Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada.
+ Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada.
 
-\paragraph{} Os subsistemas selecionados são combinados em um modelo reduzido \begin{align}
+ Os subsistemas selecionados são combinados em um modelo reduzido \begin{align}
 	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
 	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u
 \end{align} cuja ordem é escolhida considerando o custo-benefício entre a acurácia da dinâmica reduzida e a simplicidade da estrutura de controle exigida. Além disso, o sistema reduzido deve compensar o ganho estático perdido nos autovalores desconsiderados. Isto é feito por meio de uma matriz de transferência direta $\mathbf{D_R}$, que é a diferença dos ganhos dos sistemas original e reduzido: \begin{align}
@@ -194,7 +194,7 @@ y &= \left[\begin{array}{cc}
 \end{align}
 
 
-\paragraph{} A matriz de transferência direta $\mathbf{D_R}$ introduz novas dinâmicas: uma saída não-nula que não leva em conta o atraso de propagação da entrada e um ganho em altas frequências. Conforme mostrado por Fortaleza \cite{teseEugenio}, pode-se refinar o modelo reduzido introduzindo um atraso de entrada $\epsilon$ que minimiza a transferência direta e garante dinâmica nula para $t < \epsilon$: \begin{align}
+ A matriz de transferência direta $\mathbf{D_R}$ introduz novas dinâmicas: uma saída não-nula que não leva em conta o atraso de propagação da entrada e um ganho em altas frequências. Conforme mostrado por Fortaleza \cite{teseEugenio}, pode-se refinar o modelo reduzido introduzindo um atraso de entrada $\epsilon$ que minimiza a transferência direta e garante dinâmica nula para $t < \epsilon$: \begin{align}
 \begin{array}{lll}
 	\mathbf{\dot{z}} &=& \mathbf{A_R}\mathbf{z}+\mathbf{B_D}u(t-\epsilon),\\
 	y &=& \mathbf{C_R}\mathbf{z}+\mathbf{D_D}u(t-\epsilon) \label{novoModeloReduzido};
@@ -204,11 +204,11 @@ y &= \left[\begin{array}{cc}
 	\mathbf{D_D} &= \mathbf{C_M}\left(e^{\epsilon\mathbf{A_M}} - \mathbf{I}\right)\mathbf{A_M^{-1}}\mathbf{B_M} + \mathbf{D_M}.
 \end{align}
 
-\paragraph{} O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
+ O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
 
 \section{Controle}
 \subsection{Técnicas Simples de Controle}
-\paragraph{} Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada. O controle malha aberta foi anteriormente verificado na referência \cite{redytton}.
+ Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada. O controle malha aberta foi anteriormente verificado na referência \cite{redytton}.
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle, 
 minimum height=3em, minimum width=6em]
@@ -238,7 +238,7 @@ minimum height=3em, minimum width=6em]
 	\caption{Malha aberta de controle\label{mabertatikz}}
 \end{figure}
 
-\paragraph{} Uma forma de se compensar as perturbações do ambiente é realimentando a saída na entrada, calculando a diferença entre a referência e o valor medido. Assim, um valor de erro $e = e(t)$ é obtido e o sistema calcula o sinal $u$ conforme o erro evolui. A Figura \ref{mfechadatikz} mostra um esquema básico deste sistema, evidenciando a presença de uma malha fechada de controle.
+ Uma forma de se compensar as perturbações do ambiente é realimentando a saída na entrada, calculando a diferença entre a referência e o valor medido. Assim, um valor de erro $e = e(t)$ é obtido e o sistema calcula o sinal $u$ conforme o erro evolui. A Figura \ref{mfechadatikz} mostra um esquema básico deste sistema, evidenciando a presença de uma malha fechada de controle.
 
 
 \begin{figure}[!ht]
@@ -270,12 +270,12 @@ node [near end] {$y_m$} (sum);
 
 %TODO Preditor de Smith - Controlador, Atraso e Kalman
 \subsection{Controle Discreto no Espaço de Estados}
-\paragraph{} Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
-\paragraph{} Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
+ Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
+ Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
 
-\paragraph{} Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
+ Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
 
-\paragraph{} O controle que será utilizado será realimentação de estados com um canal integral. O canal integral adiciona um estado a mais no sistema em malha fechada. Considerando um sistema definido pelas matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$, o sistema aumentado passa ter matrizes $\mathbf{\hat{A}}$ e $\mathbf{\hat{B}}$. O projeto considera essas duas matrizes para a definição dos pólos.
+ O controle que será utilizado será realimentação de estados com um canal integral. O canal integral adiciona um estado a mais no sistema em malha fechada. Considerando um sistema definido pelas matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$, o sistema aumentado passa ter matrizes $\mathbf{\hat{A}}$ e $\mathbf{\hat{B}}$. O projeto considera essas duas matrizes para a definição dos pólos.
 
 \tikzstyle{block} = [draw, rectangle, 
 minimum height=2em, minimum width=2em]
@@ -341,7 +341,7 @@ minimum height=2em, minimum width=2em]
 \caption{Malha fechada de controle, espaço de estados discreto\label{mfechadatikzEspacoDeEstados}}
 \end{figure}
 
-\paragraph{} Considerando a Figura \ref{mfechadatikzEspacoDeEstados}, têm-se as matrizes aumentadas \begin{align}
+Considerando a Figura \ref{mfechadatikzEspacoDeEstados}, têm-se as matrizes aumentadas \begin{align}
 	\mathbf{\hat{A}} & = \left[\begin{array}{cc}
 		\mathbf{A} & \mathbf{B}\\
 		\mathbf{0} & \mathbf{0}\\
@@ -352,7 +352,7 @@ minimum height=2em, minimum width=2em]
 	\end{array}\right].\\
 \end{align}
 
-\paragraph{} O projeto do controlador resume-se a definir o ganho $\mathbf{\hat{K}}$ seguindo a fórmula de Acker, explicada em \cite{OgataDiscrete:1995}, \begin{align}
+O projeto do controlador resume-se a definir o ganho $\mathbf{\hat{K}}$ seguindo a fórmula de Acker, explicada em \cite{OgataDiscrete:1995}, \begin{align}
 	\mathbf{\hat{K}} & = \left[0,\; 0,\; 0,\; 0,\; 1\right]\left[\mathbf{\hat{B}},\; \mathbf{\hat{A}}\mathbf{\hat{B}},\; \mathbf{\hat{A}}^2\mathbf{\hat{B}},\; \mathbf{\hat{A}}^3\mathbf{\hat{B}},\; \mathbf{\hat{A}}^4\mathbf{\hat{B}}\right]\phi(\mathbf{\hat{A}}),
 \end{align} sendo $\phi(\mathbf{\hat{G}})$ dado por \begin{align}
 	\phi(\mathbf{\hat{A}}) &= \mathbf{\hat{A}}^5 + \alpha_1 \mathbf{\hat{A}}^4 + \alpha_2 \mathbf{\hat{A}}^3 + \alpha_3 \mathbf{\hat{A}}^2 + \alpha_4 \mathbf{\hat{A}} + \alpha_5 \mathbf{I},
@@ -360,11 +360,11 @@ minimum height=2em, minimum width=2em]
 	z^5 + \alpha_1 z^4 + \alpha_2 z^3 + \alpha_3 z^2 + \alpha_4 z + \alpha_5 & =0.
 \end{align}
 
-\paragraph{} O MATLAB já tem um comando que permite obter $\mathbf{\hat{K}}$ a partir dos pólos do sistema:\begin{lstlisting}
+O MATLAB já tem um comando que permite obter $\mathbf{\hat{K}}$ a partir dos pólos do sistema:\begin{lstlisting}
 	Khat = acker(Ahat, Bhat, p);
 \end{lstlisting}
 
-\paragraph{} As matrizes aumentadas apresentadas anteriormente consideram uma forma mais simples para obtenção do vetor de ganhos $\mathbf{\hat{K}}$, que deve ser então convertido para um vetor $\mathbf{K}$ que pode ser utilizado no projeto, por meio de \begin{align}
+As matrizes aumentadas apresentadas anteriormente consideram uma forma mais simples para obtenção do vetor de ganhos $\mathbf{\hat{K}}$, que deve ser então convertido para um vetor $\mathbf{K}$ que pode ser utilizado no projeto, por meio de \begin{align}
 	\mathbf{K} &= \left(\mathbf{\hat{K}}+[\mathbf{0}\;\; 1]\right)\left[\begin{array}{cc}
 	\mathbf{A}-\mathbf{I}_n & \mathbf{B}\\
 	\mathbf{C}\mathbf{A} & \mathbf{C}\mathbf{B}\\
@@ -372,15 +372,55 @@ minimum height=2em, minimum width=2em]
 \right]^{-1}.\label{obterK}
 \end{align}
 
-\paragraph{} Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vetor $\mathbf{K}$ contém os ganhos proporcionais, vetor $\mathbf{K}_p$, e o ganho integral, escalar $K_i$, que serão utilizados. Esses elementos podem ser extraídos de $\mathbf{K}$, sendo sua estrutura \begin{align}
+Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vetor $\mathbf{K}$ contém os ganhos proporcionais, vetor $\mathbf{K}_p$, e o ganho integral, escalar $K_i$, que serão utilizados. Esses elementos podem ser extraídos de $\mathbf{K}$, sendo sua estrutura \begin{align}
 	\mathbf{K} & = \left[\begin{array}{c}\mathbf{K}_p\\ K_i\end{array}\right].
 \end{align}
 
 \subsection{Preditor de Smith}
 
 \subsection{Filtro de Kalman}
+Uma parte importante do preditor de Smith é uma estrutura que deve ser capaz de estimar, dado que as variáveis de estado e demais sinais possuem ruídos associados, valores tanto para o processo quanto para o resultado. Assumindo-se que os estados do sistema sejam observáveis, é possível desenvolver, para o processo, uma estrutura denominada \textbf{Filtro de Kalman}, que leva o nome do seu criador, Rudolf E. Kalman.
+O Filtro de Kalman, também conhecido como observador ótimo, é responsável por estimar, utilizando uma estrutura de predição e correção, variáveis de estado não medidas de forma a se utilizar os resultados obtidos em uma dada estratégia de controle \cite{GoddardKalman}. O Filtro de Kalman original é aplicado, principalmente, em sistemas discretos no tempo, como o que foi obtido para este projeto por meio da redução modal. A Figura \ref{Kalman1} mostra um exemplo de processo no qual o filtro pode ser aplicado.
+\begin{figure}[!ht]
+\centering
+\caption{Exemplo de estrutura de sistema discreto no tempo \cite{GoddardKalman}. \label{Kalman1}}
+\includegraphics[width=.7\linewidth]{figs/kalman/kalman1}
+\end{figure}
 
-%TODO Terminar rede OPC - e considerar explicar o uso de Python no trabalho.
+O sistema representado pela Figura \ref{Kalman1} pode então ser representado por equações lineares, como se segue:
+\begin{align}
+	\label{KalmanEq1}
+	x_k &= \mathbf{A_k} x_{k-1} + \mathbf{B_k} u_k + w_{k-1} \\
+	\label{KalmanEq2}
+	y_k &= \mathbf{C_k} x_k \\
+	\label{KalmanEq3}
+	\tilde{y}_k &= y_k + v_k
+\end{align}
+
+No sistema representado pelas Equações \ref{KalmanEq1}-\ref{KalmanEq3}, as matrizes $\mathbf{A_k}$, $\mathbf{B_k}$ e $\mathbf{C_k}$ são as matrizes próprias do espaço de estados do sistema discreto; $x_k$ é o vetor de variáveis de estado, $y_k$ é a saída do processo e $\tilde{y}_k$ é uma medida da referida saída. As variáveis $w_k$ e $v_k$ são ruídos associados respectivamente ao processo e à medida. Suas covariâncias podem ser representadas por $\mathbf{Q_k}$ para o processo e $\mathbf{R_k}$ para a medida.
+
+Dada a estrutura do sistema, o objetivo do uso do filtro de Kalman é estimar os dados do processo e a medida das saídas, dadas as entradas e as medições das saídas. A Figura \ref{Kalman2} mostra um esquema de uso do filtro, em que $\hat{x}_k$ e $\hat{y}_k$ são, respectivamente, as estimações das variáveis de estado e da saída.
+\begin{figure}[!ht]
+\centering
+\caption{Exemplo de estrutura de filtro de Kalman \cite{GoddardKalman}. \label{Kalman2}}
+\includegraphics[width=.7\linewidth]{figs/kalman/kalman2}
+\end{figure}
+
+O Filtro de Kalman é um algoritmo de dois passos: predição, em que o estado mais recente e a estimação do erro de covariância são projetados de forma a se computar o estado atual das variáveis de estado, e correção, onde o estado predito pelo primeiro passo é corrigido incorporando-se a medida mais recente do processo para se gerar uma nova estimação do estado \cite{GoddardKalman}. Matematicamente, a predição é dada por
+\begin{align}
+	\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k \\
+	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k}
+\end{align}
+ enquanto que a correção pode ser descrita por
+\begin{align}
+	\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1} \\
+	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right) \\
+	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}
+\end{align} 
+Nas Equações \ref{KalmanEq4}-\ref{KalmanEq8}, $\mathbf{P_k}$ é uma estimação da covariância de erro da medição, enquanto $\mathbf{K_k}$ é denominado ganho de Kalman. Após os dois passos do algoritmo, $\hat{x}_k$ e $\mathbf{P_k}$ são preservados continuamente, de forma a serem utilizados na parte de predição no próximo instante de tempo \cite{GoddardKalman}.
+
+No presente projeto, o filtro de Kalman é utilizado em conjunção com o controlador. Porém, é admitido um caso especial, em que as matrizes passadas para o filtro são discretizadas a partir do sistema contínuo escrito em forma canônica controlável. Nesse caso , $\hat{y}_k$ é diretamente dependente de uma das variáveis de estado, tornando o conjunto controlador-filtro mais simples de ser implementado, uma vez que é tomada a integral de uma variável de estado, apenas.
+
 \section{Bancada\label{bancada}}
 A bancada da ponte rolante presente no Laboratório de Automação e Controle está esquematizada na Figura \ref{bancadaEsquematico}. Serão detalhados os componentes desta bancada, de modo a se entender o papel de cada um deles. Observe que no esquemático falta a câmera, que é um sensor que fica de frente para a bancada. 
 
@@ -614,7 +654,7 @@ Nota-se que o código apresentado, a menos da operação de atribuição, possui
 
 \section{Parâmetros para gerar trajetórias}
 
-\paragraph{}Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se fosse necessário simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme cita Rédytton \cite{redytton}.
+Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetórias \textit{offline} (controle malha aberta) assim como \textit{online} (controle malha fechada). Para se utilizar do método, é necessário ter parâmetros do sistema. Se fosse necessário simular ou controlar o sistema real, utilizariam-se os dados da Tabela \ref{escalaReal}, conforme cita Rédytton \cite{redytton}.
 
 \begin{table}[!ht]
 \parbox{.45\linewidth}{
@@ -656,7 +696,7 @@ Nota-se que o código apresentado, a menos da operação de atribuição, possui
 
 \end{table}
 
-\paragraph{}Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
+Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
 
 %\begin{table}[!ht]
 %\centering

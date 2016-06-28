@@ -20,6 +20,12 @@
   Faculdade de Tecnologia, Universidade de Brasília, 2015. Trabalho de
   Graduação em Engenharia de Controle e Automação.}
 
+\bibitem{GoddardKalman}
+\abntrefinfo{Goddard Consulting}{GODDARD CONSULTING}{}
+{GODDARD CONSULTING. \emph{An Introduction to the Kalman Filter}.
+Disponível em: \url{http://www.goddardconsulting.ca/kalman-filter.html}.
+Acesso em: 28/06/2016.}
+
 \bibitem{preSal}
 \abntrefinfo{Petrobras}{PETROBRAS}{}
 {PETROBRAS. \emph{Pré-Sal: Exploração e Produção de Petróleo}.
@@ -45,6 +51,24 @@ Dispon{\'\i}vel em:
   Attenuation of Vortex Induced Vibrations}.
 Tese (Doutorado) --- {\' E}cole Nationale Sup{\' e}rieure des Mines de Paris,
   2009. Ph.D. thesis.}
+
+\bibitem{Ogata:2010}
+\abntrefinfo{Ogata}{OGATA}{2010}
+{OGATA, K. \emph{Modern Control Engineering}. 5th. ed. Upper Saddle River, NJ,
+  USA: Prentice Hall PTR, 2010.
+ISBN 0-13-615673-8.}
+
+\bibitem{OgataDiscrete:1995}
+\abntrefinfo{Ogata}{OGATA}{1995}
+{OGATA, K. \emph{Discrete-Time Control Systems}. 2nd. ed. [S.l.]: Pearson,
+  1995.
+ISBN 978-0130342812.}
+
+\bibitem{c2d}
+\abntrefinfo{MathWorks}{MATHWORKS}{}
+{MATHWORKS. \emph{Convert model from continuous to discrete time - MATLAB c2d}.
+Disponível em: \url{http://www.mathworks.com/help/control/ref/c2d.html}.
+Acesso em: 26/06/2016.}
 
 \bibitem{sercos}
 \abntrefinfo{SERCOS INTERNATIONAL}{SERCOS INTERNATIONAL}{}
