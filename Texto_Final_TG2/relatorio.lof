@@ -14,27 +14,27 @@
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Esquem\IeC {\'a}tico da Bancada Utilizada para o Experimento \cite {redytton}}}{15}{figure.2.6}
 \contentsline {figure}{\numberline {2.7}{\ignorespaces CLP com identifica\IeC {\c c}\IeC {\~a}o de elementos}}{15}{figure.2.7}
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Line Interface Module modelo 2094-AL09 da Allen Bradley \cite {redytton}}}{17}{figure.2.8}
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Drive Kinetix 6000 da Allen Bradley}}{17}{figure.2.9}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Drive Kinetix 6000 da Allen Bradley}}{18}{figure.2.9}
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Servomotor modelo MPL-A310F-SJ22AA}}{18}{figure.2.10}
-\contentsline {figure}{\numberline {2.11}{\ignorespaces Sensor indutivo 871T-R8B18 \cite {redytton}}}{18}{figure.2.11}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Sensor indutivo 871T-R8B18 \cite {redytton}}}{19}{figure.2.11}
 \contentsline {figure}{\numberline {2.12}{\ignorespaces C\IeC {\^a}mera da Banner Engineering utilizada no projeto \cite {redytton}}}{19}{figure.2.12}
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Exemplo de programa \textit {ladder} com instru\IeC {\c c}\IeC {\~o}es de movimenta\IeC {\c c}\IeC {\~a}o.}}{23}{figure.2.13}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces RSLinx com c\IeC {\^a}mera reconhecida }}{26}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Programa PresencePLUS para calibra\IeC {\c c}\IeC {\~a}o da c\IeC {\^a}mera }}{27}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 30cm}}{29}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 30cm}}{29}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 30cm}}{29}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 30cm}}{29}{figure.3.6}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 20cm}}{30}{figure.3.7}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 20cm}}{30}{figure.3.8}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 20cm}}{30}{figure.3.9}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 20cm}}{30}{figure.3.10}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Malha fechada de controle}}{31}{figure.3.11}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0025\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$}}{31}{figure.3.12}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0050\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$ }}{31}{figure.3.13}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces RSLinx com c\IeC {\^a}mera reconhecida }}{27}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Programa PresencePLUS para calibra\IeC {\c c}\IeC {\~a}o da c\IeC {\^a}mera }}{28}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 30cm}}{30}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 30cm}}{30}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 30cm}}{30}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 30cm}}{30}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 20cm}}{31}{figure.3.7}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 20cm}}{31}{figure.3.8}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 20cm}}{31}{figure.3.9}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 20cm}}{31}{figure.3.10}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Malha fechada de controle}}{32}{figure.3.11}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0025\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$}}{32}{figure.3.12}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0050\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$ }}{32}{figure.3.13}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {I.1}{\ignorespaces \textit {Trigger} da c\IeC {\^a}mera}}{44}{figure.A.1}
-\contentsline {figure}{\numberline {I.2}{\ignorespaces Parada de emerg\IeC {\^e}ncia}}{44}{figure.A.2}
-\contentsline {figure}{\numberline {I.3}{\ignorespaces Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}}{45}{figure.A.3}
+\contentsline {figure}{\numberline {I.1}{\ignorespaces \textit {Trigger} da c\IeC {\^a}mera}}{45}{figure.A.1}
+\contentsline {figure}{\numberline {I.2}{\ignorespaces Parada de emerg\IeC {\^e}ncia}}{45}{figure.A.2}
+\contentsline {figure}{\numberline {I.3}{\ignorespaces Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}}{46}{figure.A.3}

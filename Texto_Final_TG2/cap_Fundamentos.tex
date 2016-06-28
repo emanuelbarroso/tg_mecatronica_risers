@@ -380,6 +380,7 @@ Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vet
 
 \subsection{Filtro de Kalman}
 Uma parte importante do preditor de Smith é uma estrutura que deve ser capaz de estimar, dado que as variáveis de estado e demais sinais possuem ruídos associados, valores tanto para o processo quanto para o resultado. Assumindo-se que os estados do sistema sejam observáveis, é possível desenvolver, para o processo, uma estrutura denominada \textbf{Filtro de Kalman}, que leva o nome do seu criador, Rudolf E. Kalman.
+
 O Filtro de Kalman, também conhecido como observador ótimo, é responsável por estimar, utilizando uma estrutura de predição e correção, variáveis de estado não medidas de forma a se utilizar os resultados obtidos em uma dada estratégia de controle \cite{GoddardKalman}. O Filtro de Kalman original é aplicado, principalmente, em sistemas discretos no tempo, como o que foi obtido para este projeto por meio da redução modal. A Figura \ref{Kalman1} mostra um exemplo de processo no qual o filtro pode ser aplicado.
 \begin{figure}[!ht]
 \centering
@@ -417,6 +418,7 @@ O Filtro de Kalman é um algoritmo de dois passos: predição, em que o estado m
 	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right) \\
 	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}
 \end{align} 
+
 Nas Equações \ref{KalmanEq4}-\ref{KalmanEq8}, $\mathbf{P_k}$ é uma estimação da covariância de erro da medição, enquanto $\mathbf{K_k}$ é denominado ganho de Kalman. Após os dois passos do algoritmo, $\hat{x}_k$ e $\mathbf{P_k}$ são preservados continuamente, de forma a serem utilizados na parte de predição no próximo instante de tempo \cite{GoddardKalman}.
 
 No presente projeto, o filtro de Kalman é utilizado em conjunção com o controlador. Porém, é admitido um caso especial, em que as matrizes passadas para o filtro são discretizadas a partir do sistema contínuo escrito em forma canônica controlável. Nesse caso , $\hat{y}_k$ é diretamente dependente de uma das variáveis de estado, tornando o conjunto controlador-filtro mais simples de ser implementado, uma vez que é tomada a integral de uma variável de estado, apenas.
