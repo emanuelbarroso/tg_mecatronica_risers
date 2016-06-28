@@ -207,7 +207,7 @@ y &= \left[\begin{array}{cc}
  O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
 
 \section{Controle}
-\subsection{Técnicas Simples de Controle}
+\subsection{Técnicas Simples de Controle} \label{SimpleControlSection}
  Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada. O controle malha aberta foi anteriormente verificado na referência \cite{redytton}.
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle, 
@@ -268,7 +268,7 @@ node [near end] {$y_m$} (sum);
 \caption{Malha fechada de controle\label{mfechadatikz}}
 \end{figure}
 
-%TODO Preditor de Smith - Controlador, Atraso e Kalman
+%TODO Preditor de Smith
 \subsection{Controle Discreto no Espaço de Estados}
  Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
  Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
@@ -378,6 +378,96 @@ Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vet
 
 \subsection{Preditor de Smith}
 
+Segundo Rafael \cite{rafaelMestrado}, não é trivial desenvolver um controlador comum com
+realimentação de estados caso o sistema a ser considerado possui atraso, devido aos seguintes fatos:
+\begin{itemize}
+\item Os efeitos de uma perturbação externa demoram a ser detectados pelo controlador;
+\item As ações de controle demoram a surtir efeito nas variáveis controladas;
+\item O controlador, na realidade, tenta corrigir estados que já passaram.
+\end{itemize}
+
+De forma a se lidar com os problemas envolvidos em sistemas com atraso, é possível facilitar o projeto do controlador utilizando uma estrutura conhecida como preditor de Smith. Esse preditor pode ser visto como um compensador de atraso, tornando possível projetar um controlador para o sistema equivalente sem atraso, facilitando o desenvolvimento de uma estratégia de controle. A Figura \ref{smith1} mostra uma estrutura básica do preditor de Smith, em que \textbf{P} é a planta, \textbf{C} é um controlador desenvolvido com realimentação, \textbf{RM} é o modelo obtido por redução modal, sem atraso e $e^{-\epsilon s}$ é o atraso puro.
+
+\begin{figure}[!ht]
+\centering
+\caption{Estrutura básica do preditor de Smith \cite{rafaelMestrado}. \label{smith1}}
+\includegraphics[width=.6\linewidth]{figs/smith/smith1}
+\end{figure}
+
+Nota-se que a saída do modelo sem atraso é uma estimativa da saída da planta desconsiderando-se efeitos de perturbação, ou seja, é uma predição da saída da planta sem perturbação após decorrido o atraso. Subtraindo-se essa saída sem atraso da saída real da planta, tem-se uma estimativa de perturbação, que somada à saída sem atraso, resulta em uma predição do modelo com perturbação; assim, a realimentação do preditor considera a perturbação sem ser influenciada pelo atraso.
+
+A grande vantagem de se utilizar o preditor de Smith é que, dado o fato que o projeto pode ser feito sobre o modelo reduzido sem atraso, podem ser utilizadas técnicas elementares de controle em espaço de estados, apresentadas na Seção \ref{SimpleControlSection}. Conhecendo-se o atraso $\epsilon$, e sabendo que o modelo reduzido é um sistema SISO invariante no tempo e controlável, ele pode ser representado em forma canônica de controle. Assumindo-se as novas variáveis de estado nessa forma como o vetor $\bar{x} = \left[\bar{x}_1, \bar{x}_2], \bar{x}_3, \bar{x}_4\right]^T$ (sendo o sistema reduzido de ordem 4), pode-se considerar a saída plana do sistema $F$ como \begin{align}
+ F &= \bar{x}_1
+\end{align}
+
+Como o sistema reduzido considerado é de ordem 4, deriva-se a saída $F$ até a quarta ordem:
+\begin{align}
+\label{CanonForm1} \left\{
+ \begin{array}{lll}
+\dot{F} &= \dot{\bar{x}}_1 &= \bar{x}_2 \\
+\ddot{F} &= \dot{\bar{x}}_2 &= \bar{x}_3 \\
+\dddot{F} &= \dot{\bar{x}}_3 &= \bar{x}_4 \\
+F^{(4)} &= \dot{\bar{x}}_4 &= -a_4\bar{x}_1 -a_3\bar{x}_2 -a_2\bar{x}_3 -a_1\bar{x}_4 + u
+\end{array}
+\right.
+\end{align}
+
+Na Equação \ref{CanonForm1}, as constantes $a_i$ correspondem à última linha da matriz de estados do sistema sem atraso, na forma canônica controlável. Portanto, o sistema pode ser parametrizado em função de $F$ e suas derivadas temporais:
+\begin{align}
+\left \{
+\begin{array}{ll}
+\bar{x}_1 &= F \\
+\bar{x}_2 &= \dot{F} \\
+\bar{x}_3 &= \ddot{F} \\
+\bar{x}_4 &= \dddot{F} \\
+u &= a_4 F + a_3 \dot{F} + a_2 \ddot{F} + a_1 \dddot{F} + F^{(4)}
+\end{array}
+\right.
+\end{align}
+
+Redefinindo-se a entrada do sistema considerado tomando-se $\nu = F^{*(4)} = -a_4 F - a_3 \dot{F} - a_2 \ddot{F} - a_1 \dddot{F} + u$, pode-se reescrever o modelo reduzido utilizando-se a fórmula canônica de Brunovsky:
+\begin{align}
+\left [ 
+\begin{array}{c}
+\dot{F} \\ \ddot{F} \\ \dddot{F} \\ F^{(4)}
+\end{array}
+\right] &= \left[
+\begin{array}{cccc}
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 0 & 0
+\end{array}
+\right] \left[
+\begin{array}{c}
+F \\ \dot{F} \\ \ddot{F} \\ \dddot{F}
+\end{array}
+\right] + \left[
+\begin{array}{c}
+0 \\ 0 \\ 0 \\ 1
+\end{array}
+\right] \nu
+\end{align}
+
+De acordo com Rafael \cite{rafaelMestrado}, a entrada $\nu$, em termos de acompanhamento da trajetória, também é dada por
+\begin{align}
+ \label{NuInput}
+ \nu = \nu^{*} - \sum_{i=0}^{r-1} k_i e^{(i)} = \nu^{*} - \sum_{i=0}^{r-1} k_i \left(F^{(i)} - F^{*(i)}\right)
+\end{align} em que $e^{(i)}$ representa o erro de $F$ e suas derivadas temporais. Pela Equação \ref{NuInput}, a variável $\nu$ passa a ser entendida como um fator de correção para o controlador em malha fechada
+\begin{align}
+\nu &= F^{*(4)} - \sum_{i=0}^{3} k_i \left( F^{(i)} - F^{*(i)}\right)
+\end{align} em que os ganhos $k_i$ são escolhidos de forma que o polinômio característico do sistema possua raízes com parte real estritamente negativa (em termos discretos, tais raízes devem estar no interior do círculo unitário).
+
+Com o desenvolvimento apresentado, pode-se montar uma nova estrutura para o preditor de Smith, conforme a Figura \ref{smith2} . Nessa estrutura, \textbf{P} é a planta, \textbf{C} é o controlador em malha fechada, \textbf{RM} é o modelo sem atraso e \textbf{KF} é um Filtro de Kalman, que será explicado adiante. 
+
+Com essa nova estrutura, dada a linearidade do sistema, o princípio de superposição é válido; portanto, os problemas de planejamento e acompanhamento de trajetória podem ser tratados de forma separada. O preditor leva em consideração as referências de trajetória de topo, $u^{*} = \Upsilon_0 (L,t)$, e de trajetória de fundo, $y^{*} = \Upsilon_R (0,t)$. Desta forma, garante-se que a trajetória de fundo seja seguida, mesmo com a presença de perturbações.
+
+\begin{figure}[!ht]
+\centering
+\caption{Estrutura do preditor de Smith com filtro de Kalman e referências de topo e fundo \cite{rafaelMestrado}. \label{smith2}}
+\includegraphics[width=.6\linewidth]{figs/smith/smith2}
+\end{figure}
+
 \subsection{Filtro de Kalman}
 Uma parte importante do preditor de Smith é uma estrutura que deve ser capaz de estimar, dado que as variáveis de estado e demais sinais possuem ruídos associados, valores tanto para o processo quanto para o resultado. Assumindo-se que os estados do sistema sejam observáveis, é possível desenvolver, para o processo, uma estrutura denominada \textbf{Filtro de Kalman}, que leva o nome do seu criador, Rudolf E. Kalman.
 
@@ -437,10 +527,9 @@ A bancada da ponte rolante presente no Laboratório de Automação e Controle es
   \centering
     \includegraphics[width=0.8\textwidth]{figs/fundamentos/CLP.jpg}
     \caption{CLP com identificação de elementos\label{CLPcomentado}}
-    %TODO perguntar se o Rédytton tem o arquivo editável para fazer algumas modificações
 \end{figure}
 
-O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada via computador, mas, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contato que o CLP esteja em modo de execução.
+O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada pelo computador; porém, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contanto que o CLP esteja em modo de execução.
 
 O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
 \begin{itemize}
@@ -456,13 +545,12 @@ Cada um desses módulos será apresentado posteriormente com mais detalhes. Alé
   \item REM (\textit{Remote mode});
   \item PROG (\textit{Program mode});
 \end{itemize}
-\begin{comment}
+
 Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
 
 No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
-\end{comment}
 
-Para fins de melhor utilizar o CLP, será utilizado sempre o modo REM, que pode ser tanto REM RUN ou REM PROG. O modo REM RUM permite a execução do programa; já o modo REM PROG permite a atualização do programa dentro da memória do CLP.
+Para fins de se utilizar melhor o CLP, será utilizado sempre o modo REM e suas derivações. O modo REM RUM permite a execução do programa; já o modo REM PROG permite a atualização do programa dentro da memória do CLP.
 \subsection{SERCOS Interface}
 
 Sercos é um barramento digital de automação que interconecta controladores, \textit{drives}, dispositivos de entrada/saída e atuadores para máquinas e sistemas controlados numericamente. Foi projetado para comunicação serial de alta velocidade de dados em sistemas de tempo real por meio de fibra ótica (Sercos I \& II) ou um cabo Ethernet Industrial (Sercos III). Sercos é um padrão internacional \cite{sercos}.
@@ -552,9 +640,8 @@ http://www.rtaautomation.com/technologies/ethernetip/
 http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page
 \end{comment}
 
-%TODO Escrever sobre OPC
 \subsection{OPC - \textit{OLE for Process Control}}
-A rede OPC, cujo primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que systemas HMI/SCADA possam se comunicar com um "intermediário" que converte as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
+A rede OPC, cujo primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um "intermediário" que converte as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
 
 Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido (por exemplo, Python é mais rápido que o \textit{software} MATLAB).
 
