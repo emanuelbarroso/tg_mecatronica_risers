@@ -69,6 +69,25 @@ O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \texte
 6 &	296.5 &	20	&   0.2 & 	14.525 &	72.625\\ \hline\end{tabular}
 \end{table}
 
+\section{Modelo}
+
+O modelo reduzido antes da compensação do atraso é apresentado na Equação 
+
+\begin{align}
+	\mathbf{A} &= \left[\begin{array}{cccc}
+		-0.0881  & -3.8389 &         0 &         0\\
+    3.8389 &   -0.0881 &         0 &         0\\
+         0 &         0 &   -0.1061 &  -10.8145\\
+         0 &        0 &   10.8145 &   -0.1061\\
+	\end{array}\right]\\
+	\mathbf{B} &= 10^3\left[0.3313,\;
+    0.0066,\;
+    1.3549,\;
+    0.0163\right]^{\mathrm{T}}\\
+	\mathbf{C} &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\\
+	D &= -0.0906
+\end{align}
+
 \section{Malha aberta}
 
 O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados. Observe que, em malha aberta, deixou-se o ar condicionado da sala desligado, pois isto seria uma perturbação.

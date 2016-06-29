@@ -271,6 +271,7 @@ node [near end] {$y_m$} (sum);
 %TODO Preditor de Smith
 \subsection{Controle Discreto no Espaço de Estados}
  Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
+ 
  Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
 
  Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
@@ -391,7 +392,7 @@ De forma a se lidar com os problemas envolvidos em sistemas com atraso, é poss�
 \begin{figure}[!ht]
 \centering
 \caption{Estrutura básica do preditor de Smith \cite{rafaelMestrado}. \label{smith1}}
-\includegraphics[width=.6\linewidth]{figs/smith/smith1}
+\includegraphics[width=.85\linewidth]{figs/fundamentos/preditorSmithSemKalman}
 \end{figure}
 
 Nota-se que a saída do modelo sem atraso é uma estimativa da saída da planta desconsiderando-se efeitos de perturbação, ou seja, é uma predição da saída da planta sem perturbação após decorrido o atraso. Subtraindo-se essa saída sem atraso da saída real da planta, tem-se uma estimativa de perturbação, que somada à saída sem atraso, resulta em uma predição do modelo com perturbação; assim, a realimentação do preditor considera a perturbação sem ser influenciada pelo atraso.
@@ -465,7 +466,7 @@ Com essa nova estrutura, dada a linearidade do sistema, o princípio de superpos
 \begin{figure}[!ht]
 \centering
 \caption{Estrutura do preditor de Smith com filtro de Kalman e referências de topo e fundo \cite{rafaelMestrado}. \label{smith2}}
-\includegraphics[width=.6\linewidth]{figs/smith/smith2}
+\includegraphics[width=.85\linewidth]{figs/fundamentos/preditorSmith}
 \end{figure}
 
 \subsection{Filtro de Kalman}
@@ -475,7 +476,7 @@ O Filtro de Kalman, também conhecido como observador ótimo, é responsável po
 \begin{figure}[!ht]
 \centering
 \caption{Exemplo de estrutura de sistema discreto no tempo \cite{GoddardKalman}. \label{Kalman1}}
-\includegraphics[width=.7\linewidth]{figs/kalman/kalman1}
+\includegraphics[width=.5\linewidth]{figs/kalman/kalman1}
 \end{figure}
 
 O sistema representado pela Figura \ref{Kalman1} pode então ser representado por equações lineares, como se segue:
@@ -494,7 +495,7 @@ Dada a estrutura do sistema, o objetivo do uso do filtro de Kalman é estimar os
 \begin{figure}[!ht]
 \centering
 \caption{Exemplo de estrutura de filtro de Kalman \cite{GoddardKalman}. \label{Kalman2}}
-\includegraphics[width=.7\linewidth]{figs/kalman/kalman2}
+\includegraphics[width=.5\linewidth]{figs/kalman/kalman2}
 \end{figure}
 
 O Filtro de Kalman é um algoritmo de dois passos: predição, em que o estado mais recente e a estimação do erro de covariância são projetados de forma a se computar o estado atual das variáveis de estado, e correção, onde o estado predito pelo primeiro passo é corrigido incorporando-se a medida mais recente do processo para se gerar uma nova estimação do estado \cite{GoddardKalman}. Matematicamente, a predição é dada por
