@@ -71,22 +71,53 @@ O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \texte
 
 \section{Modelo}
 
-O modelo reduzido antes da compensação do atraso é apresentado na Equação 
+As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}. Antes da compensação do atraso, o sistema é representado pela Equação \ref{modeloEspacoDeEstadosSemAtraso}. Quando se analisa a resposta ao degrau em malha aberta para este caso, Figura \ref{modeloMalhaAberta}, nota-se que o atraso é cerca de 0.3s. Para ser preciso, $\epsilon = 0.313$s. Utilizando esse atraso, a transferência direta se tornaria aproximadamente zero. No entanto, esses modelos no espaço contínuo serão discretizados com período $T_s = 0.1$s. Daí, o $\epsilon$ mais próximo é 0.3s. Apesar de próximo, esse atraso não reduz muito a transferência direta, como se pode observar a diferença entre $D_R$, Equação \ref{modeloReduzidoSemEpsilon}, e $D_D$, Equação \ref{modeloReduzidoComEpsilon}.
 
 \begin{align}
-	\mathbf{A} &= \left[\begin{array}{cccc}
+\left.\begin{array}{ll}
+	\mathbf{A_R} &= \left[\begin{array}{cccc}
 		-0.0881  & -3.8389 &         0 &         0\\
     3.8389 &   -0.0881 &         0 &         0\\
          0 &         0 &   -0.1061 &  -10.8145\\
          0 &        0 &   10.8145 &   -0.1061\\
 	\end{array}\right]\\
-	\mathbf{B} &= 10^3\left[0.3313,\;
+	\mathbf{B_R} &= 10^3\left[0.3313,\;
     0.0066,\;
     1.3549,\;
     0.0163\right]^{\mathrm{T}}\\
-	\mathbf{C} &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\\
-	D &= -0.0906
+	\mathbf{C_R} &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\\
+	D_R &= -0.0906
+\end{array}\right\} \label{modeloReduzidoSemEpsilon}
 \end{align}
+
+\begin{align}
+\left.\begin{array}{ll}
+	\mathbf{B_D} &= 10^3\left[0.1255,\;
+    0.2974,\;
+   -1.3039,\;
+   -0.1504\right]^{\mathrm{T}}\\
+	D_D &= -0.0685
+\end{array}\right\} \label{modeloReduzidoComEpsilon}
+\end{align}
+
+\begin{align}
+	\left.\begin{array}{ll}
+		\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z} + \mathbf{B_R}u(t)\\
+		y &= \mathbf{C_R}\mathbf{z} + \mathbf{D_R}u(t)
+	\end{array}\right\}\label{modeloEspacoDeEstadosSemAtraso}
+\end{align}
+
+\begin{align}
+	\left.\begin{array}{ll}
+		\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z} + \mathbf{B_D}u(t-\epsilon)\\
+		y &= \mathbf{C_R}\mathbf{z} + \mathbf{D_D}u(t-\epsilon)
+	\end{array}\right\}\label{modeloEEComAtraso}
+\end{align}
+
+\begin{figure}[!ht]
+\caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso\label{modeloMalhaAberta}}
+\includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta}
+\end{figure}
 
 \section{Malha aberta}
 
