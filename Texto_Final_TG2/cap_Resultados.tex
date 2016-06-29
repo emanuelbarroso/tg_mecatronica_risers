@@ -157,19 +157,26 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \subsection{Controle}
 
  A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os ganhos para esse caso são dados por \begin{align}
- 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
- 	K_i &= 0.1953.
+ \begin{array}{ll}
+	 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
+ 	K_i &= 0.1953.\\ 	
+ \end{array}\label{ganhosObtidos}
  \end{align}
  
  O código para calcular os ganhos está disponível na Seção \ref{projetoControlador}.
 
 \section{Simulação}
 
+ Uma fez obtidos os ganhos, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, uma referência para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, são as trajetórias que definem a posição final. O bloco \texttt{PLANTA} e o modelo sem redução modal. Os blocos \texttt{Signal Builder} tem um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{fabricioIFAC} \cite{rafaelMestrado}.
+ 
+
 \begin{figure}[!ht]
 \centering
 \caption{Esquema principal para simulação em Simulink\label{topModel}}
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/top}
 \end{figure}
+
+ O bloco atraso, Figura \ref{blocoAtraso}, tem como saída o valor predito menos o valor predito de 3 tempos atrás. Esse valor é somado a diferença entra a referência de fundo e a saída da planta para então ser a entrada do bloco de controle. O bloco \textit{CONTROLE\_FILTRO} é detalhado na Figura \ref{blocoControle} e utiliza os ganhos da Equação \ref{ganhosObtidos}. O filtro de Kalman utilizou $Q = 0.01^2 I_4$ e $R = 0.4^2$. Esses valores foram obtidos de forma empírica.
 
 \begin{figure}[!ht]
 \centering
