@@ -156,7 +156,7 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
  
 \subsection{Controle}
 
- A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os ganhos para esse caso são dados por \begin{align}
+ A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os polos com parte imaginaria foram escolhidos baseados nos polos originais do sistema. A ideia é evitar forçar muito esses polos para longe, evitando que os ganhos sejam altos e economizando em atuação. Os ganhos obtidos para esse caso são dados por \begin{align}
  \begin{array}{ll}
 	 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
  	K_i &= 0.1953.\\ 	
@@ -167,7 +167,28 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 
 \section{Simulação}
 
- Uma fez obtidos os ganhos, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, uma referência para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, são as trajetórias que definem a posição final. O bloco \texttt{PLANTA} e o modelo sem redução modal. Os blocos \texttt{Signal Builder} tem um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{fabricioIFAC} \cite{rafaelMestrado}.
+ Antes de se implementar o controle na planta, é essencial a realização de simulações. Elas são rápidas de serem realizadas e permitem averiguar se um projeto é estável ou não. As simulações aqui realizadas incluem o sistema em malha aberta com entrada tipo rampa e a entrada suave, utilizada por \cite{rafaelMestrado}. Depois da apresentação dos resultados em malha aberta, são apresentados os resultados em malha fechada sem considerar ruído. Por fim, os resultados com um ruído somado são apresentados.
+ 
+ O resultado da simulação em malha aberta é apresentado nas Figuras \ref{respostaMalhaAbertaRampa} e \ref{respostaMalhaAbertaEntradaSuave}. Nota-se que a resposta à rampa teve diversas oscilações que demoram a atenuar-se. Já a entrada calculada por \cite{rafaelMestrado} teve uma ótima resposta. A desvantagem da implementação em malha aberta é que ela não resiste a perturbações e essas sempre ocorrem, ainda mais quando se considera o fundo do oceano.
+ 
+ \begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRampa}
+        \label{respostaMalhaAbertaRampa}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopo}
+        \label{respostaMalhaAbertaEntradaSuave}
+    \end{minipage}
+\end{figure}
+
+ A solução para lidar com perturbações é fechar a malha. Para isso, uma fez obtidos os ganhos, Equação \ref{ganhosObtidos}, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, as referências para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, definem a posição final. O bloco \texttt{PLANTA} é o modelo sem redução modal. Os blocos \texttt{Signal Builder} tem um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{rafaelMestrado}. 
  
 
 \begin{figure}[!ht]
@@ -196,22 +217,8 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/controle}
 \end{figure}
 
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}
-        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRampa}
-        \label{respostaMalhaAbertaRampa}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
-        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopo}
-        \label{respostaMalhaAbertaEntradaSuave}
-    \end{minipage}
-\end{figure}
+ O resultado das simulações sem ruído é apresentado nas Figuras \ref{respostaMalhaFechadaRampa} e \ref{respostaMalhaFechadaRefTopoFundo}. Nota-se uma ótima melhoria na resposta à rampa, enquanto a resposta à entrada suave se mantém boa.
+
 
 \begin{figure}[!htb]
     \centering
@@ -229,6 +236,15 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
         \label{respostaMalhaFechadaRefTopoFundo}
     \end{minipage}
 \end{figure}
+
+Algo essencial é analisar a resistência ao ruído. Ela depende não só da malha fechada, mas também do filtro de Kalman que foi implementado. Os parâmetros $Q$ e $R$ escolhidos anteriormente são essenciais para uma boa atenuação de ruídos. O ruído foi inserido na simulação conforme a Figura \ref{simulacaoComRuidoSimulink}. O que se nota é que o sinal de entrada do bloco de controle sempre terá algum erro, o que seria um erro no sistema de medição. O resultado da simulação é apresentado na Figura \ref{respostaMalhaAbertaRefTopoRuido}. É importante observar a diferença entre o sinal de referência antes e depois de ser somado ruído. Conforme a Figura \ref{entradaControladorYERR} apresenta, esse sinal tem grandes variações comparado ao original, mesmo assim o resultado final está bem controlado. 
+
+\begin{figure}[!ht]
+\centering
+\caption{Sistema com um ruído branco adicionado\label{simulacaoComRuidoSimulink}}
+\includegraphics[width=0.8\linewidth]{figs/resultados/modelo/simulacaoComRuido}
+\end{figure}
+
 
 \begin{figure}[!htb]
     \centering
