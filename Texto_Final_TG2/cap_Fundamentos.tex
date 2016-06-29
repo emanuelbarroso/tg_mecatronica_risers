@@ -161,7 +161,7 @@ y &= \left[\begin{array}{cc}
  \end{align}
 
 
-\subsection{Estratégia de Redução da ordem do modelo}
+\subsection{Estratégia de Redução da ordem do modelo\label{reducaoModal}}
 
  A maior parte da teoria clássica de controle lida com sistemas representados por um pequeno número de variáveis de estado. Portanto, uma forma de aplicar métodos clássicos de controle da literatura para sistemas de parâmetros distribuídos discretos é por meio de uma redução da ordem do modelo \cite{fabricioIFAC}.
 
@@ -200,8 +200,8 @@ y &= \left[\begin{array}{cc}
 	y &=& \mathbf{C_R}\mathbf{z}+\mathbf{D_D}u(t-\epsilon) \label{novoModeloReduzido};
 \end{array}
 \end{align} sendo \begin{align}
-	\mathbf{B_D} &= \mathbf{A_M}\left(e^{\epsilon\mathbf{A_M}}\right)\mathbf{A_M^{-1}}\mathbf{B_M}\;\;\mathrm{e}\\
-	\mathbf{D_D} &= \mathbf{C_M}\left(e^{\epsilon\mathbf{A_M}} - \mathbf{I}\right)\mathbf{A_M^{-1}}\mathbf{B_M} + \mathbf{D_M}.
+	\mathbf{B_D} &= \mathbf{A_R}\left(e^{\epsilon\mathbf{A_R}}\right)\mathbf{A_R^{-1}}\mathbf{B_R}\;\;\mathrm{e}\\
+	\mathbf{D_D} &= \mathbf{C_R}\left(e^{\epsilon\mathbf{A_R}} - \mathbf{I}\right)\mathbf{A_R^{-1}}\mathbf{B_R} + \mathbf{D_R}.
 \end{align}
 
  O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.

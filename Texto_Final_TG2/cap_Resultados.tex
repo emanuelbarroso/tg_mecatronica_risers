@@ -69,7 +69,9 @@ O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \texte
 6 &	296.5 &	20	&   0.2 & 	14.525 &	72.625\\ \hline\end{tabular}
 \end{table}
 
-\section{Modelo}
+\section{Modelo no Espaço de Estados}
+
+A partir da teoria apresentada na subseção \ref{reducaoModal}, desenvolveram-se algumas rotinas em linguagem Julia \cite{julia} para obter as matrizes reduzidas. A ordem da matriz de saída é um parâmetro. A Seção \ref{reducaoModalPrograma} dos anexos apresenta o código completo.
 
 As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}. Antes da compensação do atraso, o sistema é representado pela Equação \ref{modeloEspacoDeEstadosSemAtraso}. Quando se analisa a resposta ao degrau em malha aberta para este caso, Figura \ref{modeloMalhaAberta}, nota-se que o atraso é cerca de 0.3s. Para ser preciso, $\epsilon = 0.313$s. Utilizando esse atraso, a transferência direta se tornaria aproximadamente zero. No entanto, esses modelos no espaço contínuo serão discretizados com período $T_s = 0.1$s. Daí, o $\epsilon$ mais próximo é 0.3s. Apesar de próximo, esse atraso não reduz muito a transferência direta, como se pode observar a diferença entre $D_R$, Equação \ref{modeloReduzidoSemEpsilon}, e $D_D$, Equação \ref{modeloReduzidoComEpsilon}.
 
