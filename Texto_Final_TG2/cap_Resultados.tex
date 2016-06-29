@@ -196,6 +196,56 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/controle}
 \end{figure}
 
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRampa}
+        \label{respostaMalhaAbertaRampa}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopo}
+        \label{respostaMalhaAbertaEntradaSuave}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRampa}
+        \label{respostaMalhaFechadaRampa}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRefTopoFundo}
+        \label{respostaMalhaFechadaRefTopoFundo}
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave, com ruído}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopoRuido}
+        \label{respostaMalhaAbertaRefTopoRuido}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \caption{Entrada do controlador antes e depois do ruído para cada instante}
+        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/entradaControladorYERR}
+        \label{entradaControladorYERR}
+    \end{minipage}
+\end{figure}
 
 
 \section{Malha aberta}
