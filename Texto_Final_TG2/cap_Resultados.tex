@@ -122,13 +122,74 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta}
 \end{figure}
 
-\paragraph{} O sistema em malha aberta oscila muito, mas é estável. Observa-se que a resposta decai conforme o tempo passa, conforme Figura \ref{modeloMalhaAberta25s}. O objetivo do controle é reduzir ao máximo essas oscilações, tendo uma trajetória o mais suave possível de um ponto inicial a um ponto final.
+ O sistema em malha aberta oscila muito, mas é estável. Observa-se que a resposta decai conforme o tempo passa, conforme Figura \ref{modeloMalhaAberta25s}. O objetivo do controle é reduzir ao máximo essas oscilações, tendo uma trajetória o mais suave possível de um ponto inicial a um ponto final. Para ter uma melhor ideia quantitativa, calculam-se os autovalores da matriz $\mathbf{A_R}$, resultando em \begin{align}
+ 	\mathrm{eig}\left(\mathbf{A_R}\right) &= \left[-0.0881 \pm 3.8389j,\;
+  -0.1061 \pm 10.8145j\right].
+ \end{align}
 
 \begin{figure}[!ht]
 \centering
 \caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso, 25 segundos\label{modeloMalhaAberta25s}}
 \includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta25s}
 \end{figure}
+
+\subsection{Discretização}
+ O controle será feito conforme a Seção \ref{controle}, mas primeiro deve-se discretizar o sistema. A função \texttt{c2d} \cite{c2d} do MATLAB é utilizada, resultando nas matrizes \begin{align}
+ \begin{array}{ll}
+ 	\mathbf{A} &= \left[\begin{array}{cccc}
+	0.9191&   -0.3712&         0&         0\\
+    0.3712&    0.9191&         0&         0\\
+         0&         0&    0.4651&   -0.8733\\
+         0&         0&    0.8733&    0.4651\\
+ \end{array}\right],\\
+ 	\mathbf{B} &= \left[6.5818,\;
+   31.2517,\;
+  -98.5991,\;
+  -75.6695\right]^{\mathrm{T}},\\
+   \mathbf{C} &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right],\\
+   D &= -0.0685.
+ \end{array}
+ \end{align}
+ 
+ Os polos de $\mathbf{A}$ são $0.9191 \pm 0.3712j$ e $
+   0.4651 \pm 0.8733j$. Como esses polos estão dentro do círculo unitário, o sistema continua estável, apesar de manter as oscilações, como se nota pelo fato dos polos terem parte imaginária. Note que as matrizes $\mathbf{C}$ e $D$ são iguais a $\mathbf{C_R}$ e $D_D$ do sistema contínuo, respectivamente, conforme Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}.
+ 
+\subsection{Controle}
+
+ A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os ganhos para esse caso são dados por \begin{align}
+ 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
+ 	K_i &= 0.1953.
+ \end{align}
+ 
+ O código para calcular os ganhos está disponível na Seção \ref{projetoControlador}.
+
+\section{Simulação}
+
+\begin{figure}[!ht]
+\centering
+\caption{Esquema principal para simulação em Simulink\label{topModel}}
+\includegraphics[width=0.9\linewidth]{figs/resultados/simulink/top}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\caption{Bloco de Atraso -- saída é o valor antecipado menos um valor antigo\label{blocoAtraso}}
+\includegraphics[width=0.5\linewidth]{figs/resultados/simulink/atraso}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\caption{Modelo reduzido -- não utiliza atraso, utilizado para predizer a saída\label{blocoModeloReduzido}}
+\includegraphics[width=0.6\linewidth]{figs/resultados/simulink/modeloReduzido}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\caption{Bloco de controle com filtro de Kalman\label{blocoControle}}
+\includegraphics[width=0.9\linewidth]{figs/resultados/simulink/controle}
+\end{figure}
+
+
 
 \section{Malha aberta}
 
