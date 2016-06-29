@@ -71,9 +71,9 @@ O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \texte
 
 \section{Modelo no Espaço de Estados}
 
-A partir da teoria apresentada na subseção \ref{reducaoModal}, desenvolveram-se algumas rotinas em linguagem Julia \cite{julia} para obter as matrizes reduzidas. A ordem da matriz de saída é um parâmetro. A Seção \ref{reducaoModalPrograma} dos anexos apresenta o código completo.
+A partir da teoria apresentada na Subseção \ref{reducaoModal}, foram desenvolvidas algumas rotinas em linguagem Julia \cite{julia} para obter as matrizes reduzidas. A ordem da matriz de saída é um parâmetro. A Seção \ref{reducaoModalPrograma} dos anexos apresenta o código completo.
 
-As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}. Antes da compensação do atraso, o sistema é representado pela Equação \ref{modeloEspacoDeEstadosSemAtraso}. Quando se analisa a resposta ao degrau em malha aberta para este caso, Figura \ref{modeloMalhaAberta}, nota-se que o atraso é cerca de 0.3s. Para ser preciso, $\epsilon = 0.313$s. Utilizando esse atraso, a transferência direta se tornaria aproximadamente zero. No entanto, esses modelos no espaço contínuo serão discretizados com período $T_s = 0.1$s. Daí, o $\epsilon$ mais próximo é 0.3s. Apesar de próximo, esse atraso não reduz muito a transferência direta, como se pode observar a diferença entre $D_R$, Equação \ref{modeloReduzidoSemEpsilon}, e $D_D$, Equação \ref{modeloReduzidoComEpsilon}.
+As matrizes do modelo reduzido são apresentadas nas Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}. Antes da compensação do atraso, o sistema é representado pela Equação \ref{modeloEspacoDeEstadosSemAtraso}. Quando se analisa a resposta ao degrau em malha aberta para este caso, Figura \ref{modeloMalhaAberta}, nota-se que o atraso é cerca de 0.3s. Para ser preciso, $\epsilon = 0.313$s. Utilizando esse atraso, a transferência direta se tornaria aproximadamente zero. No entanto, esses modelos no espaço contínuo serão discretizados com período $T_s = 0.1$s. Daí, o $\epsilon$ mais próximo é 0.3s. Apesar de próximo, esse atraso não reduz muito a transferência direta, como se pode observar a diferença entre $D_R$, Equação \ref{modeloReduzidoSemEpsilon}, e $D_D$, Equação \ref{modeloReduzidoComEpsilon}.
 
 \begin{align}
 \left.\begin{array}{ll}
@@ -122,7 +122,7 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta}
 \end{figure}
 
- O sistema em malha aberta oscila muito, mas é estável. Observa-se que a resposta decai conforme o tempo passa, conforme Figura \ref{modeloMalhaAberta25s}. O objetivo do controle é reduzir ao máximo essas oscilações, tendo uma trajetória o mais suave possível de um ponto inicial a um ponto final. Para ter uma melhor ideia quantitativa, calculam-se os autovalores da matriz $\mathbf{A_R}$, resultando em \begin{align}
+ O sistema em malha aberta oscila muito, mas é estável. Observa-se que a resposta decai conforme o tempo passa, conforme Figura \ref{modeloMalhaAberta25s}. O objetivo do controle é reduzir ao máximo essas oscilações, tendo uma trajetória o mais suave possível de um ponto inicial a um ponto final. Para se ter uma melhor ideia quantitativa, calculam-se os autovalores da matriz $\mathbf{A_R}$, resultando em \begin{align}
  	\mathrm{eig}\left(\mathbf{A_R}\right) &= \left[-0.0881 \pm 3.8389j,\;
   -0.1061 \pm 10.8145j\right].
  \end{align}
@@ -152,11 +152,11 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
  \end{align}
  
  Os polos de $\mathbf{A}$ são $0.9191 \pm 0.3712j$ e $
-   0.4651 \pm 0.8733j$. Como esses polos estão dentro do círculo unitário, o sistema continua estável, apesar de manter as oscilações, como se nota pelo fato dos polos terem parte imaginária. Note que as matrizes $\mathbf{C}$ e $D$ são iguais a $\mathbf{C_R}$ e $D_D$ do sistema contínuo, respectivamente, conforme Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}.
+   0.4651 \pm 0.8733j$. Como esses polos estão dentro do círculo unitário, o sistema continua estável, apesar de manter as oscilações, pelo fato dos polos terem parte imaginária. Vale notar que as matrizes $\mathbf{C}$ e $D$ são iguais a $\mathbf{C_R}$ e $D_D$ do sistema contínuo, respectivamente, conforme Equações \ref{modeloReduzidoSemEpsilon} e \ref{modeloReduzidoComEpsilon}.
  
 \subsection{Controle}
 
- A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os polos com parte imaginaria foram escolhidos baseados nos polos originais do sistema. A ideia é evitar forçar muito esses polos para longe, evitando que os ganhos sejam altos e economizando em atuação. Os ganhos obtidos para esse caso são dados por \begin{align}
+ A parte mais difícil do controle é a escolha dos polos. Algumas simulações foram realizadas e observava-se se o sistema era estável e se oscilava muito. O projeto final considerou 5 polos: $\left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]$. O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os polos com parte imaginaria foram escolhidos baseados nos polos originais do sistema. A ideia é evitar forçar muito esses polos para longe, evitando que os ganhos sejam altos e economizando em atuação. Os ganhos obtidos para esse caso são dados por \begin{align}
  \begin{array}{ll}
 	 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
  	K_i &= 0.1953.\\ 	
@@ -188,7 +188,7 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
     \end{minipage}
 \end{figure}
 
- A solução para lidar com perturbações é fechar a malha. Para isso, uma fez obtidos os ganhos, Equação \ref{ganhosObtidos}, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, as referências para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, definem a posição final. O bloco \texttt{PLANTA} é o modelo sem redução modal. Os blocos \texttt{Signal Builder} tem um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{rafaelMestrado}. 
+ A solução para lidar com perturbações é fechar a malha. Para isso, uma vez obtidos os ganhos, representados pela Equação \ref{ganhosObtidos}, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, as referências para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, definem a posição final. O bloco \texttt{PLANTA} é o modelo sem redução modal. Os blocos \texttt{Signal Builder} representam um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{rafaelMestrado}. 
  
 
 \begin{figure}[!ht]
@@ -197,7 +197,7 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/top}
 \end{figure}
 
- O bloco atraso, Figura \ref{blocoAtraso}, tem como saída o valor predito menos o valor predito de 3 tempos atrás. Esse valor é somado a diferença entra a referência de fundo e a saída da planta para então ser a entrada do bloco de controle. O bloco \textit{CONTROLE\_FILTRO} é detalhado na Figura \ref{blocoControle} e utiliza os ganhos da Equação \ref{ganhosObtidos}. O filtro de Kalman utilizou $Q = 0.01^2 I_4$ e $R = 0.4^2$. Esses valores foram obtidos de forma empírica.
+ O bloco atraso, Figura \ref{blocoAtraso}, tem como saída o valor predito menos o valor predito de 3 tempos atrás, uma vez que $\epsilon \simeq 3T_s$. Esse valor é somado à diferença entre a referência de fundo e a saída da planta para então ser a entrada do bloco de controle. O bloco \texttt{CONTROLE\_FILTRO} é detalhado na Figura \ref{blocoControle} e utiliza os ganhos da Equação \ref{ganhosObtidos}. O filtro de Kalman utilizou, como matrizes de covariância, $Q = 0.01^2 I_4$ e $R = 0.4^2$; tais valores foram obtidos de forma empírica.
 
 \begin{figure}[!ht]
 \centering
@@ -237,7 +237,7 @@ As matrizes dos modelo reduzidos são apresentadas nas Equações \ref{modeloRed
     \end{minipage}
 \end{figure}
 
-Algo essencial é analisar a resistência ao ruído. Ela depende não só da malha fechada, mas também do filtro de Kalman que foi implementado. Os parâmetros $Q$ e $R$ escolhidos anteriormente são essenciais para uma boa atenuação de ruídos. O ruído foi inserido na simulação conforme a Figura \ref{simulacaoComRuidoSimulink}. O que se nota é que o sinal de entrada do bloco de controle sempre terá algum erro, o que seria um erro no sistema de medição. O resultado da simulação é apresentado na Figura \ref{respostaMalhaAbertaRefTopoRuido}. É importante observar a diferença entre o sinal de referência antes e depois de ser somado ruído. Conforme a Figura \ref{entradaControladorYERR} apresenta, esse sinal tem grandes variações comparado ao original, mesmo assim o resultado final está bem controlado. 
+Algo essencial é analisar a resistência ao ruído. Ela depende não só da malha fechada, mas também do filtro de Kalman que foi implementado. Os parâmetros $Q$ e $R$ escolhidos anteriormente são essenciais para uma boa atenuação de ruídos. O ruído foi inserido na simulação conforme a Figura \ref{simulacaoComRuidoSimulink}. O que se nota é que o sinal de entrada do bloco de controle sempre terá algum erro, o que seria um erro no sistema de medição. O resultado da simulação é apresentado na Figura \ref{respostaMalhaAbertaRefTopoRuido}. É importante observar a diferença entre o sinal de referência antes e depois de ser somado o ruído. Conforme a Figura \ref{entradaControladorYERR} apresenta, esse sinal tem grandes variações comparado ao original; mesmo assim o resultado final está bem controlado, evidenciando a importância da presença do Filtro de Kalman acoplado ao controlador. 
 
 \begin{figure}[!ht]
 \centering
@@ -264,6 +264,54 @@ Algo essencial é analisar a resistência ao ruído. Ela depende não só da mal
 \end{figure}
 
 
+\section{Resultados Experimentais}
+\subsection{Considerações Iniciais}
+De posse das simulações feitas, assumindo-se que o sistema se comporta de forma estável e desejada com os polos escolhidos e as matrizes de covariância obtidas para o Filtro de Kalman, prosseguiu-se com a validação experimental do controle proposto. Para tal, em conjunção com os programas necessários desenvolvidos no RsLogix, foram desenvolvidos módulos e códigos em linguagem Python para implementar o controle. As três principais razões de se utilizar Python são:
+\begin{enumerate}
+\item A linguagem Python, conforme discutido na Seção \ref{opcSubSection}, possui suporte ao módulo OpenOPC \cite{OpenOPC}, necessário para se efetuar a troca de informações entre o preditor de Smith e a planta por intermédio do CLP;
+\item Embora haja outras linguagens e \textit{softwares} que suportem OPC, como o próprio MATLAB, além de existirem linguagens mais rápidas e ao mesmo tempo ricas em ferramentas como o C++, o uso de Python se deve ao fato de já ter o módulo OPC e ser razoavelmente rápido, talvez não tanto quanto o C++. Porém, dada a facilidade de se programar com o OpenOPC e os tempos de comunicação e execução dos programas feitos não interferirem com o tempo de amostragem, Python se torna uma opção extremamente viável para este projeto;
+\item Além do módulo OpenOPC, facilidade de programação e tempos razoáveis, Python possui também suporte à orientação a objetos. Para programar estruturas como o preditor de Smith, tal abordagem é muito importante, visto que cada componente pode ser tratado como um objeto, facilitando a implementação. Além disso, a estrutura de programação é tal que outras formas de controle podem ser facilmente adaptadas à ponte rolante por meio da interface com Python; as alterações no programa do RsLogix são mínimas, caso sejam necessárias.
+\end{enumerate}
+
+Assim como nas simulações, foram considerados três experimentos a serem validados: trajetória em malha aberta; trajetória em malha fechada, considerando topo e fundo como rampas; e a trajetória considerada por Rafael \cite{rafaelMestrado}. Todas as trajetórias são de 30 centímetros.
+
+\subsection{Testes com Rampa - Malha Aberta e Malha Fechada}
+O primeiro teste feito foi considerando uma trajetória em formato rampa, realizando um deslocamento de 30 centímetros em cerca de 2.5 segundos. Tal teste foi feito em malha aberta e o resultado se encontra na Figura \ref{malhaAbertaRampa}. 
+
+O segundo teste realizado foi considerando a mesma trajetória do primeiro teste; porém, essa trajetória agora foi escolhida como referência tanto para o topo quanto para o fundo; essas referências foram aplicadas em malha fechada, utilizando-se o preditor de Smith. O resultado se encontra na Figura \ref{malhaFechadaRampa}.
+
+\begin{figure}[!ht]
+\centering
+\begin{minipage}{0.45\textwidth}
+\centering
+\caption{Resultado experimental para a trajetória rampa em malha aberta de 30 cm. \label{malhaAbertaRampa}}
+\includegraphics[width=1\linewidth]{figs/resultados/experimento/open_loop_ramp}
+\end{minipage}
+\hspace{0.1cm}
+\begin{minipage}{0.45\textwidth}
+\centering
+\caption{Resultado experimental para a trajetória rampa em malha fechada de 30 cm. \label{malhaFechadaRampa}}
+\includegraphics[width=1\linewidth]{figs/resultados/experimento/closed_loop_trajetoria_rampa}
+\end{minipage}
+\end{figure}
+
+Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a rampa possuem vantagens e desvantagens entre si: a trajetória em malha aberta apresentou um sobressinal ligeiramente menor e melhor aproximação com o resultado final; entretanto, a trajetória em malha fechada foi melhor seguida. Em termos práticos, considerando a presente trajetória, o preditor de Smith realizou melhor a tarefa do acompanhamento da trajetória.
+
+\subsection{Teste com Trajetória Proposta - Malha Fechada}
+O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. 
+
+\begin{figure}[!ht]
+\centering
+\caption{Teste com a trajetória sugerida por Rafael utilizando o preditor de Smith. \label{experimentoRafael}}
+\includegraphics[width=.6\linewidth]{figs/resultados/experimento/closed_loop_trajetoria_rafael}
+\end{figure} 
+
+\subsection{Análise dos Resultados}
+Uma vez apresentados os resultados para as trajetórias propostas, vale notar a principal vantagem do uso do preditor de Smith: em relação aos testes de malha aberta, os testes de malha fechada apresentaram um comportamento muito melhor em relação à referência dada pela trajetória de fundo, representada pela bolinha de isopor.
+
+Entretanto, deve-se notar que houveram alguns resultados indesejáveis nos testes apresentados, em particular os que envolvem o preditor. Em primeiro lugar, houve a presença de um sobre-sinal considerável nos testes com rampa (da ordem de $12.5\%$). Esse tipo de sobre-sinal pode ser extremamente prejudicial para a operação do \textit{riser}. Além do problema do sobre-sinal, houve o fato de que a saída oscila e apresenta um erro estático nos testes com o preditor, representados nas Figuras \ref{malhaFechadaRampa} e \ref{experimentoRafael}; embora a presença desses fatores faz o resultado experimental destoar dos resultados das simulações, o resultado geral foi satisfatório. Um resultado marcante foi a atenuação da saída proporcionado pelo uso do Filtro de Kalman, considerando as matrizes de covariância escolhidas; o fato da matriz $\mathbf{R}$ possuir valores maiores do que os elementos de $\mathbf{Q}$ sugere que foi priorizada a correção sobre a medida da posição de fundo.
+
+\begin{comment}
 \section{Malha aberta}
 
 O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados. Observe que, em malha aberta, deixou-se o ar condicionado da sala desligado, pois isto seria uma perturbação.
@@ -407,4 +455,4 @@ Valores de $K_p$ foram escolhidos empiricamente e o resultado para $K_p = 0.0025
 \end{figure}
 
 O período de amostragem utilizado foi de $100\mathrm{ms}$ e o ar condicionado estava ligado nas duas situações apresentadas e nota-se que o primeiro resultado é bem melhor que o segundo, tendo menos oscilações. No entanto, este resultado está aquém do obtido em malha aberta.
-
+\end{comment}

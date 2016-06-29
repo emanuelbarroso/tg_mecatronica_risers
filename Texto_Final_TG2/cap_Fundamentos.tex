@@ -4,7 +4,7 @@
 \resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, explica a redução modal utilizada a técnica de controle em malha fechada. Também são apresentadas informações sobre a bancada laboratorial e sobre a programação do CLP.}
 
 \section{Modelagem\label{modelagem}}
-\subsection{Equação Governantes}
+\subsection{Equações Governantes}
 
 Estruturas submarinas tais como os \textit{risers} são esbeltas e tem um alto módulo de cisalhamento. Portanto, a simplificação de Euler-Bernoulli para vigas é utilizada para propósitos de modelagem. O deslocamento de interesse é o horizontal e o \textit{riser} está sob a ação de forças hidrodinâmicas externas e de tração. A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é dada por \begin{align}
 	m_s \frac{\partial^2 \Upsilon}{\partial t^2} &= -E J	\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(T(z) \frac{\partial \Upsilon}{\partial z}\right) + F_n(z,t)\label{equacaoMorison},
@@ -643,7 +643,7 @@ http://www.rtaautomation.com/technologies/ethernetip/
 http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page
 \end{comment}
 
-\subsection{OPC - \textit{OLE for Process Control}}
+\subsection{OPC - \textit{OLE for Process Control} \label{opcSubSection}}
 A rede OPC, cujo primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um "intermediário" que converte as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
 
 Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido (por exemplo, Python é mais rápido que o \textit{software} MATLAB).

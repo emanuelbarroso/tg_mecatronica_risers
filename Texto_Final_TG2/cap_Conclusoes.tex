@@ -6,11 +6,27 @@
 
 \label{CapConclusoes}
 
-No início do trabalho, não havia nenhum conhecimento prévio dos autores sobre programação em tempo real utilizando CLPs, nem sobre programação CLP em geral. Nenhum conhecimento prévio da bancada existia também. No estágio atual, pode-se dizer que há relevante facilidade em se trabalhar com a bancada, apesar de não se ter entrado em detalhes de como funciona o servomotor, \textit{drive} e outros componentes.
+O projeto desenvolvido até aqui é uma continuação do que foi desenvolvido por Rédytton \cite{redytton}; porém, muitos avanços foram realizados. Em primeiro lugar, na primeira parte do projeto, foram melhorados aspectos relativos ao que foi previamente realizado, como por exemplo:
+\begin{itemize}
+\item Foi efetuada uma calibração da câmera, de forma a se pegar os dados da trajetória de fundo, representada pela bolinha;
+\item Foi calculado um fator de conversão entre a unidade de velocidade reconhecida pelo RsLogix e uma unidade de velocidade derivada do SI --- milímetros por segundo;
+\item Foi adotado o texto estruturado para se desenvolver as estratégias de controle a serem realizadas pelo CLP, uma vez que o texto é facilmente reprogramável para novas trajetórias, o que não ocorre com linguagens gráficas como o \textit{ladder};
+\item Foi modificado o protocolo de comunicação do CLP com o computador. O novo protocolo, Ethernet/IP, é consideravelmente mais rápido que uma comunicação baseada em RS-232, o que resulta em um tempo menor entre um teste e outro;
+\item Um último avanço foi o uso do OPC. Dessa forma, uma estrutura complexa como o preditor de Smith pode ser programada em uma linguagem mais rica em termos de ferramentas do que o texto estruturado --- no caso, foi utilizada a linguagem Python com o módulo OpenOPC \cite{OpenOPC}.
+\end{itemize}
 
-O foco principal era fechar a malha, o que foi possível, conforme se observa na seção \ref{malhafechadaSection}. Agora, pode-se testar mais técnicas de controle em malha fechada com a câmera, o que não foi feito antes nesta bancada. Apesar do resultado de um controlador P não ser ideal, é o verdadeiro início da validação de controladores para \textit{risers} com esta bancada, pois na realidade \textit{ROVs} com câmeras são utilizados, o que justifica também ser utilizada uma câmera aqui.
+No início do trabalho, não havia nenhum conhecimento prévio dos autores sobre programação em tempo real utilizando CLPs; os conhecimentos de programação CLP em geral eram bastante limitados. Além disso, nenhum conhecimento prévio da bancada existia também. No estágio atual, pode-se dizer que há relevante facilidade em se trabalhar com a bancada, apesar de não se ter entrado em detalhes de como funciona o servomotor, \textit{drive} e outros componentes.
+
+O foco do projeto era desenvolver uma estrutura de controle não clássico para lidar com um sistema de ordem infinita, representado pelo conjunto carrinho, bolinha e barbante. Dentro dessa abordagem, procurou-se validar, por meio de um extenso tratamento matemático, o experimento de forma a ele representar, confiavelmente, uma operação de re-entrada com um \textit{riser} real. Dada a estratégia de redução modal de forma a se obter um espaço de estados com uma ordem tal que fosse razoavelmente elementar desenvolver uma estratégia de controle simples, como o de realimentação de estados com canal integral, buscou-se, através do uso do preditor de Smith com Filtro de Kalman, controlar a planta de tal forma que a trajetória de fundo real acompanhasse sua referência com erro mínimo, mesmo na presença de perturbações.
+
+Embora os resultados experimentais não terem sido ideais, pode-se notar que o uso do preditor de Smith é um grande avanço em relação ao teste com malha aberta no que concerne ao acompanhamento da trajetória; porém, considerando todas as fontes de erro oferecidas pela planta em questão --- posicionamento da câmera, perdas de comunicação entre câmera, CLP e computador, atrito na esteira do carrinho, conversão de velocidades, atraso devido à comunicação (\textit{overhead}), entre outros fatores ---, nota-se que os resultados foram satisfatórios; em outras palavras, pode-se dizer que é válido o uso do preditor de Smith como estratégia de controle para uma operação de re-entrada de \textit{risers}, tendo como base os resultados encontrados.
 
 
 \section{Perspectivas Futuras}
-
-Pra o Trabalho de Graduação 2, objetiva-se utilizar uma técnica de controle mais rebuscada, utilizando-se o projeto de Fabrício et al \cite{fabricioIFAC}. Nele, o modelo é levado em consideração através de redução modal, que o deixa mais simples em questão de custo computacional. Após verificar-se se a mencionada técnica de controle funciona bem mesmo com perturbações, pretende-se analisar outras literaturas na área de controle preditivo e tentar projetar um controlador novo que funcione melhor que o anterior, em algum aspecto.
+Embora os resultados apresentados até aqui sejam satisfatórios, há muito a ser feito. Além do foco em reduzir o erro em muitos dispositivos da planta, particularmente na câmera, há outros pontos de melhoria no projeto, como por exemplo:
+\begin{itemize}
+\item Utilizar uma estratégia de calibração da câmera melhor --- a atual não permite excursões maiores que 50 cm;
+\item Estudar outras formas de controle para o \textit{riser}, e verificar o desempenho das mesmas em relação ao preditor de Smith;
+\item Procurar melhorar a programação, otimizando os algoritmos desenvolvidos e utilizando ferramentas para acelerar os programas já feitos (por exemplo, o uso de \textit{threads}, já feito neste projeto). A razão de se acelerar os programas que fazem a comunicação com por meio do OPC é impedir que seus custos de execução e \textit{overheads} interfiram no tempo de amostragem, comprometendo os resultados;
+\item Fazer testes mais minuciosos com as estruturas já desenvolvidas, e utilizar Filtros de Kalman diferentes (por exemplo, filtros adaptativos). O objetivo aqui é atenuar ainda mais as perturbações que venham a ocorrer, visto que um \textit{riser} real é constantemente atingido por forças externas ao controle, como correntes maritmas e eventuais colisões com outros corpos.
+\end{itemize}

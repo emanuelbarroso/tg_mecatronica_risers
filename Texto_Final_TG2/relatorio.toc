@@ -13,14 +13,14 @@
 \contentsline {paragraph}{}{3}{section*.16}
 \contentsline {chapter}{\numberline {2}Fundamentos}{4}{chapter.2}
 \contentsline {section}{\numberline {2.1}Modelagem}{4}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Equa\IeC {\c c}\IeC {\~a}o Governantes}{4}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.1}Equa\IeC {\c c}\IeC {\~o}es Governantes}{4}{subsection.2.1.1}
 \contentsline {subsection}{\numberline {2.1.2}Discretiza\IeC {\c c}\IeC {\~a}o}{6}{subsection.2.1.2}
 \contentsline {subsection}{\numberline {2.1.3}Estrat\IeC {\'e}gia de Redu\IeC {\c c}\IeC {\~a}o da ordem do modelo}{8}{subsection.2.1.3}
 \contentsline {section}{\numberline {2.2}Controle}{10}{section.2.2}
 \contentsline {subsection}{\numberline {2.2.1}T\IeC {\'e}cnicas Simples de Controle}{10}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Controle Discreto no Espa\IeC {\c c}o de Estados}{11}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Preditor de Smith}{12}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Filtro de Kalman}{14}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.4}Filtro de Kalman}{15}{subsection.2.2.4}
 \contentsline {section}{\numberline {2.3}Bancada}{17}{section.2.3}
 \contentsline {subsection}{\numberline {2.3.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{17}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}SERCOS Interface}{19}{subsection.2.3.2}
@@ -32,7 +32,7 @@
 \contentsline {section}{\numberline {2.4}Redes Utilizadas}{22}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}DeviceNET}{22}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}Ethernet/IP}{22}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control}}{23}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control} }{23}{subsection.2.4.3}
 \contentsline {section}{\numberline {2.5}Programa\IeC {\c c}\IeC {\~a}o do CLP}{23}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}Vis\IeC {\~a}o geral}{23}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Linguagem \textit {ladder}}{24}{subsection.2.5.2}
@@ -48,25 +48,31 @@
 \contentsline {subsection}{\numberline {3.1.2}Calibra\IeC {\c c}\IeC {\~a}o}{29}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}Programa\IeC {\c c}\IeC {\~a}o}{30}{subsection.3.1.3}
 \contentsline {section}{\numberline {3.2}Calibra\IeC {\c c}\IeC {\~a}o do Servomotor}{30}{section.3.2}
-\contentsline {section}{\numberline {3.3}Malha aberta}{31}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Excurs\IeC {\~a}o de 30cm}{31}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Excurs\IeC {\~a}o de 20cm}{32}{subsection.3.3.2}
-\contentsline {section}{\numberline {3.4}Malha fechada}{33}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Controlador P}{34}{subsection.3.4.1}
-\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{35}{chapter.4}
-\contentsline {section}{\numberline {4.1}Perspectivas Futuras}{35}{section.4.1}
-\contentsline {chapter}{REFER\IeC {\^E}NCIAS BIBLIOGR\IeC {\'A}FICAS}{36}{section.4.1}
-\contentsline {chapter}{{Anexos}}{38}{chapter*.18}
-\contentsline {chapter}{\numberline {I}Programas utilizados}{39}{appendix.A}
-\contentsline {section}{\numberline {I.1}Texto Estruturado}{39}{section.A.1}
-\contentsline {subsection}{\numberline {I.1.1}Inicializa\IeC {\c c}\IeC {\~a}o do primeiro teste de malha aberta}{39}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {I.1.2}Inicializa\IeC {\c c}\IeC {\~a}o do segundo teste de malha aberta}{43}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {I.1.3}Inicializa\IeC {\c c}\IeC {\~a}o dos testes de malha fechada}{45}{subsection.A.1.3}
-\contentsline {subsection}{\numberline {I.1.4}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{46}{subsection.A.1.4}
-\contentsline {subsection}{\numberline {I.1.5}Programa de controle em malha aberta}{46}{subsection.A.1.5}
-\contentsline {subsection}{\numberline {I.1.6}Programa de controle proporcional - malha fechada}{46}{subsection.A.1.6}
-\contentsline {section}{\numberline {I.2}Linguagem \textit {ladder}}{47}{section.A.2}
-\contentsline {subsection}{\numberline {I.2.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{47}{subsection.A.2.1}
-\contentsline {subsection}{\numberline {I.2.2}Rotina de parada de emerg\IeC {\^e}ncia}{47}{subsection.A.2.2}
-\contentsline {section}{\numberline {I.3}Programas da c\IeC {\^a}mera}{47}{section.A.3}
-\contentsline {subsection}{\numberline {I.3.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{47}{subsection.A.3.1}
+\contentsline {section}{\numberline {3.3}Modelo no Espa\IeC {\c c}o de Estados}{31}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Discretiza\IeC {\c c}\IeC {\~a}o}{33}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Controle}{33}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Simula\IeC {\c c}\IeC {\~a}o}{34}{section.3.4}
+\contentsline {section}{\numberline {3.5}Resultados Experimentais}{37}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Considera\IeC {\c c}\IeC {\~o}es Iniciais}{37}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Testes com Rampa - Malha Aberta e Malha Fechada}{38}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{39}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.4}An\IeC {\'a}lise dos Resultados}{39}{subsection.3.5.4}
+\contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{41}{chapter.4}
+\contentsline {section}{\numberline {4.1}Perspectivas Futuras}{42}{section.4.1}
+\contentsline {chapter}{REFER\IeC {\^E}NCIAS BIBLIOGR\IeC {\'A}FICAS}{43}{section.4.1}
+\contentsline {chapter}{{Anexos}}{46}{chapter*.18}
+\contentsline {chapter}{\numberline {I}Programas utilizados}{47}{appendix.A}
+\contentsline {section}{\numberline {I.1}Redu\IeC {\c c}\IeC {\~a}o modal}{47}{section.A.1}
+\contentsline {section}{\numberline {I.2}Projeto do Controlador com Realimenta\IeC {\c c}\IeC {\~a}o de Estados}{52}{section.A.2}
+\contentsline {section}{\numberline {I.3}Texto Estruturado}{53}{section.A.3}
+\contentsline {subsection}{\numberline {I.3.1}Inicializa\IeC {\c c}\IeC {\~a}o do primeiro teste de malha aberta}{53}{subsection.A.3.1}
+\contentsline {subsection}{\numberline {I.3.2}Inicializa\IeC {\c c}\IeC {\~a}o do segundo teste de malha aberta}{57}{subsection.A.3.2}
+\contentsline {subsection}{\numberline {I.3.3}Inicializa\IeC {\c c}\IeC {\~a}o dos testes de malha fechada}{59}{subsection.A.3.3}
+\contentsline {subsection}{\numberline {I.3.4}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{59}{subsection.A.3.4}
+\contentsline {subsection}{\numberline {I.3.5}Programa de controle em malha aberta}{60}{subsection.A.3.5}
+\contentsline {subsection}{\numberline {I.3.6}Programa de controle proporcional - malha fechada}{60}{subsection.A.3.6}
+\contentsline {section}{\numberline {I.4}Linguagem \textit {ladder}}{61}{section.A.4}
+\contentsline {subsection}{\numberline {I.4.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{61}{subsection.A.4.1}
+\contentsline {subsection}{\numberline {I.4.2}Rotina de parada de emerg\IeC {\^e}ncia}{61}{subsection.A.4.2}
+\contentsline {section}{\numberline {I.5}Programas da c\IeC {\^a}mera}{61}{section.A.5}
+\contentsline {subsection}{\numberline {I.5.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{61}{subsection.A.5.1}

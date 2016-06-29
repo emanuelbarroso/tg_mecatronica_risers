@@ -8,7 +8,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Malha aberta de controle}}{10}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Malha fechada de controle}}{11}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Malha fechada de controle, espa\IeC {\c c}o de estados discreto}}{11}{figure.2.3}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Malha fechada de controle, espa\IeC {\c c}o de estados discreto}}{12}{figure.2.3}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Estrutura b\IeC {\'a}sica do preditor de Smith \cite {rafaelMestrado}. }}{13}{figure.2.4}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Estrutura do preditor de Smith com filtro de Kalman e refer\IeC {\^e}ncias de topo e fundo \cite {rafaelMestrado}. }}{15}{figure.2.5}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Exemplo de estrutura de sistema discreto no tempo \cite {GoddardKalman}. }}{15}{figure.2.6}
@@ -24,19 +24,24 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces RSLinx com c\IeC {\^a}mera reconhecida }}{29}{figure.3.1}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Programa PresencePLUS para calibra\IeC {\c c}\IeC {\~a}o da c\IeC {\^a}mera }}{30}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 30cm}}{32}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 30cm}}{32}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 30cm}}{32}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 30cm}}{32}{figure.3.6}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Refer\IeC {\^e}ncia de Posi\IeC {\c c}\IeC {\~a}o para Excurs\IeC {\~a}o de 20cm}}{33}{figure.3.7}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Refer\IeC {\^e}ncia de Velocidade para Excurs\IeC {\~a}o de 20cm}}{33}{figure.3.8}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Resultado com Velocidade Modelada para Excurs\IeC {\~a}o de 20cm}}{33}{figure.3.9}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Resultado com Velocidade Constante para Excurs\IeC {\~a}o de 20cm}}{33}{figure.3.10}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Malha fechada de controle}}{34}{figure.3.11}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0025\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$}}{34}{figure.3.12}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces Resultado com Malha Fechada Proporcional e $K_p = 0.0050\frac {\mathrm {u}}{\mathrm {mm}\cdot \mathrm {s}}$ }}{34}{figure.3.13}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Resposta ao degrau para modelos reduzidos com atraso e sem atraso}}{32}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Resposta ao degrau para modelos reduzidos com atraso e sem atraso, 25 segundos}}{33}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Resposta do Sistema em Malha Aberta para Excurs\IeC {\~a}o de 30cm, entrada rampa}}{34}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Resposta do Sistema em Malha Aberta para Excurs\IeC {\~a}o de 30cm, entrada suave calculada}}{34}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Esquema principal para simula\IeC {\c c}\IeC {\~a}o em Simulink}}{35}{figure.3.7}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Bloco de Atraso -- sa\IeC {\'\i }da \IeC {\'e} o valor antecipado menos um valor antigo}}{35}{figure.3.8}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Modelo reduzido -- n\IeC {\~a}o utiliza atraso, utilizado para predizer a sa\IeC {\'\i }da}}{35}{figure.3.9}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Bloco de controle com filtro de Kalman}}{36}{figure.3.10}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Resposta do Sistema em Malha Fechada para Excurs\IeC {\~a}o de 30cm, entrada rampa}}{36}{figure.3.11}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Resposta do Sistema em Malha Fechada para Excurs\IeC {\~a}o de 30cm, entrada suave calculada para topo e fundo}}{36}{figure.3.12}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Sistema com um ru\IeC {\'\i }do branco adicionado}}{37}{figure.3.13}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Resposta do Sistema em Malha Fechada para Excurs\IeC {\~a}o de 30cm, entrada suave, com ru\IeC {\'\i }do}}{37}{figure.3.14}
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Entrada do controlador antes e depois do ru\IeC {\'\i }do para cada instante}}{37}{figure.3.15}
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Resultado experimental para a trajet\IeC {\'o}ria rampa em malha aberta de 30 cm. }}{38}{figure.3.16}
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Resultado experimental para a trajet\IeC {\'o}ria rampa em malha fechada de 30 cm. }}{38}{figure.3.17}
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Teste com a trajet\IeC {\'o}ria sugerida por Rafael utilizando o preditor de Smith. }}{39}{figure.3.18}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {I.1}{\ignorespaces \textit {Trigger} da c\IeC {\^a}mera}}{47}{figure.A.1}
-\contentsline {figure}{\numberline {I.2}{\ignorespaces Parada de emerg\IeC {\^e}ncia}}{47}{figure.A.2}
-\contentsline {figure}{\numberline {I.3}{\ignorespaces Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}}{48}{figure.A.3}
+\contentsline {figure}{\numberline {I.1}{\ignorespaces \textit {Trigger} da c\IeC {\^a}mera}}{61}{figure.A.1}
+\contentsline {figure}{\numberline {I.2}{\ignorespaces Parada de emerg\IeC {\^e}ncia}}{61}{figure.A.2}
+\contentsline {figure}{\numberline {I.3}{\ignorespaces Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}}{62}{figure.A.3}

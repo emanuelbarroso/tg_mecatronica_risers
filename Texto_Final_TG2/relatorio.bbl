@@ -20,6 +20,13 @@
   Faculdade de Tecnologia, Universidade de Brasília, 2015. Trabalho de
   Graduação em Engenharia de Controle e Automação.}
 
+\bibitem{rafaelMestrado}
+\abntrefinfo{Simões}{SIMõES}{2016}
+{SIMõES, R. D.~P. \emph{Sistema de Posicionamento Dinâmico para Instalações
+  Submarinas}. Brasília, DF: Universidade de Brasília. Faculdade de
+  Tecnologia, Departamento de Engenharia Mecânica, 2016. Dissertação de
+  Mestrado.}
+
 \bibitem{GoddardKalman}
 \abntrefinfo{Goddard Consulting}{GODDARD CONSULTING}{}
 {GODDARD CONSULTING. \emph{An Introduction to the Kalman Filter}.
@@ -69,13 +76,6 @@ ISBN 978-0130342812.}
 {MATHWORKS. \emph{Convert model from continuous to discrete time - MATLAB c2d}.
 Disponível em: \url{http://www.mathworks.com/help/control/ref/c2d.html}.
 Acesso em: 26/06/2016.}
-
-\bibitem{rafaelMestrado}
-\abntrefinfo{Simões}{SIMõES}{2016}
-{SIMõES, R. D.~P. \emph{Sistema de Posicionamento Dinâmico para Instalações
-  Submarinas}. Brasília, DF: Universidade de Brasília. Faculdade de
-  Tecnologia, Departamento de Engenharia Mecânica, 2016. Dissertação de
-  Mestrado.}
 
 \bibitem{sercos}
 \abntrefinfo{SERCOS INTERNATIONAL}{SERCOS INTERNATIONAL}{}
@@ -159,5 +159,17 @@ Acesso em: 29/11/2015.}
 Disponível em:
   \url{http://www.bannerengineering.com/en-US/products/sub/78#ui-tabs-37}.
 Acesso em: 29/11/2015.}
+
+\bibitem{julia}
+\abntrefinfo{NumFocus Foundation}{NUMFOCUS FOUNDATION}{}
+{NUMFOCUS FOUNDATION. \emph{The Julia Language}.
+Disponível em: \url{http://julialang.org/}.
+Acesso em: 29/06/2016.}
+
+\bibitem{simulink}
+\abntrefinfo{MathWorks}{MATHWORKS}{}
+{MATHWORKS. \emph{Simulink - Simulation and Model-Based Design}.
+Disponível em: \url{http://www.mathworks.com/products/simulink/}.
+Acesso em: 29/06/2016.}
 
 \end{thebibliography}
