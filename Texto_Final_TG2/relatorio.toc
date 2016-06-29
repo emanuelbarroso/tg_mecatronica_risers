@@ -63,16 +63,18 @@
 \contentsline {chapter}{{Anexos}}{46}{chapter*.18}
 \contentsline {chapter}{\numberline {I}Programas utilizados}{47}{appendix.A}
 \contentsline {section}{\numberline {I.1}Redu\IeC {\c c}\IeC {\~a}o modal}{47}{section.A.1}
-\contentsline {section}{\numberline {I.2}Projeto do Controlador com Realimenta\IeC {\c c}\IeC {\~a}o de Estados}{52}{section.A.2}
-\contentsline {section}{\numberline {I.3}Texto Estruturado}{53}{section.A.3}
-\contentsline {subsection}{\numberline {I.3.1}Inicializa\IeC {\c c}\IeC {\~a}o do primeiro teste de malha aberta}{53}{subsection.A.3.1}
-\contentsline {subsection}{\numberline {I.3.2}Inicializa\IeC {\c c}\IeC {\~a}o do segundo teste de malha aberta}{57}{subsection.A.3.2}
-\contentsline {subsection}{\numberline {I.3.3}Inicializa\IeC {\c c}\IeC {\~a}o dos testes de malha fechada}{59}{subsection.A.3.3}
-\contentsline {subsection}{\numberline {I.3.4}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{59}{subsection.A.3.4}
-\contentsline {subsection}{\numberline {I.3.5}Programa de controle em malha aberta}{60}{subsection.A.3.5}
-\contentsline {subsection}{\numberline {I.3.6}Programa de controle proporcional - malha fechada}{60}{subsection.A.3.6}
-\contentsline {section}{\numberline {I.4}Linguagem \textit {ladder}}{61}{section.A.4}
-\contentsline {subsection}{\numberline {I.4.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{61}{subsection.A.4.1}
-\contentsline {subsection}{\numberline {I.4.2}Rotina de parada de emerg\IeC {\^e}ncia}{61}{subsection.A.4.2}
-\contentsline {section}{\numberline {I.5}Programas da c\IeC {\^a}mera}{61}{section.A.5}
-\contentsline {subsection}{\numberline {I.5.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{61}{subsection.A.5.1}
+\contentsline {section}{\numberline {I.2}Filtro de Kalman Utilizado, em Linguagem MATLAB --- Adaptado de \cite {GoddardKalmanCode}}{52}{section.A.2}
+\contentsline {section}{\numberline {I.3}Projeto do Controlador com Realimenta\IeC {\c c}\IeC {\~a}o de Estados}{54}{section.A.3}
+\contentsline {section}{\numberline {I.4}Texto Estruturado}{54}{section.A.4}
+\contentsline {subsection}{\numberline {I.4.1}Inicializa\IeC {\c c}\IeC {\~a}o dos testes}{54}{subsection.A.4.1}
+\contentsline {subsection}{\numberline {I.4.2}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{54}{subsection.A.4.2}
+\contentsline {subsection}{\numberline {I.4.3}Programa de movimenta\IeC {\c c}\IeC {\~a}o do motor}{55}{subsection.A.4.3}
+\contentsline {section}{\numberline {I.5}Linguagem \textit {ladder}}{56}{section.A.5}
+\contentsline {subsection}{\numberline {I.5.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{56}{subsection.A.5.1}
+\contentsline {subsection}{\numberline {I.5.2}Rotina de parada de emerg\IeC {\^e}ncia}{56}{subsection.A.5.2}
+\contentsline {section}{\numberline {I.6}Programas em \textit {Python} para o controle}{56}{section.A.6}
+\contentsline {subsection}{\numberline {I.6.1}Exemplo de teste em Malha Aberta}{56}{subsection.A.6.1}
+\contentsline {subsection}{\numberline {I.6.2}Exemplo de teste em Malha Fechada com Rampa}{58}{subsection.A.6.2}
+\contentsline {subsection}{\numberline {I.6.3}Exemplo de teste em Malha Fechada com Trajet\IeC {\'o}rias Quaisquer}{60}{subsection.A.6.3}
+\contentsline {section}{\numberline {I.7}Programas da c\IeC {\^a}mera}{64}{section.A.7}
+\contentsline {subsection}{\numberline {I.7.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{64}{subsection.A.7.1}

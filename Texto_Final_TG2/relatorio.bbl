@@ -5,6 +5,13 @@
 \providecommand{\abntbstabout}[1]{}
 \abntbstabout{1.42.2.1 }
 
+\bibitem{GoddardKalmanCode}
+\abntrefinfo{Goddard Consulting}{GODDARD CONSULTING}{}
+{GODDARD CONSULTING. \emph{A Simple Kalman Filter in Simulink}.
+Disponível em:
+  \url{http://www.goddardconsulting.ca/simulink-kalman-filter.html}.
+Acesso em: 29/06/2016.}
+
 \bibitem{eugenioASME2012}
 \abntrefinfo{Fortaleza, Albuquerque e Yamamoto}{FORTALEZA; ALBUQUERQUE;
   YAMAMOTO}{2012}
