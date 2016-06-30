@@ -202,8 +202,8 @@ y &= \left[\begin{array}{cc}
 	y &=& \mathbf{C_R}\mathbf{z}+\mathbf{D_D}u(t-\epsilon) \label{novoModeloReduzido};
 \end{array}
 \end{align} sendo \begin{align}
-	\mathbf{B_D} &= \mathbf{A_R}\left(e^{\epsilon\mathbf{A_R}}\right)\mathbf{A_R^{-1}}\mathbf{B_R}\;\;\mathrm{e}\\
-	\mathbf{D_D} &= \mathbf{C_R}\left(e^{\epsilon\mathbf{A_R}} - \mathbf{I}\right)\mathbf{A_R^{-1}}\mathbf{B_R} + \mathbf{D_R}.
+	\mathbf{B_D} &= \mathbf{A_R}\left(e^{\epsilon\mathbf{A_R}}\right)\mathbf{A_R^{-1}}\mathbf{B_R}\;\;\mathrm{e}\label{novoBD}\\
+	\mathbf{D_D} &= \mathbf{C_R}\left(e^{\epsilon\mathbf{A_R}} - \mathbf{I}\right)\mathbf{A_R^{-1}}\mathbf{B_R} + \mathbf{D_R}\label{novoDD}.
 \end{align}
 
  O novo modelo reduzido (\ref{novoModeloReduzido}) é tal que, para uma entrada degrau no instante $t'$, a saída mantém seu valor inicial enquanto $t < t' + \epsilon$. Para $t \ge t' + \epsilon$, ambos os modelos reduzidos produzem a mesma saída. O atraso $\epsilon$ pode ser visto como uma aproximação para o atraso natural de propagação da estrutura.
