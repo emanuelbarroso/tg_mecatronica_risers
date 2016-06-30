@@ -12,7 +12,7 @@
 
 \section{Contextualização}
 
-\paragraph{} O petróleo tem importância econômica global. Uma das formas de extração do mesmo é aquela feita em águas profundas, a qual o Brasil tem feito importantes avanços desde a descoberta do Pré-Sal em 2006. Em abril de 2015, chegou-se à produção de mais de 800 mil barris por dia no pré-sal, com campos situados em águas profundas e ultraprofundas \cite{preSal}. Os desafios nesta área da engenharia são enormes, pois as operações são muito complexas.
+\paragraph{} O petróleo tem importância econômica global. Uma das formas de extração do mesmo é aquela feita em águas profundas, na qual o Brasil tem feito importantes avanços desde a descoberta do Pré-Sal em 2006. Em abril de 2015, chegou-se à produção de mais de 800 mil barris por dia no pré-sal, com campos situados em águas profundas e ultraprofundas \cite{preSal}. Os desafios nesta área da engenharia são enormes, pois as operações são muito complexas.
 
 \paragraph{} Na Figura \ref{riser}, observa-se uma das operações necessárias para a extração no Pré-Sal, especificamente a operação de reentrada. Nesta operação, um \textit{riser} deve ser conectado da plataforma até o poço de petróleo no leito oceânico. O comprimento do \textit{riser} chega a 2km.
 
@@ -27,7 +27,7 @@
 
 \section{Objetivos do projeto}
 
-\paragraph{} O foco deste trabalho está na operação de reentrada, conforme apresentada na Figura \ref{riser}. Atualmente, é uma operação feita manualmente por um operador na plataforma que observa remotamente as imagens capturas por \textit{ROV}s (\textit{Remotely Operated Vehicles}) da região do \textit{riser} próxima ao poço e controla a plataforma através de um \textit{joystick} com o auxílio do sistema de posicionamento dinâmico. O custo envolvido na operação é enorme e os riscos para o equipamento também, já que os próprios \textit{ROVs} e o \textit{riser} ficam sujeitos às perturbações das ondas, correntezas e variações ambientais no fundo do mar. A Figura \ref{posicionamentoAtual} apresenta o esquema descrito.
+\paragraph{} O foco deste trabalho está na operação de reentrada, conforme apresentada na Figura \ref{riser}. Atualmente, é uma operação feita manualmente por um operador na plataforma que observa remotamente as imagens capturadas por \textit{ROV}s (\textit{Remotely Operated Vehicles}) da região do \textit{riser} próxima ao poço e controla a plataforma através de um \textit{joystick} com o auxílio do sistema de posicionamento dinâmico. O custo envolvido na operação é enorme e os riscos para o equipamento também, já que os próprios \textit{ROVs} e o \textit{riser} ficam sujeitos às perturbações das ondas, correntezas e variações ambientais no fundo do mar. A Figura \ref{posicionamentoAtual} apresenta o esquema descrito.
 
 \begin{figure}[ht!]
 \centering
@@ -35,7 +35,7 @@
   \caption{Método atual para reconexão no poço \cite{redytton} \label{posicionamentoAtual}}
 \end{figure}
 
-\paragraph{} O objetivo deste trabalho é apresentar uma forma mais eficiente de realizar a operação de reentrada, economizando tempo e recursos, evitando riscos para pessoal e equipamento. Rédytton \cite{redytton} validou o controle em malha aberta; neste presente trabalho, deseja-se projetar um controle em malha fechada, utilizando técnicas mais robustas, que atenda aos requisitos de trajetória da operação de reentrada do \textit{riser}.
+\paragraph{} O objetivo deste trabalho é apresentar uma forma mais eficiente de realizar a operação de reentrada, economizando tempo e recursos, evitando riscos para pessoal e equipamento. Fabrício \cite{fabricioIFAC} validou por meio de simulação uma técnica de controle em malha aberta e fechada, enquanto Rédytton \cite{redytton} validou o controle em malha aberta experimentalmente; neste presente trabalho, deseja-se projetar um controle em malha fechada para validação experimental em escala laboratorial, utilizando a técnica apresentada inicialmente por Fabrício \cite{fabricioIFAC} e então detalhada e um pouco modificada por Rafael \cite{rafaelMestrado}. A malha fechada visa a resistir perturbações, sendo uma técnica mais robusta que a malha aberta para atender aos requisitos de trajetória da operação de reentrada do \textit{riser}.
 
 \begin{figure}[ht!]
 \centering
@@ -44,11 +44,14 @@
 \end{figure}
 
 \paragraph{} Para fechar a malha, necessita-se de um sensor que realimente os dados de posição, o qual, na presente bancada, é uma câmera industrial. Passos necessários incluem: \begin{itemize}
-	\item Alimentação da câmera;
 	\item Atualização do Firmware da Câmera
 	\item Conexão na rede Ethernet/IP da câmera e CLP;
 	\item Configuração da câmera no software RSLogix;
 	\item Alimentação da bancada com fontes dedicadas de 24V\footnote{Anteriormente, duas fontes de tensão de saída ajustável eram utilizadas, mas foram trocadas por fontes de saída de tensão única.}
+	\item Configuração do OPC (Subseção \ref{opcSubSection}) para comunicação entre o CLP e computador;
+	\item Redução do modelo por meio de uma rotina escrita em Julia \cite{julia};
+	\item Simulações em Simulink e projeto utilizando MATLAB;
+	\item Programação de rotinas usando Python \cite{python}, OPC e Texto Estruturado para o controle.
 \end{itemize}
 
-\paragraph{} Além de ser necessário o uso do sensor, para o presente trabalho será utilizada uma estrutura conhecida como Preditor de Smith; o sistema será representado por um modelo reduzido, e haverá um atraso intrínseco ao sistema. A combinação entre controlador, planta e modelo reduzido, em conjunção com o projeto das trajetórias de topo e de fundo do \textit{riser} e a presença de um filtro de Kalman é a base para se compreender a estrutura do sistema de controle a ser desenvolvido.
+\paragraph{} O controle apresentado por Fabrício \cite{fabricioIFAC} utiliza uma estrutura conhecida como Preditor de Smith, uma técnica de controle preditivo. Tal técnica foi utilizada pelo fato do sistema ter um atraso introduzido para reduzir a transferência direta do modelo reduzido. Isso será detalhado durante este trabalho. A determinação dos polos é feita seguindo técnicas de controle digital em espaço de estados. Um filtro de Kalman é presente no sistema para compensar ruídos de medida, ponderando entre modelo e medição. A combinação de controlador, planta e modelo reduzido, em conjunção com o projeto das trajetórias de topo e de fundo do \textit{riser}, conforme determinado em \cite{fabricioIFAC}, e o filtro de Kalman é a base para se compreender a estrutura do sistema de controle a ser desenvolvido.
