@@ -170,46 +170,52 @@ Apesar de $\epsilon=0.3$s ser próximo de 0.313s, esse atraso não reduz muito a
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}
+        
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRampa}
         \label{respostaMalhaAbertaRampa}
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}g
     \end{minipage}%
     \hspace{0.1cm}
     \begin{minipage}{0.45\textwidth}
         \centering
-        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
+        
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopo}
         \label{respostaMalhaAbertaEntradaSuave}
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
     \end{minipage}
 \end{figure}
 
- A solução para lidar com perturbações é fechar a malha. Para isso, uma vez obtidos os ganhos, representados pela Equação \ref{ganhosObtidos}, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, as referências para a posição de topo, posição do carrinho, e para a posição de fundo, posição da bolinha, definem a posição final. O bloco \texttt{PLANTA} é o modelo sem redução modal. Os blocos \texttt{Signal Builder} representam um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{rafaelMestrado}. 
+ A solução para lidar com perturbações é fechar a malha. Para isso, uma vez obtidos os ganhos, Equação \ref{ganhosObtidos}, fez-se o projeto do sistema em malha fechada em Simulink \cite{simulink}. A Figura \ref{topModel} apresenta os principais blocos e suas conexões. Nos somadores, as referências para a posição de topo, que é a posição do carrinho, e para a posição de fundo, que é a posição da bolinha, são as entradas do sistema. O bloco \texttt{PLANTA} é o modelo sem redução modal. No caso deste projeto, a matriz do sistema sem redução de ordem é de dimensão $400\times 400$. Os blocos \texttt{Signal Builder} representam um sinal tipo rampa definido para comparação com as trajetórias suaves de topo e fundo \cite{rafaelMestrado}. 
  
 
 \begin{figure}[!ht]
 \centering
-\caption{Esquema principal para simulação em Simulink\label{topModel}}
+
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/top}
+\caption{Esquema principal para simulação em Simulink\label{topModel}}
 \end{figure}
 
- O bloco atraso, Figura \ref{blocoAtraso}, tem como saída o valor predito menos o valor predito de 3 tempos atrás, uma vez que $\epsilon \simeq 3T_s$. Esse valor é somado à diferença entre a referência de fundo e a saída da planta para então ser a entrada do bloco de controle. O bloco \texttt{CONTROLE\_FILTRO} é detalhado na Figura \ref{blocoControle} e utiliza os ganhos da Equação \ref{ganhosObtidos}. O filtro de Kalman utilizou, como matrizes de covariância, $Q = 0.01^2 I_4$ e $R = 0.4^2$; tais valores foram obtidos de forma empírica.
+ O bloco atraso, Figura \ref{blocoAtraso}, tem como saída o valor predito pelo modelo reduzido menos esse mesmo sinal atrasado em 3 períodos de amostragem, uma vez que $\epsilon \simeq 3T_s$. Esse valor é somado à diferença entre a referência de fundo e a saída da planta para então ser a entrada do bloco de controle. O bloco \texttt{CONTROLE\_FILTRO} é detalhado na Figura \ref{blocoControle} e utiliza os ganhos da Equação \ref{ganhosObtidos}. O filtro de Kalman utilizou, como matrizes de covariância, $Q = 0.01^2 I_4$ e $R = 0.4^2$; tais valores foram obtidos de forma empírica.
 
 \begin{figure}[!ht]
 \centering
-\caption{Bloco de Atraso -- saída é o valor antecipado menos um valor antigo\label{blocoAtraso}}
+
 \includegraphics[width=0.5\linewidth]{figs/resultados/simulink/atraso}
+\caption{Bloco de Atraso -- saída é o valor antecipado menos um valor antigo\label{blocoAtraso}}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\caption{Modelo reduzido -- não utiliza atraso, utilizado para predizer a saída\label{blocoModeloReduzido}}
+
 \includegraphics[width=0.6\linewidth]{figs/resultados/simulink/modeloReduzido}
+\caption{Modelo reduzido -- não utiliza atraso, utilizado para predizer a saída\label{blocoModeloReduzido}}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\caption{Bloco de controle com filtro de Kalman\label{blocoControle}}
 \includegraphics[width=0.9\linewidth]{figs/resultados/simulink/controle}
+\caption{Bloco de controle com filtro de Kalman\label{blocoControle}}
+
 \end{figure}
 
  O resultado das simulações sem ruído é apresentado nas Figuras \ref{respostaMalhaFechadaRampa} e \ref{respostaMalhaFechadaRefTopoFundo}. Nota-se uma ótima melhoria na resposta à rampa, enquanto a resposta à entrada suave se mantém boa.
@@ -219,20 +225,22 @@ Apesar de $\epsilon=0.3$s ser próximo de 0.313s, esse atraso não reduz muito a
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa}
+       
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRampa}
         \label{respostaMalhaFechadaRampa}
+         \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa}
     \end{minipage}%
     \hspace{0.1cm}
     \begin{minipage}{0.45\textwidth}
         \centering
-        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo}
+      
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRefTopoFundo}
         \label{respostaMalhaFechadaRefTopoFundo}
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo}
     \end{minipage}
 \end{figure}
 
-Algo essencial é analisar a resistência ao ruído. Ela depende não só da malha fechada, mas também do filtro de Kalman que foi implementado. Os parâmetros $Q$ e $R$ escolhidos anteriormente são essenciais para uma boa atenuação de ruídos. O ruído foi inserido na simulação conforme a Figura \ref{simulacaoComRuidoSimulink}. O que se nota é que o sinal de entrada do bloco de controle sempre terá algum erro, o que seria um erro no sistema de medição. O resultado da simulação é apresentado na Figura \ref{respostaMalhaAbertaRefTopoRuido}. É importante observar a diferença entre o sinal de referência antes e depois de ser somado o ruído. Conforme a Figura \ref{entradaControladorYERR} apresenta, esse sinal tem grandes variações comparado ao original; mesmo assim o resultado final está bem controlado, evidenciando a importância da presença do Filtro de Kalman acoplado ao controlador. 
+Algo essencial é analisar a resistência ao ruído. Ela depende não só da malha fechada, mas também do filtro de Kalman que foi implementado. Os parâmetros $Q$ e $R$ escolhidos anteriormente são essenciais para uma boa atenuação de ruídos. O ruído foi inserido na simulação conforme a Figura \ref{simulacaoComRuidoSimulink}. O que se nota é que o sinal de entrada do bloco de controle sempre terá algum erro, o que seria um erro no sistema de medição. O resultado da simulação é apresentado na Figura \ref{respostaMalhaAbertaRefTopoRuido}. É importante observar a diferença entre o sinal de referência antes e depois de ser somado o ruído. Conforme a Figura \ref{entradaControladorYERR} apresenta, esse sinal tem grandes variações comparado ao original; mesmo assim, o resultado final está bem controlado, evidenciando a importância do controle em malha fechada com a presença do Filtro de Kalman como observador. 
 
 \begin{figure}[!ht]
 \centering
