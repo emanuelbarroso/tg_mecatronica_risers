@@ -400,24 +400,24 @@ De forma a se lidar com os problemas envolvidos em sistemas com atraso, é poss�
 Nota-se que a saída do modelo sem atraso é uma estimativa da saída da planta desconsiderando-se efeitos de perturbação, ou seja, é uma predição da saída da planta sem perturbação após decorrido o atraso. Subtraindo-se essa saída sem atraso da saída real da planta, tem-se uma estimativa de perturbação, que somada à saída sem atraso, resulta em uma predição do modelo com perturbação; assim, a realimentação do preditor considera a perturbação sem ser influenciada pelo atraso.
 
 A grande vantagem de se utilizar o preditor de Smith é que, dado o fato que o projeto pode ser feito sobre o modelo reduzido sem atraso, podem ser utilizadas técnicas elementares de controle em espaço de estados, apresentadas na Seção \ref{SimpleControlSection}. Conhecendo-se o atraso $\epsilon$, e sabendo que o modelo reduzido é um sistema SISO invariante no tempo e controlável, ele pode ser representado em forma canônica de controle. Assumindo-se as novas variáveis de estado nessa forma como o vetor $\bar{x} = \left[\bar{x}_1, \bar{x}_2], \bar{x}_3, \bar{x}_4\right]^T$ (sendo o sistema reduzido de ordem 4), pode-se considerar a saída plana do sistema $F$ como \begin{align}
- F &= \bar{x}_1
+ F &= \bar{x}_1.
 \end{align}
 
 Como o sistema reduzido considerado é de ordem 4, deriva-se a saída $F$ até a quarta ordem:
 \begin{align}
-\label{CanonForm1} \left\{
+\label{CanonForm1} \left.
  \begin{array}{lll}
 \dot{F} &= \dot{\bar{x}}_1 &= \bar{x}_2 \\
 \ddot{F} &= \dot{\bar{x}}_2 &= \bar{x}_3 \\
 \dddot{F} &= \dot{\bar{x}}_3 &= \bar{x}_4 \\
 F^{(4)} &= \dot{\bar{x}}_4 &= -a_4\bar{x}_1 -a_3\bar{x}_2 -a_2\bar{x}_3 -a_1\bar{x}_4 + u
 \end{array}
-\right.
+\right\}
 \end{align}
 
 Na Equação \ref{CanonForm1}, as constantes $a_i$ correspondem à última linha da matriz de estados do sistema sem atraso, na forma canônica controlável. Portanto, o sistema pode ser parametrizado em função de $F$ e suas derivadas temporais:
 \begin{align}
-\left \{
+\left.
 \begin{array}{ll}
 \bar{x}_1 &= F \\
 \bar{x}_2 &= \dot{F} \\
@@ -425,7 +425,7 @@ Na Equação \ref{CanonForm1}, as constantes $a_i$ correspondem à última linha
 \bar{x}_4 &= \dddot{F} \\
 u &= a_4 F + a_3 \dot{F} + a_2 \ddot{F} + a_1 \dddot{F} + F^{(4)}
 \end{array}
-\right.
+\right\}
 \end{align}
 
 Redefinindo-se a entrada do sistema considerado tomando-se $\nu = F^{*(4)} = -a_4 F - a_3 \dot{F} - a_2 \ddot{F} - a_1 \dddot{F} + u$, pode-se reescrever o modelo reduzido utilizando-se a fórmula canônica de Brunovsky:
@@ -449,16 +449,16 @@ F \\ \dot{F} \\ \ddot{F} \\ \dddot{F}
 \begin{array}{c}
 0 \\ 0 \\ 0 \\ 1
 \end{array}
-\right] \nu
+\right] \nu.
 \end{align}
 
 De acordo com Rafael \cite{rafaelMestrado}, a entrada $\nu$, em termos de acompanhamento da trajetória, também é dada por
 \begin{align}
  \label{NuInput}
- \nu = \nu^{*} - \sum_{i=0}^{r-1} k_i e^{(i)} = \nu^{*} - \sum_{i=0}^{r-1} k_i \left(F^{(i)} - F^{*(i)}\right)
+ \nu = \nu^{*} - \sum_{i=0}^{r-1} k_i e^{(i)} = \nu^{*} - \sum_{i=0}^{r-1} k_i \left(F^{(i)} - F^{*(i)}\right).
 \end{align} em que $e^{(i)}$ representa o erro de $F$ e suas derivadas temporais. Pela Equação \ref{NuInput}, a variável $\nu$ passa a ser entendida como um fator de correção para o controlador em malha fechada
 \begin{align}
-\nu &= F^{*(4)} - \sum_{i=0}^{3} k_i \left( F^{(i)} - F^{*(i)}\right)
+\nu &= F^{*(4)} - \sum_{i=0}^{3} k_i \left( F^{(i)} - F^{*(i)}\right).
 \end{align} em que os ganhos $k_i$ são escolhidos de forma que o polinômio característico do sistema possua raízes com parte real estritamente negativa (em termos discretos, tais raízes devem estar no interior do círculo unitário).
 
 Com o desenvolvimento apresentado, pode-se montar uma nova estrutura para o preditor de Smith, conforme a Figura \ref{smith2} . Nessa estrutura, \textbf{P} é a planta, \textbf{C} é o controlador em malha fechada, \textbf{RM} é o modelo sem atraso e \textbf{KF} é um Filtro de Kalman, que será explicado adiante. 
@@ -484,11 +484,11 @@ O Filtro de Kalman, também conhecido como observador ótimo, é responsável po
 O sistema representado pela Figura \ref{Kalman1} pode então ser representado por equações lineares, como se segue:
 \begin{align}
 	\label{KalmanEq1}
-	x_k &= \mathbf{A_k} x_{k-1} + \mathbf{B_k} u_k + w_{k-1} \\
+	x_k &= \mathbf{A_k} x_{k-1} + \mathbf{B_k} u_k + w_{k-1}, \\
 	\label{KalmanEq2}
-	y_k &= \mathbf{C_k} x_k \\
+	y_k &= \mathbf{C_k} x_k, \\
 	\label{KalmanEq3}
-	\tilde{y}_k &= y_k + v_k
+	\tilde{y}_k &= y_k + v_k.
 \end{align}
 
 No sistema representado pelas Equações \ref{KalmanEq1}-\ref{KalmanEq3}, as matrizes $\mathbf{A_k}$, $\mathbf{B_k}$ e $\mathbf{C_k}$ são as matrizes próprias do espaço de estados do sistema discreto; $x_k$ é o vetor de variáveis de estado, $y_k$ é a saída do processo e $\tilde{y}_k$ é uma medida da referida saída. As variáveis $w_k$ e $v_k$ são ruídos associados respectivamente ao processo e à medida. Suas covariâncias podem ser representadas por $\mathbf{Q_k}$ para o processo e $\mathbf{R_k}$ para a medida.
@@ -502,14 +502,14 @@ Dada a estrutura do sistema, o objetivo do uso do filtro de Kalman é estimar os
 
 O Filtro de Kalman é um algoritmo de dois passos: predição, em que o estado mais recente e a estimação do erro de covariância são projetados de forma a se computar o estado atual das variáveis de estado, e correção, onde o estado predito pelo primeiro passo é corrigido incorporando-se a medida mais recente do processo para se gerar uma nova estimação do estado \cite{GoddardKalman}. Matematicamente, a predição é dada por
 \begin{align}
-	\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k \\
-	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k}
+	\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k, \\
+	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k}.
 \end{align}
  enquanto que a correção pode ser descrita por
 \begin{align}
-	\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1} \\
-	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right) \\
-	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}
+	\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1}, \\
+	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right), \\
+	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}.
 \end{align} 
 
 Nas Equações \ref{KalmanEq4}-\ref{KalmanEq8}, $\mathbf{P_k}$ é uma estimação da covariância de erro da medição, enquanto $\mathbf{K_k}$ é denominado ganho de Kalman. Após os dois passos do algoritmo, $\hat{x}_k$ e $\mathbf{P_k}$ são preservados continuamente, de forma a serem utilizados na parte de predição no próximo instante de tempo \cite{GoddardKalman}.
