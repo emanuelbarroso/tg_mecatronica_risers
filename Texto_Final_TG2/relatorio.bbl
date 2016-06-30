@@ -58,6 +58,19 @@ ISSN 2405-8963.
 Dispon{\'\i}vel em:
   $<$http://www.sciencedirect.com/science/article/pii/S2405896315008708$>$.}
 
+\bibitem{julia}
+\abntrefinfo{NumFocus Foundation}{NUMFOCUS FOUNDATION}{}
+{NUMFOCUS FOUNDATION. \emph{The Julia Language}.
+Disponível em: \url{http://julialang.org/}.
+Acesso em: 29/06/2016.}
+
+\bibitem{python}
+\abntrefinfo{Wikipedia}{WIKIPEDIA}{}
+{WIKIPEDIA. \emph{Python (programming language)}.
+Disponível em:
+  \url{https://en.wikipedia.org/wiki/Python_(programming_language)}.
+Acesso em 30/06/2016.}
+
 \bibitem{teseEugenio}
 \abntrefinfo{Fortaleza}{FORTALEZA}{2009}
 {FORTALEZA, E.
@@ -166,12 +179,6 @@ Acesso em: 29/11/2015.}
 Disponível em:
   \url{http://www.bannerengineering.com/en-US/products/sub/78#ui-tabs-37}.
 Acesso em: 29/11/2015.}
-
-\bibitem{julia}
-\abntrefinfo{NumFocus Foundation}{NUMFOCUS FOUNDATION}{}
-{NUMFOCUS FOUNDATION. \emph{The Julia Language}.
-Disponível em: \url{http://julialang.org/}.
-Acesso em: 29/06/2016.}
 
 \bibitem{simulink}
 \abntrefinfo{MathWorks}{MATHWORKS}{}
