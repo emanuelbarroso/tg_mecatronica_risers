@@ -1,7 +1,7 @@
 %TCIDATA{LaTeXparent=0,0,relatorio.tex}
 \chapter{Fundamentos\label{chap:FundamentacaoMatematica}}
 
-\resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, explica a redução modal utilizada a técnica de controle em malha fechada. Também são apresentadas informações sobre a bancada laboratorial e sobre a programação do CLP.}
+\resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, assim como a redução modal utilizada, o projeto para obtenção dos ganhos para um dado conjunto de polos, e apresenta uma visão geral sobre o filtro de Kalman e o Preditor Smith. Também são expostas informações sobre a bancada laboratorial e sobre a programação do CLP.}
 
 \section{Modelagem\label{modelagem}}
 \subsection{Equações Governantes}
@@ -13,15 +13,15 @@ Estruturas submarinas tais como os \textit{risers} são esbeltas e tem um alto m
 No caso do problema em escala laboratorial que foi trabalhado, o tubo é representado por um barbante e daqui em diante serão discutidas e apresentadas as variáveis necessárias para se trabalhar com esse problema: \begin{itemize}
 	\item $m_s$ é a massa linear do barbante (densidade linear, kg/m);
 	\item $E$ é o módulo de Young do barbante e ele é desconhecido;
-	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão. O barbante não apresenta tal resistência, daí $J=0$;
+	\item $J$ é o segundo momento de área e representa a resistência do barbante à flexão -- como o barbante não apresenta tal resistência, $J=0$;
 	\item $T(z)$ é a força de tração e é dada por \[T(z) = \left(m_b+z m_s\right)g,\] sendo $m_b$ a massa da bolinha (kg), $m_s = m_{\textrm{barbante,kg}}/L$, sendo $L$ o comprimento do barbante, $z$ a posição vertical a partir do carrinho e $g$ é a força da gravidade.
 \end{itemize}
 
 
-As únicas forças externas atuando no \textit{riser} são hidrodinâmicas, exceto nas extremidades do topo e do fundo, nas quais forças de reação seguem condições de contorno. A equação de Morison descreve a força externa resultante: \begin{align}
+As únicas forças externas atuando no \textit{riser} são hidrodinâmicas, exceto nas extremidades do topo e do fundo, nas quais forças de reação seguem condições de contorno. A equação de Morison descreve a força externa resultante, dada por \begin{align}
 	F_n(z,t) &= -m_{fbar} \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN},
-\end{align} na qual $\mu$ é o coeficiente de arrasto (unidade 1/s) e $m_{fbar}$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_{fbar}$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se: \begin{align}
-	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
+\end{align} na qual $\mu$ é o coeficiente de arrasto (unidade 1/s) e $m_{fbar}$ é a massa do fluido adicionado, que será posteriormente pormenorizada. Fazendo $m = m_s + m_{fbar}$ e substituindo a Equação \ref{forceN} na \ref{equacaoMorison}, obtém-se \begin{align}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}.
 \end{align}
 
 Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
@@ -29,11 +29,11 @@ Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
 	&= 0.00770\;\mathrm{g/m}.
 \end{align} 
 
- Já que $m_{fbar} \ll m_s$ conforme a Tabela \ref{constanteBarbante}, consideraremos $m = m_s$ nos cálculos. Em relação à massa $m_{fb}$ do fluido adicionado ao redor da bolinha de isopor, ela é dada por\begin{align}
+ Já que $m_{fbar} \ll m_s$ conforme a Tabela \ref{constanteBarbante}, consideraremos $m \approx m_s$ nos cálculos. Em relação à massa $m_{fb}$ do fluido adicionado ao redor da bolinha de isopor, ela é dada por\begin{align}
 	m_{fb} &= 1.2 V_{b} \rho_{\mathrm{ar}}\nonumber\\
 	&= 1.2 \left(\frac{4}{3}\pi r_b^3\right)\rho_{\mathrm{ar}}\nonumber\\
 	&= 0.0220\;\textrm{g},
-\end{align} de onde se pode observar que $m_{fb} \ll m_{b}$. Assim,  os cálculos consideraram $m' \approx m_b$.
+\end{align} de onde se pode observar que $m_{fb} \ll m_{b}$, conforme Tabela \ref{constanteIsopor}. Assim,  os cálculos consideraram $m' \approx m_b$.
 
 \begin{table}[!ht]
 	\centering
@@ -64,10 +64,8 @@ Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
 	\caption{Constantes da bolinha de isopor\label{constanteIsopor}}
 \end{table}
 
-%Para o presente trabalho, apenas o resultado do modelamento para malha aberta foi fornecido e utilizado. Para trabalhos futuros, as equações de controle serão desenvolvidas de acordo com as exigências do projeto.
-
  Um ponto importante de se notar é que o barbante pesa mais do que o isopor, o que faz com que a tração não seja principalmente devida pela bolinha, mas sim pelo barbante. Neste caso, não se utiliza um valor médio para $T(z)$ como em \cite{fabricioIFAC}, mas ainda se pode usar um valor médio para as constantes $\tau$ e $\tau'$, que substituem o termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$ para o barbante e para a bolinha, respectivamente. Essas constantes são definidas de acordo com a trajetória prevista, uma vez que a velocidade média depende dessa trajetória. Já levando em conta um valor médio para $\left|\frac{\partial \Upsilon}{\partial t}\right|$, tem-se \begin{align}
-	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \tau\frac{\partial \Upsilon}{\partial t}\label{EquacaoComTau}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \tau\frac{\partial \Upsilon}{\partial t}.\label{EquacaoComTau}
 	\end{align}
 
  Neste trabalho, fizeram-se experimentos com uma excursão do carrinho de 30cm. O valor de $\tau$ e $\tau'$ foi calculado por Rafael Simões \cite{rafaelMestrado}. Para o barbante, $\tau = 0.2426/\mathrm{s}$. Para a bolinha, $\tau'=0.1133/\mathrm{s}$.
@@ -75,38 +73,40 @@ Em relação à massa do fluido adicionado, $m_{fbar}$ é dada por \begin{align}
  Antes de se prosseguir para a discretização e obtenção das matrizes em espaço de estados, é importante pensar nas condições de contorno. No topo, $z=L$, tem-se $\Upsilon(L,t)=u(t)$, ou seja, o carrinho se move conforme uma trajetória $u(t)$ definida. Neste mesmo ponto, $\frac{\partial\Upsilon}{\partial z}(L,t) = 0$. Para a ponta na qual a carga está situada, $z=0$, tem-se $\frac{\partial\Upsilon}{\partial z}(0,t) = \frac{F_L}{T}$, sendo $F_L$ a força aplicada pela ponta do riser na carga.
 
 \subsection{Discretização}
-O objetivo desta seção é representar a Equação \ref{EquacaoComTau} em um espaço de estados finito discreto.  Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
+O objetivo desta seção é representar a Equação \ref{EquacaoComTau} em um espaço de estados finito discreto.  Para isso, aplica-se o método de diferenças finitas na coordenada $z$ de maneira a se aproximar a EDP governante em um número finito de EDOs \cite{fabricioIFAC}. No espaço discreto, a equação do $k$-ésimo elemento é dada por \begin{align}
 	\frac{d^2\Upsilon_k}{dt^2} &= -\frac{EJ}{m l^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
 	&+ \frac{T_0+mg(k-1)l}{m l^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}-\tau\frac{d\Upsilon_k}{dt},
 \end{align} sendo $N$ o número de pontos de discretização e $l$ a distância entre dois pontos vizinhos ($l = L/N$).
 
- Deve-se notar que $k\in \mathbb{N}:2\le k \le N-1$, pois um dos extremos é a bolinha e a equação do pêndulo rege seu movimento, enquanto que na outra ponta se aplica uma condição de contorno. O que aconteceria quando $k=2$ e se precisasse de $\Upsilon_{k-2}$? Para o presente experimento, $J=0$ e esse problema não ocorre. Caso se façam testes com um valor de $J\neq 0$, tem-se de resolver esse problema primeiro. Uma solução seria utilizar diferenças finitas unilaterais para esses pontos próximos à fronteira.
+ Deve-se notar que $k\in \mathbb{N}:2\le k \le N-1$, pois um dos extremos é a bolinha, caso no qual $k=1$, e a equação do pêndulo rege seu movimento, enquanto que na outra ponta, $k=N$, se aplica uma condição de contorno que é a entrada da planta $u(t)$. O que aconteceria quando $k=2$ e se precisasse de $\Upsilon_{k-2}$? Para o presente experimento, $J=0$ e esse problema não ocorre. Caso se façam testes com um valor de $J\neq 0$, é necessário resolver esse problema primeiro. Uma solução seria utilizar diferenças finitas unilaterais para esses pontos próximos à fronteira.
 
  Para simplificar, definem-se as constantes \begin{align}
-	a &= -\frac{EJ}{m l^4}\\
-	b_k &= \frac{T_0 + mg(k-1)l}{m l^2},\; k\ge 2\\
-	c &= \frac{g}{2l}\\
-	d_k &= b_k - c,\; k\ge 2\\
-	e_k &= b_k + c,\; k\ge 2
+	a &= -\frac{EJ}{m l^4},\\
+	b_k &= \frac{T_0 + mg(k-1)l}{m l^2},\; k\ge 2,\\
+	c &= \frac{g}{2l},\\
+	d_k &= b_k - c,\; k\ge 2\;\mathrm{e}\\
+	e_k &= b_k + c,\; k\ge 2.
 \end{align}
 
- Uma estratégia para se analisar como as matrizes do espaço de estados do sistema ficarão é escolher um número de pontos $N$ pequeno e escrever todas as equações. Observa-se que $a=0$ para o barbante, pois $J=0$, como apresentado anteriormente, o que simplifica os cálculos.
+ Uma estratégia para se analisar como as matrizes do espaço de estados do sistema ficarão é escolher um número de pontos $N$ pequeno e escrever todas as equações. Depois de compreendido o padrão desse sistema pequeno, pode-se generalizar e criar uma rotina que crie as matrizes para qualquer $N$. Observa-se que $a=0$ para o barbante, pois $J=0$, como apresentado anteriormente, o que simplifica os cálculos.
 
  Para o caso $N=6$, por exemplo, tem-se \begin{align}
-\mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T 	\\
-u &= \Upsilon(L,t) = \Upsilon_7\label{ufor6}\\
-y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
- \end{align} e as equações são \begin{align}
+\mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T, 	\\
+u &= \Upsilon(L,t) = \Upsilon_7\label{ufor6}\;\mathrm{e}\\
+y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}.
+ \end{align} 
+ 
+ Para o vetor $\mathbf{\dot{x}}$ de interesse, as equações para os estados de velocidade $\dot{\Upsilon}_i$, $1 \le i \le 6$, já fazem parte do vetor de estados, então não é necessário discriminá-las. Já para os pontos de aceleração fora o da bolinha $\ddot{\Upsilon}_i$, $2 \le i \le 6$, suas equações são dadas por \begin{align}
  	\ddot{\Upsilon}_2 &=  b_2\left(\Upsilon_{1}-2\Upsilon_{2} + \Upsilon_{3}\right)+c(-\Upsilon_1 + \Upsilon_3)-\tau \dot{\Upsilon}_2\nonumber \\
- 	&= d_2\Upsilon_1 - 2b_2 \Upsilon_2 + e_2\Upsilon_3 - \tau \dot{\Upsilon}_2 \label{upsilon2}\\
+ 	&= d_2\Upsilon_1 - 2b_2 \Upsilon_2 + e_2\Upsilon_3 - \tau \dot{\Upsilon}_2, \label{upsilon2}\\
  	\ddot{\Upsilon}_3 &=  b_3\left(\Upsilon_{2}-2\Upsilon_{3} + \Upsilon_{4}\right)+c(-\Upsilon_2 + \Upsilon_4)-\tau \dot{\Upsilon}_3\nonumber \\
- 	&= d_3\Upsilon_2 - 2b_3 \Upsilon_3 + e_3\Upsilon_4 - \tau \dot{\Upsilon}_3\\
- 	\ddot{\Upsilon}_4 &=  b_4\left(\Upsilon_{3}-2\Upsilon_{4} + \Upsilon_{5}\right)+c(-\Upsilon_3 + \Upsilon_5)-\tau \dot{\Upsilon}_4 \nonumber\\
- 	&= d_4\Upsilon_3 - 2b_4 \Upsilon_4 + e_4\Upsilon_5 - \tau \dot{\Upsilon}_4\\
+ 	&= d_3\Upsilon_2 - 2b_3 \Upsilon_3 + e_3\Upsilon_4 - \tau \dot{\Upsilon}_3,\\
+ 	\ddot{\Upsilon}_4 &=  b_4\left(\Upsilon_{3}-2\Upsilon_{4} + \Upsilon_{5}\right)+c(-\Upsilon_3 + \Upsilon_5)-\tau \dot{\Upsilon}_4, \nonumber\\
+ 	&= d_4\Upsilon_3 - 2b_4 \Upsilon_4 + e_4\Upsilon_5 - \tau \dot{\Upsilon}_4,\\
  	\ddot{\Upsilon}_5 &=  b_5\left(\Upsilon_{4}-2\Upsilon_{5} + \Upsilon_{6}\right)+c(-\Upsilon_4 + \Upsilon_6)-\tau \dot{\Upsilon}_5\nonumber\\
- 	&= d_5\Upsilon_4 - 2b_5 \Upsilon_5 + e_5\Upsilon_6 - \tau \dot{\Upsilon}_5\\
+ 	&= d_5\Upsilon_4 - 2b_5 \Upsilon_5 + e_5\Upsilon_6 - \tau \dot{\Upsilon}_5\;\mathrm{e}\\
  	\ddot{\Upsilon}_6 &=  b_6\left(\Upsilon_{5}-2\Upsilon_{6} + u\right)+c(-\Upsilon_5 + u)-\tau \dot{\Upsilon}_6\nonumber\\
- 	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6 \label{upsilon6}
+ 	&= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6. \label{upsilon6}
  \end{align}
 
  A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison e é dada por \begin{align}
@@ -117,13 +117,13 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	\ddot{\Upsilon}_1 &= \frac{m_b g}{m'l}\left(\Upsilon_2 - \Upsilon_1\right)  - \frac{1}{2m'}\rho C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.
  \end{align} 
  
-  Nota-se que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos. Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Para o caso da bolinha de isopor, essa constante é diferente e é denotada por $\tau'$, resultando na equação final para $\Upsilon_1$: \begin{align}
+  Nota-se que $m' = m_b + \rho_{\textrm{ar}} C_m V_b = m_b + m_{fb} \approx m_b$. Assim, assume-se $m' = m_b$ para os cálculos. Anteriormente, foi apresentada a linearização $\tau$ para o termo $\frac{1}{2m}\rho C_d A\left|\dot{\Upsilon}_k\right|$ do cabo. Para o caso da bolinha de isopor, essa constante é diferente e é denotada por $\tau'$, resultando na equação final para $\Upsilon_1$, que é \begin{align}
  	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1\label{upsilon1final},
  \end{align} sendo \begin{equation}
  	b_1 = \frac{m_b g}{m'l} = \frac{g}{l}.
  \end{equation}
 
-  Desta forma, a partir das Equações \ref{upsilon1final} e \ref{upsilon2}-\ref{upsilon6}, pode-se definir o sistema linear em forma matricial \begin{align}
+  Desta forma, a partir das Equações \ref{upsilon1final} e \ref{upsilon2}-\ref{upsilon6}, pode-se definir o sistema linear em forma matricial, resultando em \begin{align}
  	\mathbf{\dot{x}} &= \left[\begin{array}{cccccccccccc}
  		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
  		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
@@ -140,7 +140,7 @@ y &= \Upsilon(0,t) = \Upsilon_1\label{yfor6}
  	\end{array}\right]\mathbf{x} + \left[\begin{array}{c}
 	0\\	0\\	0\\	0\\	0\\ 0\\ 0\\ 0\\ 0\\ 0\\ 0\\ e_6
 \end{array}
-\right]u
+\right]u,
  \end{align} que pode ser representado concisamente como \begin{align}
  	\mathbf{\dot{x}} &= \left[\begin{array}{cc}
 	\mathbf{0}_{6\times 6} & \mathbf{I}_{6\times 6}\\
@@ -184,7 +184,7 @@ y &= \left[\begin{array}{cc}
 \end{align}
 
 
- O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas formados por pares de autovalores reais ou complexo-conjugados. Nota-se que cada subsistema é de ordem 1 ou 2 dependendo se o autovalor é real ou um par complexo conjugado.
+ O sistema transformado, denotado pelo subscrito $\mathbf{M}$, é mais adequado à análise. $\mathbf{A_M}$ é uma matriz diagonal por blocos, com seus autovalores explícitos, e permitindo o desacoplamento do sistema original em $N$ subsistemas formados por pares de autovalores reais ou complexo-conjugados. Nota-se que cada subsistema é de ordem 1 ou 2 dependendo se o autovalor é real ou um par complexo conjugado.
 
  Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada.
 
