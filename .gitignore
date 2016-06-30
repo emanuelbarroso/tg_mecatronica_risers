@@ -13,4 +13,6 @@ simulacao.m
 *.toc
 *.idx
 *.thm
-
+*.nav
+*.vrb
+*.snm
