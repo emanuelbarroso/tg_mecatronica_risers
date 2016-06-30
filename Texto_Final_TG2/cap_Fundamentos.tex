@@ -210,7 +210,7 @@ y &= \left[\begin{array}{cc}
 
 \section{Controle\label{controle}}
 \subsection{Técnicas Simples de Controle} \label{SimpleControlSection}
- Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente dá uma referência de entrada que a planta deve seguir. Caso haja erros para seguir a trajetória, eles não poderão ser compensados e é um controle mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada. O controle malha aberta foi anteriormente verificado na referência \cite{redytton}.
+ Técnicas de controle simples devem ser introduzidas de forma a se compreender o objetivo deste trabalho, que é do posicionamento do \textit{riser} por meio de controle em malha fechada. Primeiramente, apresenta-se o controle em malha aberta, cujo diagrama pode ser observado na Figura \ref{mabertatikz}. A variável $r = r(t)$ é a referência do sistema. Neste tipo de controle, a saída não é realimentada na entrada. Desta forma, este tipo de controle não requer sensores, pois somente é fornecida uma referência de entrada para a planta e espera-se que a planta reaja de acordo. Caso haja erros para seguir a trajetória, eles não poderão ser compensados. Assim, esse tipo de controle é mais recomendado quando o sistema é preciso e há pouca ou nenhuma perturbação. No entanto, este não é o caso do \textit{riser}, pois o movimento das águas no leito oceânico perturba o tubo, causando erros na posição final desejada. O controle malha aberta foi anteriormente verificado por Rédytton \cite{redytton} e também é reavaliado nesse trabalho.
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle, 
 minimum height=3em, minimum width=6em]
@@ -274,11 +274,11 @@ node [near end] {$y_m$} (sum);
 \subsection{Controle Discreto no Espaço de Estados}
  Na seção \ref{modelagem}, obtiveram-se equações do sistema contínuo no tempo, mas discretizado espacialmente. A discretização espacial transformou a equação diferencial parcial, um sistema de ordem infinita \cite{fabricioIFAC}, em um sistema em espaço de estados finito. Mais informações sobre o espaço de estados estão disponíveis em \cite{Ogata:2010} e \cite{OgataDiscrete:1995}. 
  
- Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera leva entre 20 e 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas. Portanto, faz sentido trabalhar de forma discreta. O próximo CLP tem um limite de processamento que deve ser respeitado, daí quanto maior o tempo de amostragem melhor. O tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja pelo menos duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s já atende esse requerimento. o que economizaria processamento.
+ Neste trabalho, uma câmera é utilizada para leitura da posição da bolinha, conforme é mostrado na seção \ref{bancada}. A câmera demora de 20 a 50ms para terminar uma leitura de posição, dependendo das ferramentas utilizadas no \textit{software} da mesma. Desse modo, faz sentido trabalhar de forma discreta. Além do tempo de medição, o CLP tem um limite de processamento que deve ser respeitado. Quanto maior o tempo de amostragem, menos cálculos são realizados, o que é vantajoso para não sobrecarregar o sistema. Por outro lado, o tempo de amostragem não pode ser arbitrariamente grande, já que é importante seguir o teorema de Nyquist \cite{Ogata:2010} que requer que a frequência de amostragem seja maior que duas vezes a frequência da maior oscilação. Para o presente trabalho, $T_s = 0.1$s atende esse requerimento. o que economiza processamento se comparado com um período de $20$ a $50$ms que seria o mínimo possível devido à câmera.
 
- Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero \cite{OgataDiscrete:1995}. Uma vez tendo o modelo discreto, deve-se fazer o projeto do controlador, alocando os pólos no plano $z$. Uma referência para este tipo de controle é \cite{OgataDiscrete:1995}.
+ Definido o período de amostragem, o sistema contínuo da Equação \ref{novoModeloReduzido} deve ser convertido para espaço discreto. A função \texttt{c2d} do MATLAB \cite{c2d} faz a conversão para o espaço discreto, bastando fornecer o período de amostragem $T_s$. O modo padrão é a conversão utilizando um segurador de ordem zero. Uma vez tendo o modelo discreto, projeta-se o controlador, alocando-se os polos no plano discreto $z$ \cite{OgataDiscrete:1995}.
 
- O controle que será utilizado será realimentação de estados com um canal integral. O canal integral adiciona um estado a mais no sistema em malha fechada. Considerando um sistema definido pelas matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$, o sistema aumentado passa ter matrizes $\mathbf{\hat{A}}$ e $\mathbf{\hat{B}}$. O projeto considera essas duas matrizes para a definição dos pólos.
+ O controle escolhido utiliza realimentação de estados com um canal integral. O integrador adiciona um estado a mais no sistema em malha fechada, aumentando a ordem do sistema reduzido de 4 para 5. Considerando um sistema definido pelas matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$, o sistema aumentado é definido pelas matrizes $\mathbf{\hat{A}}$ e $\mathbf{\hat{B}}$. O projeto considera essas duas matrizes para a definição dos polos.
 
 \tikzstyle{block} = [draw, rectangle, 
 minimum height=2em, minimum width=2em]
@@ -344,7 +344,7 @@ minimum height=2em, minimum width=2em]
 \caption{Malha fechada de controle, espaço de estados discreto\label{mfechadatikzEspacoDeEstados}}
 \end{figure}
 
-Considerando a Figura \ref{mfechadatikzEspacoDeEstados}, têm-se as matrizes aumentadas \begin{align}
+A Figure \ref{mfechadatikzEspacoDeEstados} mostra como é a malha fechada com a realimentação dos quatro estados do modelo reduzido por meio dos ganhos do vetor $\mathbf{K}_p$ e também com a integração do erro com um ganho $K_i$. Considerando-se essa figura, as matrizes do sistema aumentado são dadas por \begin{align}
 	\mathbf{\hat{A}} & = \left[\begin{array}{cc}
 		\mathbf{A} & \mathbf{B}\\
 		\mathbf{0} & \mathbf{0}\\
@@ -355,15 +355,15 @@ Considerando a Figura \ref{mfechadatikzEspacoDeEstados}, têm-se as matrizes aum
 	\end{array}\right].\\
 \end{align}
 
-O projeto do controlador resume-se a definir o ganho $\mathbf{\hat{K}}$ seguindo a fórmula de Acker, explicada em \cite{OgataDiscrete:1995}, \begin{align}
+O projeto do controlador resume-se a calcular o ganho $\mathbf{\hat{K}}$ a partir da fórmula de Acker, a qual é explicada em \cite{OgataDiscrete:1995}, que resulta em \begin{align}
 	\mathbf{\hat{K}} & = \left[0,\; 0,\; 0,\; 0,\; 1\right]\left[\mathbf{\hat{B}},\; \mathbf{\hat{A}}\mathbf{\hat{B}},\; \mathbf{\hat{A}}^2\mathbf{\hat{B}},\; \mathbf{\hat{A}}^3\mathbf{\hat{B}},\; \mathbf{\hat{A}}^4\mathbf{\hat{B}}\right]\phi(\mathbf{\hat{A}}),
-\end{align} sendo $\phi(\mathbf{\hat{G}})$ dado por \begin{align}
+\end{align} sendo a função $\phi(\mathbf{\hat{G}})$ dada por \begin{align}
 	\phi(\mathbf{\hat{A}}) &= \mathbf{\hat{A}}^5 + \alpha_1 \mathbf{\hat{A}}^4 + \alpha_2 \mathbf{\hat{A}}^3 + \alpha_3 \mathbf{\hat{A}}^2 + \alpha_4 \mathbf{\hat{A}} + \alpha_5 \mathbf{I},
-\end{align} no qual os coeficientes $\alpha_i$ são coeficientes do polinômio característico desejado, tal como \begin{align}
+\end{align} na qual os parâmetros $\alpha_i$ são coeficientes do polinômio característico desejado, tal como \begin{align}
 	z^5 + \alpha_1 z^4 + \alpha_2 z^3 + \alpha_3 z^2 + \alpha_4 z + \alpha_5 & =0.
 \end{align}
 
-O MATLAB já tem um comando que permite obter $\mathbf{\hat{K}}$ a partir dos pólos do sistema:\begin{lstlisting}
+O MATLAB possui comando que permite obter $\mathbf{\hat{K}}$ a partir dos pólos do sistema:\begin{lstlisting}
 	Khat = acker(Ahat, Bhat, p);
 \end{lstlisting}
 
@@ -379,10 +379,12 @@ Na Equação \ref{obterK}, note que $n$ é a ordem da matriz $\mathbf{A}$. O vet
 	\mathbf{K} & = \left[\begin{array}{c}\mathbf{K}_p\\ K_i\end{array}\right].
 \end{align}
 
+ Mais detalhes sobre o projeto deste controlador são fáceis de encontrar em livros de controle tais como \cite{OgataDiscrete:1995}.
+
 \subsection{Preditor de Smith}
 
 Segundo Rafael \cite{rafaelMestrado}, não é trivial desenvolver um controlador comum com
-realimentação de estados caso o sistema a ser considerado possui atraso, devido aos seguintes fatos:
+realimentação de estados caso o sistema a ser considerado possua atraso, devido aos seguintes fatos:
 \begin{itemize}
 \item Os efeitos de uma perturbação externa demoram a ser detectados pelo controlador;
 \item As ações de controle demoram a surtir efeito nas variáveis controladas;
@@ -397,9 +399,9 @@ De forma a se lidar com os problemas envolvidos em sistemas com atraso, é poss�
 \includegraphics[width=.85\linewidth]{figs/fundamentos/preditorSmithSemKalman}
 \end{figure}
 
-Nota-se que a saída do modelo sem atraso é uma estimativa da saída da planta desconsiderando-se efeitos de perturbação, ou seja, é uma predição da saída da planta sem perturbação após decorrido o atraso. Subtraindo-se essa saída sem atraso da saída real da planta, tem-se uma estimativa de perturbação, que somada à saída sem atraso, resulta em uma predição do modelo com perturbação; assim, a realimentação do preditor considera a perturbação sem ser influenciada pelo atraso.
+A saída do modelo reduzido com atraso é uma estimativa da saída da planta desconsiderando-se efeitos de perturbação. Subtraindo-se essa saída com atraso da saída real da planta, tem-se uma estimativa de perturbação que, somada à saída sem atraso, resulta em uma predição da saída com perturbação; assim, a realimentação do preditor considera a perturbação sem ser influenciada pelo atraso.
 
-A grande vantagem de se utilizar o preditor de Smith é que, dado o fato que o projeto pode ser feito sobre o modelo reduzido sem atraso, podem ser utilizadas técnicas elementares de controle em espaço de estados, apresentadas na Seção \ref{SimpleControlSection}. Conhecendo-se o atraso $\epsilon$, e sabendo que o modelo reduzido é um sistema SISO invariante no tempo e controlável, ele pode ser representado em forma canônica de controle. Assumindo-se as novas variáveis de estado nessa forma como o vetor $\bar{x} = \left[\bar{x}_1, \bar{x}_2], \bar{x}_3, \bar{x}_4\right]^T$ (sendo o sistema reduzido de ordem 4), pode-se considerar a saída plana do sistema $F$ como \begin{align}
+A grande vantagem de se utilizar o preditor de Smith é que, dado o fato que o projeto pode ser realizado sobre o modelo reduzido sem atraso, podem ser utilizadas técnicas elementares de controle em espaço de estados, apresentadas na Seção \ref{SimpleControlSection}. Conhecendo-se o atraso $\epsilon$, e sabendo que o modelo reduzido é um sistema SISO invariante no tempo e controlável, ele pode ser representado em forma canônica de controle. Assumindo-se as novas variáveis de estado nessa forma como o vetor $\bar{x} = \left[\bar{x}_1, \bar{x}_2, \bar{x}_3, \bar{x}_4\right]^T$ (sendo o sistema reduzido de ordem 4), pode-se considerar a saída plana do sistema $F$ como \begin{align}
  F &= \bar{x}_1.
 \end{align}
 
@@ -752,6 +754,7 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 \parbox{.45\linewidth}{
 \centering
 \caption{Dados para simulação em escala real\label{escalaReal} \cite{redytton}}
+\vspace{0.5cm}
 	\begin{tabular}{|c|c|}
 	\hline
 		\multicolumn{2}{|c|}{\textbf{Dados do Riser}}\\ \hline
@@ -769,6 +772,7 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 \parbox{.45\linewidth}{
 	\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
 	\centering
+	\vspace{0.5cm}
 	\begin{tabular}{|c|c|}
 		\hline
 			\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
@@ -789,23 +793,3 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 \end{table}
 
 Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
-
-%\begin{table}[!ht]
-%\centering
-%\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
-%	\begin{tabular}{|c|c|}
-%	\hline
-%		\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
-%		Diâmetro Externo & $30.6\mathrm{mm}$\\ \hline
-%		Densidade & $10\mathrm{kg}/\mathrm{m}^3$ \\ \hline
-%		\multicolumn{2}{|c|}{\textbf{Dados do Riser (Barbante)}}\\ \hline
-%		Diâmetro externo & $2\mathrm{mm}$\\ \hline
-%		Diâmetro interno & $0\mathrm{mm}$ \\ \hline
-%		Comprimento & $82\mathrm{cm}$ \\ \hline
-%		Módulo de Elasticidade & $2.1 \mathrm{MPa}$\\ \hline
-%		Densidade &  $191\mathrm{kg}/\mathrm{m}^3$\\ \hline
-%		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Ar)}}\\ \hline
-%		Densidade do fluido &  $1.2754\mathrm{kg}/\mathrm{m}^3$\\ \hline
-%		Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
-%	\end{tabular}
-%\end{table}
