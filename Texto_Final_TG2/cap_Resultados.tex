@@ -1,19 +1,19 @@
 %TCIDATA{LaTeXparent=0,0,relatorio.tex}
 \chapter{Resultados\label{chap:Resultados}}
 
-\resumodocapitulo{Este capítulo apresenta os procedimentos experimentais realizados e seus resultados.}
+\resumodocapitulo{Este capítulo apresenta resultados de simulação, os procedimentos experimentais realizados e seus resultados.}
 
 
 \section{Câmera}
 
-Os problemas com a câmera se resumiram a configuração da rede, calibração e programação, sendo o mais difícil esse último.
+Os problemas com a câmera se resumiram à configuração da rede, à calibração e à programação. O mais difícil inicialmente foi a programação, mas se tornou bem simples depois.
 
 \subsection{Configuração da Rede}
 A câmera estava com um \textit{firmware} antigo e foi necessário obter o arquivo 2014R1B PresencePLUS Firmware\footnote{Atualização de Firmware da Câmera - \url{http://info.bannerengineering.com/_dav/cs/idcplg?IdcService=GET_FILE&RevisionSelectionMethod=LatestReleased&dDocName=B_4170042}. Acesso em 29/11/2015.} que é o programa de atualização da \textit{Banner Engineering} para esta câmera. Bastou executá-lo no computador, estando a câmera conectada ao \textit{switch} do laboratório assim como o computador estava, ambos por cabos Ethernet. Antes desta atualização, o \textit{software} da câmera não permitia selecionar a opção Ethernet/IP de forma a permitir utilizar o módulo Ethernet/IP do CLP.
 
 Uma vez atualizado o \textit{firmware}, foi obtido o arquivo EDS\footnote{Arquivo EDS disponível em \url{http://www.bannerengineering.com/en-US/products/sub/78\#ui-tabs-37}. Acesso em 29/11/2015.} da câmera que foi então integrado ao \textit{software} da Rockwell no computador por meio do programa \textit{EDS Hardware Installation Tool} da própria Rockwell, parte do RSLinx.
 
-Após os procedimentos anteriores, adiciona-se a câmera como um módulo genérico usando o \textit{software} RSLogix, conforme instruções da Banner Engineering \cite{presencePlusEthernetIP}. Dentro das configurações realizadas no RSLogix Para se efetuar a configuração da câmera, é necessário utlizar o RSLinx para verificar se a mesma está conectada ao computador e o \textit{software} da PresencePlus, para identificar a câmera pelo endereço IP, uma vez que a rede utilizada é Ethernet/IP. A Figura \ref{linxcamera} mostra a janela do RSLinx com a câmera reconhecida.
+Após os procedimentos anteriores, adiciona-se a câmera como um módulo genérico usando o \textit{software} RSLogix, conforme instruções da Banner Engineering \cite{presencePlusEthernetIP}. Foi também necessário utilizar o RSLinx para verificar se a câmera  estava conectada ao computador e o \textit{software} da PresencePlus para identificar a câmera pelo endereço IP, uma vez que a rede utilizada é Ethernet/IP. A Figura \ref{linxcamera} mostra a janela do RSLinx com a câmera reconhecida.
 
 \begin{figure}[!ht]
 \centering
@@ -49,11 +49,11 @@ A câmera permite fazer medidas de distâncias em \textit{pixels}. De forma a se
 O maior desvio da quantidade de milímetros por \textit{pixel} das seções em relação à da barra inteira é de aproximadamente 4.93\%. Há algumas imprecisões na maneira como os traços foram desenhados e é possível que o erro seja menor.
 
 \subsection{Programação}
-A programação da câmera inicia obtendo uma imagem de referência e adicionando-se ferramentas de detecção de pontos de interesse, como mostra a Figura \ref{cameracalibracao}. A ferramenta \texttt{Locate} é responsável por detectar as bordas da bolinha, e a ferramenta \texttt{Geometric} detecta o centro da mesma. Também é possível adicionar ferramentas que fazem operações matemáticas (ferramenta \texttt{Math}), executam medições (ferramenta \texttt{Measure}), assim como as que enviam dados pela rede (ferramenta \texttt{Communication}), o que é essencial para comunicar com o CLP.
+A programação da câmera se inicia obtendo uma imagem de referência e adicionando-se ferramentas de detecção de pontos de interesse, como mostra a Figura \ref{cameracalibracao}. A ferramenta \texttt{Locate} é responsável por detectar as bordas da bolinha, e a ferramenta \texttt{Geometric} detecta o centro da mesma. Também é possível adicionar ferramentas que fazem operações matemáticas (ferramenta \texttt{Math}), executam medições (ferramenta \texttt{Measure}), assim como as que enviam dados pela rede (ferramenta \texttt{Communication}), o que é essencial para se comunicar com o CLP.
 
 \section{Calibração do Servomotor\label{calibracaoServomotorSecao}}
 
-O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \textendash{} que permite alterar a velocidade do motor enquanto ele se movimenta. No entanto, o bloco espera que a entrada seja do tipo $[\mathrm{u}/\mathrm{s}$ ao invés de alguma unidade no SI tal como $[\mathrm{mm}/\mathrm{s}]$. Devido a isso, foi necessária uma calibração do sistema. Nela, anotou-se a posição inicial $x_0$ e a posição final $x_f$, ambas em milímetros, e definia-se um tempo $\Delta t$ no qual o carrinho se movimentaria a uma velocidade $v$ em $[\mathrm{u}/\mathrm{s}]$. Daí, calculava-se a velocidade em $[\mathrm{mm}/\mathrm{s}]$ com esses dados e tirou a média de alguns ensaios para se obter o valor de uma unidade, que é aproximadamente $71.32\mathrm{mm}$. Os dados de calibração estão na Tabela \ref{calibracaoServomotor}.
+O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \textendash{} que permite alterar a velocidade do motor enquanto ele se movimenta. No entanto, o bloco espera que a entrada tenha unidade $[\mathrm{u}/\mathrm{s}]$ (unidades por segundo) ao invés de alguma unidade no SI tal como $[\mathrm{mm}/\mathrm{s}]$. Devido a isso, foi necessária uma calibração do sistema. O procedimento era anotar a posição inicial $x_0$, definir um tempo $\Delta t$ no qual o carrinho se movimenta a uma velocidade $v$ em $[\mathrm{u}/\mathrm{s}]$ e, após o movimento,  registrar a posição final $x_f$. As posições inicial e final são medidas em milímetros. Com isso, calculava-se a velocidade em $[\mathrm{mm}/\mathrm{s}]$. Alguns ensaios são realizados seguindo esse procedimento e a média é considerada como o valor de uma unidade, resultando em aproximadamente $71.32\mathrm{mm}$. Os dados de calibração estão na Tabela \ref{calibracaoServomotor}.
 
 \begin{table}[!ht]
 \centering

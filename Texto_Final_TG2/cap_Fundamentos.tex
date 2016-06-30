@@ -407,27 +407,24 @@ A grande vantagem de se utilizar o preditor de Smith é que, dado o fato que o p
 
 Como o sistema reduzido considerado é de ordem 4, deriva-se a saída $F$ até a quarta ordem:
 \begin{align}
-\label{CanonForm1} \left.
+\label{CanonForm1}
  \begin{array}{lll}
-\dot{F} &= \dot{\bar{x}}_1 &= \bar{x}_2 \\
-\ddot{F} &= \dot{\bar{x}}_2 &= \bar{x}_3 \\
-\dddot{F} &= \dot{\bar{x}}_3 &= \bar{x}_4 \\
-F^{(4)} &= \dot{\bar{x}}_4 &= -a_4\bar{x}_1 -a_3\bar{x}_2 -a_2\bar{x}_3 -a_1\bar{x}_4 + u
+\dot{F} &= \dot{\bar{x}}_1 &= \bar{x}_2, \\
+\ddot{F} &= \dot{\bar{x}}_2 &= \bar{x}_3, \\
+\dddot{F} &= \dot{\bar{x}}_3 &= \bar{x}_4, \\
+F^{(4)} &= \dot{\bar{x}}_4 &= -a_4\bar{x}_1 -a_3\bar{x}_2 -a_2\bar{x}_3 -a_1\bar{x}_4 + u.
 \end{array}
-\right\}
 \end{align}
 
 Na Equação \ref{CanonForm1}, as constantes $a_i$ correspondem à última linha da matriz de estados do sistema sem atraso, na forma canônica controlável. Portanto, o sistema pode ser parametrizado em função de $F$ e suas derivadas temporais:
 \begin{align}
-\left.
 \begin{array}{ll}
-\bar{x}_1 &= F \\
-\bar{x}_2 &= \dot{F} \\
-\bar{x}_3 &= \ddot{F} \\
-\bar{x}_4 &= \dddot{F} \\
-u &= a_4 F + a_3 \dot{F} + a_2 \ddot{F} + a_1 \dddot{F} + F^{(4)}
+\bar{x}_1 &= F, \\
+\bar{x}_2 &= \dot{F}, \\
+\bar{x}_3 &= \ddot{F}, \\
+\bar{x}_4 &= \dddot{F}, \\
+u &= a_4 F + a_3 \dot{F} + a_2 \ddot{F} + a_1 \dddot{F} + F^{(4)}.
 \end{array}
-\right\}
 \end{align}
 
 Redefinindo-se a entrada do sistema considerado tomando-se $\nu = F^{*(4)} = -a_4 F - a_3 \dot{F} - a_2 \ddot{F} - a_1 \dddot{F} + u$, pode-se reescrever o modelo reduzido utilizando-se a fórmula canônica de Brunovsky:
@@ -454,13 +451,12 @@ F \\ \dot{F} \\ \ddot{F} \\ \dddot{F}
 \right] \nu.
 \end{align}
 
-De acordo com Rafael \cite{rafaelMestrado}, a entrada $\nu$, em termos de acompanhamento da trajetória, também é dada por
-\begin{align}
+De acordo com Rafael \cite{rafaelMestrado}, a entrada $\nu$, em termos de acompanhamento da trajetória, também é dada por \begin{align}
  \label{NuInput}
- \nu = \nu^{*} - \sum_{i=0}^{r-1} k_i e^{(i)} = \nu^{*} - \sum_{i=0}^{r-1} k_i \left(F^{(i)} - F^{*(i)}\right).
-\end{align} em que $e^{(i)}$ representa o erro de $F$ e suas derivadas temporais. Pela Equação \ref{NuInput}, a variável $\nu$ passa a ser entendida como um fator de correção para o controlador em malha fechada
+ \nu = \nu^{*} - \sum_{i=0}^{r-1} k_i e^{(i)} = \nu^{*} - \sum_{i=0}^{r-1} k_i \left(F^{(i)} - F^{*(i)}\right),
+\end{align} em que $e^{(i)}$ representa o erro de $F$ e suas derivadas temporais. Pela Equação \ref{NuInput}, a variável $\nu$ passa a ser entendida como um fator de correção para o controlador em malha fechada, sendo representada por
 \begin{align}
-\nu &= F^{*(4)} - \sum_{i=0}^{3} k_i \left( F^{(i)} - F^{*(i)}\right).
+\nu &= F^{*(4)} - \sum_{i=0}^{3} k_i \left( F^{(i)} - F^{*(i)}\right),
 \end{align} em que os ganhos $k_i$ são escolhidos de forma que o polinômio característico do sistema possua raízes com parte real estritamente negativa (em termos discretos, tais raízes devem estar no interior do círculo unitário).
 
 Com o desenvolvimento apresentado, pode-se montar uma nova estrutura para o preditor de Smith, conforme a Figura \ref{smith2} . Nessa estrutura, \textbf{P} é a planta, \textbf{C} é o controlador em malha fechada, \textbf{RM} é o modelo sem atraso e \textbf{KF} é um Filtro de Kalman, que será explicado adiante. 
@@ -473,8 +469,10 @@ Com essa nova estrutura, dada a linearidade do sistema, o princípio de superpos
 \includegraphics[width=.85\linewidth]{figs/fundamentos/preditorSmith}
 \end{figure}
 
+Apesar de mencionadas as trajetórias de topo e fundo, dadas por $u^*$ e $y^*$, respectivamente, este trabalho não demonstra como elas foram calculadas. Foram utilizadas trajetórias determinadas por Rafael \cite{rafaelMestrado}. Essas trajetórias permitem um controle adequado em malha aberta na ausência de perturbações e uma referência suave para ser seguida em malha fechada. A seção de resultados irá apresentar essas trajetórias nos resultados de simulação e experimentais.
+
 \subsection{Filtro de Kalman}
-Uma parte importante do preditor de Smith é uma estrutura que deve ser capaz de estimar, dado que as variáveis de estado e demais sinais possuem ruídos associados, valores tanto para o processo quanto para o resultado. Assumindo-se que os estados do sistema sejam observáveis, é possível desenvolver, para o processo, uma estrutura denominada \textbf{Filtro de Kalman}, que leva o nome do seu criador, Rudolf E. Kalman.
+Uma estrutura essencial para um sistema de controle real é o filtro de Kalman. Esse filtro é capaz de estimar valores tanto para o processo quanto para o resultado, compensando os erros associados a ruídos de medição e à incerteza do modelo. Assumindo-se que os estados do sistema sejam observáveis, é possível projetar o \textbf{Filtro de Kalman}, que leva o nome do seu criador, Rudolf E. Kalman.
 
 O Filtro de Kalman, também conhecido como observador ótimo, é responsável por estimar, utilizando uma estrutura de predição e correção, variáveis de estado não medidas de forma a se utilizar os resultados obtidos em uma dada estratégia de controle \cite{GoddardKalman}. O Filtro de Kalman original é aplicado, principalmente, em sistemas discretos no tempo, como o que foi obtido para este projeto por meio da redução modal. A Figura \ref{Kalman1} mostra um exemplo de processo no qual o filtro pode ser aplicado.
 \begin{figure}[!ht]
@@ -504,13 +502,13 @@ Dada a estrutura do sistema, o objetivo do uso do filtro de Kalman é estimar os
 
 O Filtro de Kalman é um algoritmo de dois passos: predição, em que o estado mais recente e a estimação do erro de covariância são projetados de forma a se computar o estado atual das variáveis de estado, e correção, onde o estado predito pelo primeiro passo é corrigido incorporando-se a medida mais recente do processo para se gerar uma nova estimação do estado \cite{GoddardKalman}. Matematicamente, a predição é dada por
 \begin{align}
-	\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k, \\
-	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k}.
+	\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k\;\mathrm{e} \\
+	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k},
 \end{align}
  enquanto que a correção pode ser descrita por
 \begin{align}
 	\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1}, \\
-	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right), \\
+	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right)\;\mathrm{e} \\
 	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}.
 \end{align} 
 
@@ -623,39 +621,28 @@ Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens 
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
-DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais \cite{dnetrta} Tal rede suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP \cite{devicenetrockwell}.Permite uma rápida configuração entre dispositivos a \textit{byte}, suportando tanto dispositivos analógicos quanto digitais \cite{redytton}. Permite velocidades de transmissão de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
+DeviceNET é um protocolo de baixo nível da camada de aplicação, voltado a ambientes industriais \cite{dnetrta}. Ele suporta comunicação entre dispositivos de baixo nível, como sensores e atuadores, e dispositivos de alto nível, como o computador e o CLP \cite{devicenetrockwell}. Permite também uma rápida configuração entre dispositivos a \textit{byte}, suportando tanto dispositivos analógicos quanto digitais \cite{redytton}. As velocidades de transmissão são de até 500 kbps, sendo bem mais lenta que uma rede Ethernet.
 
 No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os sensores indutivos presentes na planta \cite{redytton}.  Para fins de detecção de fim-de-curso, será utilizado o modo digital dos sensores, uma vez que apenas é necessário verificar se o carrinho está na área de detecção do sensor. O módulo responsável pelo gerenciamento da rede DeviceNET é o 1756-DNB.
 
-\begin{comment}
-https://en.wikipedia.org/wiki/DeviceNet
-https://www.odva.org/Portals/0/Library/Publications_Numbered/PUB00122R1_CIP_Brochure_ENGLISH.pdf
-\end{comment}
-
 \subsection{Ethernet/IP}
-A rede Ethernet/IP, introduzida em meados de 2001 pela ODVA (\textit{Open DeviceNet Vendor Association}) \cite{eipodva1}, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET \cite{eiprta}. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão; permite a passagem de dados via pacotes TCP ou UDP; é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real) \cite{eiprockwell}.
+A rede Ethernet/IP, introduzida em meados de 2001 pela ODVA (\textit{Open DeviceNet Vendor Association}) \cite{eipodva1}, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET \cite{eiprta}. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão. Ela permite a passagem de dados via pacotes TCP ou UDP e é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real \cite{eiprockwell}.
 
-No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232.
-
-\begin{comment}
-https://en.wikipedia.org/wiki/Industrial_Ethernet
-https://en.wikipedia.org/wiki/EtherNet/IP
-https://www.odva.org/Technology-Standards/EtherNet-IP/Overview
-http://www.rtaautomation.com/technologies/ethernetip/
-http://www.rockwellautomation.com/global/products-technologies/integrated-architecture/ethernet-ip.page
-\end{comment}
+No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232. O computador também pode enviar e receber dados por essa rede utilizando OPC -- para saber mais sobre OPC, ver subseção \ref{opcSubSection}.
 
 \subsection{OPC - \textit{OLE for Process Control} \label{opcSubSection}}
-A rede OPC, cujo primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um "intermediário" que converte as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
+A rede OPC, cuja primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um ``intermediário'' que converta as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
 
-Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido (por exemplo, Python é mais rápido que o \textit{software} MATLAB).
+Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido.
 
-Para se programar o \textit{client} da rede OPC em Python, foi utilizado o módulo OpenOPC. Esse módulo é bem simples de se utilizar; as funções de trocas de dados OPC são abstraídas de modo a utilizar elementos simples da linguagem, como o uso de dicionários. Além de trabalhar em Windows, Linux e MAC OS X, o módulo OpenOPC faz com que seja possível utilizar elementos de programação funcional, reduzindo o tamanho do programa resultado \cite{OpenOPC}.
+Para se programar o \textit{client} da rede OPC em Python, foi utilizado o módulo OpenOPC \cite{OpenOPC}. Esse módulo é bem simples de se utilizar; as funções de trocas de dados OPC são abstraídas de modo a utilizar elementos simples da linguagem, como o uso de dicionários, que são estruturas nas quais se relacionam chaves com valores. 
+
+A utilização do OPC permite realizar um sistema de controlador no qual o computador auxilia nos cálculos, assim como permite salvar dados do CLP para posterior desenho dos gráficos.
 
 
 \section{Programação do CLP}
 \subsection{Visão geral}
-Programação, em termos gerais, é aplicada na resolução de problemas. Em particular, a programação de CLPs busca resolver, no âmbito industri;al, problemas relacionados à automação de processos. Essa resolução de problemas segue uma metodologia, de forma a se direcionar o projeto. Antes de se proceder à programação, faz-se necessário seguir os seguintes passos \cite{rockwellAutomation}:
+Programação, em termos gerais, é aplicada na resolução de problemas. Em particular, a programação de CLPs busca resolver, no âmbito industrial, problemas relacionados à automação de processos. Essa resolução de problemas segue uma metodologia, de forma a se direcionar o projeto. Antes de se proceder à programação, faz-se necessário seguir os seguintes passos \cite{rockwellAutomation}:
 \begin{enumerate}
   \item Descrição do problema;
   \item Detalhamentos e melhoria do processo;
@@ -792,4 +779,4 @@ Fabrício et al \cite{fabricioIFAC} desenvolveram um método para gerar trajetó
 
 \end{table}
 
-Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}.
+Como é importante se validar o sistema, mas nem sempre isso é possível em escala real devido ao altíssimo custo e aos riscos envolvidos, é necessário um conjunto equivalente de parâmetros tais que permita validar o sistema em escala laboratorial. O \textit{riser} é representado por um barbante e a água é trocada pelo ar. Uma massa na ponta foi adicionada e os dados resultantes estão na Tabela \ref{escalaLaboratorial}. Esses são os dados que serão utilizados para os experimentos, assim como as Tabelas \ref{constanteBarbante} e \ref{constanteIsopor}.
