@@ -113,8 +113,8 @@ No sistema da Equação \ref{modeloEspacoDeEstadosSemAtraso}, ainda não se comp
 
 \begin{figure}[!ht]
 \centering
-\caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso\label{modeloMalhaAberta}}
 \includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta}
+\caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso\label{modeloMalhaAberta}}
 \end{figure} 
 
 Apesar de $\epsilon=0.3$s ser próximo de 0.313s, esse atraso não reduz muito a transferência direta, como se pode observar analisando $D_D$, Equação \ref{modeloReduzidoComEpsilon}.
@@ -124,8 +124,9 @@ Apesar de $\epsilon=0.3$s ser próximo de 0.313s, esse atraso não reduz muito a
  O sistema em malha aberta oscila muito, mas é estável. Observa-se que a resposta decai conforme o tempo passa, conforme Figura \ref{modeloMalhaAberta25s}. O objetivo do controle é reduzir ao máximo essas oscilações, tendo uma trajetória o mais suave possível de um ponto inicial a um ponto final. 
 \begin{figure}[!ht]
 \centering
-\caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso, 25 segundos\label{modeloMalhaAberta25s}}
+
 \includegraphics[width=0.8\linewidth]{figs/resultados/modelo/respostaMalhaAberta25s}
+\caption{Resposta ao degrau para modelos reduzidos com atraso e sem atraso, 25 segundos\label{modeloMalhaAberta25s}}
 \end{figure}
 
 \subsection{Discretização}
@@ -244,8 +245,9 @@ Algo essencial é analisar a resistência ao ruído. Ela depende não só da mal
 
 \begin{figure}[!ht]
 \centering
-\caption{Sistema com um ruído branco adicionado\label{simulacaoComRuidoSimulink}}
+
 \includegraphics[width=0.8\linewidth]{figs/resultados/simulacao/simulacaoComRuido}
+\caption{Sistema com um ruído branco adicionado\label{simulacaoComRuidoSimulink}}
 \end{figure}
 
 
@@ -300,17 +302,32 @@ O segundo teste realizado considerou a mesma trajetória do primeiro teste como 
 \end{minipage}
 \end{figure}
 
-Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a rampa possuem vantagens e desvantagens entre si: a trajetória em malha aberta apresentou um sobressinal ligeiramente menor e melhor aproximação com o resultado final; entretanto, a trajetória em malha fechada foi melhor seguida durante o movimento. Em termos práticos, considerando a presente trajetória, o preditor de Smith realizou melhor a tarefa do acompanhamento da trajetória, mas o controle em malha fechada deixou a desejar, já que as oscilações não foram controladas. 
+Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a rampa possuem vantagens e desvantagens entre si: a trajetória em malha aberta apresentou um sobressinal ligeiramente menor e melhor aproximação com o resultado final; entretanto, a trajetória em malha fechada foi melhor seguida durante o movimento. Em termos práticos, considerando a presente trajetória, o preditor de Smith realizou melhor a tarefa do acompanhamento da trajetória, mas o controle em malha fechada deixou a desejar, já que as oscilações não foram controladas. A Figura \ref{rampaComparativo} mostra os dois resultados comparados em um mesmo gráfico, subtraindo-se a posição inicial de cada teste.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.6\linewidth]{figs/resultados/experimento/rampa_comp}
+\caption{Gráfico comparativo das respostas em malha aberta e malha fechada com trajetória rampa. \label{rampaComparativo}}
+\end{figure} 
 
 Motivos para o resultado ruim, ainda mais se comparado com o experimental na Figura \ref{malhaFechadaRampa}, incluem erros de calibração -- a câmera é desconfigurada rapidamente no laboratório de automação -- e o fato de termos utilizado OPC adicionava um atraso na comunicação para fechar a malha e às vezes o próximo valor medido não era lido rápido o suficiente para ser considerado no próximo passo de simulação. O filtro de Kalman possivelmente pode ter parâmetros melhores escolhidos com mais alguns testes experimentais, o que poderia também melhorar problemas com ruído.
 
 \subsection{Teste com Trajetória Proposta - Malha Fechada}
-O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. 
+O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. A Figura \ref{experimentoRafaelDetalhe} mostra em detalhe a saída, durante o tempo em que a trajetória é executada. 
 
 \begin{figure}[!ht]
 \centering
-\includegraphics[width=.6\linewidth]{figs/resultados/experimento/closed_loop_trajetoria_rafael}
+\begin{minipage}{.45\textwidth}
+\centering
+\includegraphics[width=1\textwidth]{figs/resultados/experimento/closed_loop_trajetoria_rafael}
 \caption{Teste com a trajetória sugerida por Rafael utilizando o preditor de Smith. \label{experimentoRafael}}
+\end{minipage}
+\hspace{0.1cm}
+\begin{minipage}{.45\textwidth}
+\centering
+\includegraphics[width=1\textwidth]{figs/resultados/experimento/closed_loop_trajetoria_rafael_detalhe}
+\caption{Teste com a trajetória sugerida por Rafael, detalhando a execução da trajetória. \label{experimentoRafaelDetalhe}}
+\end{minipage}
 \end{figure} 
 
 Deve-se notar que houveram alguns resultados indesejáveis nos testes apresentados, em particular os que envolvem o preditor. Em primeiro lugar, houve a presença de um sobressinal considerável nos testes com rampa -- cerca de $12.5\%$. Esse tipo de sobressinal pode ser extremamente prejudicial para a operação do \textit{riser}. Além do problema do sobressinal, houve o fato de que a saída oscila e apresenta um erro estático nos testes com o preditor, representados nas Figuras \ref{malhaFechadaRampa} e \ref{experimentoRafael}; embora a presença desses fatores faz o resultado experimental destoar dos resultados das simulações, o resultado geral foi satisfatório. Um resultado marcante foi a atenuação da saída proporcionado pelo uso do Filtro de Kalman, considerando as matrizes de covariância escolhidas; o fato da matriz $\mathbf{R}$ possuir valores maiores do que os elementos de $\mathbf{Q}$ sugere que foi priorizada a correção sobre a medida da posição de fundo.
