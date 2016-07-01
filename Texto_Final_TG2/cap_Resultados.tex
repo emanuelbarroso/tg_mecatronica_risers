@@ -283,9 +283,9 @@ De posse das simulações feitas, assumindo-se que o sistema se comporta de form
 Assim como nas simulações, foram considerados três experimentos a serem validados: trajetória em malha aberta; trajetória em malha fechada, considerando topo e fundo como rampas; e a trajetória considerada por Rafael \cite{rafaelMestrado}. Todas as trajetórias consideram excursão de 30 centímetros.
 
 \subsection{Testes com Rampa - Malha Aberta e Malha Fechada}
-O primeiro teste feito foi considerando uma trajetória em formato rampa, realizando um deslocamento de 30 centímetros em cerca de 2.5 segundos. Tal teste foi feito em malha aberta e o resultado se encontra na Figura \ref{malhaAbertaRampa}. 
+O primeiro teste feito foi considerando uma trajetória em formato rampa, realizando um deslocamento de 30 centímetros em cerca de 2.5 segundos. Tal teste foi feito em malha aberta\footnote{Teste Experimental com Rampa em Malha Aberta --- \url{https://youtu.be/chrez0QEucU}. Acesso em 30/06/2016.} e o resultado se encontra na Figura \ref{malhaAbertaRampa}. 
 
-O segundo teste realizado considerou a mesma trajetória do primeiro teste como referência tanto para o topo quanto para o fundo para um experimento com a malha fechada, utilizando-se o preditor de Smith. O resultado se encontra na Figura \ref{malhaFechadaRampa}.
+O segundo teste realizado considerou a mesma trajetória do primeiro teste como referência tanto para o topo quanto para o fundo para um experimento com a malha fechada, utilizando-se o preditor de Smith\footnote{Teste Experimental com Rampa utilizando Preditor de Smith --- \url{https://youtu.be/QOuxlsT3gBA}. Acesso em 30/06/2016.}. O resultado se encontra na Figura \ref{malhaFechadaRampa}.
 
 \begin{figure}[!ht]
 \centering
@@ -313,7 +313,7 @@ Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a 
 Motivos para o resultado ruim, ainda mais se comparado com o experimental na Figura \ref{malhaFechadaRampa}, incluem erros de calibração -- a câmera é desconfigurada rapidamente no laboratório de automação -- e o fato de termos utilizado OPC adicionava um atraso na comunicação para fechar a malha e às vezes o próximo valor medido não era lido rápido o suficiente para ser considerado no próximo passo de simulação. O filtro de Kalman possivelmente pode ter parâmetros melhores escolhidos com mais alguns testes experimentais, o que poderia também melhorar problemas com ruído.
 
 \subsection{Teste com Trajetória Proposta - Malha Fechada}
-O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. A Figura \ref{experimentoRafaelDetalhe} mostra em detalhe a saída, durante o tempo em que a trajetória é executada. 
+O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento\footnote{Teste Experimental com Trajetória Proposta por Rafael\cite{rafaelMestrado} utilizando Preditor de Smith --- \url{https://youtu.be/lpPZ7HOG7hM}. Acesso em 30/06/2016.} se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. A Figura \ref{experimentoRafaelDetalhe} mostra em detalhe a saída, durante o tempo em que a trajetória é executada. 
 
 \begin{figure}[!ht]
 \centering
