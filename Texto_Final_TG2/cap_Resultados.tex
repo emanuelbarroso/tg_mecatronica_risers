@@ -253,209 +253,67 @@ Algo essencial é analisar a resistência ao ruído. Ela depende não só da mal
     \centering
     \begin{minipage}{.45\textwidth}
         \centering
-        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave, com ruído}
+        
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaAbertaRefTopoRuido}
         \label{respostaMalhaAbertaRefTopoRuido}
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave, com ruído}
     \end{minipage}%
     \hspace{0.1cm}
     \begin{minipage}{0.45\textwidth}
         \centering
-        \caption{Entrada do controlador antes e depois do ruído para cada instante}
-        \includegraphics[width=1\linewidth]{figs/resultados/simulacao/entradaControladorYERR}
+               \includegraphics[width=1\linewidth]{figs/resultados/simulacao/entradaControladorYERR}
         \label{entradaControladorYERR}
+        \caption{Entrada do controlador antes e depois do ruído para cada instante}
+
     \end{minipage}
 \end{figure}
 
 
 \section{Resultados Experimentais}
 \subsection{Considerações Iniciais}
-De posse das simulações feitas, assumindo-se que o sistema se comporta de forma estável e desejada com os polos escolhidos e as matrizes de covariância obtidas para o Filtro de Kalman, prosseguiu-se com a validação experimental do controle proposto. Para tal, em conjunção com os programas necessários desenvolvidos no RsLogix, foram desenvolvidos módulos e códigos em linguagem Python para implementar o controle. As três principais razões de se utilizar Python são:
+De posse das simulações feitas, assumindo-se que o sistema se comporta de forma estável e desejada com os polos escolhidos e as matrizes de covariância obtidas para o Filtro de Kalman, prosseguiu-se com a validação experimental do controle proposto. Para tal, em conjunção com os programas necessários desenvolvidos no RSLogix, foram desenvolvidos módulos e códigos em linguagem Python para implementar o controle. As três principais razões de se utilizar Python são:
 \begin{enumerate}
 \item A linguagem Python, conforme discutido na Seção \ref{opcSubSection}, possui suporte ao módulo OpenOPC \cite{OpenOPC}, necessário para se efetuar a troca de informações entre o preditor de Smith e a planta por intermédio do CLP;
 \item Embora haja outras linguagens e \textit{softwares} que suportem OPC, como o próprio MATLAB, além de existirem linguagens mais rápidas e ao mesmo tempo ricas em ferramentas como o C++, o uso de Python se deve ao fato de já ter o módulo OPC e ser razoavelmente rápido, talvez não tanto quanto o C++. Porém, dada a facilidade de se programar com o OpenOPC e os tempos de comunicação e execução dos programas feitos não interferirem com o tempo de amostragem, Python se torna uma opção extremamente viável para este projeto;
-\item Além do módulo OpenOPC, facilidade de programação e tempos razoáveis, Python possui também suporte à orientação a objetos. Para programar estruturas como o preditor de Smith, tal abordagem é muito importante, visto que cada componente pode ser tratado como um objeto, facilitando a implementação. Além disso, a estrutura de programação é tal que outras formas de controle podem ser facilmente adaptadas à ponte rolante por meio da interface com Python; as alterações no programa do RsLogix são mínimas, caso sejam necessárias.
+\item Além do módulo OpenOPC, facilidade de programação e tempos razoáveis, Python possui também suporte à orientação a objetos. Para programar estruturas como o preditor de Smith, tal abordagem é muito importante, visto que cada componente pode ser tratado como um objeto, facilitando a implementação. Além disso, a estrutura de programação é tal que outras formas de controle podem ser facilmente adaptadas à ponte rolante por meio da interface com Python; as alterações no programa do RSLogix são mínimas, caso sejam necessárias.
 \end{enumerate}
 
-Assim como nas simulações, foram considerados três experimentos a serem validados: trajetória em malha aberta; trajetória em malha fechada, considerando topo e fundo como rampas; e a trajetória considerada por Rafael \cite{rafaelMestrado}. Todas as trajetórias são de 30 centímetros.
+Assim como nas simulações, foram considerados três experimentos a serem validados: trajetória em malha aberta; trajetória em malha fechada, considerando topo e fundo como rampas; e a trajetória considerada por Rafael \cite{rafaelMestrado}. Todas as trajetórias consideram excursão de 30 centímetros.
 
 \subsection{Testes com Rampa - Malha Aberta e Malha Fechada}
 O primeiro teste feito foi considerando uma trajetória em formato rampa, realizando um deslocamento de 30 centímetros em cerca de 2.5 segundos. Tal teste foi feito em malha aberta e o resultado se encontra na Figura \ref{malhaAbertaRampa}. 
 
-O segundo teste realizado foi considerando a mesma trajetória do primeiro teste; porém, essa trajetória agora foi escolhida como referência tanto para o topo quanto para o fundo; essas referências foram aplicadas em malha fechada, utilizando-se o preditor de Smith. O resultado se encontra na Figura \ref{malhaFechadaRampa}.
+O segundo teste realizado considerou a mesma trajetória do primeiro teste como referência tanto para o topo quanto para o fundo para um experimento com a malha fechada, utilizando-se o preditor de Smith. O resultado se encontra na Figura \ref{malhaFechadaRampa}.
 
 \begin{figure}[!ht]
 \centering
 \begin{minipage}{0.45\textwidth}
 \centering
-\caption{Resultado experimental para a trajetória rampa em malha aberta de 30 cm. \label{malhaAbertaRampa}}
 \includegraphics[width=1\linewidth]{figs/resultados/experimento/open_loop_ramp}
+\caption{Resultado experimental para a trajetória rampa em malha aberta de 30 cm. \label{malhaAbertaRampa}}
 \end{minipage}
 \hspace{0.1cm}
 \begin{minipage}{0.45\textwidth}
 \centering
-\caption{Resultado experimental para a trajetória rampa em malha fechada de 30 cm. \label{malhaFechadaRampa}}
 \includegraphics[width=1\linewidth]{figs/resultados/experimento/closed_loop_trajetoria_rampa}
+\caption{Resultado experimental para a trajetória rampa em malha fechada de 30 cm. \label{malhaFechadaRampa}}
 \end{minipage}
 \end{figure}
 
-Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a rampa possuem vantagens e desvantagens entre si: a trajetória em malha aberta apresentou um sobressinal ligeiramente menor e melhor aproximação com o resultado final; entretanto, a trajetória em malha fechada foi melhor seguida. Em termos práticos, considerando a presente trajetória, o preditor de Smith realizou melhor a tarefa do acompanhamento da trajetória.
+Nota-se, pelos resultados apresentados, que cada um dos testes realizados com a rampa possuem vantagens e desvantagens entre si: a trajetória em malha aberta apresentou um sobressinal ligeiramente menor e melhor aproximação com o resultado final; entretanto, a trajetória em malha fechada foi melhor seguida durante o movimento. Em termos práticos, considerando a presente trajetória, o preditor de Smith realizou melhor a tarefa do acompanhamento da trajetória, mas o controle em malha fechada deixou a desejar, já que as oscilações não foram controladas. 
+
+Motivos para o resultado ruim, ainda mais se comparado com o experimental na Figura \ref{malhaFechadaRampa}, incluem erros de calibração -- a câmera é desconfigurada rapidamente no laboratório de automação -- e o fato de termos utilizado OPC adicionava um atraso na comunicação para fechar a malha e às vezes o próximo valor medido não era lido rápido o suficiente para ser considerado no próximo passo de simulação. O filtro de Kalman possivelmente pode ter parâmetros melhores escolhidos com mais alguns testes experimentais, o que poderia também melhorar problemas com ruído.
 
 \subsection{Teste com Trajetória Proposta - Malha Fechada}
 O último teste realizado com o preditor de Smith envolve a trajetória utilizada por Rafael \cite{rafaelMestrado}. Nesse caso, a trajetória de topo e de fundo são ligeiramente diferentes, sugerindo uma trajetória próxima do esperado para um \textit{riser}. O resultado do experimento se encontra na Figura \ref{experimentoRafael}. Nota-se que a saída é bem comportada, seguindo a trajetória; porém, o resultado final apresenta pequenas oscilações, além de um erro de medição. 
 
 \begin{figure}[!ht]
 \centering
-\caption{Teste com a trajetória sugerida por Rafael utilizando o preditor de Smith. \label{experimentoRafael}}
 \includegraphics[width=.6\linewidth]{figs/resultados/experimento/closed_loop_trajetoria_rafael}
+\caption{Teste com a trajetória sugerida por Rafael utilizando o preditor de Smith. \label{experimentoRafael}}
 \end{figure} 
 
 \subsection{Análise dos Resultados}
 Uma vez apresentados os resultados para as trajetórias propostas, vale notar a principal vantagem do uso do preditor de Smith: em relação aos testes de malha aberta, os testes de malha fechada apresentaram um comportamento muito melhor em relação à referência dada pela trajetória de fundo, representada pela bolinha de isopor.
 
 Entretanto, deve-se notar que houveram alguns resultados indesejáveis nos testes apresentados, em particular os que envolvem o preditor. Em primeiro lugar, houve a presença de um sobre-sinal considerável nos testes com rampa (da ordem de $12.5\%$). Esse tipo de sobre-sinal pode ser extremamente prejudicial para a operação do \textit{riser}. Além do problema do sobre-sinal, houve o fato de que a saída oscila e apresenta um erro estático nos testes com o preditor, representados nas Figuras \ref{malhaFechadaRampa} e \ref{experimentoRafael}; embora a presença desses fatores faz o resultado experimental destoar dos resultados das simulações, o resultado geral foi satisfatório. Um resultado marcante foi a atenuação da saída proporcionado pelo uso do Filtro de Kalman, considerando as matrizes de covariância escolhidas; o fato da matriz $\mathbf{R}$ possuir valores maiores do que os elementos de $\mathbf{Q}$ sugere que foi priorizada a correção sobre a medida da posição de fundo.
-
-\begin{comment}
-\section{Malha aberta}
-
-O planejamento de trajetória em malha aberta e malha fechada para o \textit{riser} que está sendo utilizado neste trabalho foi desenvolvido por Fabrício et al \cite{fabricioIFAC}, conforme mencionado anteriormente. Um programa em MATLAB foi escrito e gerou trajetórias de excursão pré-definida. Rédytton \cite{redytton} testou o sistema para uma excursão de cerca de 1m, que é maior que o tamanho do barbante ($82\mathrm{cm}$) conforme apresentado na Tabela \ref{escalaLaboratorial}. No entanto, seu trabalho não utilizou uma massa de isopor na ponta, daí existirá uma diferença entre os resultados. Observe que, em malha aberta, deixou-se o ar condicionado da sala desligado, pois isto seria uma perturbação.
-
-\subsection{Excursão de 30cm}
-O primeiro teste em malha aberta testou a trajetória de posição da Figura \ref{DeslocamentoT1}. Conforme Rédytton \cite{redytton} mencionou em seu trabalho, utilizar os módulos de posição é mais lento do que utilizar módulos de velocidade para seguir essa trajetória. Desta forma, optou-se por usar diferenças finitas para derivar essa trajetória, resultando na Figura \ref{VelocidadeT1}. 
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{figs/resultados/malha_aberta_1/DeslocamentoT1}
-        \caption{Referência de Posição para Excursão de 30cm}
-        \label{DeslocamentoT1}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{figs/resultados/malha_aberta_1/VelocidadeT1}
-        \caption{Referência de Velocidade para Excursão de 30cm}
-        \label{VelocidadeT1}
-    \end{minipage}
-\end{figure}
-
-Com um período de cerca de 41ms, uma tarefa eventual executava no CLP, aplicando um certo valor de velocidade ao carrinho. A câmera leu os valores de posição cada vez que a tarefa iniciava e o software RSLogix desenhou os dados, que podem ser observados na Figura \ref{trajetoriaObtidaModelada}. Observa-se que a posição evolui de forma bem suave. Para se realizar uma comparação, calculou-se o tempo que o carrinho se move na trajetória ($\Delta t$, tempo no qual a velocidade não é nula) e calculou-se $\overline{v} = \frac{\Delta x}{\Delta t}$. No caso presente, $\Delta x = 30\mathrm{cm}$ e $\Delta t \approx 3\mathrm{s}$ (veja Figura \ref{VelocidadeT1}), resultando em $\overline{v} = 100\mathrm{mm}/\mathrm{s}$. A Figura \ref{trajetoriaObtidaVConstante} apresenta esses resultados e observa-se várias oscilações quando o carrinho para, diferente do caso anterior.
-
-Vídeos foram criados para cada um destes casos e estão disponíveis no YouTube{\sffamily\textregistered\textcopyright}, tanto para a trajetória modelada\footnote{Controle Malha Aberta Modelado, 30cm - \url{https://youtu.be/lKajz6LyauE}. Acesso em 29/11/2015.} quanto para a trajetória com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante, 30cm - \url{https://youtu.be/tB0TsmBcfVg}. Acesso em 29/11/2015.}.
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_aberta_1/trajetoriaObtidaModelada.pdf}
-        \caption{Resultado com Velocidade Modelada para Excursão de 30cm}
-        \label{trajetoriaObtidaModelada}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_aberta_1/trajetoriaObtidaVConstante.pdf}
-        \caption{Resultado com Velocidade Constante para Excursão de 30cm}
-        \label{trajetoriaObtidaVConstante}
-    \end{minipage}
-\end{figure}
-
-\subsection{Excursão de 20cm}
-Na prática, o diâmetro do \textit{riser} e de sua massa é bem menor que o comprimento do mesmo. Daí, é importante testar uma menor excursão. Além disso, esse teste terá menor tempo de movimentação e resultará numa velocidade média maior que o caso anterior. Desta forma, maiores oscilações são esperadas e o controle se torna mais difícil.
-
-A trajetória de posição obtida é apresentada na Figura \ref{DeslocamentoT2} e a sua derivada é apresentada na Figura \ref{VelocidadeT2}. O período da tarefa eventual foi escolhido em $100\mathrm{ms}$. O resultado experimental\footnote{Controle Malha Aberta Modelado, 20cm - \url{https://youtu.be/wg1Wq_6VRSg}. Acesso em 29/11/2015.} apresentou mais oscilações que o caso anterior, mas está bem controlado, conforme se vê na Figura \ref{percurso20cmBom}. O resultado com velocidade constante\footnote{Controle Malha Aberta a Velocidade Constante, 20cm - \url{https://youtu.be/Ges2-eYy69k}. Acesso em 29/11/2015.} está na Figura \ref{percurso20cmRuim} e nota-se que o resultado ficou bem pior. A velocidade média foi cerca de $\overline{v} \approx \frac{200\mathrm{mm}}{1.5\mathrm{s}} = 133.3\mathrm{mm}/\mathrm{s}$. %TODO verificar se a velocidade de 133.3mm foi de fato utilizada no programa
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{figs/resultados/malha_aberta_2/DeslocamentoT2}
-        \caption{Referência de Posição para Excursão de 20cm}
-        \label{DeslocamentoT2}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{figs/resultados/malha_aberta_2/VelocidadeT2}
-        \caption{Referência de Velocidade para Excursão de 20cm}
-        \label{VelocidadeT2}
-    \end{minipage}
-\end{figure}
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_aberta_2/percurso20cmBom.pdf}
-        \caption{Resultado com Velocidade Modelada para Excursão de 20cm}
-        \label{percurso20cmBom}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_aberta_2/percurso20cmRuim.pdf}
-        \caption{Resultado com Velocidade Constante para Excursão de 20cm}
-        \label{percurso20cmRuim}
-    \end{minipage}
-\end{figure}
-
-
-
-
-
-
-\section{Malha fechada\label{malhafechadaSection}}
-O controle em malha fechada deve ser capaz de compensar por perturbações, pois o sensor identifica o resultado da atuação e realimenta a informação no sistema. Neste trabalho, conseguiu-se configurar a câmera adequadamente e faz-se um teste em malha fechada de um controlador bem simples: um controlador proporcional.
-
-\subsection{Controlador P}
-
-O controlador proporcional utilizado tem o esquema conforme Figura \ref{mfechadaP}. A referência de posição $r = r(t)$ é a entrada do sistema e a saída medida pela câmera, $y_m$, é subtraída da referência para resultar no erro $e$, cuja unidade é dada em milímetros. A entrada da planta, $v$, é dad em $[\mathrm{u}/\mathrm{s}]$, conforme discutido anteriormente na subseção \ref{calibracaoServomotorSecao}. Desta forma, a unidade de $K_p$ é $\left[\frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}\right]$.
-
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}[auto, node distance=2cm,>=latex']
-% We start by placing the blocks
-\node [input, name=input] {};
-\node [sum, right of=input] (sum) {};
-\node [block, right of=sum] (controller) {$K_p$};
-\node [block, right of=controller, pin={[pinstyle]above:Perturbações},
-node distance=3cm] (system) {Planta};
-% We draw an edge between the controller and system block to 
-% calculate the coordinate u. We need it to place the measurement block. 
-\draw [->] (controller) -- node[name=u] {$v$} (system);
-\node [output, right of=system] (output) {};
-\node [block, below of=u] (measurements) {Câmera};
-
-% Once the nodes are placed, connecting them is easy. 
-\draw [draw,->] (input) -- node {$r$} (sum);
-\draw [->] (sum) -- node {$e$} (controller);
-\draw [->] (system) -- node [name=y] {$y$}(output);
-\draw [->] (y) |- (measurements);
-\draw [->] (measurements) -| node[pos=0.99] {$-$} 
-node [near end] {$y_m$} (sum);
-\end{tikzpicture}
-\caption{Malha fechada de controle\label{mfechadaP}}
-\end{figure}
-
-Valores de $K_p$ foram escolhidos empiricamente e o resultado para $K_p = 0.0025$\footnote{Controle Malha Fechada com Kp = 0.0025 - \url{https://youtu.be/mmT1ZwFBJ4s}. Acesso em 29/11/2015.} está na Figura \ref{MFProporcionalKpbaixo} enquanto para $K_p = 0.0050$\footnote{Controle Malha Fechada com Kp = 0.0050 - \url{https://youtu.be/sHh3yvBrek4}. Acesso em 29/11/2015.} está na Figura \ref{MFProporcionalKpmedio}.
-
-
-\begin{figure}[!htb]
-    \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_fechada_P/MF_Proporcional_Kp_00025.pdf}
-        \caption{Resultado com Malha Fechada Proporcional e $K_p = 0.0025\frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$}
-        \label{MFProporcionalKpbaixo}
-    \end{minipage}%
-    \hspace{0.1cm}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth,height=6cm]{figs/resultados/malha_fechada_P/MF_Proporcional_Kp_00050.pdf}
-        \caption{Resultado com Malha Fechada Proporcional e $K_p = 0.0050\frac{\mathrm{u}}{\mathrm{mm}\cdot\mathrm{s}}$
-        \label{MFProporcionalKpmedio}}
-    \end{minipage}
-\end{figure}
-
-O período de amostragem utilizado foi de $100\mathrm{ms}$ e o ar condicionado estava ligado nas duas situações apresentadas e nota-se que o primeiro resultado é bem melhor que o segundo, tendo menos oscilações. No entanto, este resultado está aquém do obtido em malha aberta.
-\end{comment}
