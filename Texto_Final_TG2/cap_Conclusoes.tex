@@ -6,11 +6,11 @@
 
 \label{CapConclusoes}
 
-O projeto desenvolvido até aqui é uma continuação do que foi desenvolvido por Rédytton \cite{redytton}; porém, muitos avanços foram realizados. Em primeiro lugar, na primeira parte do projeto, foram melhorados aspectos relativos ao que foi previamente realizado, como por exemplo:
+O projeto desenvolvido até aqui é uma continuação do que foi desenvolvido por Rédytton \cite{redytton}; porém, muitos avanços foram realizados. Em primeiro lugar, foram melhorados diversos aspectos relativos ao que foi previamente realizado, como por exemplo:
 \begin{itemize}
 \item Foi efetuada uma calibração da câmera, de forma a se pegar os dados da trajetória de fundo, representada pela bolinha;
-\item Foi calculado um fator de conversão entre a unidade de velocidade reconhecida pelo RsLogix e uma unidade de velocidade derivada do SI --- milímetros por segundo;
-\item Foi adotado o texto estruturado para se desenvolver as estratégias de controle a serem realizadas pelo CLP, uma vez que o texto é facilmente reprogramável para novas trajetórias, o que não ocorre com linguagens gráficas como o \textit{ladder};
+\item Foi calculado um fator de conversão entre a unidade de velocidade reconhecida pelo RSLogix e uma unidade de velocidade derivada do SI --- milímetros por segundo;
+\item Foi adotado o texto estruturado para se desenvolver as estratégias de controle a serem realizadas pelo CLP, uma vez que o texto é facilmente modificável para novas trajetórias, o que não ocorre com linguagens gráficas como o \textit{ladder};
 \item Foi modificado o protocolo de comunicação do CLP com o computador. O novo protocolo, Ethernet/IP, é consideravelmente mais rápido que uma comunicação baseada em RS-232, o que resulta em um tempo menor entre um teste e outro;
 \item Um último avanço foi o uso do OPC. Dessa forma, uma estrutura complexa como o preditor de Smith pode ser programada em uma linguagem mais rica em termos de ferramentas do que o texto estruturado --- no caso, foi utilizada a linguagem Python com o módulo OpenOPC \cite{OpenOPC}.
 \end{itemize}
