@@ -20,28 +20,28 @@
 \contentsline {subsection}{\numberline {2.2.1}T\IeC {\'e}cnicas Simples de Controle}{10}{subsection.2.2.1}
 \contentsline {subsection}{\numberline {2.2.2}Controle Discreto no Espa\IeC {\c c}o de Estados}{11}{subsection.2.2.2}
 \contentsline {subsection}{\numberline {2.2.3}Preditor de Smith}{13}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Filtro de Kalman}{15}{subsection.2.2.4}
-\contentsline {section}{\numberline {2.3}Bancada}{17}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{17}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}SERCOS Interface}{19}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.2.4}Filtro de Kalman}{14}{subsection.2.2.4}
+\contentsline {section}{\numberline {2.3}Bancada}{16}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{16}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}SERCOS Interface}{18}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Line Interface Module 2094-AL09}{19}{subsection.2.3.3}
 \contentsline {subsection}{\numberline {2.3.4}Drive Kinetix 6000 da Allen Bradley}{19}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Servomotor}{20}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Sensores indutivos}{21}{subsection.2.3.6}
-\contentsline {subsection}{\numberline {2.3.7}C\IeC {\^a}mera PresencePlus}{22}{subsection.2.3.7}
+\contentsline {subsection}{\numberline {2.3.5}Servomotor}{19}{subsection.2.3.5}
+\contentsline {subsection}{\numberline {2.3.6}Sensores indutivos}{20}{subsection.2.3.6}
+\contentsline {subsection}{\numberline {2.3.7}C\IeC {\^a}mera PresencePlus}{21}{subsection.2.3.7}
 \contentsline {section}{\numberline {2.4}Redes Utilizadas}{22}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}DeviceNET}{22}{subsection.2.4.1}
-\contentsline {subsection}{\numberline {2.4.2}Ethernet/IP}{23}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control} }{23}{subsection.2.4.3}
+\contentsline {subsection}{\numberline {2.4.2}Ethernet/IP}{22}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control} }{22}{subsection.2.4.3}
 \contentsline {section}{\numberline {2.5}Programa\IeC {\c c}\IeC {\~a}o do CLP}{23}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}Vis\IeC {\~a}o geral}{23}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Linguagem \textit {ladder}}{24}{subsection.2.5.2}
 \contentsline {subsubsection}{\numberline {2.5.2.1}Introdu\IeC {\c c}\IeC {\~a}o ao \textit {ladder}}{24}{subsubsection.2.5.2.1}
-\contentsline {subsubsection}{\numberline {2.5.2.2}Instru\IeC {\c c}\IeC {\~o}es espec\IeC {\'\i }ficas}{25}{subsubsection.2.5.2.2}
-\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{26}{subsection.2.5.3}
-\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{26}{subsubsection.2.5.3.1}
+\contentsline {subsubsection}{\numberline {2.5.2.2}Instru\IeC {\c c}\IeC {\~o}es espec\IeC {\'\i }ficas}{24}{subsubsection.2.5.2.2}
+\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{25}{subsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{25}{subsubsection.2.5.3.1}
 \contentsline {subsubsection}{\numberline {2.5.3.2}Instru\IeC {\c c}\IeC {\~o}es de movimenta\IeC {\c c}\IeC {\~a}o do motor para o texto estruturado}{26}{subsubsection.2.5.3.2}
-\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{27}{section.2.6}
+\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{26}{section.2.6}
 \contentsline {chapter}{\numberline {3}Resultados}{28}{chapter.3}
 \contentsline {section}{\numberline {3.1}C\IeC {\^a}mera}{28}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Configura\IeC {\c c}\IeC {\~a}o da Rede}{28}{subsection.3.1.1}
@@ -55,7 +55,7 @@
 \contentsline {section}{\numberline {3.5}Resultados Experimentais}{37}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Considera\IeC {\c c}\IeC {\~o}es Iniciais}{37}{subsection.3.5.1}
 \contentsline {subsection}{\numberline {3.5.2}Testes com Rampa - Malha Aberta e Malha Fechada}{38}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{39}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{38}{subsection.3.5.3}
 \contentsline {subsection}{\numberline {3.5.4}An\IeC {\'a}lise dos Resultados}{39}{subsection.3.5.4}
 \contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{41}{chapter.4}
 \contentsline {section}{\numberline {4.1}Perspectivas Futuras}{42}{section.4.1}
