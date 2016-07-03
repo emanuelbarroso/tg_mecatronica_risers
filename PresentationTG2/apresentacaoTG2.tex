@@ -106,6 +106,73 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 
 \end{frame}
 
+\begin{frame}[fragile]{Equações Governantes}
+\begin{block}{Equação de Morison}
+\begin{align}
+	F_n(z,t) &= -m_{fbar} \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN}
+\end{align}
+\end{block}
+\begin{block}{Equação completa para o deslocamento}
+\begin{align}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
+	\end{align}
+\end{block}
+\begin{block}{}
+\begin{itemize}
+	\item $\mu$ é o coeficiente de arrasto (unidade 1/s) 
+	\item $m_{fbar}$ é a massa do fluido adicionado
+	\item $m = m_s + m_{fbar}$
+\end{itemize}	
+\end{block}
+
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Constantes}
+
+\begin{block}{}
+\begin{table}[!ht]
+	\centering
+	\caption{Constantes do barbante\label{constanteBarbante}}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{bar}$ & 0.492 & g\\ \hline
+		Comprimento & $L$ & 0.82 & m \\ \hline
+		Massa linear & $m_s$ & 0.6 & g/m\\ \hline
+		Raio & $r_{bar}$ & 1 & mm\\ \hline
+		Densidade & $\rho_{bar}$ & 191 & kg/m$^3$\\ \hline
+	\end{tabular}
+	
+\end{table}
+
+\end{block}
+
+\end{frame}
+\begin{frame}[fragile]{Constantes}
+
+\begin{block}{}
+\begin{table}[!ht]
+	\centering
+	\caption{Constantes da bolinha de isopor\label{constanteIsopor}}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{b}$ & 0.492 & g\\ \hline
+		Raio & $r_{b}$ & 15.3 & mm\\ \hline
+		Coeficiente de inércia & $C_m$ & 1.2 & - \\ \hline
+		Coeficiente de arrasto & $C_d$ & 0.6 & - \\ \hline
+		Volume & $V_b$ & $\frac{4}{3}\pi r_b^3$ & $\textrm{m}^3$ \\ \hline
+		Área da seção transversal & $A_b$ & $\pi r_b^2$ & m$^2$\\ \hline
+	\end{tabular}
+	
+\end{table}
+
+\end{block}	
+\end{frame}
+
+
 \begin{frame}[fragile]{Controle - Malha Aberta x Malha Fechada}
 
 \tikzstyle{block} = [draw, fill=blue!20, rectangle,font=\tiny, 
