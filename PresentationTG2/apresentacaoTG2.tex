@@ -231,6 +231,49 @@ y &= \left[\begin{array}{cc}
 
 \end{frame}
 
+\begin{frame}[fragile]{Redução modal}
+\begin{block}{}
+\begin{itemize}
+	\item Desejar ter um pequeno número de variáveis de estado para simplificar a realização do controlador. Os passos incluem:
+		\begin{enumerate}
+			\item Obtenção da matriz modal $\mathbf{T}$ \label{obtencaoT}
+			\item Obtenção da matriz modal real $\tilde{\mathbf{T}}$ \label{obtencaoTReal}
+			\item Usar $\tilde{\mathbf{T}}$ para uma transformação de similaridade no sistema original, tendo um matriz $\mathbf{A_m}$ do novo sistema diagonal por blocos \label{similaridadeTransformacao}
+			\item Selecionar os subsistemas de maior ganho
+			\item Modificar as matrizes reduzidas de $\mathbf{B}$ e $\mathbf{D}$ para o sistema reduzido ter dinâmica nula para $t < \epsilon$ e transferência direta reduzida
+		\end{enumerate}
+\end{itemize}	
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]{Redução modal}
+\begin{block}{\ref{obtencaoT}. Obtenção da matriz modal}
+	\begin{align}
+	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
+\end{align}
+\end{block}
+
+\begin{block}{\ref{obtencaoTReal}. Obtenção da matriz modal real}
+Modo de construção: Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\tilde{\mathbf{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Redução modal}
+\begin{block}{\ref{similaridadeTransformacao}. Transformação de similaridade}
+\begin{align}
+	\mathbf{A_M} &= \tilde{\mathbf{T}}^{-1}\mathbf{A}\tilde{\mathbf{T}}\\
+	\mathbf{x_M} &=\tilde{\mathbf{T}}^{-1}\mathbf{x}	\\
+	\mathbf{B_M} &= \tilde{\mathbf{T}}^{-1}\mathbf{B}\\
+	\mathbf{C_M} &=\mathbf{C}\tilde{\mathbf{T}}
+\end{align}	
+\end{block}
+
+\end{frame}
+
+
 
 
 \begin{frame}[fragile]{Constantes da planta}
