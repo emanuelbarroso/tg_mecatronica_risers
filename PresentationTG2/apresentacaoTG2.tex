@@ -29,6 +29,7 @@
  \titlegraphic{\hfill\includegraphics[height=1.0cm]{figures/logoVerdeUnB}}
  
  \newcommand\Fontvi{\fontsize{6}{7.2}\selectfont}
+ \newcommand\Fontvii{\fontsize{7}{8.2}\selectfont}
 
 \begin{document}
 
@@ -789,6 +790,71 @@ Erro aproximado: 4.93 \%
 }
 \end{table}
 
+\end{frame}
+
+\begin{frame}[fragile]{Obtenção do modelo reduzido}
+\begin{block}{Espaço de Estados Contínuo}
+\Fontvii
+\begin{align}
+\mathbf{\dot{z}} &= \left[\begin{array}{cccc}
+		-0.0881  & -3.8389 &         0 &         0\\
+    3.8389 &   -0.0881 &         0 &         0\\
+         0 &         0 &   -0.1061 &  -10.8145\\
+         0 &        0 &   10.8145 &   -0.1061\\
+	\end{array}\right]\mathbf{z} + 10^3 \left[\begin{array}{c}
+	0.3313 \\
+	    0.0066 \\
+	    1.3549 \\
+	    0.0163
+	 \end{array}\right]u(t) \\
+y &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\mathbf{z} - 0.0906 u(t).
+\end{align}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Obtenção do modelo reduzido}
+\begin{columns}[T]
+\begin{column}{.5\textwidth}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{figures/resultados/modelo/respostaMalhaAberta}
+\caption{Resposta do sistema reduzido com e sem atraso}
+\label{openLoopResp1}
+\end{figure}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{figures/resultados/modelo/respostaMalhaAberta25s}
+\caption{Resposta do sistema reduzido com e sem atraso - 25 segundos}
+\label{openLoopResp2}
+\end{figure}
+\end{column}
+
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Obtenção do modelo reduzido}
+\begin{block}{Espaço de Estados Discreto considerando o Atraso}
+O espaço de estados discreto foi obtido considerando o tempo de amostragem $T_s = 0.1$s e o atraso $\epsilon = 0.3$s. Foi utilizado o comando \texttt{c2d} do MATLAB para se obter a discretização.
+\Fontvii
+\begin{align}
+\mathbf{z_{k+1}} &= \left[\begin{array}{cccc}
+	0.9191&   -0.3712&         0&         0\\
+    0.3712&    0.9191&         0&         0\\
+         0&         0&    0.4651&   -0.8733\\
+         0&         0&    0.8733&    0.4651\\
+ \end{array}\right]\mathbf{z_k} + \left[\begin{array}{c}
+	6.5818\\
+	   31.2517\\
+	  -98.5991\\
+	  -75.6695\\
+	 \end{array}\right]u_k \\
+y_k &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\mathbf{z_k} - 0.0685 u_k.
+\end{align}
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Testes utilizando trajetória Rampa}
