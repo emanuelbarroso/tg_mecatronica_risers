@@ -1002,6 +1002,110 @@ y_k &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\mathbf{z_k} - 0.0685 u_k
 \end{block}
 \end{frame}
 
+\subsection{Simulação}
+\begin{frame}[fragile]{Simulação para Malha aberta}
+	 \begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.49\textwidth}
+        \centering
+        
+        \includegraphics[width=1\linewidth]{figures/resultados/simulacao/respostaMalhaAbertaRampa}
+        \label{respostaMalhaAbertaRampa}
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada rampa}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        
+        \includegraphics[width=1\linewidth]{figures/resultados/simulacao/respostaMalhaAbertaRefTopo}
+        \label{respostaMalhaAbertaEntradaSuave}
+        \caption{Resposta do Sistema em Malha Aberta para Excursão de 30cm, entrada suave calculada}
+    \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Modelo em Simulink}
+\begin{figure}[!ht]
+\centering
+
+\includegraphics[width=0.9\linewidth]{figures/resultados/simulink/top}
+\caption{Esquema principal para simulação em Simulink\label{topModel}}
+\end{figure}	
+\end{frame}
+
+\begin{frame}[fragile]{Modelo em Simulink}
+ \begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+		\centering
+		\includegraphics[width=1\linewidth]{figures/resultados/simulink/atraso}
+		\caption{Bloco de Atraso -- saída é o valor antecipado menos um valor antigo\label{blocoAtraso}}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+		\includegraphics[width=1\linewidth]{figures/resultados/simulink/modeloReduzido}
+		\caption{Modelo reduzido -- não utiliza atraso, utilizado para predizer a saída\label{blocoModeloReduzido}}
+    \end{minipage}
+\end{figure}
+	
+\end{frame}
+
+\begin{frame}[fragile]{Modelo em Simulink}
+	\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/resultados/simulink/controle}
+	\caption{Bloco de controle com filtro de Kalman\label{blocoControle}}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Simulação para malha fechada}
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.49\textwidth}
+        \centering
+       
+        \includegraphics[width=1\linewidth]{figures/resultados/simulacao/respostaMalhaFechadaRampa}
+        \label{respostaMalhaFechadaRampa}
+         \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.49\textwidth}
+        \centering
+      
+        \includegraphics[width=1\linewidth]{figures/resultados/simulacao/respostaMalhaFechadaRefTopoFundo}
+        \label{respostaMalhaFechadaRefTopoFundo}
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo}
+    \end{minipage}
+\end{figure}
+	
+\end{frame}
+
+\begin{frame}[fragile]{Simulação com Ruído em Malha Fechada}
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{.45\textwidth}
+        \centering
+        
+        \includegraphics[width=1\linewidth]{figures/resultados/simulacao/respostaMalhaAbertaRefTopoRuido}
+        \label{respostaMalhaAbertaRefTopoRuido}
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave, com ruído}
+    \end{minipage}%
+    \hspace{0.1cm}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+               \includegraphics[width=1\linewidth]{figures/resultados/simulacao/entradaControladorYERR}
+        \label{entradaControladorYERR}
+        \caption{Entrada do controlador antes e depois do ruído para cada instante}
+
+    \end{minipage}
+\end{figure}	
+\end{frame}
+
+
+
 \begin{frame}[fragile]{Testes utilizando trajetória Rampa}
 \begin{columns}[T]
 \begin{column}{.5\textwidth}
