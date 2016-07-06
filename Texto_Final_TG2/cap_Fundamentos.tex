@@ -190,9 +190,9 @@ y &= \left[\begin{array}{cc}
 
  Neste estágio, procura-se determinar quais dos subsistemas são mais adequados para aproximar o modelo original por meio do cálculo do ganho estático de cada um. Este método depende da predominância de uns poucos autovalores na resposta do sistema, já que altas frequências são muito atenuadas pelas forças hidrodinâmicas e pela suavidade da entrada.
 
- Os subsistemas selecionados são combinados em um modelo reduzido \begin{align}
-	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
-	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u
+ Os subsistemas selecionados são combinados em um modelo reduzido dado por \begin{align}
+	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\;\mathrm{e}\\
+	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u,
 \end{align} cuja ordem é escolhida considerando o custo-benefício entre a acurácia da dinâmica reduzida e a simplicidade da estrutura de controle exigida. Além disso, o sistema reduzido deve compensar o ganho estático perdido nos autovalores desconsiderados. Isto é feito por meio de uma matriz de transferência direta $\mathbf{D_R}$, que é a diferença dos ganhos dos sistemas original e reduzido: \begin{align}
 	\mathbf{D_R}&=\mathbf{C}\mathbf{A^{-1}}\mathbf{B}-\mathbf{C_R}\mathbf{A_R^{-1}}\mathbf{B_R}.
 \end{align}
