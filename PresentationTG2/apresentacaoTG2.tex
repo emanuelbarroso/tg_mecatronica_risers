@@ -240,8 +240,9 @@ y &= \left[\begin{array}{cc}
 			\item Obtenção da matriz modal $\mathbf{T}$ \label{obtencaoT}
 			\item Obtenção da matriz modal real $\tilde{\mathbf{T}}$ \label{obtencaoTReal}
 			\item Usar $\tilde{\mathbf{T}}$ para uma transformação de similaridade no sistema original, tendo um matriz $\mathbf{A_m}$ do novo sistema diagonal por blocos \label{similaridadeTransformacao}
-			\item Selecionar os subsistemas de maior ganho
-			\item Modificar as matrizes reduzidas de $\mathbf{B}$ e $\mathbf{D}$ para o sistema reduzido ter dinâmica nula para $t < \epsilon$ e transferência direta reduzida
+			\item Selecionar os subsistemas de maior ganho para definir o sistema reduzido \label{subsistemaReduzidoGanhos}
+			\item Definir equações do sistema reduzido \label{sistemaReduzido}
+			\item Modificar as matrizes reduzidas de $\mathbf{B}$ e $\mathbf{D}$ para o sistema reduzido ter dinâmica nula para $t < \epsilon$ e transferência direta reduzida \label{atrasonoSistemaReduzido}
 		\end{enumerate}
 \end{itemize}	
 \end{block}
@@ -272,9 +273,43 @@ Modo de construção: Quando a primeira coluna de um autovetor de um par complex
 \end{align}	
 \end{block}
 
+\begin{block}{\ref{subsistemaReduzidoGanhos}. Obtenção dos subsistemas de maior ganho}
+\begin{itemize}
+	\item Para cada subsistema $i$ de ordem 2, calcula-se o ganho em módulo $G = |\mathbf{C_i}\mathbf{A_i^{-1}}\mathbf{B_i}|$ para cada subsistema 
+	\item Deve-se armazenar os 2 subsistemas de maiores ganhos para uma redução de ordem 2. Calculando-se os ganhos em sequência, basta verificar se o subsistema $i$ tem ganho maior que subsistema de menor ganho salvo até o momento e substituí-lo. 
+\end{itemize}
+
+\end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Redução modal}
+\begin{block}{\ref{sistemaReduzido}. Sistema reduzido}
+	\begin{align}
+	\begin{array}{ll}
+	\dot{\mathbf{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
+	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u
+	\end{array}
+\end{align}
+\end{block}
+	Note que a transferência direta é dada pela diferença do ganho estático do sistema original e do sistema reduzido: \begin{align}
+	\mathbf{D_R}&=\mathbf{C}\mathbf{A^{-1}}\mathbf{B}-\mathbf{C_R}\mathbf{A_R^{-1}}\mathbf{B_R}
+	\end{align}
+\end{frame}
 
+\begin{frame}[fragile]{Redução modal}
+\begin{block}{\ref{atrasonoSistemaReduzido}. Introdução do atraso}
+Conforme mostrado por Fortaleza \cite{teseEugenio}, pode-se refinar o modelo reduzido introduzindo um atraso de entrada $\epsilon$ que minimiza a transferência direta e garante dinâmica nula para $t < \epsilon$: \begin{align}
+\begin{array}{lll}
+	\dot{\mathbf{z}} &=& \mathbf{A_R}\mathbf{z}+\mathbf{B_D}u(t-\epsilon),\\
+	y &=& \mathbf{C_R}\mathbf{z}+\mathbf{D_D}u(t-\epsilon) \label{novoModeloReduzido};
+\end{array}
+\end{align} sendo \begin{align}
+	\mathbf{B_D} &= \mathbf{A_R}\left(e^{\epsilon\mathbf{A_R}}\right)\mathbf{A_R^{-1}}\mathbf{B_R}\;\;\mathrm{e}\label{novoBD}\\
+	\mathbf{D_D} &= \mathbf{C_R}\left(e^{\epsilon\mathbf{A_R}} - \mathbf{I}\right)\mathbf{A_R^{-1}}\mathbf{B_R} + \mathbf{D_R}\label{novoDD}.
+\end{align}	
+\end{block}
+	
+\end{frame}
 
 
 \begin{frame}[fragile]{Constantes da planta}
