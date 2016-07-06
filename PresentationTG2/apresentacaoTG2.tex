@@ -504,6 +504,15 @@ Nessa parte, o estado calculado na predição é corrigido incorporando-se uma m
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Filtro de Kalman}
+\begin{block}{Uso do Filtro de Kalman no Preditor de Smith}
+\begin{itemize}
+\item O Filtro de Kalman é utilizado em conjunção com o controlador fornecendo uma estimação $\hat{y}$ a ser utilizada no canal integral;
+\item As matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$ do filtro podem ser obtidas através da discretização das matrizes de espaço de estados do modelo reduzido escritas na forma canônica controlável. Desta forma, tem-se $\hat{y}$ = $\hat{x}_{\,1}$, o que facilita o projeto do controlador.
+\end{itemize}
+\end{block}
+\end{frame}
+
 \begin{frame}[fragile]{Bancada - Esquemático}
 \begin{figure}[!ht]
 	\centering
