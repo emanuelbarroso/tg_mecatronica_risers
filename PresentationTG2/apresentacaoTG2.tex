@@ -372,6 +372,95 @@ Possui realimentação - obtém o sinal de referência para a planta pela evolu�
 \end{columns}
 \end{frame}
 
+
+\begin{frame}[fragile]{Preditor de Smith}
+\begin{block}{Sobre o Preditor}
+\begin{itemize}
+\item Pode ser visto como um compensador de atraso;
+\item Permite o projeto de controladores no sistema reduzido desconsiderando-se o atraso, tornado possível o uso de técnicas simples de controle no espaço de estados.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Estrutura do Preditor de Smith}
+Na Figura \ref{smithStruct1}, \textbf{P} é a planta, \textbf{C} é o controlador, \textbf{RM} é o modelo reduzido sem atraso e $e^{-\epsilon s}$ é o atraso puro.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.75\linewidth]{figures/smith/smith1}
+\caption{Estrutura básica do preditor de Smith \cite{rafaelMestrado}}
+\label{smithStruct1}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Estrutura do Preditor de Smith com Filtro de Kalman}
+Na Figura \ref{smithStruct2}, \textbf{P} é a planta, \textbf{C} é o controlador, \textbf{RM} é o modelo reduzido sem atraso, \textbf{KF} é o Filtro de Kalman e $e^{-\epsilon s}$ é o atraso puro. A nova estrutura considera referências das trajetórias de topo e de fundo.
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=.85\linewidth]{figures/smith/smith2}
+\caption{Estrutura do preditor de Smith com Filtro de Kalman \cite{rafaelMestrado}}
+\label{smithStruct2}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Filtro de Kalman}
+\begin{block}{Considerações sobre o Filtro de Kalman}
+\begin{itemize}
+\item Também conhecido como observador ótimo, é responsável por estimar variáveis de estado e a saída do sistema;
+\item Utiliza uma estrutura de predição e correção para estimar as variáveis.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
+O Filtro de Kalman pode ser aplicado em um sistema descrito por espaço de estados:
+\begin{align}
+\label{KalmanEq1}
+	x_k &= \mathbf{A_k} x_{k-1} + \mathbf{B_k} u_k + w_{k-1}, \\
+	\label{KalmanEq2}
+	y_k &= \mathbf{C_k} x_k, \\
+	\label{KalmanEq3}
+	\tilde{y}_k &= y_k + v_k.
+\end{align}
+\begin{itemize}
+\item $w_k$ e $v_k$ são ruídos relativos, respectivamente, ao processo e à medida;
+\item $\tilde{y}_k$ é uma medida da saída do sistema.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
+\begin{block}{Predição}
+Nessa parte, é calculado o erro de covariância e o estado atual. Matematicamente:
+
+\begin{align}
+\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k\;\mathrm{e} \\
+	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k},
+\end{align}
+
+\begin{itemize}
+\item $\hat{x}_{k}$ é a estimação das variáveis de estado;
+\item $\mathbf{P_k}$ é a covariância do erro de medição, com estimação $\mathbf{{\hat{P}_{k}}}$;
+\item $\mathbf{Q_k}$ é a covariância do ruído de processo.
+\end{itemize}
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
+\begin{block}{Correção}
+Nessa parte, o estado calculado na predição é corrigido incorporando-se uma medição mais recente do processo. Matematicamente:
+\begin{align}
+\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1}, \\
+	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right)\;\mathrm{e} \\
+	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}.
+\end{align}
+\begin{itemize}
+\item $\mathbf{K_k}$ é o ganho de Kalman;
+\item $\mathbf{R_k}$ é a covariância do ruído de medida.
+\end{itemize}
+\end{block}
+\end{frame}
+
 \begin{frame}[fragile]{Bancada - Esquemático}
 \begin{figure}[!ht]
 	\centering
