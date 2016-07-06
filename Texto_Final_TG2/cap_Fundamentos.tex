@@ -346,7 +346,7 @@ minimum height=2em, minimum width=2em]
 \caption{Malha fechada de controle, espaço de estados discreto\label{mfechadatikzEspacoDeEstados}}
 \end{figure}
 
-A Figure \ref{mfechadatikzEspacoDeEstados} mostra como é a malha fechada com a realimentação dos quatro estados do modelo reduzido por meio dos ganhos do vetor $\mathbf{K}_p$ e também com a integração do erro com um ganho $K_i$. Considerando-se essa figura, as matrizes do sistema aumentado são dadas por \begin{align}
+A Figura \ref{mfechadatikzEspacoDeEstados} mostra como é a malha fechada com a realimentação dos quatro estados do modelo reduzido por meio dos ganhos do vetor $\mathbf{K}_p$ e também com a integração do erro com um ganho $K_i$. Considerando-se essa figura, as matrizes do sistema aumentado são dadas por \begin{align}
 	\mathbf{\hat{A}} & = \left[\begin{array}{cc}
 		\mathbf{A} & \mathbf{B}\\
 		\mathbf{0} & \mathbf{0}\\
@@ -354,7 +354,7 @@ A Figure \ref{mfechadatikzEspacoDeEstados} mostra como é a malha fechada com a 
 	\mathbf{\hat{B}} & = \left[\begin{array}{cc}
 		\mathbf{0}\\
 		1\\
-	\end{array}\right].\\
+	\end{array}\right].
 \end{align}
 
 O projeto do controlador resume-se a calcular o ganho $\mathbf{\hat{K}}$ a partir da fórmula de Acker, a qual é explicada em \cite{OgataDiscrete:1995}, que resulta em \begin{align}
