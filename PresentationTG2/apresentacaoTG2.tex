@@ -45,7 +45,10 @@
 \begin{column}{.5\textwidth}
 %\color{red}\rule{\linewidth}{4pt}
 
-\begin{block}{} Há diversas operações realizadas em plataformas de petróleo em alto mar. Entre elas, a operação de reentrada dos risers. Este procedimento é muitas vezes realizado manualmente. A proposta deste trabalho é mostrar que é possível fazer isso de forma automática, por meio de testes em bancada laboratorial.\end{block}
+\begin{block}{}
+\begin{itemize}
+\item Há diversas operações realizadas em plataformas de petróleo em alto mar. Entre elas, a operação de reentrada dos risers. Este procedimento é muitas vezes realizado manualmente. \item A proposta deste trabalho é mostrar que é possível fazer isso de forma automática, por meio de testes em bancada laboratorial, utilizando técnicas de controle para sistemas de ordem infinita.
+\end{itemize}\end{block}
 
 \end{column}%
 \hfill%
@@ -266,11 +269,11 @@ Possui realimentação - obtém o sinal de referência para a planta pela evolu�
 
 \begin{frame}[fragile]{Bancada - Controlador}
 \begin{block}{}
-Responsável por receber dados da câmera e dos sensores, processá-los e enviar sinais de controle para o motor.
+Responsável por receber dados da câmera e dos sensores, processá-los e enviar sinais de controle para o motor. Suporta várias linguagens de programação; para este projeto, foram utilizados \textit{ladder} e texto estruturado.
 \end{block}
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[width=.6\linewidth]{figures/fundamentos/CLP}
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/CLP}
 	\caption{Controlador Lógico Programável da \textit{Allen-Bradley}}
 	\label{clpfig}
 \end{figure}
@@ -380,51 +383,12 @@ Transmite dados da câmera para o CLP, e também transfere os programas em \text
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Programação CLP - Passos}
-\begin{block}{Passos para programação em CLP}
-\begin{enumerate}
-  \item Descrição do problema;
-  \item Detalhamentos e melhoria do processo;
-  \item Especificação dos atuadores e sensores da planta;
-  \item Elaboração do algoritmo;
-  \item Representação gráfica do algoritmo, quando aplicável;
-  \item Esquema funcional, quando aplicável;
-  \item Seleção dos módulos do controlador;
-  \item Programação, utilizando linguagens suportadas.
-\end{enumerate}
+\begin{frame}[fragile]{Redes Industriais}
+\begin{block}{OPC - \textit{OLE for Process Control}}
+Responsável pelo compartilhamento de dados entre o CLP e outros \textit{softwares} no computador. Utilizado para se efetuar atualização de dados dentro do CLP, mas fora do \textit{software} RSLogix5000. Desta forma, partes do controle da bancada podem ser escritos, por exemplo, em Python.
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Linguagem \textit{Ladder}}
-\begin{block}{}
-Linguagem gráfica para CLPs. Lembra conexões elétricas de sistemas com relés.
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.9\linewidth]{figures/fundamentos/motionladder}
-	\caption{Exemplo de programa em \textit{ladder}}
-	\label{laddersample}
-\end{figure}
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Texto Estruturado}
-
-\begin{columns}[T]
-
-\begin{column}{.5\textwidth}
-\begin{block}{Texto Estruturado}
-Linguagem sequencial, semelhante a linguagens como C ou Pascal. Os comandos são executados em sequência, de cima para baixo.
-\end{block}
-\end{column}
-
-\begin{column}{.5\textwidth}
-\lstinputlisting{codes/sample.txt}
-\end{column}
-
-\end{columns}
-
-\end{frame}
 
 \begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
 \begin{table}[!ht]
