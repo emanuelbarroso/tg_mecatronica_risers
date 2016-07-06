@@ -115,9 +115,9 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 	F_n(z,t) &= -m_{fbar} \frac{\partial^2 \Upsilon}{\partial t^2} - \mu \left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{forceN}
 \end{align}
 \end{block}
-\begin{block}{Equação completa para o deslocamento}
+\begin{block}{Equação completa para o deslocamento do barbante}
 \begin{align}
-	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}
+	\frac{\partial^2 \Upsilon}{\partial t^2} &= -\frac{EJ}{m}\frac{\partial^4 \Upsilon}{\partial z^4} + \frac{\partial}{\partial z}\left(\frac{T(z)}{m}\frac{\partial \Upsilon}{\partial z}\right) - \frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|\frac{\partial \Upsilon}{\partial t}\label{equacaoBarbante}
 	\end{align}
 \end{block}
 \begin{block}{}
@@ -127,12 +127,61 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 	\item $m = m_s + m_{fbar}$
 \end{itemize}	
 \end{block}
+\end{frame}
 
+\begin{frame}[fragile]{Equações Governantes}
+\begin{block}{Equação para o deslocamento da carga}
+	\begin{align}
+ 	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1\label{upsilon1final}
+ \end{align}
+\end{block}
+
+\begin{itemize}
+	\item $b_1 = \frac{m_b g}{m'l} = \frac{g}{l}$
+	\item $\tau'$ é a linearização do termo $\frac{1}{2m_b}\rho C_d A_b \left|\dot{\Upsilon}_1\right|$
+\end{itemize}
 	
 \end{frame}
 
+\begin{frame}[fragile]{Discretização}
 
-\begin{frame}[fragile]{Constantes}
+\begin{block}{}
+\begin{itemize}
+	\item A equação \ref{equacaoBarbante} é uma EDP em $z$ e precisa ser discretizada. No presente trabalho, utilizou-se o método diferenças finitas para discretizar em $z$.
+\end{itemize}
+\end{block}
+
+\begin{block}{$k$-ésima EDO}
+\begin{align}
+	\frac{d^2\Upsilon_k}{dt^2} &= -\frac{EJ}{m l\,^4}\left(\Upsilon_{k-2} - 4\Upsilon_{k-1}+6\Upsilon_{k}-4\Upsilon_{k+1}+\Upsilon_{k+2}\right)\nonumber\\
+	&+ \frac{T_0+mg(k-1)l}{m l\,^2}\left(\Upsilon_{k-1}-2\Upsilon_{k} + \Upsilon_{k+1}\right)+g\frac{-\Upsilon_{k-1}+\Upsilon_{k+1}}{2l}\nonumber\\
+	&-\tau\frac{d\Upsilon_k}{dt}
+\end{align}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Definição de constantes}
+\begin{align}
+	a &= -\frac{EJ}{m l^4}\\
+	b_k &= \frac{T_0 + mg(k-1)l}{m l^2},\; k\ge 2\\
+	c &= \frac{g}{2l}\\
+	d_k &= b_k - c,\; k\ge 2\\
+	e_k &= b_k + c,\; k\ge 2
+\end{align}	
+\end{frame}
+
+\begin{frame}[fragile]{Caso exemplo de espaço de estados}
+	\begin{align}
+	\begin{array}{ll}
+\mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T\\
+u &= \Upsilon(L,t) = \Upsilon_7\\
+y &= \Upsilon(0,t) = \Upsilon_1
+\end{array}
+ \end{align} 
+\end{frame}
+
+
+\begin{frame}[fragile]{Constantes da planta}
 
 \begin{block}{}
 \begin{table}[!ht]
@@ -161,7 +210,9 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 
 
 \end{frame}
-\begin{frame}[fragile]{Constantes}
+
+
+\begin{frame}[fragile]{Constantes da planta}
 
 \begin{block}{}
 \begin{table}[!ht]
