@@ -146,11 +146,19 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 		Massa linear & $m_s$ & 0.6 & g/m\\ \hline
 		Raio & $r_{bar}$ & 1 & mm\\ \hline
 		Densidade & $\rho_{bar}$ & 191 & kg/m$^3$\\ \hline
+		Termo de arrasto linear & $\tau$ & 0.2426 & 1/s\\ \hline
 	\end{tabular}
 	
 \end{table}
 
 \end{block}
+
+\begin{block}{}
+\begin{itemize}
+	\item O termo $\tau$ foi obtido considerando-se uma excursão de 30cm e é a média do termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$
+\end{itemize}	
+\end{block}
+
 
 \end{frame}
 \begin{frame}[fragile]{Constantes}
@@ -168,12 +176,15 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 		Coeficiente de arrasto & $C_d$ & 0.6 & - \\ \hline
 		Volume & $V_b$ & $\frac{4}{3}\pi r_b^3$ & $\textrm{m}^3$ \\ \hline
 		Área da seção transversal & $A_b$ & $\pi r_b^2$ & m$^2$\\ \hline
+		Termo de arrasto linear & $\tau'$ & 0.1133 & 1/s\\ \hline
 	\end{tabular}
 	
 \end{table}
 
 \end{block}	
 \end{frame}
+
+
 
 
 \begin{frame}[fragile]{Controle - Malha Aberta x Malha Fechada}
