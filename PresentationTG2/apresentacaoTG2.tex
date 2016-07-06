@@ -27,6 +27,8 @@
 \author{Ataias Pereira Reis\\ Emanuel Pereira Barroso Neto}
 \institute{Faculdade de Tecnologia\\ Universidade de Brasília}
  \titlegraphic{\hfill\includegraphics[height=1.0cm]{figures/logoVerdeUnB}}
+ 
+ \newcommand\Fontvi{\fontsize{6}{7.2}\selectfont}
 
 \begin{document}
 
@@ -171,14 +173,64 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 \end{frame}
 
 \begin{frame}[fragile]{Caso exemplo de espaço de estados}
+\begin{block}{Definição dos estados, entrada e saída}
 	\begin{align}
 	\begin{array}{ll}
-\mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T\\
-u &= \Upsilon(L,t) = \Upsilon_7\\
-y &= \Upsilon(0,t) = \Upsilon_1
+	\mathbf{x} &= \left(\Upsilon_1\;\Upsilon_2\;\Upsilon_3\;\Upsilon_4\;\Upsilon_5\;\Upsilon_6\;\dot{\Upsilon}_1\;\dot{\Upsilon}_2\;\dot{\Upsilon}_3\;\dot{\Upsilon}_4\;\dot{\Upsilon}_5\;\dot{\Upsilon}_6\right)^T\\
+	u &= \Upsilon(L,t) = \Upsilon_7\\
+	y &= \Upsilon(0,t) = \Upsilon_1
 \end{array}
  \end{align} 
+\end{block}
+
+\begin{block}{Equações para as derivadas segundas}
+\begin{align}
+	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1\\
+	\ddot{\Upsilon}_i &=d_i\Upsilon_{i-1} - 2b_i \Upsilon_{i} + e_i\Upsilon_{i+1} - \tau \dot{\Upsilon}_i,\; 2\le i \le 5\\
+	\ddot{\Upsilon}_6 &= d_6\Upsilon_5 - 2b_6 \Upsilon_6 + e_6 u - \tau \dot{\Upsilon}_6
+\end{align}	
+\end{block}
 \end{frame}
+
+\begin{frame}[fragile]{Espaço de Estados}
+\Fontvi
+	\begin{align}
+ 	\dot{\mathbf{x}} &= \left[\begin{array}{cccccccccccc}
+ 		0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
+ 		0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
+ 		-b_1 & b_1 & 0 & 0 & 0 & 0 & -\tau' & 0     & 0 & 0 & 0 & 0\\
+ 		d_2 & -2b_2  & e_2  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0 & 0\\
+ 		0 & d_3 & -2b_3  & e_3  & 0  & 0 & 0 &  0    & -\tau & 0 & 0 & 0\\
+ 		0 & 0 & d_4 & -2b_4  & e_4  & 0  & 0 & 0 &  0    & -\tau & 0 & 0\\
+ 		0 & 0 & 0 & d_5 & -2b_5  & e_5  & 0  & 0 & 0 &  0    & -\tau & 0\\
+ 		0 & 0 & 0 & 0 & d_6 & -2b_6  & 0  & 0 & 0 &  0    & 0   &-\tau\\
+ 	\end{array}\right]\mathbf{x} \nonumber\\
+ 	&+ \left[0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;e_6\right]u
+ \end{align}
+\end{frame}
+
+\begin{frame}[fragile]{Espaço de Estados}
+Para o caso de uma discretização com $N$ pontos, tem-se 
+\begin{align}
+\begin{array}{ll}
+ 	\dot{\mathbf{x}} &= \left[\begin{array}{cc}
+	\mathbf{0}_{N\times N} & \mathbf{I}_{N\times N}\\
+	\mathbf{M}_{N\times N} & \mathbf{L}_{N\times N}\\
+\end{array}\right] \mathbf{x} + \left[\begin{array}{c}
+	\mathbf{0}_{2N-1\times 1}\\ e_N\\
+\end{array} \right]u,\;\;\\
+y &= \left[\begin{array}{cc}
+	1 & \textbf{0}_{1\times 2N-1}
+\end{array}\right]\textbf{x}.
+\end{array}
+ \end{align}
+
+\end{frame}
+
 
 
 \begin{frame}[fragile]{Constantes da planta}
