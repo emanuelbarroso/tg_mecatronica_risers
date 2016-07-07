@@ -1159,8 +1159,19 @@ O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os ganhos o
 \begin{frame}[fragile]{Conclusão}
 \begin{block}{Conclusões}
 \begin{itemize}
-	\item Foi possível desenvolver uma estrutura baseada no Preditor de Smith de forma a se controlar a trajetória do barbante de forma razoável; o sistema da ponte rolante foi reduzido para um sistema de ordem baixa, e foi utilizado o preditor em conjunção com Filtro de Kalman e controlador por realimentação de estados com canal integral para se efetuar o controle de trajetória;
-	\item Pelos resultados experimentais, nota-se que é possível adaptar o preditor construído para a situação de um \textit{riser} real, efetuando-se as correções necessárias.
+	\item Adquiriu-se um alto conhecimento da bancada e de seus componentes;
+	\item Foram feitos vários programas de forma a se automatizar a geração das matrizes do sistema reduzido e a criação de alguns programas em texto estruturado a serem executados no CLP;
+	\item Foi desenvolvida uma estratégia de programação do controlador utilizando OPC e Python de forma a se facilitar a adaptação de outras estruturas de controle à ponte rolante;
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Conclusão}
+\begin{block}{Conclusões}
+\begin{itemize}
+	\item Foi possível desenvolver uma estrutura baseada no Preditor de Smith de forma a se controlar a trajetória do barbante de forma razoável, utilizando um sistema reduzido com atraso;
+	\item Foi possível validar a trajetória analítica apresentada, com resultados satisfatórios;
+	\item Por mais que tenham ocorrido problemas experimentais, como perdas de comunicação, nota-se que é possível adaptar o preditor construído para a situação de um \textit{riser} real, efetuando-se as correções necessárias.
 \end{itemize}
 \end{block}
 \end{frame}
