@@ -98,6 +98,186 @@
 
 \section{Fundamentos}
 
+
+\begin{frame}[fragile]{Bancada - Esquemático}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.9\linewidth]{figures/fundamentos/bancadaEsquematico}
+	\caption{Esquemático da ponte rolante \cite{redytton}}
+	\label{bancadaesq}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - Controlador}
+\begin{block}{}
+Responsável por receber dados da câmera e dos sensores, processá-los e enviar sinais de controle para o motor. Suporta várias linguagens de programação; para este projeto, foram utilizados \textit{ladder} e texto estruturado.
+\end{block}
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/CLP}
+	\caption{Controlador Lógico Programável da \textit{Allen-Bradley}}
+	\label{clpfig}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - Câmera e Drive Kinetix}
+\begin{columns}[T]
+
+\begin{column}{.5\textwidth}
+\begin{block}{Câmera}
+Responsável por enviar a posição da bolinha para o CLP. Atua como sensor visual.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.3\linewidth]{figures/fundamentos/camera}
+	\caption{Câmera \textit{Presence Plus} \cite{redytton}}
+	\label{bancadacamera}
+\end{figure}
+
+\end{column}
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Drive Kinetix}
+Responsável por fornecer potência para o motor e controlá-lo por meio de pulsos PWM.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.3\linewidth]{figures/fundamentos/kinetix6000}
+	\caption{\textit{Drive Kinetix 6000} \cite{redytton}}
+	\label{bancadadrive}
+\end{figure}
+
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - \textit{Line Interface Module}}
+\begin{block}{}
+Responsável pela interface elétrica entre o \textit{Drive Kinetix} e a rede de alimentação trifásica.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/LineInterfaceModule}
+	\caption{\textit{Line Interface Module} \cite{redytton}}
+	\label{bancadalim}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]{Bancada - Sensores Indutivos e Servomotor}
+
+\begin{columns}[T]
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Sensores Indutivos}
+Detectam objetos metálicos; podem operar em modo analógico ou digital. Utilizados como chaves de fim de curso para a rotina de emergência.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.6\linewidth]{figures/fundamentos/sensorIndutivo}
+	\caption{Sensor Indutivo \cite{redytton}}
+	\label{bancadaindut}
+\end{figure}
+
+\end{column}
+
+\begin{column}{.5\textwidth}
+
+\begin{block}{Servomotor}
+Atuador rotatório composto de motor elétrico com sensor acoplado; permite controle preciso da posição angular.
+\end{block}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.5\linewidth]{figures/fundamentos/servomotor}
+	\caption{Servomotor \cite{redytton}}
+	\label{bancadaservo}
+\end{figure}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}[fragile]{Redes Industriais}
+\begin{columns}[T]
+\begin{column}{.5\textwidth}
+\begin{block}{DeviceNet}
+Rede responsável por conectar os sensores indutivos ao CLP por meio do módulo 1756-DNB. Suporta conexões de dispositivos de baixo nível com CLPs e outros dispositivos de alto nível, como o computador \cite{devicenetrockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-DNB}.
+\end{block}
+\end{column}
+
+\begin{column}{.5\textwidth}
+\begin{block}{Ethernet/IP}
+Transmite dados da câmera para o CLP, e também transfere os programas em \textit{ladder} ou texto estruturado do computador para o controlador. É uma rede indicada para aplicações em que o tempo é crítico \cite{eiprockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-ENBT/A}.
+\end{block}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Redes Industriais}
+\begin{block}{OPC - \textit{OLE for Process Control}}
+Responsável pelo compartilhamento de dados entre o CLP e outros \textit{softwares} no computador. Utilizado para se efetuar atualização de dados dentro do CLP, mas fora do \textit{software} RSLogix5000. Desta forma, partes do controle da bancada podem ser escritos, por exemplo, em Python.
+\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
+\begin{table}[!ht]
+\centering
+\caption{Dados para simulação em escala real\label{escalaReal} \cite{redytton}}
+	\begin{tabular}{|c|c|}
+	\hline
+		\multicolumn{2}{|c|}{\textbf{Dados do Riser}}\\ \hline
+		Diâmetro externo & $0.55\mathrm{m}$\\ \hline
+		Diâmetro interno & $0.5\mathrm{m}$ \\ \hline
+		Comprimento & $2000\mathrm{m}$ \\ \hline
+		Módulo de Elasticidade & $200 \mathrm{GPa}$\\ \hline
+		Densidade &  $7860\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Água)}}\\ \hline
+		Densidade do fluido &  $1000\mathrm{kg}/\mathrm{m}^3$\\ \hline
+		Viscosidade dinâmica & $10^3 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+	\end{tabular}
+
+
+
+\end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
+
+\begin{table}[!ht]
+	\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
+	\centering
+	\begin{tabular}{|c|c|}
+		\hline
+			\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
+			Diâmetro Externo & $30.6\mathrm{mm}$\\ \hline
+			Densidade & $10\mathrm{kg}/\mathrm{m}^3$ \\ \hline
+			\multicolumn{2}{|c|}{\textbf{Dados do Riser (Barbante)}}\\ \hline
+			Diâmetro externo & $2\mathrm{mm}$\\ \hline
+			Diâmetro interno & $0\mathrm{mm}$ \\ \hline
+			Comprimento & $82\mathrm{cm}$ \\ \hline
+			Módulo de Elasticidade & $2.1 \mathrm{MPa}$\\ \hline
+			Densidade &  $191\mathrm{kg}/\mathrm{m}^3$\\ \hline
+			\multicolumn{2}{|c|}{\textbf{Dados do fluido (Ar)}}\\ \hline
+			Densidade do fluido &  $1.2754\mathrm{kg}/\mathrm{m}^3$\\ \hline
+			Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
+		\end{tabular}
+\end{table}
+
+\end{frame}
+
 \begin{frame}[fragile]{Equações Governantes}
 
 \begin{block}{}
@@ -132,7 +312,46 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Constantes da planta}
+
+\begin{block}{}
+\begin{table}[!ht]
+	\centering
+	\caption{Constantes do barbante\label{constanteBarbante}}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{bar}$ & 0.492 & g\\ \hline
+		Comprimento & $L$ & 0.82 & m \\ \hline
+		Massa linear & $m_s$ & 0.6 & g/m\\ \hline
+		Raio & $r_{bar}$ & 1 & mm\\ \hline
+		Densidade & $\rho_{bar}$ & 191 & kg/m$^3$\\ \hline
+		Termo de arrasto linear & $\tau$ & 0.2426 & 1/s\\ \hline
+	\end{tabular}
+	
+\end{table}
+
+\end{block}
+
+\begin{block}{}
+\begin{itemize}
+	\item O termo $\tau$ foi obtido considerando-se uma excursão de 30cm e é a média do termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$
+\end{itemize}	
+\end{block}
+
+
+\end{frame}
+
+
+
+
 \begin{frame}[fragile]{Equações Governantes}
+\begin{block}{}
+A equação para a posição da carga $\Upsilon_1$ leva em conta a massa da bolinha e a força de Morison e é dada por \begin{align}
+ 	m_b \ddot{\Upsilon}_1 &= \frac{m_b g}{l}\left(\Upsilon_2 - \Upsilon_1\right) + \rho_{\mathrm{ar}} C_m V_b \ddot{\Upsilon}_1 - \frac{1}{2}\rho_{\textrm{ar}} C_d A_b \dot{\Upsilon}_1 \left|\dot{\Upsilon}_1\right|.\label{upsilon1previa}
+ \end{align} 	
+\end{block}
+
 \begin{block}{Equação para o deslocamento da carga}
 	\begin{align}
  	\ddot{\Upsilon}_1 &= b_1\left(-\Upsilon_1 + \Upsilon_2\right) - \tau'\dot{\Upsilon}_1\label{upsilon1final}
@@ -141,9 +360,34 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
 
 \begin{itemize}
 	\item $b_1 = \frac{m_b g}{m'l} = \frac{g}{l}$
-	\item $\tau'$ é a linearização do termo $\frac{1}{2m_b}\rho C_d A_b \left|\dot{\Upsilon}_1\right|$
+	\item $\tau'$ é a linearização do termo $\frac{1}{2m_b}\rho_{\textrm{ar}} C_d A_b \left|\dot{\Upsilon}_1\right|$
+	\item $\rho_{\textrm{ar}}$ é a densidade do ar
 \end{itemize}
 	
+\end{frame}
+
+
+\begin{frame}[fragile]{Constantes da planta}
+
+\begin{block}{}
+\begin{table}[!ht]
+	\centering
+	\caption{Constantes da bolinha de isopor\label{constanteIsopor}}
+	\begin{tabular}{|l|c|c|c|}
+		\hline
+		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
+		Massa & $m_{b}$ & 0.492 & g\\ \hline
+		Raio & $r_{b}$ & 15.3 & mm\\ \hline
+		Coeficiente de inércia & $C_m$ & 1.2 & - \\ \hline
+		Coeficiente de arrasto & $C_d$ & 0.6 & - \\ \hline
+		Volume & $V_b$ & $\frac{4}{3}\pi r_b^3$ & $\textrm{m}^3$ \\ \hline
+		Área da seção transversal & $A_b$ & $\pi r_b^2$ & m$^2$\\ \hline
+		Termo de arrasto linear & $\tau'$ & 0.1133 & 1/s\\ \hline
+	\end{tabular}
+	
+\end{table}
+
+\end{block}	
 \end{frame}
 
 \begin{frame}[fragile]{Discretização}
@@ -210,9 +454,9 @@ A equação diferencial parcial para a variável deslocamento, $\Upsilon$, é da
  		0 & 0 & 0 & d_5 & -2b_5  & e_5  & 0  & 0 & 0 &  0    & -\tau & 0\\
  		0 & 0 & 0 & 0 & d_6 & -2b_6  & 0  & 0 & 0 &  0    & 0   &-\tau\\
  	\end{array}\right]\mathbf{x} \nonumber\\
- 	&+ \left[0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;e_6\right]u
+ 	&+ \left[0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;0\;e_6\right]^Tu
  \end{align}
-\end{frame}
+\end{frame}  
 
 \begin{frame}[fragile]{Espaço de Estados}
 Para o caso de uma discretização com $N$ pontos, tem-se 
@@ -310,62 +554,6 @@ Conforme mostrado por Fortaleza \cite{teseEugenio}, pode-se refinar o modelo red
 \end{block}
 	
 \end{frame}
-
-
-\begin{frame}[fragile]{Constantes da planta}
-
-\begin{block}{}
-\begin{table}[!ht]
-	\centering
-	\caption{Constantes do barbante\label{constanteBarbante}}
-	\begin{tabular}{|l|c|c|c|}
-		\hline
-		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
-		Massa & $m_{bar}$ & 0.492 & g\\ \hline
-		Comprimento & $L$ & 0.82 & m \\ \hline
-		Massa linear & $m_s$ & 0.6 & g/m\\ \hline
-		Raio & $r_{bar}$ & 1 & mm\\ \hline
-		Densidade & $\rho_{bar}$ & 191 & kg/m$^3$\\ \hline
-		Termo de arrasto linear & $\tau$ & 0.2426 & 1/s\\ \hline
-	\end{tabular}
-	
-\end{table}
-
-\end{block}
-
-\begin{block}{}
-\begin{itemize}
-	\item O termo $\tau$ foi obtido considerando-se uma excursão de 30cm e é a média do termo $\frac{\mu}{m}\left|\frac{\partial \Upsilon}{\partial t}\right|$
-\end{itemize}	
-\end{block}
-
-
-\end{frame}
-
-
-\begin{frame}[fragile]{Constantes da planta}
-
-\begin{block}{}
-\begin{table}[!ht]
-	\centering
-	\caption{Constantes da bolinha de isopor\label{constanteIsopor}}
-	\begin{tabular}{|l|c|c|c|}
-		\hline
-		\textbf{Significado} & \textbf{Símbolo} & \textbf{Valor} & \textbf{Unidade}\\ \hline \hline
-		Massa & $m_{b}$ & 0.492 & g\\ \hline
-		Raio & $r_{b}$ & 15.3 & mm\\ \hline
-		Coeficiente de inércia & $C_m$ & 1.2 & - \\ \hline
-		Coeficiente de arrasto & $C_d$ & 0.6 & - \\ \hline
-		Volume & $V_b$ & $\frac{4}{3}\pi r_b^3$ & $\textrm{m}^3$ \\ \hline
-		Área da seção transversal & $A_b$ & $\pi r_b^2$ & m$^2$\\ \hline
-		Termo de arrasto linear & $\tau'$ & 0.1133 & 1/s\\ \hline
-	\end{tabular}
-	
-\end{table}
-
-\end{block}	
-\end{frame}
-
 
 
 
@@ -591,261 +779,13 @@ Na Figura \ref{smithStruct2}, \textbf{P} é a planta, \textbf{C} é o controlado
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Filtro de Kalman}
-\begin{block}{Considerações sobre o Filtro de Kalman}
-\begin{itemize}
-\item Também conhecido como observador ótimo, é responsável por estimar variáveis de estado e a saída do sistema;
-\item Utiliza uma estrutura de predição e correção para estimar as variáveis.
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
-O Filtro de Kalman pode ser aplicado em um sistema descrito por espaço de estados:
-\begin{align}
-\label{KalmanEq1}
-	x_k &= \mathbf{A_k} x_{k-1} + \mathbf{B_k} u_k + w_{k-1}, \\
-	\label{KalmanEq2}
-	y_k &= \mathbf{C_k} x_k, \\
-	\label{KalmanEq3}
-	\tilde{y}_k &= y_k + v_k.
-\end{align}
-\begin{itemize}
-\item $w_k$ e $v_k$ são ruídos relativos, respectivamente, ao processo e à medida;
-\item $\tilde{y}_k$ é uma medida da saída do sistema.
-\end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
-\begin{block}{Predição}
-Nessa parte, é calculado o erro de covariância e o estado atual. Matematicamente:
-
-\begin{align}
-\label{KalmanEq4} {\hat{x}_{k}}^{-} &= \mathbf{A_k} \hat{x}_{k-1} + \mathbf{B_k} u_k\;\mathrm{e} \\
-	\label{KalmanEq5} \mathbf{{\hat{P}_{k}}^{-}} &= \mathbf{A_k}\mathbf{P_{k-1}}\mathbf{{A_k}^T} + \mathbf{Q_k},
-\end{align}
-
-\begin{itemize}
-\item $\hat{x}_{k}$ é a estimação das variáveis de estado;
-\item $\mathbf{P_k}$ é a covariância do erro de medição, com estimação $\mathbf{{\hat{P}_{k}}}$;
-\item $\mathbf{Q_k}$ é a covariância do ruído de processo.
-\end{itemize}
-
-\end{block}
-
-\end{frame}
-
-\begin{frame}[fragile]{Filtro de Kalman - Modelagem}
-\begin{block}{Correção}
-Nessa parte, o estado calculado na predição é corrigido incorporando-se uma medição mais recente do processo. Matematicamente:
-\begin{align}
-\label{KalmanEq6} \mathbf{K_k} &= \mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} {\left( \mathbf{C_k}\mathbf{{\hat{P}_{k}}^{-}}\mathbf{{C_k}^T} + \mathbf{R_k} \right)}^{-1}, \\
-	\label{KalmanEq7} \hat{x}_k &= {\hat{x}_{k}}^{-} + \mathbf{K_k} \left( \tilde{y}_k - \mathbf{C_k}{\hat{x}_{k}}^{-} \right)\;\mathrm{e} \\
-	\label{KalmanEq8} \mathbf{P_k} &= \left( \mathbf{I} - \mathbf{K_k}\mathbf{C_k}\right)\mathbf{{\hat{P}_{k}}^{-}}.
-\end{align}
-\begin{itemize}
-\item $\mathbf{K_k}$ é o ganho de Kalman;
-\item $\mathbf{R_k}$ é a covariância do ruído de medida.
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Filtro de Kalman}
-\begin{block}{Uso do Filtro de Kalman no Preditor de Smith}
-\begin{itemize}
-\item O Filtro de Kalman é utilizado em conjunção com o controlador fornecendo uma estimação $\hat{y}$ a ser utilizada no canal integral;
-\item As matrizes $\mathbf{A}$, $\mathbf{B}$ e $\mathbf{C}$ do filtro podem ser obtidas através da discretização das matrizes de espaço de estados do modelo reduzido escritas na forma canônica controlável. Desta forma, tem-se $\hat{y}$ = $\hat{x}_{\,1}$, o que facilita o projeto do controlador.
-\end{itemize}
-\end{block}
-\end{frame}
-
-\begin{frame}[fragile]{Bancada - Esquemático}
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.9\linewidth]{figures/fundamentos/bancadaEsquematico}
-	\caption{Esquemático da ponte rolante \cite{redytton}}
-	\label{bancadaesq}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Bancada - Controlador}
-\begin{block}{}
-Responsável por receber dados da câmera e dos sensores, processá-los e enviar sinais de controle para o motor. Suporta várias linguagens de programação; para este projeto, foram utilizados \textit{ladder} e texto estruturado.
-\end{block}
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.5\linewidth]{figures/fundamentos/CLP}
-	\caption{Controlador Lógico Programável da \textit{Allen-Bradley}}
-	\label{clpfig}
-\end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Bancada - Câmera e Drive Kinetix}
-\begin{columns}[T]
-
-\begin{column}{.5\textwidth}
-\begin{block}{Câmera}
-Responsável por enviar a posição da bolinha para o CLP. Atua como sensor visual.
-\end{block}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.3\linewidth]{figures/fundamentos/camera}
-	\caption{Câmera \textit{Presence Plus} \cite{redytton}}
-	\label{bancadacamera}
-\end{figure}
-
-\end{column}
-
-\begin{column}{.5\textwidth}
-
-\begin{block}{Drive Kinetix}
-Responsável por fornecer potência para o motor e controlá-lo por meio de pulsos PWM.
-\end{block}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.3\linewidth]{figures/fundamentos/kinetix6000}
-	\caption{\textit{Drive Kinetix 6000} \cite{redytton}}
-	\label{bancadadrive}
-\end{figure}
-
-\end{column}
-
-\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Bancada - \textit{Line Interface Module}}
-\begin{block}{}
-Responsável pela interface elétrica entre o \textit{Drive Kinetix} e a rede de alimentação trifásica.
-\end{block}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.5\linewidth]{figures/fundamentos/LineInterfaceModule}
-	\caption{\textit{Line Interface Module} \cite{redytton}}
-	\label{bancadalim}
-\end{figure}
-
-\end{frame}
-
-\begin{frame}[fragile]{Bancada - Sensores Indutivos e Servomotor}
-
-\begin{columns}[T]
-
-\begin{column}{.5\textwidth}
-
-\begin{block}{Sensores Indutivos}
-Detectam objetos metálicos; podem operar em modo analógico ou digital. Utilizados como chaves de fim de curso para a rotina de emergência.
-\end{block}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.6\linewidth]{figures/fundamentos/sensorIndutivo}
-	\caption{Sensor Indutivo \cite{redytton}}
-	\label{bancadaindut}
-\end{figure}
-
-\end{column}
-
-\begin{column}{.5\textwidth}
-
-\begin{block}{Servomotor}
-Atuador rotatório composto de motor elétrico com sensor acoplado; permite controle preciso da posição angular.
-\end{block}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=.5\linewidth]{figures/fundamentos/servomotor}
-	\caption{Servomotor \cite{redytton}}
-	\label{bancadaservo}
-\end{figure}
-
-\end{column}
-
-\end{columns}
-
-\end{frame}
-
-\begin{frame}[fragile]{Redes Industriais}
-\begin{columns}[T]
-\begin{column}{.5\textwidth}
-\begin{block}{DeviceNet}
-Rede responsável por conectar os sensores indutivos ao CLP por meio do módulo 1756-DNB. Suporta conexões de dispositivos de baixo nível com CLPs e outros dispositivos de alto nível, como o computador \cite{devicenetrockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-DNB}.
-\end{block}
-\end{column}
-
-\begin{column}{.5\textwidth}
-\begin{block}{Ethernet/IP}
-Transmite dados da câmera para o CLP, e também transfere os programas em \textit{ladder} ou texto estruturado do computador para o controlador. É uma rede indicada para aplicações em que o tempo é crítico \cite{eiprockwell}. O módulo responsável pelo \textit{scan} desta rede é o \textit{1756-ENBT/A}.
-\end{block}
-\end{column}
-
-\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Redes Industriais}
-\begin{block}{OPC - \textit{OLE for Process Control}}
-Responsável pelo compartilhamento de dados entre o CLP e outros \textit{softwares} no computador. Utilizado para se efetuar atualização de dados dentro do CLP, mas fora do \textit{software} RSLogix5000. Desta forma, partes do controle da bancada podem ser escritos, por exemplo, em Python.
-\end{block}
-\end{frame}
-
-
-\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
-\begin{table}[!ht]
-\centering
-\caption{Dados para simulação em escala real\label{escalaReal} \cite{redytton}}
-	\begin{tabular}{|c|c|}
-	\hline
-		\multicolumn{2}{|c|}{\textbf{Dados do Riser}}\\ \hline
-		Diâmetro externo & $0.55\mathrm{m}$\\ \hline
-		Diâmetro interno & $0.5\mathrm{m}$ \\ \hline
-		Comprimento & $2000\mathrm{m}$ \\ \hline
-		Módulo de Elasticidade & $200 \mathrm{GPa}$\\ \hline
-		Densidade &  $7860\mathrm{kg}/\mathrm{m}^3$\\ \hline
-		\multicolumn{2}{|c|}{\textbf{Dados do fluido (Água)}}\\ \hline
-		Densidade do fluido &  $1000\mathrm{kg}/\mathrm{m}^3$\\ \hline
-		Viscosidade dinâmica & $10^3 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
-	\end{tabular}
-
-
-
-\end{table}
-
-\end{frame}
-
-\begin{frame}[fragile]{Parâmetros Para Geração de Trajetórias}
-
-\begin{table}[!ht]
-	\caption{Dados para simulação em escala laboratorial\label{escalaLaboratorial}}
-	\centering
-	\begin{tabular}{|c|c|}
-		\hline
-			\multicolumn{2}{|c|}{\textbf{Dados da Massa na Ponta - Isopor}} \\ \hline
-			Diâmetro Externo & $30.6\mathrm{mm}$\\ \hline
-			Densidade & $10\mathrm{kg}/\mathrm{m}^3$ \\ \hline
-			\multicolumn{2}{|c|}{\textbf{Dados do Riser (Barbante)}}\\ \hline
-			Diâmetro externo & $2\mathrm{mm}$\\ \hline
-			Diâmetro interno & $0\mathrm{mm}$ \\ \hline
-			Comprimento & $82\mathrm{cm}$ \\ \hline
-			Módulo de Elasticidade & $2.1 \mathrm{MPa}$\\ \hline
-			Densidade &  $191\mathrm{kg}/\mathrm{m}^3$\\ \hline
-			\multicolumn{2}{|c|}{\textbf{Dados do fluido (Ar)}}\\ \hline
-			Densidade do fluido &  $1.2754\mathrm{kg}/\mathrm{m}^3$\\ \hline
-			Viscosidade dinâmica & $17.2\cdot 10^6 \mathrm{Pa}\cdot \mathrm{s}$ \\ \hline
-		\end{tabular}
-\end{table}
-
-\end{frame}
-
-
 \section{Resultados}
 
 \begin{frame}[fragile]{Calibração da Câmera}
 \begin{block}{Passos para a calibração da câmera}
 \begin{enumerate}
 	\item Atualização do \textit{firmware};
-	\item Reconhecimento da câmera pelo \textit{software RsLinx};
+	\item Reconhecimento da câmera pelo \textit{software RSLinx};
 	\item Estabelecimento de um endereço IP para a câmera no \textit{software PresencePlus};
 	\item Uso das ferramentas de tomada de dados da câmera no \textit{software PresencePlus};
 	\item Obtenção da relação entre \textit{pixels} da câmera e milímetros.
@@ -906,12 +846,13 @@ Responsável pelo compartilhamento de dados entre o CLP e outros \textit{softwar
 \end{table}
 Erro aproximado: 4.93 \%
 \end{frame}
-
+                                         
 \begin{frame}[fragile]{Calibração do Servomotor}
-\begin{block}{Passos para a calibração}
+\begin{block}{Passos para a calibração}                       
 \begin{enumerate}
-	\item Obtenção da posição inicial $x_0$ e posição final $x_f$, em milímetros;
+	\item Obtenção da posição inicial $x_0$, em milímetros;
 	\item Definição de um intervalo de tempo $\Delta t$ e uma velocidade de movimentação do carrinho $v$ em $[\mathrm{u}/\mathrm{s}]$;
+	\item Obtenção da posição final $x_f$, em milímetros;
 	\item Cálculo da velocidade em $[\mathrm{mm}/\mathrm{s}]$ a partir dos dados obtidos.
 \end{enumerate}
 \end{block}
@@ -941,7 +882,7 @@ Erro aproximado: 4.93 \%
 \begin{block}{Espaço de Estados Contínuo}
 \Fontvii
 \begin{align}
-\mathbf{\dot{z}} &= \left[\begin{array}{cccc}
+\dot{\mathbf{z}} &= \left[\begin{array}{cccc}
 		-0.0881  & -3.8389 &         0 &         0\\
     3.8389 &   -0.0881 &         0 &         0\\
          0 &         0 &   -0.1061 &  -10.8145\\
@@ -1001,6 +942,30 @@ y_k &= \left[-0.0003,\;0.0148,\;0.0001,\;-0.0029\right]\mathbf{z_k} - 0.0685 u_k
 \end{align}
 \end{block}
 \end{frame}
+
+\begin{frame}[fragile]{Parâmetros de Controle}
+\begin{block}{Polos originais}
+\begin{align}
+\mathbf{p}_o &= \left[0.9191\pm 0.3712j,\; 0.4651 \pm 0.8733j\right]	
+\end{align}
+	
+\end{block}
+
+\begin{block}{Polos definidos}
+\begin{align}
+\mathbf{p} &= \left[0.6,\;0.6,\;0.6,\;0.5\pm 0.4j\right]	
+\end{align}	
+\end{block}
+
+O primeiro polo se deve ao integrador que foi adicionado ao sistema. Os ganhos obtidos para esse caso são dados por \begin{align}
+ \begin{array}{ll}
+	 	\mathbf{K_p} &= \left[0.0080,\;0.0096,\;-0.0046,\;-0.0004\right],\\
+ 	K_i &= 0.1953.\\ 	
+ \end{array}\label{ganhosObtidos}
+ \end{align}
+	
+\end{frame}
+
 
 \subsection{Simulação}
 \begin{frame}[fragile]{Simulação para Malha aberta}
