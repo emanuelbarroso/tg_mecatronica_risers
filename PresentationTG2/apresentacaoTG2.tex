@@ -477,30 +477,54 @@ y &= \left[\begin{array}{cc}
 \end{frame}
 
 \begin{frame}[fragile]{Redução modal}
-\begin{block}{}
-\begin{itemize}
-	\item Desejar ter um pequeno número de variáveis de estado para simplificar a realização do controlador. Os passos incluem:
-		\begin{enumerate}
-			\item Obtenção da matriz modal $\mathbf{T}$ \label{obtencaoT}
-			\item Obtenção da matriz modal real $\tilde{\mathbf{T}}$ \label{obtencaoTReal}
-			\item Usar $\tilde{\mathbf{T}}$ para uma transformação de similaridade no sistema original, tendo um matriz $\mathbf{A_m}$ do novo sistema diagonal por blocos \label{similaridadeTransformacao}
-			\item Selecionar os subsistemas de maior ganho para definir o sistema reduzido \label{subsistemaReduzidoGanhos}
-			\item Definir equações do sistema reduzido \label{sistemaReduzido}
-			\item Modificar as matrizes reduzidas de $\mathbf{B}$ e $\mathbf{D}$ para o sistema reduzido ter dinâmica nula para $t < \epsilon$ e transferência direta reduzida \label{atrasonoSistemaReduzido}
-		\end{enumerate}
-\end{itemize}	
-\end{block}
+ Desejar ter um pequeno número de variáveis de estado para simplificar a realização do controlador. O esquemático abaixo exemplica o procedimento.
 
+\begin{figure}
+\centering
+\tikzstyle{block} = [draw, fill=blue!20, rectangle,font=\tiny, 
+minimum height=0.5em, minimum width=2em]
+\tikzstyle{sum} = [draw, fill=blue!20, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+	\begin{tikzpicture}[auto, node distance=1.5cm,>=latex']
+	% We start by placing the blocks
+	\node [input, name=input] {};
+	\node [block, right of=input, pin={[pinstyle,font=\small]above:Ordem $2N$}] (controller) {$\begin{aligned}
+	\dot{\mathbf{x}} &= \mathbf{A}\mathbf{x} + \mathbf{B}u\\ 
+	y &= \mathbf{C}\mathbf{x}\end{aligned}$};
+	\node [block, right of=controller, pin={[pinstyle,font=\small]above:Ordem $2N$},
+	node distance=3cm] (system) {$\begin{aligned}
+	\dot{\mathbf{x}} &= \mathbf{A_M}\mathbf{x} + \mathbf{B_M}u(t)\\ 
+	y &= \mathbf{C}_\mathbf{M}\mathbf{x}\end{aligned}$};
+	
+	\draw [->] (controller) -- node[name=u] {$\tilde{\mathbf{T}}$} (system);
+	\node [block, right of=system, pin={[pinstyle,font=\small]above:Ordem $4$},
+	node distance=4cm] (reducao) {$\begin{aligned}
+	\dot{\mathbf{x}} &= \mathbf{A_R}\mathbf{x} + \mathbf{B_R}u(t)\\ 
+	y &= \mathbf{C}_{\mathbf{R}} + \mathbf{D}_{\mathbf{R}}\mathbf{x}\end{aligned}$};
+	\node [block, below of=reducao, pin={[pinstyle,font=\small]below:Atraso $\epsilon$},
+	node distance=1.5cm] (atraso) {$\begin{aligned}
+	\dot{\mathbf{x}} &= \mathbf{A_R}\mathbf{x} + \mathbf{B_D}u(t-\epsilon)\\ 
+	y &= \mathbf{C}_{\mathbf{R}} + \mathbf{D}_{\mathbf{D}}u(t-\epsilon)\end{aligned}$};
+	\draw [->] (system) -- node[name=u] {Redução} (reducao);
+	\draw [->] (reducao) -- node[name=u] {} (atraso);
+	% Once the nodes are placed, connecting them is easy. 
+	\draw [draw,->] (input) -- node {$N$} (controller);
+%	\draw [->] (system) -- node [name=y] {$y$}(reducao); 
+	\end{tikzpicture}
+	\end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Redução modal}
-\begin{block}{\ref{obtencaoT}. Obtenção da matriz modal}
+\begin{block}{1. Obtenção da matriz modal}
 	\begin{align}
 	\mathbf{T} &= \left(\;\mathbf{v_1}\;|\;\mathbf{v_2}\;|\;\ldots\;|\;\mathbf{v_{2N}}\;\right)_{1\times 2N}
 \end{align}
 \end{block}
 
-\begin{block}{\ref{obtencaoTReal}. Obtenção da matriz modal real}
+\begin{block}{2. Obtenção da matriz modal real}
 Modo de construção: Quando a primeira coluna de um autovetor de um par complexo conjugado for encontrada, a coluna respectiva de $\tilde{\mathbf{T}}$ será sua parte real. A segunda coluna desse par complexo conjugado será a parte imaginária da coluna de $\mathbf{T}$
 \end{block}
 
@@ -508,7 +532,7 @@ Modo de construção: Quando a primeira coluna de um autovetor de um par complex
 
 
 \begin{frame}[fragile]{Redução modal}
-\begin{block}{\ref{similaridadeTransformacao}. Transformação de similaridade}
+\begin{block}{3. Transformação de similaridade}
 \begin{align}
 	\mathbf{A_M} &= \tilde{\mathbf{T}}^{-1}\mathbf{A}\tilde{\mathbf{T}}\\
 	\mathbf{x_M} &=\tilde{\mathbf{T}}^{-1}\mathbf{x}	\\
@@ -517,7 +541,7 @@ Modo de construção: Quando a primeira coluna de um autovetor de um par complex
 \end{align}	
 \end{block}
 
-\begin{block}{\ref{subsistemaReduzidoGanhos}. Obtenção dos subsistemas de maior ganho}
+\begin{block}{4. Obtenção dos subsistemas de maior ganho}
 \begin{itemize}
 	\item Para cada subsistema $i$ de ordem 2, calcula-se o ganho em módulo $G = |\mathbf{C_i}\mathbf{A_i^{-1}}\mathbf{B_i}|$ para cada subsistema 
 	\item Deve-se armazenar os 2 subsistemas de maiores ganhos para uma redução de ordem 2. Calculando-se os ganhos em sequência, basta verificar se o subsistema $i$ tem ganho maior que subsistema de menor ganho salvo até o momento e substituí-lo. 
@@ -527,7 +551,7 @@ Modo de construção: Quando a primeira coluna de um autovetor de um par complex
 \end{frame}
 
 \begin{frame}[fragile]{Redução modal}
-\begin{block}{\ref{sistemaReduzido}. Sistema reduzido}
+\begin{block}{5. Sistema reduzido}
 	\begin{align}
 	\begin{array}{ll}
 	\dot{\mathbf{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\\
@@ -541,7 +565,7 @@ Modo de construção: Quando a primeira coluna de um autovetor de um par complex
 \end{frame}
 
 \begin{frame}[fragile]{Redução modal}
-\begin{block}{\ref{atrasonoSistemaReduzido}. Introdução do atraso}
+\begin{block}{6. Introdução do atraso}
 Conforme mostrado por Fortaleza \cite{teseEugenio}, pode-se refinar o modelo reduzido introduzindo um atraso de entrada $\epsilon$ que minimiza a transferência direta e garante dinâmica nula para $t < \epsilon$: \begin{align}
 \begin{array}{lll}
 	\dot{\mathbf{z}} &=& \mathbf{A_R}\mathbf{z}+\mathbf{B_D}u(t-\epsilon),\\
