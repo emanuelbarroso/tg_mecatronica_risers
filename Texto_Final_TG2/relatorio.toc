@@ -55,7 +55,7 @@
 \contentsline {section}{\numberline {3.5}Resultados Experimentais}{37}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Considera\IeC {\c c}\IeC {\~o}es Iniciais}{37}{subsection.3.5.1}
 \contentsline {subsection}{\numberline {3.5.2}Testes com Rampa - Malha Aberta e Malha Fechada}{38}{subsection.3.5.2}
-\contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{40}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{39}{subsection.3.5.3}
 \contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{41}{chapter.4}
 \contentsline {section}{\numberline {4.1}Perspectivas Futuras}{42}{section.4.1}
 \contentsline {chapter}{REFER\IeC {\^E}NCIAS BIBLIOGR\IeC {\'A}FICAS}{43}{section.4.1}

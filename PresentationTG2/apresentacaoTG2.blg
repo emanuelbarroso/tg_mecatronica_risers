@@ -5,45 +5,45 @@ The style file: abbrv.bst
 Database file #1: apresentacaoTG2.bib
 Warning--to sort, need author or key in devicenetrockwell
 Warning--to sort, need author or key in eiprockwell
-You've used 5 entries,
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            527 strings with 4965 characters,
-and the built_in function-call counts, 1177 in all, are:
-= -- 114
-> -- 34
+            534 strings with 5179 characters,
+and the built_in function-call counts, 1383 in all, are:
+= -- 137
+> -- 41
 < -- 0
-+ -- 16
-- -- 10
-* -- 60
-:= -- 191
-add.period$ -- 18
-call.type$ -- 5
-change.case$ -- 18
++ -- 19
+- -- 12
+* -- 69
+:= -- 233
+add.period$ -- 22
+call.type$ -- 6
+change.case$ -- 21
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 49
-empty$ -- 118
-format.name$ -- 10
-if$ -- 258
+cite$ -- 8
+duplicate$ -- 58
+empty$ -- 132
+format.name$ -- 12
+if$ -- 298
 int.to.chr$ -- 0
-int.to.str$ -- 5
+int.to.str$ -- 6
 missing$ -- 5
-newline$ -- 31
-num.names$ -- 6
-pop$ -- 35
+newline$ -- 37
+num.names$ -- 8
+pop$ -- 37
 preamble$ -- 1
-purify$ -- 15
+purify$ -- 18
 quote$ -- 0
-skip$ -- 29
+skip$ -- 35
 stack$ -- 0
-substring$ -- 47
-swap$ -- 5
+substring$ -- 52
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 16
+type$ -- 20
 warning$ -- 2
-while$ -- 7
-width$ -- 6
-write$ -- 59
+while$ -- 9
+width$ -- 7
+write$ -- 72
 (There were 2 warnings)
