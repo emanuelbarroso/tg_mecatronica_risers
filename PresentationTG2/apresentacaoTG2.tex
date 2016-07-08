@@ -504,12 +504,12 @@ minimum height=0.5em, minimum width=2em]
 	node distance=4cm] (reducao) {$\begin{aligned}
 	\dot{\mathbf{x}} &= \mathbf{A_R}\mathbf{x} + \mathbf{B_R}u(t)\\ 
 	y &= \mathbf{C}_{\mathbf{R}} + \mathbf{D}_{\mathbf{R}}\mathbf{x}\end{aligned}$};
-	\node [block, below of=reducao, pin={[pinstyle,font=\small]below:Atraso $\epsilon$},
-	node distance=1.5cm] (atraso) {$\begin{aligned}
+	\node [block, below of=reducao, pin={[pinstyle,font=\small]below:Ordem 4},
+	node distance=2.0cm] (atraso) {$\begin{aligned}
 	\dot{\mathbf{x}} &= \mathbf{A_R}\mathbf{x} + \mathbf{B_D}u(t-\epsilon)\\ 
 	y &= \mathbf{C}_{\mathbf{R}} + \mathbf{D}_{\mathbf{D}}u(t-\epsilon)\end{aligned}$};
 	\draw [->] (system) -- node[name=u] {Redução} (reducao);
-	\draw [->] (reducao) -- node[name=u] {} (atraso);
+	\draw [->] (reducao) -- node[name=u] {Atraso $\epsilon$} (atraso);
 	% Once the nodes are placed, connecting them is easy. 
 	\draw [draw,->] (input) -- node {$N$} (controller);
 %	\draw [->] (system) -- node [name=y] {$y$}(reducao); 
