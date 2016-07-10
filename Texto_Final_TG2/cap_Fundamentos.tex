@@ -3,6 +3,109 @@
 
 \resumodocapitulo{Este capítulo apresenta equações básicas do sistema que se deseja validar, assim como a redução modal utilizada, o projeto para obtenção dos ganhos para um dado conjunto de polos, e apresenta uma visão geral sobre o filtro de Kalman e o Preditor Smith. Também são expostas informações sobre a bancada laboratorial e sobre a programação do CLP.}
 
+\section{Bancada\label{bancada}}
+A bancada da ponte rolante presente no Laboratório de Automação e Controle está esquematizada na Figura \ref{bancadaEsquematico}. Serão detalhados os componentes desta bancada, de modo a se entender o papel de cada um deles. Observe que no esquemático falta a câmera, que é um sensor que fica de frente para a bancada. 
+
+\begin{figure}[hbt]
+\centering
+  \includegraphics[width=0.8\textwidth]{figs/fundamentos/bancadaEsquematico}
+  \caption{Esquemático da Bancada Utilizada para o Experimento \cite{redytton}\label{bancadaEsquematico}}
+\end{figure}
+
+\subsection{Controlador Lógico-Programável}
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.8\textwidth]{figs/fundamentos/CLP.jpg}
+    \caption{CLP com identificação de elementos\label{CLPcomentado}}
+\end{figure}
+
+O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada pelo computador; porém, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contanto que o CLP esteja em modo de execução.
+
+O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
+\begin{itemize}
+  \item O próprio controlador;
+  \item \textit{SERCOS Interface};
+  \item DeviceNET;
+  \item EtherNet/IP.
+\end{itemize}
+
+Cada um desses módulos será apresentado posteriormente com mais detalhes. Além dos módulos, o controlador ainda possui um \textit{switch} liga/desliga presente no \textit{chassis}. No módulo Logix, há uma chave responsável por alterar o modo de funcionamento do mesmo. As posições possíveis dessa chave são:
+\begin{itemize}
+  \item RUN (\textit{Run mode});
+  \item REM (\textit{Remote mode});
+  \item PROG (\textit{Program mode});
+\end{itemize}
+
+Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
+
+No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
+
+Para fins de se utilizar melhor o CLP, será utilizado sempre o modo REM e suas derivações. O modo REM RUM permite a execução do programa; já o modo REM PROG permite a atualização do programa dentro da memória do CLP.
+\subsection{SERCOS Interface}
+
+Sercos é um barramento digital de automação que interconecta controladores, \textit{drives}, dispositivos de entrada/saída e atuadores para máquinas e sistemas controlados numericamente. Foi projetado para comunicação serial de alta velocidade de dados em sistemas de tempo real por meio de fibra ótica (Sercos I \& II) ou um cabo Ethernet Industrial (Sercos III). Sercos é um padrão internacional \cite{sercos}.
+
+Num sistema Sercos, todas as malhas que contém servomotores são normalmente fechadas no \textit{drive}. Isto reduz a carga computacional no CLP, permitindo-o sincronizar mais eixos do que conseguiria caso contrário. Além disso, fechar a malha dos servomotores com o \textit{driver} ajuda a reduzir o efeito do atraso de transporte entre o controle de movimento e o \textit{driver} \cite{sercos}.
+
+Nesta bancada, o CLP deve se comunicar com o servomotor (MPL-A310F-SJ22AA) através do \textit{drive} Kinetix (2094-AC05MP5), de forma a movimentar o carrinho segundo uma trajetória planejada ou segundo uma lei de controle em malha fechada executando no CLP. Essa comunicação se dá por um par de fibras óticas full-duplex, conforme se observa na Figura \ref{CLPcomentado}, o que caracteriza uma rede Sercos I ou II.
+
+\subsection{Line Interface Module 2094-AL09}
+
+Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, mas ele tem a função essencial de interfacear a rede trifásica com o servo \textit{drive}, permitindo o acionamento do motor. Na Figura \ref{LineInterfaceModule}, se observa que há três conjuntos de disjuntores nesse módulo: CB1 \textendash{} liga ou desliga a rede trifásica do \textit{drive}  \textendash{}, CB2 \textendash{} fornece tensão monofásica ao servo \textit{drive} \textendash{} e CB3 \textendash{} liga as duas fontes de tensão DC de 24V \textendash{}, responsáveis pelas entradas e saídas digitais do módulo e alimentação do freio do motor \cite{redytton}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.7\textwidth]{figs/fundamentos/LineInterfaceModule}
+    \caption{Line Interface Module modelo 2094-AL09 da Allen Bradley \cite{redytton}\label{LineInterfaceModule}}
+\end{figure}
+
+\subsection{Drive Kinetix 6000 da Allen Bradley}
+
+Por meio da Interface Sercos, o CLP comanda o drive que então fornece potência ao motor. O drive controla o servomotor por meio de pulsos PWM. A Figura \ref{kinetix6000} apresenta um Drive Kinetix 6000 da Allen Bradley similar ao utilizado no laboratório. Mais detalhes sobre o funcionamento do drive estão disponíveis em \cite{redytton} e \cite{kinetix6000usermanual}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/kinetix6000.jpg}
+    \caption{Drive Kinetix 6000 da Allen Bradley\label{kinetix6000}}
+\end{figure}
+
+\subsection{Servomotor}
+
+Um servomotor é um atuador rotatório que permite controle preciso da posição angular. O motor consiste de um motor acoplado a um sensor para a realimentação de posição/velocidade. Também é necessário um drive servo para completar o sistema. O \textit{drive} usa o sensor de realimentação para controlar precisamente a posição angular do motor, ou seja, é uma operação em malha fechada. Assim, usando servomotores em malha fechada, tem-se uma alternativa de alto desempenho aos motores de passo e de indução \cite{defServoMotores}.
+
+O servomotor MPL-A310F-SJ22AA da \textit{Allen-Bradley} foi utilizado e está representado na Figura \ref{servomotor}. O mesmo é composto por um motor indutivo de tensão nominal $230V_{\mathrm{ac}}$ e um encoder do tipo StegmanHiperface, que mede posição de forma absoluta e velocidade de forma incremental \cite{redytton}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/servomotor}
+    \caption{Servomotor modelo MPL-A310F-SJ22AA\label{servomotor}}
+\end{figure}
+
+\subsection{Sensores indutivos}
+Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
+
+Na presente bancada, há 6 sensores indutivos da família 871TM, similares ao da Figura \ref{sensorIndutivo}, fabricados pela \textit{Allen-Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/sensorIndutivo}
+    \caption{Sensor indutivo 871T-R8B18 \cite{redytton}\label{sensorIndutivo}}
+\end{figure}
+
+A importância desses sensores é enorme. O motivo é que a câmera às vezes falha para obter a posição atual e tem um limite de frequência devido ao processamento interno que ela tem de realizar. Com os sensores indutivos, tem-se um processamento rápido para identificar se o motor está na região próxima dos limites. Assim, a rotina de segurança que trava o motor depende diretamente desses sensores indutivos, como mostra o Anexo \ref{emergencyladder}.
+
+\subsection{Câmera PresencePlus}
+
+A câmera PresencePlus P4 GEO da Banner Engineering foi utilizada no projeto - veja Figura \ref{cameraBanner}. Esta câmera é um sensor robusto utilizado em ambientes industriais com fácil utilização. Sua programação é feita em software próprio da Banner e é visual.
+
+Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens por segundo. No entanto, além da captura das imagens há o processamento das imagens, que pode ser feito na própria câmera ou em um módulo externo da própria Banner, que também consome certo tempo. O programa utilizado no projeto está disponível no Anexo \ref{ballhorzpos}.
+
+\begin{figure}[!ht]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figs/fundamentos/camera}
+    \caption{Câmera da Banner Engineering utilizada no projeto \cite{redytton}\label{cameraBanner}}
+\end{figure}
+
 \section{Modelagem\label{modelagem}}
 \subsection{Equações Governantes}
 
@@ -461,108 +564,6 @@ Nas Equações \ref{KalmanEq4}-\ref{KalmanEq8}, $\mathbf{P_k}$ é uma estimaçã
 
 No presente projeto, o filtro de Kalman é utilizado em conjunção com o controlador. Porém, é admitido um caso especial, em que as matrizes passadas para o filtro são discretizadas a partir do sistema contínuo escrito em forma canônica controlável. Nesse caso , $\hat{y}_k$ é diretamente dependente de uma das variáveis de estado, tornando o conjunto controlador-filtro mais simples de ser implementado, uma vez que é tomada a integral de uma variável de estado, apenas.
 
-\section{Bancada\label{bancada}}
-A bancada da ponte rolante presente no Laboratório de Automação e Controle está esquematizada na Figura \ref{bancadaEsquematico}. Serão detalhados os componentes desta bancada, de modo a se entender o papel de cada um deles. Observe que no esquemático falta a câmera, que é um sensor que fica de frente para a bancada. 
-
-\begin{figure}[hbt]
-\centering
-  \includegraphics[width=0.8\textwidth]{figs/fundamentos/bancadaEsquematico}
-  \caption{Esquemático da Bancada Utilizada para o Experimento \cite{redytton}\label{bancadaEsquematico}}
-\end{figure}
-
-\subsection{Controlador Lógico-Programável}
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.8\textwidth]{figs/fundamentos/CLP.jpg}
-    \caption{CLP com identificação de elementos\label{CLPcomentado}}
-\end{figure}
-
-O controlador lógico-programável (CLP - ver Figura \ref{CLPcomentado}) é a espinha dorsal da bancada. Ele é responsável por executar os comandos de controle sobre todos os elementos que estão conectados a ele. A programação do CLP é realizada pelo computador; porém, uma vez feito o \textit{download} do programa ao CLP, a execução ocorre independentemente do computador, contanto que o CLP esteja em modo de execução.
-
-O CLP utilizado é fabricado pela \textit{Allen Bradley}, modelo Logix5560M03SE. Tal modelo possui memória lógica e de dados de 750 KiB, e memória de \textit{I/O} de 494 KiB. Há quatro módulos no \textit{chassis} do controlador:
-\begin{itemize}
-  \item O próprio controlador;
-  \item \textit{SERCOS Interface};
-  \item DeviceNET;
-  \item EtherNet/IP.
-\end{itemize}
-
-Cada um desses módulos será apresentado posteriormente com mais detalhes. Além dos módulos, o controlador ainda possui um \textit{switch} liga/desliga presente no \textit{chassis}. No módulo Logix, há uma chave responsável por alterar o modo de funcionamento do mesmo. As posições possíveis dessa chave são:
-\begin{itemize}
-  \item RUN (\textit{Run mode});
-  \item REM (\textit{Remote mode});
-  \item PROG (\textit{Program mode});
-\end{itemize}
-
-Na prática, o modo REM se divide em dois modos: REM RUN e REM PROG. A maneira de se diferenciar os dois é observar, no módulo Logix, o estado do LED indicador de modo RUN quando a chave estiver na posição REM.
-
-No modo RUN, o controlador apenas roda o programa presente em sua memória; não há qualquer comunicação remota. No modo PROG, o controlador não roda nenhum programa; ele apenas pode receber um novo código. Nos modos REM, há a comunicação com o computador, permitindo verificar valores de variáveis de interesse e alterar, se necessário, o programa a ser rodado pelo controlador. O programa presente no controlador, em modo REM, só roda o código se estiver no modo REM RUN; se for necessário atualizar o programa, o modo deve ser o REM PROG.
-
-Para fins de se utilizar melhor o CLP, será utilizado sempre o modo REM e suas derivações. O modo REM RUM permite a execução do programa; já o modo REM PROG permite a atualização do programa dentro da memória do CLP.
-\subsection{SERCOS Interface}
-
-Sercos é um barramento digital de automação que interconecta controladores, \textit{drives}, dispositivos de entrada/saída e atuadores para máquinas e sistemas controlados numericamente. Foi projetado para comunicação serial de alta velocidade de dados em sistemas de tempo real por meio de fibra ótica (Sercos I \& II) ou um cabo Ethernet Industrial (Sercos III). Sercos é um padrão internacional \cite{sercos}.
-
-Num sistema Sercos, todas as malhas que contém servomotores são normalmente fechadas no \textit{drive}. Isto reduz a carga computacional no CLP, permitindo-o sincronizar mais eixos do que conseguiria caso contrário. Além disso, fechar a malha dos servomotores com o \textit{driver} ajuda a reduzir o efeito do atraso de transporte entre o controle de movimento e o \textit{driver} \cite{sercos}.
-
-Nesta bancada, o CLP deve se comunicar com o servomotor (MPL-A310F-SJ22AA) através do \textit{drive} Kinetix (2094-AC05MP5), de forma a movimentar o carrinho segundo uma trajetória planejada ou segundo uma lei de controle em malha fechada executando no CLP. Essa comunicação se dá por um par de fibras óticas full-duplex, conforme se observa na Figura \ref{CLPcomentado}, o que caracteriza uma rede Sercos I ou II.
-
-\subsection{Line Interface Module 2094-AL09}
-
-Este módulo não apareceu no esquemático da Figura \ref{bancadaEsquematico}, mas ele tem a função essencial de interfacear a rede trifásica com o servo \textit{drive}, permitindo o acionamento do motor. Na Figura \ref{LineInterfaceModule}, se observa que há três conjuntos de disjuntores nesse módulo: CB1 \textendash{} liga ou desliga a rede trifásica do \textit{drive}  \textendash{}, CB2 \textendash{} fornece tensão monofásica ao servo \textit{drive} \textendash{} e CB3 \textendash{} liga as duas fontes de tensão DC de 24V \textendash{}, responsáveis pelas entradas e saídas digitais do módulo e alimentação do freio do motor \cite{redytton}.
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.7\textwidth]{figs/fundamentos/LineInterfaceModule}
-    \caption{Line Interface Module modelo 2094-AL09 da Allen Bradley \cite{redytton}\label{LineInterfaceModule}}
-\end{figure}
-
-\subsection{Drive Kinetix 6000 da Allen Bradley}
-
-Por meio da Interface Sercos, o CLP comanda o drive que então fornece potência ao motor. O drive controla o servomotor por meio de pulsos PWM. A Figura \ref{kinetix6000} apresenta um Drive Kinetix 6000 da Allen Bradley similar ao utilizado no laboratório. Mais detalhes sobre o funcionamento do drive estão disponíveis em \cite{redytton} e \cite{kinetix6000usermanual}.
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.3\textwidth]{figs/fundamentos/kinetix6000.jpg}
-    \caption{Drive Kinetix 6000 da Allen Bradley\label{kinetix6000}}
-\end{figure}
-
-\subsection{Servomotor}
-
-Um servomotor é um atuador rotatório que permite controle preciso da posição angular. O motor consiste de um motor acoplado a um sensor para a realimentação de posição/velocidade. Também é necessário um drive servo para completar o sistema. O \textit{drive} usa o sensor de realimentação para controlar precisamente a posição angular do motor, ou seja, é uma operação em malha fechada. Assim, usando servomotores em malha fechada, tem-se uma alternativa de alto desempenho aos motores de passo e de indução \cite{defServoMotores}.
-
-O servomotor MPL-A310F-SJ22AA da \textit{Allen-Bradley} foi utilizado e está representado na Figura \ref{servomotor}. O mesmo é composto por um motor indutivo de tensão nominal $230V_{\mathrm{ac}}$ e um encoder do tipo StegmanHiperface, que mede posição de forma absoluta e velocidade de forma incremental \cite{redytton}.
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.3\textwidth]{figs/fundamentos/servomotor}
-    \caption{Servomotor modelo MPL-A310F-SJ22AA\label{servomotor}}
-\end{figure}
-
-\subsection{Sensores indutivos}
-Os sensores indutivos são elementos detectores de presença, particularmente de objetos metálicos. Eles funcionam através da variação de campo magnético ocasionada pela presença do objeto a ser identificado. Tal variação de campo magnético provoca uma variação de corrente dentro do sensor, alterando seu estado.
-
-Na presente bancada, há 6 sensores indutivos da família 871TM, similares ao da Figura \ref{sensorIndutivo}, fabricados pela \textit{Allen-Bradley}. Eles são alimentados com tensão de 24 V, que está dentro dos limites padrão. São sensores feitos de aço, adaptados a ambientes industriais.
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.3\textwidth]{figs/fundamentos/sensorIndutivo}
-    \caption{Sensor indutivo 871T-R8B18 \cite{redytton}\label{sensorIndutivo}}
-\end{figure}
-
-A importância desses sensores é enorme. O motivo é que a câmera às vezes falha para obter a posição atual e tem um limite de frequência devido ao processamento interno que ela tem de realizar. Com os sensores indutivos, tem-se um processamento rápido para identificar se o motor está na região próxima dos limites. Assim, a rotina de segurança que trava o motor depende diretamente desses sensores indutivos, como mostra o Anexo \ref{emergencyladder}.
-
-\subsection{Câmera PresencePlus}
-
-A câmera PresencePlus P4 GEO da Banner Engineering foi utilizada no projeto - veja Figura \ref{cameraBanner}. Esta câmera é um sensor robusto utilizado em ambientes industriais com fácil utilização. Sua programação é feita em software próprio da Banner e é visual.
-
-Dentre as capacidades da câmera, nota-se que ela pode capturar até 24 imagens por segundo. No entanto, além da captura das imagens há o processamento das imagens, que pode ser feito na própria câmera ou em um módulo externo da própria Banner, que também consome certo tempo. O programa utilizado no projeto está disponível no Anexo \ref{ballhorzpos}.
-
-\begin{figure}[!ht]
-  \centering
-    \includegraphics[width=0.3\textwidth]{figs/fundamentos/camera}
-    \caption{Câmera da Banner Engineering utilizada no projeto \cite{redytton}\label{cameraBanner}}
-\end{figure}
 
 \section{Redes Utilizadas}
 \subsection{DeviceNET}
@@ -573,17 +574,15 @@ No experimento, a rede DeviceNET é utilizada para a conexão entre o CLP e os s
 \subsection{Ethernet/IP}
 A rede Ethernet/IP, introduzida em meados de 2001 pela ODVA (\textit{Open DeviceNet Vendor Association}) \cite{eipodva1}, é um tipo de rede Ethernet voltada ao ambiente industrial, seguindo o CIP, assim como o DeviceNET \cite{eiprta}. É uma rede robusta, organizada segundo o modelo OSI de 7 camadas, que permite conexão com dispositivos conectados a redes Ethernet padrão. Ela permite a passagem de dados via pacotes TCP ou UDP e é indicada em aplicações que exigem uma transferência rápida e confiável de dados, principalmente em aplicações de tempo real \cite{eiprockwell}.
 
-No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232. O computador também pode enviar e receber dados por essa rede utilizando OPC -- para saber mais sobre OPC, ver subseção \ref{opcSubSection}.
+No presente experimento, a rede Ethernet/IP é utilizada para receber dados de inspeção da câmera, notadamente a posição horizontal da bola de isopor presa ao barbante. Além disso, ela é utilizada na transferência de programas entre o computador e o CLP (através do módulo Ethernet 1756-ENBT/A), uma vez que ela provê uma comunicação mais rápida do que o RS-232. O computador também pode enviar e receber dados por essa rede utilizando OPC.
 
-\subsection{OPC - \textit{OLE for Process Control} \label{opcSubSection}}
-A rede OPC, cuja primeira versão foi lançada em 1996, é uma rede voltada ao ambiente industrial. Essa rede é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. O objetivo do uso de tal rede é abstrair o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um ``intermediário'' que converta as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
+Por meio do Ethernet, em particular, utilizou o padrão OPC - \textit{OLE for Process Control}. Esse padrão, cuja primeira versão foi lançada em 1996, é voltado ao ambiente industrial. O padrão é responsável, em termos gerais, pela troca confiável de dados entre o CLP, computadores e outros dispositivos. Ele abstrai o protocolo de rede utilizado no CLP (seja ModBus, Profibus, Ethernet/IP, etc.) em uma interface padrão de forma que sistemas HMI/SCADA possam se comunicar com um ``intermediário'' que converta as operações de dados de OPC em operações específicas de dispositivo e vice-versa \cite{OPCFoundation1}. 
 
-Uma das características da rede OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido.
+Uma das características do OPC é permitir a troca de dados entre o CLP e o computador por meio de um sistema \textit{server/client}. No presente projeto, o \textit{server} é disponibilizado pelo \textit{software} RSLinx, enquanto que o cliente é um programa desenvolvido externamente ao CLP. Para esse programa, foi escolhida a linguagem Python; a razão da escolha de tal linguagem foi, além da existência de módulos programados por terceiros para lidar com a rede OPC, o fato de Python ter outros módulos que facilitam a implementação de controladores e ser razoavelmente rápido.
 
-Para se programar o \textit{client} da rede OPC em Python, foi utilizado o módulo OpenOPC \cite{OpenOPC}. Esse módulo é bem simples de se utilizar; as funções de trocas de dados OPC são abstraídas de modo a utilizar elementos simples da linguagem, como o uso de dicionários, que são estruturas nas quais se relacionam chaves com valores. 
+Para se programar o \textit{client} OPC em Python, foi utilizado o módulo OpenOPC \cite{OpenOPC}. Esse módulo é bem simples de se utilizar; as funções de trocas de dados OPC são abstraídas de modo a utilizar elementos simples da linguagem, como o uso de dicionários, que são estruturas nas quais se relacionam chaves com valores. 
 
 A utilização do OPC permite realizar um sistema de controlador no qual o computador auxilia nos cálculos, assim como permite salvar dados do CLP para posterior desenho dos gráficos.
-
 
 \section{Programação do CLP}
 \subsection{Visão geral}
