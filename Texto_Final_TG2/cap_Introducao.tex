@@ -10,7 +10,7 @@
 \resumodocapitulo{A motivação do presente trabalho aparece na área petrolífera, nas operações de reentrada de \textit{risers}; o objetivo é a validação de um sistema de controle em malha fechada em escala laboratorial como uma alternativa ao modelo manual empregado atualmente.}
 
 
-\section{Contextualização}
+%\section{Contextualização}
 
 \paragraph{} O petróleo tem importância econômica global. Uma das formas de extração do mesmo é aquela feita em águas profundas, na qual o Brasil tem feito importantes avanços desde a descoberta do Pré-Sal em 2006. Em abril de 2015, chegou-se à produção de mais de 800 mil barris por dia no pré-sal, com campos situados em águas profundas e ultraprofundas \cite{preSal}. Os desafios nesta área da engenharia são enormes, pois as operações são muito complexas.
 
@@ -25,7 +25,7 @@
 \end{figure}
 
 
-\section{Objetivos do projeto}
+%\section{Objetivos do projeto}
 
 \paragraph{} O foco deste trabalho está na operação de reentrada, conforme apresentada na Figura \ref{riser}. Atualmente, é uma operação feita manualmente por um operador na plataforma que observa remotamente as imagens capturadas por \textit{ROV}s (\textit{Remotely Operated Vehicles}) da região do \textit{riser} próxima ao poço e controla a plataforma através de um \textit{joystick} com o auxílio do sistema de posicionamento dinâmico. O custo envolvido na operação é enorme e os riscos para o equipamento também, já que os próprios \textit{ROVs} e o \textit{riser} ficam sujeitos às perturbações das ondas, correntezas e variações ambientais no fundo do mar. A Figura \ref{posicionamentoAtual} apresenta o esquema descrito.
 
@@ -48,7 +48,7 @@
 	\item Conexão na rede Ethernet/IP da câmera e CLP;
 	\item Configuração da câmera no software RSLogix;
 	\item Alimentação da bancada com fontes dedicadas de 24V\footnote{Anteriormente, duas fontes de tensão de saída ajustável eram utilizadas, mas foram trocadas por fontes de saída de tensão única.}
-	\item Configuração do OPC (Subseção \ref{opcSubSection}) para comunicação entre o CLP e computador;
+	\item Configuração do OPC para comunicação entre o CLP e computador;
 	\item Redução do modelo por meio de uma rotina escrita em Julia \cite{julia};
 	\item Simulações em Simulink e projeto utilizando MATLAB;
 	\item Programação de rotinas usando Python \cite{python}, OPC e Texto Estruturado para o controle.
