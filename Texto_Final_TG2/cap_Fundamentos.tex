@@ -297,7 +297,7 @@ y &= \left[\begin{array}{cc}
 	\mathbf{\dot{z}} &= \mathbf{A_R}\mathbf{z}+\mathbf{B_R}u\;\mathrm{e}\\
 	y &= \mathbf{C_R}\mathbf{z}+\mathbf{D_R}u,
 \end{align} cuja ordem é escolhida considerando o custo-benefício entre a acurácia da dinâmica reduzida e a simplicidade da estrutura de controle exigida. Além disso, o sistema reduzido deve compensar o ganho estático perdido nos autovalores desconsiderados. Isto é feito por meio de uma matriz de transferência direta $\mathbf{D_R}$, que é a diferença dos ganhos dos sistemas original e reduzido: \begin{align}
-	\mathbf{D_R}&=\mathbf{C}\mathbf{A^{-1}}\mathbf{B}-\mathbf{C_R}\mathbf{A_R^{-1}}\mathbf{B_R}.
+	\mathbf{D_R}&=\mathbf{C}\mathbf{A^{-1}}\mathbf{B}-\mathbf{C_R}\mathbf{A_R^{-1}}\mathbf{B_R} \label{transferenciaDiretaFabricio}.
 \end{align}
 
 
