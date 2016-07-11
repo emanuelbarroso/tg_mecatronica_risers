@@ -2,46 +2,43 @@
 \select@language {english}
 \select@language {brazil}
 \contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Contextualiza\IeC {\c c}\IeC {\~a}o}{1}{section.1.1}
 \contentsline {paragraph}{}{1}{section*.10}
 \contentsline {paragraph}{}{1}{section*.11}
 \contentsline {paragraph}{}{1}{section*.12}
-\contentsline {section}{\numberline {1.2}Objetivos do projeto}{1}{section.1.2}
 \contentsline {paragraph}{}{1}{section*.13}
 \contentsline {paragraph}{}{2}{section*.14}
 \contentsline {paragraph}{}{2}{section*.15}
 \contentsline {paragraph}{}{3}{section*.16}
 \contentsline {chapter}{\numberline {2}Fundamentos}{4}{chapter.2}
-\contentsline {section}{\numberline {2.1}Modelagem}{4}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Equa\IeC {\c c}\IeC {\~o}es Governantes}{4}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Discretiza\IeC {\c c}\IeC {\~a}o}{6}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Estrat\IeC {\'e}gia de Redu\IeC {\c c}\IeC {\~a}o da ordem do modelo}{8}{subsection.2.1.3}
-\contentsline {section}{\numberline {2.2}Controle}{10}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}T\IeC {\'e}cnicas Simples de Controle}{10}{subsection.2.2.1}
-\contentsline {subsection}{\numberline {2.2.2}Controle Discreto no Espa\IeC {\c c}o de Estados}{11}{subsection.2.2.2}
-\contentsline {subsection}{\numberline {2.2.3}Preditor de Smith}{13}{subsection.2.2.3}
-\contentsline {subsection}{\numberline {2.2.4}Filtro de Kalman}{14}{subsection.2.2.4}
-\contentsline {section}{\numberline {2.3}Bancada}{16}{section.2.3}
-\contentsline {subsection}{\numberline {2.3.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{16}{subsection.2.3.1}
-\contentsline {subsection}{\numberline {2.3.2}SERCOS Interface}{18}{subsection.2.3.2}
-\contentsline {subsection}{\numberline {2.3.3}Line Interface Module 2094-AL09}{19}{subsection.2.3.3}
-\contentsline {subsection}{\numberline {2.3.4}Drive Kinetix 6000 da Allen Bradley}{19}{subsection.2.3.4}
-\contentsline {subsection}{\numberline {2.3.5}Servomotor}{19}{subsection.2.3.5}
-\contentsline {subsection}{\numberline {2.3.6}Sensores indutivos}{20}{subsection.2.3.6}
-\contentsline {subsection}{\numberline {2.3.7}C\IeC {\^a}mera PresencePlus}{21}{subsection.2.3.7}
-\contentsline {section}{\numberline {2.4}Redes Utilizadas}{22}{section.2.4}
+\contentsline {section}{\numberline {2.1}Bancada}{4}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Controlador L\IeC {\'o}gico-Program\IeC {\'a}vel}{5}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}SERCOS Interface}{6}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Line Interface Module 2094-AL09}{6}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Drive Kinetix 6000 da Allen Bradley}{7}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Servomotor}{7}{subsection.2.1.5}
+\contentsline {subsection}{\numberline {2.1.6}Sensores indutivos}{8}{subsection.2.1.6}
+\contentsline {subsection}{\numberline {2.1.7}C\IeC {\^a}mera PresencePlus}{9}{subsection.2.1.7}
+\contentsline {section}{\numberline {2.2}Modelagem}{10}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Equa\IeC {\c c}\IeC {\~o}es Governantes}{10}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Discretiza\IeC {\c c}\IeC {\~a}o}{12}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Estrat\IeC {\'e}gia de Redu\IeC {\c c}\IeC {\~a}o da ordem do modelo}{14}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Controle}{16}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}T\IeC {\'e}cnicas Simples de Controle}{16}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Controle Discreto no Espa\IeC {\c c}o de Estados}{16}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Preditor de Smith}{19}{subsection.2.3.3}
+\contentsline {subsection}{\numberline {2.3.4}Filtro de Kalman}{20}{subsection.2.3.4}
+\contentsline {section}{\numberline {2.4}Protocolos e Tecnologias de Rede Utilizadas}{22}{section.2.4}
 \contentsline {subsection}{\numberline {2.4.1}DeviceNET}{22}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}Ethernet/IP}{22}{subsection.2.4.2}
-\contentsline {subsection}{\numberline {2.4.3}OPC - \textit {OLE for Process Control} }{22}{subsection.2.4.3}
 \contentsline {section}{\numberline {2.5}Programa\IeC {\c c}\IeC {\~a}o do CLP}{23}{section.2.5}
 \contentsline {subsection}{\numberline {2.5.1}Vis\IeC {\~a}o geral}{23}{subsection.2.5.1}
 \contentsline {subsection}{\numberline {2.5.2}Linguagem \textit {ladder}}{24}{subsection.2.5.2}
 \contentsline {subsubsection}{\numberline {2.5.2.1}Introdu\IeC {\c c}\IeC {\~a}o ao \textit {ladder}}{24}{subsubsection.2.5.2.1}
 \contentsline {subsubsection}{\numberline {2.5.2.2}Instru\IeC {\c c}\IeC {\~o}es espec\IeC {\'\i }ficas}{24}{subsubsection.2.5.2.2}
-\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{25}{subsection.2.5.3}
-\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{25}{subsubsection.2.5.3.1}
+\contentsline {subsection}{\numberline {2.5.3}Texto Estruturado}{26}{subsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.3.1}Vis\IeC {\~a}o geral do texto estruturado}{26}{subsubsection.2.5.3.1}
 \contentsline {subsubsection}{\numberline {2.5.3.2}Instru\IeC {\c c}\IeC {\~o}es de movimenta\IeC {\c c}\IeC {\~a}o do motor para o texto estruturado}{26}{subsubsection.2.5.3.2}
-\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{26}{section.2.6}
+\contentsline {section}{\numberline {2.6}Par\IeC {\^a}metros para gerar trajet\IeC {\'o}rias}{27}{section.2.6}
 \contentsline {chapter}{\numberline {3}Resultados}{28}{chapter.3}
 \contentsline {section}{\numberline {3.1}C\IeC {\^a}mera}{28}{section.3.1}
 \contentsline {subsection}{\numberline {3.1.1}Configura\IeC {\c c}\IeC {\~a}o da Rede}{28}{subsection.3.1.1}
@@ -57,23 +54,24 @@
 \contentsline {subsection}{\numberline {3.5.2}Testes com Rampa - Malha Aberta e Malha Fechada}{38}{subsection.3.5.2}
 \contentsline {subsection}{\numberline {3.5.3}Teste com Trajet\IeC {\'o}ria Proposta - Malha Fechada}{39}{subsection.3.5.3}
 \contentsline {chapter}{\numberline {4}Conclus\IeC {\~o}es}{41}{chapter.4}
-\contentsline {section}{\numberline {4.1}Perspectivas Futuras}{42}{section.4.1}
-\contentsline {chapter}{REFER\IeC {\^E}NCIAS BIBLIOGR\IeC {\'A}FICAS}{43}{section.4.1}
-\contentsline {chapter}{{Anexos}}{46}{chapter*.18}
-\contentsline {chapter}{\numberline {I}Programas utilizados}{47}{appendix.A}
-\contentsline {section}{\numberline {I.1}Redu\IeC {\c c}\IeC {\~a}o modal}{47}{section.A.1}
-\contentsline {section}{\numberline {I.2}Filtro de Kalman Utilizado, em Linguagem MATLAB --- Adaptado de \cite {GoddardKalmanCode}}{52}{section.A.2}
-\contentsline {section}{\numberline {I.3}Projeto do Controlador com Realimenta\IeC {\c c}\IeC {\~a}o de Estados}{54}{section.A.3}
-\contentsline {section}{\numberline {I.4}Texto Estruturado}{54}{section.A.4}
-\contentsline {subsection}{\numberline {I.4.1}Inicializa\IeC {\c c}\IeC {\~a}o dos testes}{54}{subsection.A.4.1}
-\contentsline {subsection}{\numberline {I.4.2}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{54}{subsection.A.4.2}
-\contentsline {subsection}{\numberline {I.4.3}Programa de movimenta\IeC {\c c}\IeC {\~a}o do motor}{55}{subsection.A.4.3}
-\contentsline {section}{\numberline {I.5}Linguagem \textit {ladder}}{56}{section.A.5}
-\contentsline {subsection}{\numberline {I.5.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{56}{subsection.A.5.1}
-\contentsline {subsection}{\numberline {I.5.2}Rotina de parada de emerg\IeC {\^e}ncia}{56}{subsection.A.5.2}
-\contentsline {section}{\numberline {I.6}Programas em \textit {Python} para o controle}{56}{section.A.6}
-\contentsline {subsection}{\numberline {I.6.1}Exemplo de teste em Malha Aberta}{56}{subsection.A.6.1}
-\contentsline {subsection}{\numberline {I.6.2}Exemplo de teste em Malha Fechada com Rampa}{58}{subsection.A.6.2}
-\contentsline {subsection}{\numberline {I.6.3}Exemplo de teste em Malha Fechada com Trajet\IeC {\'o}rias Quaisquer}{60}{subsection.A.6.3}
-\contentsline {section}{\numberline {I.7}Programas da c\IeC {\^a}mera}{64}{section.A.7}
-\contentsline {subsection}{\numberline {I.7.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{64}{subsection.A.7.1}
+\contentsline {section}{\numberline {4.1}Problemas}{42}{section.4.1}
+\contentsline {section}{\numberline {4.2}Perspectivas Futuras}{43}{section.4.2}
+\contentsline {chapter}{REFER\IeC {\^E}NCIAS BIBLIOGR\IeC {\'A}FICAS}{44}{section.4.2}
+\contentsline {chapter}{{Anexos}}{47}{chapter*.18}
+\contentsline {chapter}{\numberline {I}Programas utilizados}{48}{appendix.A}
+\contentsline {section}{\numberline {I.1}Redu\IeC {\c c}\IeC {\~a}o modal}{48}{section.A.1}
+\contentsline {section}{\numberline {I.2}Filtro de Kalman Utilizado, em Linguagem MATLAB --- Adaptado de \cite {GoddardKalmanCode}}{53}{section.A.2}
+\contentsline {section}{\numberline {I.3}Projeto do Controlador com Realimenta\IeC {\c c}\IeC {\~a}o de Estados}{55}{section.A.3}
+\contentsline {section}{\numberline {I.4}Texto Estruturado}{55}{section.A.4}
+\contentsline {subsection}{\numberline {I.4.1}Inicializa\IeC {\c c}\IeC {\~a}o dos testes}{55}{subsection.A.4.1}
+\contentsline {subsection}{\numberline {I.4.2}Inicializa\IeC {\c c}\IeC {\~a}o da rede DeviceNET}{55}{subsection.A.4.2}
+\contentsline {subsection}{\numberline {I.4.3}Programa de movimenta\IeC {\c c}\IeC {\~a}o do motor}{56}{subsection.A.4.3}
+\contentsline {section}{\numberline {I.5}Linguagem \textit {ladder}}{57}{section.A.5}
+\contentsline {subsection}{\numberline {I.5.1}Execu\IeC {\c c}\IeC {\~a}o de \textit {trigger} da c\IeC {\^a}mera}{57}{subsection.A.5.1}
+\contentsline {subsection}{\numberline {I.5.2}Rotina de parada de emerg\IeC {\^e}ncia}{57}{subsection.A.5.2}
+\contentsline {section}{\numberline {I.6}Programas em \textit {Python} para o controle}{57}{section.A.6}
+\contentsline {subsection}{\numberline {I.6.1}Exemplo de teste em Malha Aberta}{57}{subsection.A.6.1}
+\contentsline {subsection}{\numberline {I.6.2}Exemplo de teste em Malha Fechada com Rampa}{59}{subsection.A.6.2}
+\contentsline {subsection}{\numberline {I.6.3}Exemplo de teste em Malha Fechada com Trajet\IeC {\'o}rias Quaisquer}{61}{subsection.A.6.3}
+\contentsline {section}{\numberline {I.7}Programas da c\IeC {\^a}mera}{65}{section.A.7}
+\contentsline {subsection}{\numberline {I.7.1}Detec\IeC {\c c}\IeC {\~a}o da posi\IeC {\c c}\IeC {\~a}o horizontal da bolinha}{65}{subsection.A.7.1}

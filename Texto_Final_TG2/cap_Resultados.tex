@@ -53,7 +53,7 @@ A programação da câmera se inicia obtendo uma imagem de referência e adicion
 
 \section{Calibração do Servomotor\label{calibracaoServomotorSecao}}
 
-O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \textendash{} que permite alterar a velocidade do motor enquanto ele se movimenta. No entanto, o bloco espera que a entrada tenha unidade $[\mathrm{u}/\mathrm{s}]$ (unidades por segundo) ao invés de alguma unidade no SI tal como $[\mathrm{mm}/\mathrm{s}]$. Devido a isso, foi necessária uma calibração do sistema. O procedimento era anotar a posição inicial $x_0$, definir um tempo $\Delta t$ no qual o carrinho se movimenta a uma velocidade $v$ em $[\mathrm{u}/\mathrm{s}]$ e, após o movimento,  registrar a posição final $x_f$. As posições inicial e final são medidas em milímetros. Com isso, calculava-se a velocidade em $[\mathrm{mm}/\mathrm{s}]$. Alguns ensaios são realizados seguindo esse procedimento e a média é considerada como o valor de uma unidade, resultando em aproximadamente $71.32\mathrm{mm}$. Os dados de calibração estão na Tabela \ref{calibracaoServomotor}.
+O RSLogix tem o bloco \texttt{MAJ} \textendash{} \textit{Motion Axis Jog} \textendash{} que permite alterar a velocidade do motor enquanto ele se movimenta. No entanto, o bloco espera que a entrada tenha unidade $[\mathrm{u}/\mathrm{s}]$ (unidades por segundo) ao invés de alguma unidade no SI tal como $[\mathrm{mm}/\mathrm{s}]$. Devido a isso, foi necessária uma calibração do sistema. O procedimento era anotar a posição inicial $x_0$, definir um tempo $\Delta t$ no qual o carrinho se movimenta a uma velocidade $v$ em $[\mathrm{u}/\mathrm{s}]$ e, após o movimento,  registrar a posição final $x_f$. As posições inicial e final são medidas em milímetros. Com isso, calculava-se a velocidade em $[\mathrm{mm}/\mathrm{s}]$. Alguns ensaios são realizados seguindo esse procedimento e a média é considerada como o valor de uma unidade, resultando em aproximadamente $71.32\mathrm{mm}$. Os dados de calibração estão na Tabela \ref{calibracaoServomotor}. O erro do fator de conversão calculado é de aproximadamente 1.6\%; esse valor se situa dentro da tolerância para este projeto.
 
 \begin{table}[!ht]
 \centering
@@ -226,16 +226,16 @@ Apesar de $\epsilon=0.3$s ser próximo de 0.313s, esse atraso não reduz muito a
         \centering
        
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRampa}
-        \label{respostaMalhaFechadaRampa}
-         \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa}
+
+         \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada rampa\label{respostaMalhaFechadaRampa}}
     \end{minipage}%
     \hspace{0.1cm}
     \begin{minipage}{0.45\textwidth}
         \centering
       
         \includegraphics[width=1\linewidth]{figs/resultados/simulacao/respostaMalhaFechadaRefTopoFundo}
-        \label{respostaMalhaFechadaRefTopoFundo}
-        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo}
+        
+        \caption{Resposta do Sistema em Malha Fechada para Excursão de 30cm, entrada suave calculada para topo e fundo\label{respostaMalhaFechadaRefTopoFundo}}
     \end{minipage}
 \end{figure}
 
